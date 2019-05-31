@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-lazy-init="false">
+
+    <bean
+            class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="1"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:conf/jms.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="queueHandler" class="com.d2c.common.mq.QueueHandler"/>
+    <bean id="topicHandler" class="com.d2c.common.mq.TopicHandler"/>
+    <bean id="mqListenerAdapter" class="com.d2c.common.mq.listener.MqListenerAdapter"/>
+
+    <bean id="connectionFactory" class="org.apache.activemq.jms.pool.PooledConnectionFactory"
+          init-method="start" destroy-method="stop">
+        <property name="connectionFactory" ref="targetConnectionFactory"/>
+        <property name="maxConnections" value="10"/>
+        <property name="idleTimeout" value="0"/>
+    </bean>
+
+    <!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供 -->
+    <bean id="targetConnectionFactory" class="org.apache.activemq.spring.ActiveMQConnectionFactory">
+        <property name="brokerURL" value="${broker.url}"/>
+        <property name="useAsyncSend" value="true"/>
+    </bean>
+
+    <!-- Spring提供的JMS工具类，它可以进行消息发送、接收等 -->
+    <bean id="topicJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="pubSubDomain" value="true"/>
+        <property name="sessionAcknowledgeMode" value="1"/>
+    </bean>
+
+    <!-- Spring提供的JMS工具类，它可以进行消息发送、接收等 -->
+    <bean id="queueJmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <!-- 这个connectionFactory对应的是我们定义的Spring提供的那个ConnectionFactory对象 -->
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="pubSubDomain" value="false"/>
+        <property name="sessionAcknowledgeMode" value="1"/>
+    </bean>
+
+</beans>  

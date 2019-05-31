@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="60px" height="60px" viewBox="0 0 60 60" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-heart</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="heart-copy-2" sketch:type="MSLayerGroup" transform="translate(5.000000, 8.217701)" fill="#FD555D">
+            <path d="M25,42.9039344 L24.1367647,42.2117486 C5.225,27.0444809 0.102941176,21.7053825 0.102941176,13.0327869 C0.102941176,5.90240437 5.99411765,0.10136612 13.2352941,0.10136612 C19.2867647,0.10136612 22.7073529,3.48554645 25,6.03128415 C27.2926471,3.48554645 30.7132353,0.10136612 36.7647059,0.10136612 C44.0058824,0.10136612 49.8970588,5.90240437 49.8970588,13.0327869 C49.8970588,21.7053825 44.775,27.0444809 25.8632353,42.2117486 L25,42.9039344 L25,42.9039344 Z"
+                  id="Fill-18" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

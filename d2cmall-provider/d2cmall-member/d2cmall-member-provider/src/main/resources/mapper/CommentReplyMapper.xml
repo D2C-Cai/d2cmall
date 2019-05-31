@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.member.dao.CommentReplyMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.CommentReply">
+        <result column="comment_id" property="commentId" jdbcType="BIGINT"/>
+        <result column="reply_id" property="replyId" jdbcType="BIGINT"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_man" property="lastModifyMan"
+                jdbcType="VARCHAR"/>
+        <result property="content" column="content"/>
+        <result property="type" column="type"/>
+        <result property="verified" column="verified"/>
+        <result property="id" column="id"/>
+        <result property="creator" column="creator"/>
+        <result property="pic" column="pic"/>
+    </resultMap>
+
+    <select id="findByCommentId" resultMap="baseMap">
+		select *
+		from
+		m_comment_reply
+		where comment_id =
+		#{commentId,jdbcType=BIGINT}
+		order by
+		create_date
+		LIMIT 0,500
+	</select>
+
+    <delete id="delete">
+		delete from m_comment_reply
+		where id =
+		#{id,jdbcType=BIGINT}
+	</delete>
+
+    <update id="audit">
+		update m_comment_reply set verified=1 where
+		id=#{id,jdbcType=BIGINT}
+	</update>
+
+    <update id="updateColumn">
+		set names utf8mb4
+	</update>
+
+</mapper>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.LogisticsTemplateMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.LogisticsTemplate">
+        <result property="templateName" column="template_name"/>
+        <result property="deliveryName" column="delivery_name"/>
+        <result property="freeCondition" column="free_condition"/>
+        <result property="defalutWeight" column="defalut_weight"/>
+        <result property="defalutAmount" column="defalut_amount"/>
+        <result property="excessAmount" column="excess_amount"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="excessWeight" column="excess_weight"/>
+        <result property="creator" column="creator"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <sql id="Searcher">
+        <if test="searcher.templateName!=null and searcher.templateName!=''">
+            and template_name=#{searcher.templateName}
+        </if>
+    </sql>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        select * from
+        o_logistics_template where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        order by create_date desc
+        LIMIT
+        #{page.startNumber},
+        #{page.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+		select count(*) from
+		o_logistics_template where 1=1
+	</select>
+
+    <update id="updateStatus">
+		update o_logistics_template set
+		status=#{status},last_modify_man=#{admin},modify_date=now() where
+		id=#{id}
+	</update>
+
+    <update id="updateTemplate">
+		update o_logistics_template set
+		template_name=#{template.templateName},delivery_name=#{template.deliveryName},free_condition=#{template.freeCondition},
+		defalut_weight=#{template.defalutWeight},
+		defalut_amount=#{template.defalutAmount},excess_amount=#{template.excessAmount},modify_date=now(),excess_weight=#{template.excessWeight}
+		where
+		id=#{template.id}
+	</update>
+
+    <select id="findByDeliveryCode" resultMap="baseMap">
+		select * from o_logistics_template where status=1 and
+		delivery_code=#{deliveryCode} limit 0,1
+	</select>
+
+</mapper>

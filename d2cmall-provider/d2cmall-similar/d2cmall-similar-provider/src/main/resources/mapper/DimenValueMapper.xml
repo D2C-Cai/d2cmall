@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.d2c.similar.dao.DimenValueMapper">
+
+    <select id="getDistByValue" resultType="java.lang.Double">
+		select v.dist from chest_dimen_value v 
+		inner join chest_dimen_key k on k.id = v.key_id
+		where k.rule_id = #{ruleId} and k.field_value = #{fieldValue}
+	</select>
+
+</mapper>

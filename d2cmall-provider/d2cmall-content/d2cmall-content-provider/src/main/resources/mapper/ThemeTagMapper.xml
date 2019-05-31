@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.d2c.content.dao.ThemeTagMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.ThemeTag">
+        <result property="name" column="name"/>
+        <result property="pic" column="pic"/>
+        <result property="fix" column="fix"/>
+        <result property="sort" column="sort"/>
+        <result property="status" column="status"/>
+        <result property="deleted" column="deleted"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="type" column="type"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM v_theme_tag WHERE deleted=0
+        <include refid="Searcher"/>
+        ORDER BY create_date DESC
+        LIMIT #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(*) FROM v_theme_tag WHERE deleted=0
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND name =#{searcher.name}
+        </if>
+        <if test="searcher.type!=null and searcher.type!=''">
+            AND type=#{searcher.type}
+        </if>
+        <if test="searcher.fix!=null">
+            AND fix=#{searcher.fix}
+        </if>
+        <if test="searcher.status!=null">
+            AND status=#{searcher.status}
+        </if>
+    </sql>
+
+    <select id="findFixedOne" resultMap="baseMap">
+		SELECT * FROM v_theme_tag
+		WHERE fix=1 and type='THEME' ORDER BY sort DESC LIMIT 0,1
+	</select>
+
+    <select id="findAll" resultMap="baseMap">
+        SELECT * FROM v_theme_tag WHERE deleted=0 AND status=1
+        <if test="type!=null and type!=''">
+            AND type=#{type}
+        </if>
+        ORDER BY sort DESC,create_date DESC
+    </select>
+
+    <update id="updateSort">
+		UPDATE v_theme_tag SET sort=#{sort},modify_date=NOW()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateStatus">
+		UPDATE v_theme_tag SET
+		status=#{status},modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <update id="delete">
+		UPDATE v_theme_tag SET deleted=1,modify_date=NOW()
+		WHERE id=#{id}
+	</update>
+
+</mapper>

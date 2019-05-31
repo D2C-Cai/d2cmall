@@ -1,0 +1,8 @@
+// #require "lib/jquery.1.83.js"
+// #require "lib/template.js"
+// #require "utils/md5.js"
+// #require "utils/base64.js"
+// #require "utils/jquery.cookie.js"
+// #require "utils/jquery.autocomplete.js"
+// #require "utils/plugin.js"
+// #require "modules/common.js"

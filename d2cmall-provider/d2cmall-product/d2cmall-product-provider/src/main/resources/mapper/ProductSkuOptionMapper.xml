@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.product.dao.ProductSkuOptionMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.ProductSkuOption">
+        <result property="productId" column="product_id"/>
+        <result property="inernalSn" column="inernal_sn"/>
+        <result property="externalSn" column="external_sn"/>
+        <result property="sn" column="sn"/>
+        <result property="barCode" column="bar_code"/>
+        <result property="name" column="name"/>
+        <result property="sp1" column="sp1"/>
+        <result property="sp2" column="sp2"/>
+        <result property="sp3" column="sp3"/>
+        <result property="originalCost" column="original_cost"/>
+        <result property="price" column="price"/>
+        <result property="aPrice" column="a_price"/>
+        <result property="costPrice" column="cost_price"/>
+        <result property="warnStore" column="warn_store"/>
+        <result property="mark" column="mark"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="popStore" column="pop_store"/>
+    </resultMap>
+
+    <select id="findByProductId" resultMap="baseMap">
+		SELECT * FROM p_product_sku_option WHERE product_id=#{productId}
+	</select>
+
+    <update id="updateMarkByProductId">
+		UPDATE p_product_sku_option SET mark=#{mark} WHERE product_id=#{productId}
+	</update>
+
+    <delete id="delete">
+		DELETE FROM p_product_sku_option WHERE id=#{id}
+	</delete>
+</mapper>

@@ -1,0 +1,70 @@
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>d2cmall-logger</artifactId>
+        <groupId>com.d2c</groupId>
+        <version>2.0.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>d2cmall-logger-api</artifactId>
+    <packaging>jar</packaging>
+    <name>${project.artifactId}</name>
+    <dependencies>
+        <dependency>
+            <groupId>com.d2c</groupId>
+            <artifactId>d2cmall-frame-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.d2c</groupId>
+            <artifactId>d2cmall-common-old</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <!-- gexin -->
+        <dependency>
+            <groupId>com.gexin.platform</groupId>
+            <artifactId>gexin-rp-sdk-http</artifactId>
+            <version>4.0.1.2</version>
+        </dependency>
+        <!-- sms -->
+        <dependency>
+            <groupId>javax.xml</groupId>
+            <artifactId>jaxrpc-api</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.axis</groupId>
+            <artifactId>axis</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.geronimo.bundles</groupId>
+            <artifactId>commons-discovery</artifactId>
+            <version>0.4_1</version>
+        </dependency>
+        <!-- dyvms -->
+        <dependency>
+            <groupId>com.aliyun</groupId>
+            <artifactId>aliyun-java-sdk-core</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+        <dependency>
+            <groupId>fakepath</groupId>
+            <artifactId>aliyun-java-sdk-dyvmsapi</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <!-- mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4</version>
+        </dependency>
+        <dependency>
+            <groupId>wsdl4j</groupId>
+            <artifactId>wsdl4j</artifactId>
+            <version>1.6.2</version>
+        </dependency>
+    </dependencies>
+
+</project>

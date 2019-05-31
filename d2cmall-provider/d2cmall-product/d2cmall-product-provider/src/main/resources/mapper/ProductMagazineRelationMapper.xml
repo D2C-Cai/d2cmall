@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.product.dao.ProductMagazineRelationMapper">
+    <resultMap type="com.d2c.product.model.ProductMagazineRelation" id="baseMap">
+        <result property="pageId" column="page_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <resultMap id="productMap" type="com.d2c.product.model.Product">
+        <result property="id" column="id"/>
+        <result property="designerName" column="designer_name"/>
+        <result property="designerId" column="designer_id"/>
+        <result property="seriesId" column="series_id"/>
+        <result property="topCategoryId" column="top_category_id"/>
+        <result property="productCategoryId" column="product_category_id"/>
+        <result property="saleCategory" column="sale_category"/>
+        <result property="inernalSn" column="inernal_sn"/>
+        <result property="name" column="name"/>
+        <result property="introPic" column="intro_pic"/>
+        <result property="remark" column="remark"/>
+        <result property="topCategory" column="top_category"/>
+        <result property="productCategory" column="product_category"/>
+        <result property="mark" column="mark"/>
+        <result property="minPrice" column="min_price"/>
+        <result property="maxPrice" column="max_price"/>
+        <result property="originalPrice" column="original_price"/>
+        <result property="firstRatio" column="first_ratio"/>
+        <result property="secondRatio" column="second_ratio"/>
+        <result property="sort" column="r_sort"/>
+    </resultMap>
+
+    <insert id="doReplaceInto">
+		REPLACE INTO p_product_magazine_relation
+		(product_id,page_id,create_date)
+		VALUES(#{productId},#{pageId},now())
+	</insert>
+
+    <update id="deleteOne">
+		DELETE FROM p_product_magazine_relation 
+		WHERE page_id=#{pageId} AND product_id=#{productId}
+	</update>
+
+    <select id="findProductByPageId" resultMap="productMap">
+        SELECT p.*, r.sort as r_sort FROM p_product p, p_product_magazine_relation r
+        WHERE p.id=r.product_id AND r.page_id=#{pageId} AND p.mark=1
+        ORDER BY r.id DESC,r.create_date DESC
+        <if test="pager!=null">
+            LIMIT #{pager.startNumber}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countProductByPageId" resultType="int">
+		SELECT COUNT(p.id) FROM p_product p, p_product_magazine_relation r
+		WHERE p.id=r.product_id AND r.page_id=#{pageId} AND p.mark=1
+	</select>
+
+    <update id="deleteProductByPageId">
+		DELETE from p_product_magazine_relation WHERE page_id=#{pageId}
+	</update>
+
+    <update id="updateSort">
+		UPDATE p_product_magazine_relation 
+		SET sort=#{sort}
+		WHERE page_id=#{pageId} AND product_id=#{productId}
+	</update>
+
+</mapper>

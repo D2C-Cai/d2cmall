@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.order.dao.AuctionOfferMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.AuctionOffer">
+        <id column="id" property="id"/>
+        <result column="create_date" property="createDate"/>
+        <result column="creator" property="creator"/>
+        <result column="modify_date" property="modifyDate"/>
+        <result column="last_modify_man" property="lastModifyMan"/>
+        <result column="auction_id" property="auctionId"/>
+        <result column="auction_title" property="auctionTitle"/>
+        <result column="auction_product_id" property="auctionProductId"/>
+        <result column="member_id" property="memberId"/>
+        <result column="login_code" property="loginCode"/>
+        <result column="member_nick" property="memberNick"/>
+        <result column="offer" property="offer"/>
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <select id="findBySearch" resultMap="baseMap">
+        select *
+        from o_auction_offer
+        where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date DESC
+        LIMIT
+        #{pager.startNumber},
+        #{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        select count(*)
+        from o_auction_offer
+        where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.auctionId != null">
+            AND auction_id = #{searcher.auctionId}
+        </if>
+        <if test="searcher.auctionProductId != null">
+            AND auction_product_id = #{searcher.auctionProductId}
+        </if>
+        <if test="searcher.auctionTitle != null">
+            AND auction_title =#{searcher.auctionTitle}
+        </if>
+        <if test="searcher.memberInfoId != null">
+            AND member_id = #{searcher.memberInfoId}
+        </if>
+        <if test="searcher.beginCreateDate != null">
+            AND create_date &gt;= #{searcher.beginCreateDate}
+        </if>
+        <if test="searcher.endCreateDate!= null">
+            AND create_date &lt;= #{searcher.endCreateDate}
+        </if>
+        <if test="searcher.status!= null">
+            AND status = #{searcher.status}
+        </if>
+    </sql>
+
+    <select id="findTopByAuctionId" resultMap="baseMap">
+		select * from
+		o_auction_offer
+		where auction_id = #{auctionId} and status=1
+		limit 0,1
+	</select>
+
+    <update id="delete">
+		update o_auction_offer set
+		status=-1 and status &lt; 1
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+    <update id="doSuccess">
+		update o_auction_offer set status=8 
+		where status=1 and id = #{id}
+	</update>
+
+    <update id="doOut">
+		update o_auction_offer set status=0 
+		where status=1
+		and auction_id = #{auctionId} and offer &lt; #{offer}
+	</update>
+
+    <update id="doMerge">
+		UPDATE o_auction_offer SET modify_date=now(),
+		old_member_id=member_id,
+		member_id=#{targetId} WHERE
+		member_id=#{sourceId}
+	</update>
+
+</mapper>

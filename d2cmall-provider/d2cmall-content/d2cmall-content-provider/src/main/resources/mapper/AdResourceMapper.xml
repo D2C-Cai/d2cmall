@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.content.dao.AdResourceMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.AdResource">
+        <result property="appChannel" column="app_channel"/>
+        <result property="type" column="type"/>
+        <result property="title" column="title"/>
+        <result property="pic" column="pic"/>
+        <result property="url" column="url"/>
+        <result property="id" column="id"/>
+        <result property="status" column="status"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="shotTitle" column="shot_title"/>
+        <result property="description" column="description"/>
+        <result property="videoPic" column="video_pic"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM v_ad_resource WHERE 1=1
+        <include refid="Searcher"/>
+        LIMIT #{pager.startNumber}, #{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(*) FROM v_ad_resource WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND title =#{searcher.name}
+        </if>
+    </sql>
+
+    <select id="findByAppChannel" resultMap="baseMap">
+		SELECT * FROM v_ad_resource WHERE app_channel=#{appChannel}
+	</select>
+
+    <select id="findByAppChannelAndType" resultMap="baseMap">
+		SELECT * FROM v_ad_resource 
+		WHERE app_channel=#{appChannel} AND type=#{type} AND status=1 
+		ORDER BY create_date DESC 
+		LIMIT 0,1
+	</select>
+
+    <update id="updateStatus">
+		UPDATE v_ad_resource SET status=#{status},modify_date=now() WHERE id=#{id}
+	</update>
+
+    <delete id="delete">
+		DELETE FROM v_ad_resource WHERE id=#{id}
+	</delete>
+
+    <select id="findByAppChannelAndTypeForBack" resultMap="baseMap">
+		SELECT * FROM v_ad_resource 
+		WHERE app_channel=#{appChannel} AND type=#{type}
+	</select>
+</mapper>

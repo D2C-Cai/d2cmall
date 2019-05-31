@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.order.dao.CashCardMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.CashCard">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result property="defineId" column="define_id"/>
+        <result property="code" column="code"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="enableDate" column="enable_date"/>
+        <result property="expireDate" column="expire_date"/>
+        <result property="amount" column="amount"/>
+        <result property="lockAmount" column="lock_amount"/>
+        <result property="usedAmount" column="used_amount"/>
+        <result property="sendor" column="sendor"/>
+        <result property="sendRemark" column="send_remark"/>
+        <result property="sendDate" column="send_date"/>
+        <result property="accountId" column="account_id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="claimDate" column="claim_date"/>
+        <result property="remark" column="remark"/>
+        <result property="status" column="status"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <update id="delete">
+		update o_cashcard set
+		status=-1 where id =
+		#{id,jdbcType=BIGINT} and
+		status=0
+	</update>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        select *
+        from o_cashcard
+        where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date DESC,code
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        select count(id)
+        from o_cashcard
+        where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.code!=null and searcher.code!=''">
+            AND code =#{searcher.code}
+        </if>
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND name= #{searcher.name}
+        </if>
+        <if test="searcher.status!=null">
+            AND status =#{searcher.status}
+        </if>
+        <if test="searcher.amount!=null">
+            AND amount =#{searcher.amount}
+        </if>
+        <if test="searcher.loginCode!=null and searcher.loginCode!=''">
+            AND login_code =#{searcher.loginCode}
+        </if>
+        <if test="searcher.beginClaimDate != null">
+            AND claim_date &gt;= #{searcher.beginClaimDate}
+        </if>
+        <if test="searcher.endClaimDate != null">
+            AND claim_date &lt;= #{searcher.endClaimDate}
+        </if>
+    </sql>
+
+    <update id="doConvert">
+		UPDATE o_cashcard SET modify_date=now(),member_id=#{memberInfoId},login_code=#{loginCode},
+		claim_date=now(),status=2,account_id=#{accountId}
+		WHERE id = #{id} and member_id is null and status=1 
+		and enable_date&lt;=now() and expire_date&gt;=now()
+	</update>
+
+    <update id="doSend">
+		update o_cashcard set
+		status=1,sendor=#{userName},send_remark=#{sendMark},send_date=now()
+		where id = #{id} and status=0
+	</update>
+
+    <update id="doInvalid">
+		update o_cashcard set
+		status=-1 where id =
+		#{id} and status=0
+	</update>
+
+    <update id="doOver">
+		UPDATE o_cashcard SET modify_date=now(),status=8
+		WHERE id =#{id} and status=2
+	</update>
+
+    <select id="findByMemberId" resultMap="baseMap">
+        SELECT * FROM o_cashcard where member_id=#{memberId}
+        <if test="status!=null">and status=#{status}</if>
+        <if test="expireDate!=null">and expire_date&gt;=#{expireDate}</if>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countByMemberId" resultType="int">
+        SELECT count(id) FROM o_cashcard where member_id=#{memberId}
+        <if test="status!=null">and status=#{status}</if>
+        <if test="expireDate!=null">and expire_date&gt;=#{expireDate}</if>
+    </select>
+
+    <select id="findBySnAndPassword" resultMap="baseMap">
+		select * from
+		o_cashcard where password = #{password,jdbcType=VARCHAR} and
+		code=#{code,jdbcType=VARCHAR} limit 0,1
+	</select>
+
+    <select id="findByMemberIdAndCashCardId" resultMap="baseMap">
+		select * from
+		o_cashcard
+		where id = #{id,jdbcType=BIGINT} and member_id=
+		#{memberInfoId,jdbcType=BIGINT} limit 0,1
+	</select>
+
+</mapper>

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.CollectionCardDefMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.CollectionCardDef">
+        <result property="name" column="name"/>
+        <result property="pic" column="pic"/>
+        <result property="url" column="url"/>
+        <result property="promotionId" column="promotion_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="weight" column="weight"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="promotionName" column="promotion_name"/>
+        <result property="status" column="status"/>
+        <result property="sort" column="sort"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM
+        m_collection_card_def WHERE 1=1
+        <include refid="Searcher"/>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(id) FROM
+        m_collection_card_def WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.id!=null">
+            AND id=#{searcher.id}
+        </if>
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND name LIKE CONCAT('%',#{searcher.name},'%')
+        </if>
+        <if test="searcher.promotionId!=null ">
+            AND promotion_id=#{searcher.promotionId}
+        </if>
+    </sql>
+
+    <select id="findOrderByWeight" resultMap="baseMap">
+		SELECT * FROM
+		m_collection_card_def WHERE promotion_id=#{promotionId} AND `status`=1 ORDER BY weight ASC
+	</select>
+
+    <select id="findMaxWeight" resultMap="baseMap">
+		SELECT MAX(o.weight),o.*
+		FROM m_collection_card_def o WHERE promotion_id=#{promotionId} AND o.`status`=1 AND o.quantity &gt;0
+	</select>
+
+    <update id="doReduce">
+		UPDATE m_collection_card_def SET quantity=quantity-1 WHERE id=#{id} AND quantity>0
+	</update>
+
+    <select id="findByPromotionId" resultMap="baseMap">
+		SELECT * FROM m_collection_card_def WHERE promotion_id=#{promotionId} AND `status`=1 ORDER BY sort DESC
+	</select>
+
+    <update id="updateStatus">
+		UPDATE m_collection_card_def SET `status`=#{status},modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <update id="updateSort">
+		UPDATE m_collection_card_def SET `sort`=#{sort},modify_date=NOW() WHERE id=#{id}
+	</update>
+</mapper>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="1"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:conf/app.properties</value>
+                <value>file:///${user.home}/conf/*.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <context:component-scan base-package="com.d2c"/>
+
+    <import resource="classpath:spring-mybatis-log.xml"/>
+    <import resource="classpath:spring-dubbo-provider.xml"/>
+    <import resource="classpath:dubbo-bean.xml"/>
+
+    <import resource="classpath:spring-redis-product.xml"/>
+    <import resource="classpath:spring-activemq.xml"/>
+
+    <!-- 个推 -->
+    <bean id="gtPushClient" class="com.d2c.logger.third.push.GtPushClient"/>
+    <bean id="iGtPush" class="com.d2c.logger.third.push.common.GtPushUtil">
+        <constructor-arg name="appKey" value="${GT_APPKEY}"/>
+        <constructor-arg name="masterSecret" value="${GT_MASTERSECRET}"/>
+        <property name="appId" value="${GT_APPID}"/>
+        <property name="appKey" value="${GT_APPKEY}"/>
+        <property name="masterSecret" value="${GT_MASTERSECRET}"/>
+    </bean>
+
+    <bean id="gtPushBossClient" class="com.d2c.logger.third.push.GtPushBossClient"/>
+    <bean id="iGtPushBoss" class="com.d2c.logger.third.push.common.GtPushBossUtil">
+        <constructor-arg name="appKey" value="${GT_APPKEY_BOSS}"/>
+        <constructor-arg name="masterSecret" value="${GT_MASTERSECRET_BOSS}"/>
+        <property name="appId" value="${GT_APPID_BOSS}"/>
+        <property name="appKey" value="${GT_APPKEY_BOSS}"/>
+        <property name="masterSecret" value="${GT_MASTERSECRET_BOSS}"/>
+    </bean>
+
+    <bean id="elasticSearchConfig" class="com.d2c.frame.provider.config.ElasticSearchConfig">
+        <constructor-arg name="ES_HOST1" index="0" type="String">
+            <value>${es1.host}</value>
+        </constructor-arg>
+        <constructor-arg name="ES_PORT1" index="1" type="int">
+            <value>${es1.port}</value>
+        </constructor-arg>
+        <constructor-arg name="ES_HOST2" index="2" type="String">
+            <value>${es2.host}</value>
+        </constructor-arg>
+        <constructor-arg name="ES_PORT2" index="3" type="int">
+            <value>${es2.port}</value>
+        </constructor-arg>
+        <constructor-arg name="ES_HOST3" index="4" type="String">
+            <value>${es3.host}</value>
+        </constructor-arg>
+        <constructor-arg name="ES_PORT3" index="5" type="int">
+            <value>${es3.port}</value>
+        </constructor-arg>
+    </bean>
+
+</beans>
+
+

@@ -1,0 +1,245 @@
+* html {
+    background-image: url(about:blank);
+    background-attachment: fixed;
+}
+
+* html .ebox-mask {
+    _position: absolute;
+    _height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+}
+
+* html .ebox-hideselect {
+    _position: absolute;
+    _background: transparent;
+    _filter: alpha(opacity=0);
+    -_height: expression(document.body.scrollHeight > document.body.offsetHeight ? document.body.scrollHeight : document.body.offsetHeight + 'px');
+}
+
+* html .ebox-outer, * html .ebox-loading {
+    _position: absolute;
+}
+
+* html .ebox-outer, * html .ebox-loading {
+    _top: expression(0 - parseInt(this.offsetHeight / 2) + (eBoxOuterMargin = document.documentElement && document.documentElement.scrollTop || document.body.scrollTop) + 'px');
+}
+
+.header-search input {
+    _border: 0;
+    _padding: 2px 10px;
+}
+
+.notice-tip {
+    _width: 200px;
+    _margin-top: 20px;
+    _text-align: left;
+}
+
+.notice-tip a.close {
+    _margin-right: -10px;
+}
+
+#header-nav .nav-notice {
+    background: #FFF;
+}
+
+.bottom-line {
+    _bottom: -1px
+}
+
+.groupon-item {
+    _height: 279px;
+    border: 1px solid #CCC;
+    margin: 24px 0 0 -1px;
+}
+
+.groupon-item .item-img img {
+    _margin-top: -1px;
+}
+
+.groupon-item .district li.on {
+    _margin: -4px -4px 0 -2px;
+}
+
+.slider-arrow {
+    _height: 60px;
+    overflow: hidden;
+}
+
+.showroom-nav li {
+    _float: left;
+}
+
+.showroom-nav li a {
+    _width: 150px;
+    _padding: 10px 0 8px 0;
+}
+
+.product-info .district li.on {
+    _margin-left: -2px;
+}
+
+.product-detail img {
+    _width: expression(this.width > 930 ? "930px" : this.width);
+}
+
+.product-img {
+    _zoom: 1
+}
+
+.groupon-item .item-info {
+    width: 264px;
+}
+
+.column-box {
+    border: 1px solid #CCC;
+    padding: 14px;
+}
+
+a.share {
+    _blr: expression(this.onFocus=this.blur());
+}
+
+.service-suspend {
+    _display: none;
+}
+
+.work-img {
+    _height: 740px;
+}
+
+.address-list li input {
+}
+
+.address-list li label {
+    _display: inline-block;
+    _margin-top: 5px;
+}
+
+.upload-a .upload-file {
+    filter: alpha(opacity:0);
+}
+
+.auto-column-right {
+    _height: 500px;
+}
+
+.designer-list li h4 {
+    filter: alpha(opacity:70);
+}
+
+.lookbook {
+    _height: 400px;
+    border: 1px solid #CCC;
+}
+
+.lookbook .designer-info {
+    border: none;
+}
+
+.list-sort a {
+    padding-top: 7px;
+}
+
+.product-process li {
+    _padding-top: 12px;
+    line-height: 32px;
+    width: 48%;
+}
+
+.help-cont {
+    _height: 500px;
+}
+
+.column-cont {
+    _border: 1px solid #CCC;
+}
+
+.item-tips .input {
+    _width: 156px;
+]
+}
+
+.item-tips button {
+    _padding: 6px 2px 4px 2px;
+}
+
+.ebox-login-form p.p3 input.button, .pop_login input.button {
+    padding-top: 0;
+}
+
+.product-list-wrap {
+    _overflow: hidden;
+}
+
+.category-menu-v dd em {
+    _top: 0;
+}
+
+.list-sort a.on {
+    _background: #fce0e3
+}
+
+.item-list li {
+    position: relative;
+}
+
+.item-list li:hover div {
+    margin: -10px;
+    left: 0;
+}
+
+.flash-tips-success, .flash-tips-error, .flash-tips-warning {
+    _position: absolute;
+    _width: 250px;
+}
+
+.brand-form {
+    filter: "alpha(opacity=90)";
+    filter: alpha(opacity=90);
+}
+
+.nav-hover {
+    filter: "alpha(opacity=95)";
+    filter: alpha(opacity=95);
+    background: #FFF;
+}
+
+.banner-rnav {
+    filter: "alpha(opacity=95)";
+    filter: alpha(opacity=95);
+    background: #FFF;
+}
+
+.designer-product-list .scrollspan {
+    filter: "alpha(opacity=90)";
+    filter: alpha(opacity=90);
+    background: #ed4c61;
+}
+
+.hover-fade .hover-img {
+    -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+}
+
+.hover-fade:hover .hover-img {
+    -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: alpha(opacity=100);
+}
+
+.star-name-one a, .star-name-two a {
+    -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+}
+
+.star-name-one a:hover, .star-name-two a:hover, .star-name-one a.on, .star-name-two a.on {
+    -ms-filter: "progid: DXImageTransform.Microsoft.Alpha(Opacity=10)";
+    filter: alpha(opacity=10);
+}
+
+#header-nav .nav-notice {
+    background: #333;
+}
+
+.play-audio .icon-music {
+    display: none
+}

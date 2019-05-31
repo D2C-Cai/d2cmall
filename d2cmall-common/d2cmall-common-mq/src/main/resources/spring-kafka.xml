@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-lazy-init="false">
+
+    <bean
+            class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="1"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:conf/kafka.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="kafkaHandler" class="com.d2c.common.kafka.KafkaHandler"/>
+
+    <!-- 创建kafkatemplate bean，使用的时候，只需要注入这个bean，即可使用template的send消息方法 -->
+    <bean id="kafkaTemplate" class="org.springframework.kafka.core.KafkaTemplate">
+        <constructor-arg ref="producerFactory"/>
+        <constructor-arg name="autoFlush" value="true"/>
+        <property name="defaultTopic" value="default"/>
+    </bean>
+
+    <!-- 定义producer的参数 -->
+    <bean id="producerProperties" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="bootstrap.servers" value="${kafka.bootstrap.servers}"/>
+                <entry key="retries" value="${kafka.producer.retries:10}"/>
+                <entry key="batch.size" value="${kafka.producer.batch.size:16384}"/>
+                <entry key="linger.ms" value="${kafka.producer.linger.ms:1}"/>
+                <entry key="buffer.memory" value="${kafka.producer.buffer.memory:33554432}"/>
+                <entry key="acks" value="${kafka.producer.acks:all}"/>
+                <entry key="key.serializer"
+                       value="com.d2c.common.kafka.serializer.ObjectSerializer"/>
+                <entry key="value.serializer"
+                       value="com.d2c.common.kafka.serializer.ObjectSerializer"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <!-- 定义consumer的参数 -->
+    <bean id="consumerProperties" class="java.util.HashMap">
+        <constructor-arg>
+            <map>
+                <entry key="bootstrap.servers" value="${kafka.bootstrap.servers}"/>
+                <entry key="group.id" value="${kafka.consumer.group.id:d2c}"/>
+                <entry key="enable.auto.commit" value="${kafka.consumer.enable.auto.commit:true}"/>
+                <entry key="auto.commit.interval.ms" value="${kafka.consumer.auto.commit.interval.ms:100}"/>
+                <entry key="session.timeout.ms" value="${kafka.consumer.session.timeout.ms:15000}"/>
+                <entry key="key.deserializer"
+                       value="com.d2c.common.kafka.serializer.ObjectDeserializer"/>
+                <entry key="value.deserializer"
+                       value="com.d2c.common.kafka.serializer.ObjectDeserializer"/>
+            </map>
+        </constructor-arg>
+    </bean>
+
+    <bean id="producerFactory"
+          class="org.springframework.kafka.core.DefaultKafkaProducerFactory">
+        <constructor-arg>
+            <ref bean="producerProperties"/>
+        </constructor-arg>
+    </bean>
+
+    <!-- 创建consumerFactory bean -->
+    <bean id="kafkaListenerContainerFactory"
+          class="org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory">
+        <property name="consumerFactory" ref="consumerFactory"/>
+    </bean>
+
+    <bean id="consumerFactory"
+          class="org.springframework.kafka.core.DefaultKafkaConsumerFactory">
+        <constructor-arg>
+            <ref bean="consumerProperties"/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="org.springframework.kafka.config.internalKafkaListenerAnnotationProcessor"
+          class="org.springframework.kafka.annotation.KafkaListenerAnnotationBeanPostProcessor"/>
+    <bean id="org.springframework.kafka.config.internalKafkaListenerEndpointRegistry"
+          class="org.springframework.kafka.config.KafkaListenerEndpointRegistry"/>
+
+</beans>  

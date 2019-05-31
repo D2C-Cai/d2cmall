@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding" addBOMForNewFiles="with NO BOM">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-back" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-back/d2cmall-back-rest" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-base" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-cache" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-core" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-math" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-mongo" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-mq" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-mybatis" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-old" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-search" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-frame" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-frame/d2cmall-frame-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-frame/d2cmall-frame-back" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-frame/d2cmall-frame-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-frame/d2cmall-frame-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-main" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-main/d2cmall-main-openapi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-main/d2cmall-main-report" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-main/d2cmall-main-rest" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-main/d2cmall-main-web" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-behavior" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-behavior/d2cmall-behavior-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-behavior/d2cmall-behavior-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-content" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-content/d2cmall-content-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-content/d2cmall-content-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-logger" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-logger/d2cmall-logger-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-logger/d2cmall-logger-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-member" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-member/d2cmall-member-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-member/d2cmall-member-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-openapi" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-openapi/d2cmall-openapi-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-openapi/d2cmall-openapi-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-order" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-order/d2cmall-order-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-order/d2cmall-order-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-product" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-product/d2cmall-product-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-product/d2cmall-product-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-report" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-report/d2cmall-report-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-report/d2cmall-report-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-similar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-similar/d2cmall-similar-api" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-similar/d2cmall-similar-provider" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-services" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/d2cmall-services/d2cmall-services-quartz" charset="UTF-8" />
+  </component>
+</project>

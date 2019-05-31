@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.MemberTagRelationMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.MemberTagRelation">
+        <result property="id" column="id"/>
+        <result property="tagId" column="tag_id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="tagName" column="tag_name"/>
+    </resultMap>
+
+    <select id="findByMemberId" resultMap="baseMap">
+		SELECT * FROM m_member_tag_relation WHERE member_id=#{memberId} ORDER BY create_date DESC
+	</select>
+
+    <select id="findByTagId" resultType="long">
+		SELECT member_id FROM m_member_tag_relation WHERE tag_id=#{tagId} LIMIT 0,1000
+	</select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT mtr.* FROM m_member_tag_relation mtr
+        <include refid="includeMember"/>
+        WHERE 1=1
+        <include refid="Searcher"/>
+        ORDER BY mtr.create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(mtr.id) FROM m_member_tag_relation mtr
+        <include refid="includeMember"/>
+        WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="includeMember">
+        <if test="(searcher.loginCode!=null and searcher.loginCode!='')
+				||(searcher.nickName!=null and searcher.nickName!='')">
+            ,m_member_info mi
+        </if>
+    </sql>
+
+    <sql id="Searcher">
+        <if test="searcher.tagId!=null">
+            AND mtr.tag_id=#{searcher.tagId}
+        </if>
+        <if test="searcher.memberId!=null">
+            AND mtr.member_id=#{searcher.memberId}
+        </if>
+        <if test="searcher.status!=null">
+            AND mtr.status=#{searcher.status}
+        </if>
+        <if test="searcher.loginCode!=null and searcher.loginCode!=''">
+            AND mtr.member_id=mi.id AND mi.login_code =#{searcher.loginCode}
+        </if>
+        <if test="searcher.nickName!=null and searcher.nickName!=''">
+            AND mtr.member_id=mi.id AND mi.nickname =#{searcher.nickName}
+        </if>
+    </sql>
+
+    <delete id="deleteByTagId">
+		DELETE FROM m_member_tag_relation WHERE tag_id=#{tagId}
+	</delete>
+
+    <delete id="deleteByIds">
+        DELETE FROM m_member_tag_relation WHERE id IN
+        <foreach collection="ids" item="id" index="index" open="("
+                 close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
+    <delete id="deleteByMemberId">
+		DELETE FROM m_member_tag_relation WHERE member_id=#{memberId}
+	</delete>
+
+    <update id="updateStatusByTagId">
+		UPDATE m_member_tag_relation SET status=#{status}
+		WHERE tag_id=#{tagId}
+	</update>
+
+    <insert id="doReplaceInto" parameterType="com.d2c.logger.model.Message" useGeneratedKeys="true" keyProperty="id">
+		REPLACE INTO m_member_tag_relation(create_date,modify_date,tag_id,member_id,status,tag_name)
+		VALUES(NOW(),NOW(),#{tagId},#{memberId},#{status},#{tagName})
+	</insert>
+
+</mapper>

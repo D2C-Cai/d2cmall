@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.PiliLiveMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.PiliLive">
+        <result property="streamId" column="stream_id"/>
+        <result property="pushUrl" column="push_url"/>
+        <result property="rtmpUrl" column="rtmp_url"/>
+        <result property="hlsUrl" column="hls_url"/>
+        <result property="hdlUrl" column="hdl_url"/>
+        <result property="picUrl" column="pic_url"/>
+        <result property="replayUrl" column="replay_url"/>
+        <result property="status" column="status"/>
+        <result property="title" column="title"/>
+        <result property="cover" column="cover"/>
+        <result property="memberId" column="member_id"/>
+        <result property="memberType" column="member_type"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="nickname" column="nickname"/>
+        <result property="sex" column="sex"/>
+        <result property="top" column="top"/>
+        <result property="mark" column="mark"/>
+        <result property="vcount" column="vcount"/>
+        <result property="tcount" column="tcount"/>
+        <result property="vfans" column="vfans"/>
+        <result property="vrate" column="vrate"/>
+        <result property="designerId" column="designer_id"/>
+        <result property="designerName" column="designer_name"/>
+        <result property="brandName" column="brand_name"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM m_live_pili WHERE 1=1
+        <include refid="Searcher"/>
+        ORDER BY top DESC, create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(id) FROM m_live_pili WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.status!=null">
+            AND status=#{searcher.status}
+        </if>
+        <if test="searcher.mark!=null">
+            AND mark=#{searcher.mark}
+        </if>
+        <if test="searcher.memberId!=null">
+            AND member_id=#{searcher.memberId}
+        </if>
+        <if test="searcher.title!=null and searcher.title!=''">
+            AND title like CONCAT('%',#{searcher.title},'%')
+        </if>
+        <if test="searcher.nickName!=null and searcher.nickName!=''">
+            AND nickname=#{searcher.nickName}
+        </if>
+        <if test="searcher.designerId!=null">
+            AND designer_id=#{searcher.designerId}
+        </if>
+        <if test="searcher.designerName!=null and searcher.designerName!=''">
+            AND designer_name like CONCAT('%',#{searcher.designerName},'%')
+        </if>
+        <if test="searcher.startDate != null">
+            AND create_date &gt;= #{searcher.startDate}
+        </if>
+        <if test="searcher.endDate != null">
+            AND create_date &lt;= #{searcher.endDate}
+        </if>
+    </sql>
+
+    <update id="doClose">
+		UPDATE m_live_pili SET status=8, replay_url=#{replayUrl}, modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <select id="findLastOne" resultMap="baseMap">
+		SELECT * FROM m_live_pili WHERE member_id=#{memberId} AND status=4
+		ORDER BY create_date DESC LIMIT 0,1
+	</select>
+
+    <update id="doIn">
+		UPDATE m_live_pili SET vcount=vcount+#{vcount}, tcount=tcount+1
+		WHERE id=#{id}
+	</update>
+
+    <delete id="deleteByMemberId">
+		DELETE FROM m_live_pili WHERE id=#{id} AND
+		member_id=#{memberId}
+	</delete>
+
+    <delete id="deleteById">
+		DELETE FROM m_live_pili WHERE id=#{id}
+	</delete>
+
+    <select id="countHot" resultType="int">
+		SELECT COUNT(*) FROM m_live_pili WHERE create_date &gt; DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+		AND mark=1 AND status=8
+	</select>
+
+    <select id="findHot" resultMap="baseMap">
+		SELECT * FROM m_live_pili WHERE create_date &gt; DATE_SUB(CURDATE(), INTERVAL 30 DAY)
+		AND mark=1 AND status=8 ORDER BY vfans+vcount DESC
+		LIMIT
+		#{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <update id="updateMark">
+		UPDATE m_live_pili SET mark=#{mark},
+		last_modify_man=#{modifyMan}, modify_date=now() WHERE id=#{id}
+	</update>
+
+    <update id="updateTop">
+		UPDATE m_live_pili SET top=#{top},
+		last_modify_man=#{modifyMan}, modify_date=now() WHERE id=#{id}
+	</update>
+
+    <update id="updateVfans">
+		UPDATE m_live_pili SET vfans=#{vfans},
+		last_modify_man=#{modifyMan}, modify_date=now() WHERE id=#{id}
+	</update>
+
+    <update id="updateVrate">
+		UPDATE m_live_pili SET vrate=#{vrate},
+		last_modify_man=#{modifyMan}, modify_date=now() WHERE id=#{id}
+	</update>
+
+    <update id="updateRatio">
+		UPDATE m_live_pili SET ratio=#{ratio},
+		last_modify_man=#{modifyMan}, modify_date=now() WHERE id=#{id}
+	</update>
+
+    <update id="doRefreshHeadPic">
+        UPDATE m_live_pili SET
+        <if test="headPic!=null and headPic!=''">
+            head_pic=#{headPic},
+        </if>
+        nickname=#{nickName},modify_date=NOW() WHERE member_id=#{memberInfoId}
+    </update>
+
+</mapper>
+	

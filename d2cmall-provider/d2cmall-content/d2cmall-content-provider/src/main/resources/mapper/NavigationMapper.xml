@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.content.dao.NavigationMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.Navigation">
+        <result property="id" column="id"/>
+        <result property="status" column="status"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="path" column="path"/>
+        <result property="sequence" column="sequence"/>
+        <result property="cssStyle" column="css_style"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="pic" column="pic"/>
+        <result property="picUrl" column="pic_url"/>
+        <result property="creator" column="creator"/>
+        <result property="version" column="version"/>
+    </resultMap>
+
+    <select id="findByCode" resultMap="baseMap">
+		SELECT
+		* FROM v_navigation WHERE
+		code = #{code} LIMIT 0,1
+	</select>
+
+    <select id="findChildrens" resultMap="baseMap">
+		SELECT * FROM v_navigation
+		WHERE parent_id = #{parentId}
+		ORDER BY sequence DESC
+	</select>
+
+    <select id="findActiveChildrens" resultMap="baseMap">
+		SELECT * FROM
+		v_navigation WHERE parent_id = #{parentId} AND status=1
+		ORDER BY sequence DESC
+	</select>
+
+    <select id="findByParentId" resultMap="baseMap">
+        SELECT * FROM v_navigation WHERE 1=1
+        <if test="parentId==null">
+            AND parent_id IS NULL
+        </if>
+        <if test="parentId!=null">
+            AND parent_id = #{parentId}
+        </if>
+        <if test="status!=null">
+            AND status= #{status}
+        </if>
+        <if test="version!=null and version!=''">
+            AND version= #{version}
+        </if>
+        ORDER BY sequence DESC
+    </select>
+
+    <select id="findRoots" resultMap="baseMap">
+        SELECT * FROM v_navigation WHERE parent_id IS NULL
+        <if test="status!=null">
+            AND status= #{status}
+        </if>
+        <if test="version!=null and version!=''">
+            AND version= #{version}
+        </if>
+        ORDER BY sequence DESC
+    </select>
+
+    <select id="findByNameAndParentId" resultMap="baseMap">
+		SELECT * FROM
+		v_navigation WHERE name = #{name} AND parent_id
+		= #{parentId}
+		ORDER BY sequence DESC
+	</select>
+
+    <select id="findAll" resultMap="baseMap">
+        SELECT * FROM v_navigation WHERE
+        status in (0,1)
+        <if test="version!=null and version!=''">
+            AND version= #{version}
+        </if>
+        ORDER BY
+        sequence DESC
+    </select>
+
+    <update id="updatePath">
+		UPDATE v_navigation SET path = #{path}
+		WHERE id = #{id}
+	</update>
+
+    <update id="updateSequence">
+		UPDATE v_navigation
+		SET sequence =
+		#{sequence}
+		WHERE id =
+		#{id}
+	</update>
+
+    <update id="delete">
+		UPDATE v_navigation SET status=-1 WHERE id =
+		#{id} and
+		parent_id is not null
+	</update>
+
+</mapper>

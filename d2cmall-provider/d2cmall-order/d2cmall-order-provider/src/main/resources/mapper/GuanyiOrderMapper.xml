@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.GuanyiOrderMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.GuanyiOrder">
+        <result property="deliveryDate" column="delivery_date"/>
+        <result property="code" column="code"/>
+        <result property="shopCode" column="shop_code"/>
+        <result property="shopName" column="shop_name"/>
+        <result property="vipCode" column="vip_code"/>
+        <result property="vipName" column="vip_name"/>
+        <result property="payMent" column="pay_ment"/>
+        <result property="retail" column="retail"/>
+        <result property="retretail" column="retretail"/>
+        <result property="pur" column="pur"/>
+        <result property="retpur" column="retpur"/>
+        <result property="transfer" column="transfer"/>
+        <result property="success" column="success"/>
+        <result property="platformCode" column="platform_code"/>
+        <result property="burgeonError" column="burgeon_error"/>
+        <result property="burgeonHandle" column="burgeon_handle"/>
+        <result property="burgeonHandleMan" column="burgeon_handle_man"/>
+        <result property="burgeonHandleDate" column="burgeon_handle_date"/>
+        <result property="burgeonHandleContent" column="burgeon_handle_content"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="burgeonFall" column="burgeon_fall"/>
+        <result property="express" column="express"/>
+        <result property="expressCode" column="express_code"/>
+        <result property="expressName" column="express_name"/>
+        <result property="expressNo" column="express_no"/>
+        <result property="expressFall" column="express_fall"/>
+        <result property="expressError" column="express_error"/>
+        <result property="expressHandle" column="express_handle"/>
+        <result property="expressHandleMan" column="express_handle_man"/>
+        <result property="expressHandleDate" column="express_handle_date"/>
+        <result property="expressHandleContent" column="express_handle_content"/>
+        <result property="receiverName" column="receiver_name"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM
+        o_guanyi_order WHERE 1=1
+        <include refid="Searcher"/>
+        ORDER BY delivery_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(id) FROM
+        o_guanyi_order WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.success!=null">
+            AND `success`=#{searcher.success}
+        </if>
+        <if test="searcher.burgeonFall!=null">
+            AND `burgeon_fall`=#{searcher.burgeonFall}
+        </if>
+        <if test="searcher.expressFall!=null">
+            AND `express_fall`=#{searcher.expressFall}
+        </if>
+        <if test="searcher.shopCode!=null and searcher.shopCode!=''">
+            AND shop_code = #{searcher.shopCode}
+        </if>
+        <if test="searcher.code!=null and searcher.code!=''">
+            AND code=#{searcher.code}
+        </if>
+        <if test="searcher.platformCode!=null and searcher.platformCode!=''">
+            AND platform_code=#{searcher.platformCode}
+        </if>
+        <if test="searcher.itemCode!=null and searcher.itemCode!=''">
+            AND EXISTS
+            (SELECT * FROM o_guanyi_order_item WHERE item_code=#{searcher.itemCode}
+            AND order_id=o_guanyi_order.id
+            )
+        </if>
+        <if test="searcher.expressNo!=null and searcher.expressNo!=''">
+            AND express_no=#{searcher.expressNo}
+        </if>
+        <if test="searcher.vipName!=null and searcher.vipName!=''">
+            AND vip_name LIKE CONCAT('%',#{searcher.vipName},'%')
+        </if>
+        <if test="searcher.shopName!=null and searcher.shopName!=''">
+            AND shop_name LIKE CONCAT('%',#{searcher.shopName},'%')
+        </if>
+        <if test="searcher.deliveryStartDate!=null">
+            AND delivery_date &gt; #{searcher.deliveryStartDate}
+        </if>
+        <if test="searcher.deliveryEndDate!=null">
+            AND delivery_date &lt; #{searcher.deliveryEndDate}
+        </if>
+        <if test="searcher.burgeonHandle!=null">
+            AND burgeon_handle = #{searcher.burgeonHandle}
+        </if>
+        <if test="searcher.expressHandle!=null">
+            AND express_handle = #{searcher.expressHandle}
+        </if>
+    </sql>
+
+    <select id="findLastDeliverOrder" resultMap="baseMap">
+		SELECT * FROM
+		o_guanyi_order ORDER BY delivery_date DESC LIMIT 0,1
+	</select>
+
+    <update id="doHandle">
+        UPDATE o_guanyi_order SET modify_date=NOW()
+        <if test="type==1">
+            ,express_handle_date=NOW()
+            ,express_handle_man=#{handleMan}
+            ,express_handle_content=#{handleContent}
+            ,express_handle=1
+        </if>
+        <if test="type==2">
+            ,burgeon_handle_date=NOW()
+            ,burgeon_handle_man=#{handleMan}
+            ,burgeon_handle_content=#{handleContent}
+            ,burgeon_handle=1
+        </if>
+        WHERE id=#{id}
+    </update>
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0"?>
+<project
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0">
+    <parent>
+        <artifactId>d2cmall-back</artifactId>
+        <groupId>com.d2c</groupId>
+        <version>2.0.0-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>d2cmall-back-rest</artifactId>
+    <packaging>war</packaging>
+    <name>${project.artifactId}</name>
+
+    <dependencies>
+        <!-- project start -->
+        <dependency>
+            <groupId>com.d2c</groupId>
+            <artifactId>d2cmall-frame-back</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.d2c</groupId>
+            <artifactId>d2cmall-common-old</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.d2c</groupId>
+            <artifactId>d2cmall-common-mq</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.d2c</groupId>
+            <artifactId>d2cmall-report-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.d2c</groupId>
+            <artifactId>d2cmall-behavior-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.d2c</groupId>
+            <artifactId>d2cmall-similar-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.d2c</groupId>
+            <artifactId>d2cmall-content-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.d2c</groupId>
+            <artifactId>d2cmall-member-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.d2c</groupId>
+            <artifactId>d2cmall-logger-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.d2c</groupId>
+            <artifactId>d2cmall-order-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.d2c</groupId>
+            <artifactId>d2cmall-product-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.d2c</groupId>
+            <artifactId>d2cmall-openapi-api</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.3</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>d2cmall-backend-rest</finalName>
+    </build>
+
+</project>

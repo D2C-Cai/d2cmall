@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.mythird:tx-plugins-db:4.1.0-MY">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/mythird/tx-plugins-db/4.1.0-MY/tx-plugins-db-4.1.0-MY.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/mythird/tx-plugins-db/4.1.0-MY/tx-plugins-db-4.1.0-MY-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/mythird/tx-plugins-db/4.1.0-MY/tx-plugins-db-4.1.0-MY-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

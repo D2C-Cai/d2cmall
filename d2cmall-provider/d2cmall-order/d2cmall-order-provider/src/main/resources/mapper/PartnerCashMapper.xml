@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.PartnerCashMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.PartnerCash">
+        <result property="sn" column="sn"/>
+        <result property="memberId" column="member_id"/>
+        <result property="partnerId" column="partner_id"/>
+        <result property="partnerCode" column="partner_code"/>
+        <result property="partnerLevel" column="partner_level"/>
+        <result property="status" column="status"/>
+        <result property="applyAmount" column="apply_amount"/>
+        <result property="applyAccount" column="apply_account"/>
+        <result property="applyName" column="apply_name"/>
+        <result property="payAccount" column="pay_account"/>
+        <result property="paySn" column="pay_sn"/>
+        <result property="payDate" column="pay_date"/>
+        <result property="payAmount" column="pay_amount"/>
+        <result property="payMan" column="pay_man"/>
+        <result property="payType" column="pay_type"/>
+        <result property="alipay" column="alipay"/>
+        <result property="region" column="region"/>
+        <result property="confirmOperateMan" column="confirm_operate_man"/>
+        <result property="confirmMan" column="confirm_man"/>
+        <result property="bank" column="bank"/>
+        <result property="bankType" column="bank_type"/>
+        <result property="bankSn" column="bank_sn"/>
+        <result property="identityCard" column="identity_card"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="refuseReason" column="refuse_reason"/>
+        <result property="applyTaxAmount" column="apply_tax_amount"/>
+        <result property="totalTaxAmount" column="total_tax_amount"/>
+        <result property="taxType" column="tax_type"/>
+    </resultMap>
+
+    <select id="findBySn" resultMap="baseMap">
+		SELECT * FROM o_partner_cash
+		WHERE sn=#{sn}
+	</select>
+
+    <select id="findActiveByMobile" resultMap="baseMap">
+		SELECT * FROM o_partner_cash
+		WHERE partner_code=#{loginCode} AND status IN(0,1) LIMIT 0,1
+	</select>
+
+    <select id="findApplyCashByPartnerId" resultType="java.math.BigDecimal">
+		SELECT
+		COALESCE(SUM(apply_amount),0) FROM o_partner_cash
+		WHERE status &gt;=0 AND status &lt;8 AND partner_id=#{partnerId}
+	</select>
+
+    <select id="findWithCashByDate" resultType="java.math.BigDecimal">
+        SELECT
+        COALESCE(SUM(apply_amount),0) FROM o_partner_cash
+        WHERE status =8 AND partner_id=#{partnerId}
+        <if test="taxType!=null">
+            AND tax_type=#{taxType}
+        </if>
+        <if test="startDate!=null">
+            AND create_date &gt;= #{startDate}
+        </if>
+        <if test="endDate!=null">
+            AND create_date &lt;= #{endDate}
+        </if>
+    </select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM o_partner_cash WHERE 1=1
+        <include refid="Searcher"/>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(*) FROM o_partner_cash WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.sn!=null and searcher.sn!=''">
+            AND sn=#{searcher.sn}
+        </if>
+        <if test="searcher.status!=null">
+            <if test="searcher.status==1 and searcher.waitConfirm!=null and searcher.waitConfirm==1">
+                AND (status=1 OR status=0)
+            </if>
+            <if test="searcher.status!=1 or searcher.waitConfirm==null or searcher.waitConfirm==0">
+                AND status=#{searcher.status}
+            </if>
+        </if>
+        <if test="searcher.partnerCode!=null and searcher.partnerCode!=''">
+            AND partner_code=#{searcher.partnerCode}
+        </if>
+        <if test="searcher.createDateStart!=null">
+            AND create_date &gt;= #{searcher.createDateStart}
+        </if>
+        <if test="searcher.createDateEnd!=null">
+            AND create_date &lt;= #{searcher.createDateEnd}
+        </if>
+        <if test="searcher.partnerId!=null">
+            AND partner_id=#{searcher.partnerId}
+        </if>
+    </sql>
+
+    <select id="findCountGroupByStatus" resultType="hashMap">
+		SELECT status AS status, COUNT(id) AS count,
+		COALESCE(SUM(apply_amount),0) AS amount
+		FROM o_partner_cash
+		GROUP BY status
+	</select>
+
+    <select id="findLastSuccessOne" resultMap="baseMap">
+        SELECT * FROM o_partner_cash
+        WHERE status =8 AND partner_id=#{partnerId}
+        <if test="taxType!=null">
+            AND tax_type=#{taxType}
+        </if>
+        <if test="startDate!=null">
+            AND create_date &gt;= #{startDate}
+        </if>
+        <if test="endDate!=null">
+            AND create_date &lt;= #{endDate}
+        </if>
+        ORDER BY create_date DESC
+        LIMIT 0,1
+    </select>
+
+    <update id="doAgree">
+        UPDATE o_partner_cash SET
+        status=1,modify_date=NOW(),last_modify_man=#{lastModifyMan}
+        <if test="confirmOperateMan!=null and confirmOperateMan!=''">
+            ,confirm_operate_man=#{confirmOperateMan}
+        </if>
+        WHERE id=#{id} AND status=0
+    </update>
+
+    <update id="doRefuse">
+        UPDATE o_partner_cash SET
+        status=-1,refuse_reason=#{refuseReason},
+        modify_date=NOW(),last_modify_man=#{lastModifyMan}
+        <if test="confirmOperateMan!=null and confirmOperateMan!=''">
+            ,confirm_operate_man=#{confirmOperateMan}
+        </if>
+        WHERE id=#{id} AND status &gt;=0 AND status &lt;8
+    </update>
+
+    <update id="doPay">
+        UPDATE o_partner_cash SET status=8,pay_sn=#{paySn},
+        pay_amount=#{payAmount},pay_man=#{payMan},modify_date=NOW()
+        <if test="payDate!=null">
+            ,pay_date=#{payDate}
+        </if>
+        <if test="payDate==null">
+            ,pay_date=NOW()
+        </if>
+        WHERE id=#{id} AND status IN(0,1)
+    </update>
+
+</mapper>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.order.dao.CouponDefMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.CouponDef">
+        <result property="name" column="name"/>
+        <result property="subTitle" column="sub_title"/>
+        <result property="pic" column="pic"/>
+        <result property="remark" column="remark"/>
+        <result property="type" column="type"/>
+        <result property="code" column="code"/>
+        <result property="cipher" column="cipher"/>
+        <result property="managerStatus" column="manager_status"/>
+        <result property="amount" column="amount"/>
+        <result property="needAmount" column="need_amount"/>
+        <result property="quantity" column="quantity"/>
+        <result property="claimed" column="claimed"/>
+        <result property="claimLimit" column="claim_limit"/>
+        <result property="checkAssociation" column="check_association"/>
+        <result property="claimStart" column="claim_start"/>
+        <result property="claimEnd" column="claim_end"/>
+        <result property="enableDate" column="enable_date"/>
+        <result property="expireDate" column="expire_date"/>
+        <result property="activeDay" column="active_day"/>
+        <result property="activeHour" column="active_hour"/>
+        <result property="redirectUrl" column="redirect_url"/>
+        <result property="enable" column="enable"/>
+        <result property="exclude" column="exclude"/>
+        <result property="random" column="random"/>
+        <result property="transfer" column="transfer"/>
+        <result property="wxCardId" column="wx_card_id"/>
+        <result property="pcCode" column="pc_code"/>
+        <result property="wapCode" column="wap_code"/>
+        <result property="free" column="free"/>
+        <result property="price" column="price"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findByCode" resultMap="baseMap">
+		SELECT *
+		FROM o_coupon_def
+		WHERE
+		code = #{code} limit 0,1
+	</select>
+
+    <select id="findByCipher" resultMap="baseMap">
+		SELECT *
+		FROM o_coupon_def
+		WHERE cipher = #{cipher} limit 0,1
+	</select>
+
+    <select id="findByName" resultMap="baseMap">
+		SELECT *
+		FROM o_coupon_def
+		WHERE
+		name = #{name} limit 0,1
+	</select>
+
+    <select id="findByProductId" resultMap="baseMap">
+		SELECT cd.*
+		FROM
+		o_coupon_def cd, o_coupon_def_relation cdr
+		WHERE cdr.coupon_def_id=cd.id
+		AND cdr.type='PRODUCT' AND
+		cdr.target_id=#{productId} limit 0,500
+	</select>
+
+    <select id="findByWxCardId" resultMap="baseMap">
+		SELECT *
+		FROM o_coupon_def
+		WHERE wx_card_id = #{wxCardId} limit 0,1
+	</select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT *
+        FROM o_coupon_def cd
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY cd.id DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="integer">
+        SELECT count(cd.id) FROM o_coupon_def cd
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test=" searcher.name!= null and searcher.name!=''">
+            AND cd.name LIKE CONCAT('%',#{searcher.name},'%')
+        </if>
+        <if test="searcher.type!= null">
+            AND cd.type=#{searcher.type}
+        </if>
+        <if test="searcher.enable!= null">
+            AND cd.enable=#{searcher.enable}
+        </if>
+        <if test="searcher.free!= null">
+            AND cd.free=#{searcher.free}
+        </if>
+        <if test="searcher.beginCreateDate!=null">
+            AND cd.create_date &gt;= #{searcher.beginCreateDate}
+        </if>
+        <if test="searcher.endCreateDate!=null">
+            AND cd.create_date &lt;= #{searcher.endCreateDate}
+        </if>
+        <if test="searcher.ids!= null">
+            AND FIND_IN_SET(id,#{searcher.ids})
+        </if>
+        <if test="searcher.couponDefIds != null and searcher.couponDefIds.length &gt; 0">
+            AND id IN
+            <foreach collection="searcher.couponDefIds" item="couponDefId"
+                     index="index" open="(" close=")" separator=",">
+                <if test="couponDefId!= null">
+                    #{couponDefId}
+                </if>
+            </foreach>
+        </if>
+        <if test="searcher.checkAssociation!=null and searcher.checkAssociation!=''">
+            AND cd.check_association=#{searcher.checkAssociation}
+        </if>
+        <if test="searcher.id!= null">
+            AND cd.id=#{searcher.id}
+        </if>
+    </sql>
+
+    <select id="findByUpdateClaimed" resultType="Long">
+		SELECT id from
+		o_coupon_def where modify_date=#{modifyDate}
+		LIMIT
+		#{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="countByUpdateClaimed" resultType="int">
+		SELECT count(id)
+		from o_coupon_def where modify_date=#{modifyDate}
+	</select>
+
+    <select id="checkCipherBySearcher" resultMap="baseMap">
+		SELECT * FROM
+		o_coupon_def WHERE
+		`cipher`=#{searcher.cipher,jdbcType=VARCHAR} limit 0,1
+	</select>
+
+    <update id="updateClaimed">
+		UPDATE o_coupon_def
+		SET modify_date=now(),claimed=claimed+#{num}
+		WHERE id=#{id} AND (quantity &gt;= claimed+#{num})
+	</update>
+
+    <update id="sendById">
+		UPDATE o_coupon_def SET
+		manager_status='SENDED',
+		modify_date = now() WHERE id =
+		#{id,jdbcType=BIGINT}
+	</update>
+
+    <update id="bindWxCard">
+		UPDATE o_coupon_def
+		SET
+		wx_card_id=#{wxCardId},modify_date=now()
+		WHERE id= #{id}
+	</update>
+
+    <update id="doMark">
+		UPDATE o_coupon_def
+		SET
+		modify_date=now(),enable=#{mark}
+		WHERE id=#{defineId}
+	</update>
+
+    <update id="doCloseExpired">
+		UPDATE o_coupon_def SET
+		`enable`=0,modify_date=now(),last_modify_man='sys' 
+		WHERE `enable`=1 AND
+		claim_end &lt; now()
+	</update>
+
+    <update id="delete">
+		UPDATE o_coupon_def SET
+		`enable`=0,modify_date=now(),last_modify_man='sys' 
+		WHERE `enable`=1
+		AND id = #{defineId}
+	</update>
+
+    <select id="findAvailableCoupons" resultMap="baseMap">
+		SELECT *
+		FROM o_coupon_def cd
+		WHERE  enable=1 and type in('CASH','DISCOUNT')
+		and claim_start &lt;=now()
+		and claim_end &gt;now()
+		and quantity &gt;1000
+		ORDER BY create_date DESC
+		LIMIT 0,500
+	</select>
+
+    <select id="findAvailableByBrandId" resultMap="baseMap">
+        SELECT cd.*
+        FROM
+        o_coupon_def cd, o_coupon_def_relation cdr
+        WHERE cdr.coupon_def_id=cd.id
+        AND cdr.type='DESIGNER' AND cd.enable=1
+        AND cd.claim_start &lt;=now() AND cd.claim_end &gt;now()
+        AND cdr.target_id=#{brandId}
+        <if test="free!=null">
+            AND free=#{free}
+        </if>
+        limit 0,500
+    </select>
+</mapper>

@@ -1,0 +1,115 @@
+.layout-custom {
+    margin: 10px auto;
+    background: #f3f3f1
+}
+
+.custom-banner {
+    width: 100%;
+    background: #bfc0b2;
+    text-align: center;
+}
+
+.custom-rule {
+    background: #FFF;
+    text-align: center;
+    padding: 20px 0;
+    color: #9c9c90;
+    line-height: 180%
+}
+
+.custom-room {
+    margin-top: 100px;
+    text-align: center;
+    font-family: Arial;
+    line-height: 230%
+}
+
+.custom-img {
+    position: relative
+}
+
+.custom-img span {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -100px;
+    width: 200px;
+    line-height: 40px;
+    background: #f22065;
+    color: #FFF;
+    opacity: 0.8;
+    border-radius: 20px;
+    z-index: 5
+}
+
+.custom-img:hover span {
+    display: block
+}
+
+.custom-product-list .list-item {
+    width: 20%;
+    position: relative;
+    overflow: hidden;
+}
+
+.custom-product-list .list-item .operator {
+    display: block;
+    position: absolute;
+    font-family: Arial;
+    left: 0;
+    right: 0;
+    bottom: -150px;
+    padding: 10px;
+    background: #000;
+    background: rgba(0, 0, 0, 0.7);
+    color: #FFF;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out
+}
+
+.custom-product-list .list-item .operator a {
+    color: #FFF;
+}
+
+.custom-product-list .list-item .operator strong {
+    font-size: 16px;
+    vertical-align: middle;
+    color: #FFFF00;
+}
+
+.custom-product-list .list-item .operator a.button {
+    box-shadow: none;
+}
+
+.custom-product-list .list-item:hover .operator {
+    bottom: 0;
+}
+
+.custom-slide {
+    position: relative;
+    height: 350px;
+}
+
+.custom-slide > a {
+    position: absolute;
+    z-index: 3;
+    width: 45px;
+    height: 90px;
+    top: 40%;
+    background: url('img/slider_arrow.png') 0 0 no-repeat;
+    text-indent: -9999px;
+    overflow: hidden;
+}
+
+.custom-slide > a.prev {
+    left: 5px;
+}
+
+.custom-slide > a.next {
+    right: 5px;
+    background-position: 0 -95px;
+}

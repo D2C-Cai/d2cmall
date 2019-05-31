@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.content.dao.AppMenuMapper">
+    <resultMap type="com.d2c.content.model.AppMenu" id="baseMap">
+        <result property="name" column="name"/>
+        <result property="iconUrl" column="icon_url"/>
+        <result property="url" column="url"/>
+        <result property="status" column="status"/>
+        <result property="sequence" column="sequence"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="createDate" column="create_date"/>
+        <result property="version" column="version"/>
+        <result property="memberType" column="member_type"/>
+    </resultMap>
+
+    <select id="findByStatus" resultMap="baseMap">
+		select * from v_app_menu where status=#{status} and version =#{version} 
+		order by sequence ASC ,create_date ASC
+	</select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        select * from v_app_menu where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        order by sequence DESC
+        <if test="pager != null">
+            LIMIT #{pager.startNumber}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        select count(*) from v_app_menu where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND name =#{searcher.name}
+        </if>
+        <if test="searcher.version!=null and searcher.version!=''">
+            AND version =#{searcher.version}
+        </if>
+    </sql>
+
+    <update id="updateStatusById">
+		update v_app_menu set
+		status=#{status},last_modify_man=#{name} where
+		id=#{id}
+	</update>
+
+    <update id="updateSortById">
+		update v_app_menu set
+		sequence=#{sort} where
+		id=#{id}
+	</update>
+
+    <delete id="delete">
+		delete from v_app_menu where id=#{id}
+	</delete>
+
+</mapper>

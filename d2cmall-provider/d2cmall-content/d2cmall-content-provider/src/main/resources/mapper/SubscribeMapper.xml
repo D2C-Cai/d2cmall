@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.content.dao.SubscribeMapper">
+
+    <resultMap id="baseMap" type="com.d2c.content.model.Subscribe">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_man" property="lastModifyMan"
+                jdbcType="VARCHAR"/>
+        <result column="subscribe" property="subscribe" jdbcType="VARCHAR"/>
+        <result column="sub_type" property="subType" jdbcType="VARCHAR"/>
+        <result column="member_id" property="memberId" jdbcType="BIGINT"/>
+        <result column="member_code" property="memberCode" jdbcType="VARCHAR"/>
+        <result column="member_name" property="memberName" jdbcType="VARCHAR"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+
+    <select id="findSubBySearcher" resultMap="baseMap">
+        select * from v_subscribe
+        <include refid="whereSearcher"/>
+        ORDER BY create_date DESC
+        limit #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countSubBySearcher" resultType="int">
+        select count(*) from v_subscribe
+        <include refid="whereSearcher"/>
+    </select>
+
+    <sql id="whereSearcher">
+        <where>
+            <if test="searcher.subType != null and searcher.subType !=''">
+                and sub_type = #{searcher.subType}
+            </if>
+            <if test="searcher.memberId != null">
+                and member_id = #{searcher.memberId}
+            </if>
+            <if test="searcher.memberCode != null and searcher.memberCode !=''">
+                and member_code = #{searcher.memberCode}
+            </if>
+            <if test="searcher.memberName != null and searcher.memberName !=''">
+                and member_name =#{searcher.memberName}
+            </if>
+            <if test="searcher.subscribe != null and searcher.subscribe !=''">
+                and subscribe =#{searcher.subscribe}
+            </if>
+            <if test="searcher.beginCreateDate != null">
+                and create_date &gt;= #{searcher.beginCreateDate}
+            </if>
+            <if test="searcher.endCreateDate != null">
+                and create_date &lt;= #{searcher.endCreateDate}
+            </if>
+        </where>
+    </sql>
+
+    <sql id="Base_Column_List">
+		id, create_date, modify_date, last_modify_man, subscribe,
+		sub_type,
+		member_id, member_code,
+		member_name
+	</sql>
+
+    <select id="findByType" resultMap="baseMap">
+        select
+        <include refid="Base_Column_List"/>
+        from v_subscribe
+        where sub_type = #{subType}
+    </select>
+
+    <select id="findBySubscribe" resultMap="baseMap">
+        select
+        <include refid="Base_Column_List"/>
+        from v_subscribe
+        where subscribe = #{subscribe} limit 0,1
+    </select>
+
+</mapper>

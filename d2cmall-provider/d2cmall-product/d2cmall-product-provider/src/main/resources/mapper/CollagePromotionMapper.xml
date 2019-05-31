@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.product.dao.CollagePromotionMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.CollagePromotion">
+        <result property="name" column="name"/>
+        <result property="beginDate" column="begin_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="status" column="status"/>
+        <result property="sort" column="sort"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="productImage" column="product_image"/>
+        <result property="expireTime" column="expire_time"/>
+        <result property="memberCount" column="member_count"/>
+        <result property="realCount" column="real_count"/>
+        <result property="memberBuyLimit" column="member_buy_limit"/>
+        <result property="productCreatedLimit" column="product_created_limit"/>
+        <result property="currentCount" column="current_count"/>
+        <result property="sharePic" column="share_pic"/>
+        <result property="shareTitle" column="share_title"/>
+        <result property="shareContent" column="share_content"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM
+        o_collage_promotion WHERE status!=-1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        order by sort desc,create_date desc
+        limit
+        #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(1) FROM
+        o_collage_promotion WHERE status!=-1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.name!=null and searcher.name!=null">
+            AND name like CONCAT('%',#{searcher.name},'%')
+        </if>
+        <if test="searcher.status!=null">
+            AND status=#{searcher.status}
+        </if>
+        <if test="searcher.tabIndex!=null and searcher.tabIndex==0">
+            AND begin_date &gt;now()
+        </if>
+        <if test="searcher.tabIndex!=null and searcher.tabIndex==1">
+            AND begin_date&lt;=now() and end_date&gt;now()
+        </if>
+        <if test="searcher.tabIndex!=null and searcher.tabIndex==-1">
+            AND end_date &lt;now()
+        </if>
+        <if test="searcher.beginDateStart!=null">
+            AND begin_date &gt;=#{searcher.beginDateStart}
+        </if>
+        <if test="searcher.beginDateEnd!=null">
+            AND begin_date &lt;=#{searcher.beginDateEnd}
+        </if>
+        <if test="searcher.endDateStart!=null">
+            AND end_date &gt;=#{searcher.endDateStart}
+        </if>
+        <if test="searcher.endDateEnd!=null">
+            AND end_date &lt;=#{searcher.endDateEnd}
+        </if>
+    </sql>
+
+    <update id="updateStatus">
+		update o_collage_promotion set
+		status=#{status},modify_date=now(),last_modify_man=#{operator} where
+		id=#{id}
+	</update>
+
+    <update id="updateSort">
+		update o_collage_promotion set
+		sort=#{sort},modify_date=now() where
+		id=#{id}
+	</update>
+
+    <update id="updateCurrentCount">
+		update o_collage_promotion set
+		current_count=current_count+#{num} where id=#{id} and
+		status=1 and
+		begin_date &lt;=now() and end_date &gt;now() and
+		current_count+#{num}
+		&lt;=product_created_limit
+	</update>
+
+</mapper>

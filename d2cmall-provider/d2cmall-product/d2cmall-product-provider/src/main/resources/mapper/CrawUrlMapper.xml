@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.product.dao.CrawUrlMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.CrawUrl">
+        <result column="craw_url" property="crawUrl" jdbcType="VARCHAR"/>
+        <result column="craw_status" property="crawStatus" jdbcType="TINYINT"/>
+        <result column="craw_type" property="crawType" jdbcType="TINYINT"/>
+        <result column="craw_rooturl" property="crawRooturl" jdbcType="VARCHAR"/>
+        <result column="craw_designer_id" property="crawDesignerId"
+                jdbcType="INTEGER"/>
+        <result column="craw_page_no" property="crawPageNo" jdbcType="INTEGER"/>
+        <result column="craw_product_id" property="crawProductId"/>
+    </resultMap>
+
+    <select id="findListByStatus" resultMap="baseMap">
+		select * from craw_url
+		where craw_status=#{status}
+		LIMIT #{pager.startNumber},
+		#{pager.pageSize}
+	</select>
+
+    <select id="findByRootUrlAndPageNo" resultMap="baseMap">
+		select * from
+		craw_url
+		where craw_page_no=#{pageNo} and craw_rooturl=#{rootUrl}
+		LIMIT
+		0,1
+	</select>
+    <select id="findByProductId" resultMap="baseMap">
+		select * from
+		craw_url
+		where craw_product_id=#{productId}
+		LIMIT
+		0,1
+	</select>
+
+    <select id="countByStatus" resultType="Integer">
+		select count(*) from
+		craw_url
+		where craw_status=#{status}
+	</select>
+
+    <update id="updateStatusByUrl">
+		update craw_url set craw_status=#{status} where
+		craw_url=#{crawUrl}
+	</update>
+
+    <update id="deleteByDesignerId">
+		delete from craw_url where craw_designer_id=#{craw_designer_id}
+	</update>
+
+</mapper>

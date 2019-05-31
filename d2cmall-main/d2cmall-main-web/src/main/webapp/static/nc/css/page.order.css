@@ -1,0 +1,891 @@
+.layout-cart, .layout-order {
+    background: #FFF;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    min-height: 600px;
+}
+
+.cart-empty {
+    margin: auto;
+    text-align: left;
+    width: 300px;
+    line-height: 70px;
+    padding: 150px 15px 15px 200px;
+    background: url('img/cart_empty.png') 100px 150px no-repeat
+}
+
+.cart-empty p {
+    font-size: 14px;
+    font-weight: bold;
+    color: #666
+}
+
+.cart-empty a {
+    color: blue
+}
+
+.cart-status {
+    height: 30px;
+}
+
+.cart-status span {
+    float: left;
+    font-family: Arial;
+}
+
+.cart-status span.process-bar {
+    margin: 3px;
+    width: 200px;
+    border: 1px solid #CCC;
+    background: #FFF;
+    height: 7px;
+    padding: 1px;
+}
+
+.cart-status span.process-bar em {
+    display: block;
+    background: #F2F2F2;
+    height: 100%;
+}
+
+.promotion-td {
+    position: relative
+}
+
+.promotion-choose {
+    color: black;
+    border: 1px solid #dc9a9a;
+    border-radius: 5px;
+    background: #fffdfd;
+    display: none;
+    position: absolute;
+    z-index: 99;
+    right: 10px;
+    padding: 10px 5px;
+    width: 300px;
+}
+
+.promotion-choose p {
+    line-height: 45px;
+}
+
+.num-change {
+    display: inline-block;
+    border: 1px solid #CCC;
+    line-height: 36px;
+    width: 33px;
+    font-size: 20px;
+    vertical-align: middle;
+}
+
+.num-change:active {
+    background: #F2F2F2
+}
+
+.num-change ~ .input {
+    border-radius: 0;
+}
+
+.num-change ~ .tip {
+    background: none;
+    color: #FF6600;
+    padding: 5px 0 0 0;
+    box-shadow: none;
+    line-height: 15px;
+}
+
+.important {
+    font-weight: bold;
+    font-family: 'Arial';
+    color: #Fd555d
+}
+
+.important.level-one {
+    font-size: 20px;
+}
+
+.important.level-two {
+    font-size: 14px;
+}
+
+.cart-step.step1 {
+    background: url(//static.d2c.cn/img/home/160627/images/order_step1.png) no-repeat;
+    width: 652px;
+    height: 49px;
+    float: right;
+    margin-top: 30px;
+    margin-right: 18px;
+}
+
+.cart-step.step2 {
+    background: url(//static.d2c.cn/img/home/160627/images/order_step2.png) no-repeat;
+    width: 652px;
+    height: 49px;
+    float: right;
+    margin-top: 30px;
+    margin-right: 18px;
+}
+
+.cart-step.step3 {
+    background: url(//static.d2c.cn/img/home/160627/images/order_step3.png) no-repeat;
+    width: 652px;
+    height: 49px;
+    float: right;
+    margin-top: 30px;
+    margin-right: 18px;
+}
+
+h2.order-title {
+    font-size: 14px;
+    border-bottom: 1px solid #DEDEDE;
+    margin: 0 0 5px 0;
+    padding: 8px 0 5px 0;
+    line-height: 25px;
+}
+
+h2.order-title .order-tips {
+    color: #fd555d;
+    float: right;
+    margin-right: 30px;
+    border: 1px solid #fd555d;
+    padding: 0 10px;
+    font-size: 12px;
+    margin-top: -7px;
+    position: relative;
+}
+
+h2.order-title .fa {
+    font-size: 16px;
+}
+
+h2.order-title a {
+    font-weight: normal;
+}
+
+.address-list, .payment-div .payment-li {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.address-list .address-item {
+    float: left;
+    width: 244px;
+    height: 90px;
+    padding: 5px;
+    font-family: Arial;
+    margin: 1px 10px 5px 0;
+    border: 1px solid #DDD;
+    cursor: pointer;
+    position: relative
+}
+
+.address-list .address-item label {
+    display: block;
+    width: 215px;
+    height: 90px
+}
+
+.address-list .address-item p {
+    padding: 4px 8px;
+    margin: 0;
+    line-height: 200%;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.address-list .address-item p.first-line {
+    border-bottom: 1px dotted #CCC
+}
+
+.address-list .address-item i {
+    display: none
+}
+
+.address-list .address-item.on {
+    color: #000;
+    border: 2px solid #FD555D;
+    margin: 0 9px 4px -1px;
+}
+
+.address-list .address-item.on i {
+    display: block;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+}
+
+.address-list .address-item.on i.check {
+    background: url(//static.d2c.cn/common/nc/css/img/comnon-icon.png) -166px -868px no-repeat
+}
+
+.address-list .address-item .set-default {
+    display: none;
+}
+
+.address-list .address-item.on .is-default {
+    display: inline-block;
+}
+
+.address-list .address-item-vertical {
+    float: none;
+    width: 95%;
+    height: 15px;
+    padding: 12px 15px;
+    margin: 0 0 5px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.address-list .address-item-vertical span.fa {
+    visibility: hidden;
+    font-size: 18px;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.address-list .address-item-vertical.on i {
+    bottom: 8px;
+    right: 10px;
+}
+
+.address-list .address-item-vertical.on span.fa {
+    visibility: visible;
+}
+
+.address-list .address-item-vertical:hover, .address-list .address-item-vertical.on {
+    margin: -1px -1px 4px -1px;
+}
+
+
+.address-list .address-item.on .set-default {
+    display: inline-block
+}
+
+.address-list .address-item.on p.first-line, .address-list .address-item:hover p.first-line {
+    border-color: #399869
+}
+
+.address-list .address-item.on a.float-right {
+    display: inline
+}
+
+.address-list .address-add {
+    float: left;
+    width: 90px;
+    height: 90px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #DDD;
+    cursor: pointer;
+}
+
+.address-list .address-add .fa {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 60px;
+    line-height: 70px;
+}
+
+.address-list .address-add.on {
+    color: #FD555D;
+    border-color: #FD555D
+}
+
+.address-list .address-add-vertical {
+    float: none;
+    width: 95%;
+    height: 15px;
+    padding: 12px 15px;
+    margin: 4px 0;
+    text-align: left;
+}
+
+.address-list .address-add-vertical .fa {
+    display: inline-block;
+    margin: 0 5px 0 0;
+    font-size: 16px;
+    line-height: normal;
+    vertical-align: -2px;
+}
+
+/*订单详情*/
+.pay-order-detail {
+    border: 1px solid #dedede;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.pay-order-detail p {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 6px 0;
+    line-height: 150%;
+}
+
+.pay-order-detail .pay-user-info {
+    border-top: 1px solid #ededed;
+    padding-top: 5px;
+}
+
+.payment-div {
+    border-top: 1px solid #ededed;
+    border-bottom: 1px solid #ededed;
+}
+
+.payment-div .payment-li {
+    border-bottom: 1px dotted #399869
+}
+
+.payment-div .payment-li ul {
+    display: none
+}
+
+.payment-div .payment-li:last-child {
+    border: none
+}
+
+.payment-div .payment-li.on {
+    background: #f8f8f8
+}
+
+.payment-div .payment-li.on ul {
+    display: block;
+    margin-left: 40px
+}
+
+.payment-div .payment-li .commend-pay, .payment-div .payment-li .bank-pay {
+    padding: 12px 30px;
+    font-size: 14px;
+    color: #999;
+    position: relative
+}
+
+.payment-div .payment-li .pay-li label i {
+    display: none;
+    position: absolute;
+    background: url(//static.d2c.cn/common/nc/css/img/comnon-icon.png) -375px -950px no-repeat;
+    width: 20px;
+    height: 20px;
+    bottom: 0;
+    right: 0;
+}
+
+.payment-div .payment-li .pay-li label.on i.select {
+    display: block;
+}
+
+.payment-div .payment-li .pay-li {
+    float: left;
+    margin: 0 15px 8px 0
+}
+
+.payment-div .payment-li .pay-li input {
+    float: left;
+    margin-top: 7px
+}
+
+.payment-div .payment-li .pay-li label {
+    position: relative;
+    display: block;
+    float: left;
+    margin-left: 5px;
+    background-color: #FFF;
+    width: 160px;
+    line-height: 60px;
+    text-indent: -9999px;
+    border: 1px solid #CCC;
+    cursor: pointer
+}
+
+.payment-div .payment-li .pay-li label.ALIPAY {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/alipay.png) no-repeat
+}
+
+.payment-div .payment-li .pay-li label.WXSCANPAY {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/wxpay.png) no-repeat
+}
+
+.payment-div .payment-li .pay-li label.COD {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/cod.png) no-repeat
+}
+
+.payment-div .payment-li .pay-li label.WALLET {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/wallet.png) no-repeat
+}
+
+.payment-div .payment-li input[type=radio] {
+    display: none;
+}
+
+.bank-pay i {
+    display: inline-block;
+    position: absolute;
+    top: 12px;
+    left: 125px;
+    border: 1px solid #000;
+    border-top: none;
+    border-left: none;
+    content: '';
+    color: #000;
+    width: 10px;
+    height: 10px;
+    background: none;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.bank-pay i.up {
+    -webkit-transform: rotate(225deg);
+    -ms-transform: rotate(225deg);
+    -o-transform: rotate(225deg);
+    transform: rotate(225deg);
+    top: 20px
+}
+
+.pay-content p {
+    line-height: 140%;
+    font-size: 10px;
+    color: #000;
+}
+
+.payment-div .payment-li .pay-li label.on {
+    border: 2px solid #FD555D;
+    margin: -1px -1px -1px 4px;
+    box-shadow: 0 2px 3px #CCC;
+}
+
+.payment-div .payment-li .pay-li-other {
+    float: left;
+    padding-top: 10px;
+    color: #FF3300;
+    text-align: center;
+    width: 100px
+}
+
+.payment-div .payment-li .pay-li-other a {
+    color: #FF3300
+}
+
+
+.order-toggle-item, .order-invoice {
+    font-size: 15px;
+    color: #222;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    margin: 5px 0;
+}
+
+.order-toggle-item strong {
+    position: relative;
+}
+
+.order-toggle-item b {
+    position: absolute;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background: #fd555d;
+    top: -5px;
+    right: -5px;
+    border-radius: 100%;
+}
+
+.order-toggle-item i {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    right: -25px;
+    border: 1px solid #000;
+    border-top: none;
+    border-left: none;
+    content: '';
+    color: #000;
+    width: 10px;
+    height: 10px;
+    background: none;
+}
+
+.order-toggle-item i.coupon-down {
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.order-toggle-item i.coupon-up {
+    -webkit-transform: rotate(-135deg);
+    -ms-transform: rotate(-135deg);
+    -o-transform: rotate(-135deg);
+    transform: rotate(-135deg);
+    top: 7px;
+}
+
+.order-coupon-item {
+    cursor: pointer;
+    width: 220px;
+    height: 120px;
+    border: 2px solid #fd555d;
+    float: left;
+    margin: 20px 0 20px 20px;
+    position: relative;
+}
+
+.order-coupon-item i {
+    display: none;
+    position: absolute;
+    content: '';
+    width: 36px;
+    height: 36px;
+    background: url(//static.d2c.cn/img/home/160627/images/choose.png) no-repeat;
+    bottom: -11px;
+    right: -11px;
+}
+
+.order-coupon-item.on i {
+    display: inline-block;
+}
+
+.order-coupon-item.disable {
+    border: 2px solid #b3b3b3
+}
+
+.order-coupon-item .coupon-expiredate {
+    width: 100px;
+    height: 120px;
+    background: #fd555d;
+    float: left;
+    text-align: center;
+    color: #fff;
+}
+
+.order-coupon-item .coupon-expiredate.disable {
+    background: #b3b3b3;
+}
+
+.order-coupon-item .coupon-price.disable p {
+    color: #b3b3b3 !important;
+}
+
+.order-coupon-item .coupon-show {
+    width: 9px;
+    height: 120px;
+    float: left;
+}
+
+.order-coupon-item .direction {
+    cursor: pointer;
+    display: inline-block;
+    position: absolute;
+    bottom: 5px;
+    right: 7px;
+    color: #b3b3b3;
+    line-height: 16px;
+}
+
+.nocoupon {
+    background: #f8f8f8;
+    border: 1px solid #ededed;
+    height: 80px;
+    line-height: 80px;
+    padding-left: 90px;
+    color: #999;
+    font-size: 16px
+}
+
+.order-coupon-item .coupon-show.enable {
+    background: url(//static.d2c.cn/img/home/160627/images/coupon_red.png) no-repeat
+}
+
+.order-coupon-item .coupon-show.disable {
+    background: url(//static.d2c.cn/img/home/160627/images/coupon_gray.png) no-repeat
+}
+
+.order-coupon-item .coupon-price p:last-child {
+    font-size: 12px;
+    color: #fd555d;
+    margin-top: 0;
+}
+
+.order-coupon-item .coupon-expiredate p:first-child {
+    font-size: 32px;
+    margin-top: 22px;
+    color: #FFF;
+    text-align: center;
+    margin-bottom: 0;
+}
+
+.order-coupon-item .coupon-price p:first-child {
+    margin-top: 25px;
+    font-size: 14px;
+    height: 40px;
+    overflow: hidden;
+    line-height: 150%;
+    color: #000;
+}
+
+.order-coupon-item .direction-info {
+    color: #b3b3b3 !important;
+    position: absolute;
+    width: 0;
+    height: 120px;
+    border: 2px solid #b3b3b3;
+    border-style: solid solid solid dashed;
+    top: -2px;
+    left: 219px;
+    background-color: #F8F8F8;
+    font-size: 14px;
+    z-index: 2;
+    display: none;
+    text-align: left;
+}
+
+.order-coupon-item .coupon-price {
+    float: left;
+    width: 100px;
+    margin-left: 5px;
+}
+
+.wxpay-wrap {
+    text-align: center;
+    padding: 100px;
+}
+
+.wxpay-title {
+    color: #CCC;
+    padding-bottom: 10px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.wxpay-code {
+    position: relative;
+    margin: auto;
+    width: 250px;
+    height: 250px;
+}
+
+.wxpay-tip {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    opacity: 0;
+    -webkit-transition: all 1.5s ease-in-out;
+    -moz-transition: all 1.5s ease-in-out;
+    -o-transition: all 1.5s ease-in-out;
+    -ms-transition: all 1.5s ease-in-out;
+    transition: all 1.5s ease-in-out;
+    z-index: 2;
+}
+
+.wxpay-code:hover .wxpay-tip {
+    right: -200px;
+    opacity: 1;
+}
+
+.wxpay-price {
+    vertical-align: middle;
+    color: #CCC;
+    padding: 15px 0;
+}
+
+.wxpay-price strong {
+    font-size: 20px;
+    vertical-align: middle;
+    font-family: arial;
+}
+
+.tab-user-menu {
+}
+
+.ABC {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/abc.png) no-repeat
+}
+
+.BJBANK {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/alipay.png) no-repeat
+}
+
+.BJRCB {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/alipay.png) no-repeat
+}
+
+.BOC {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/ccbc.png) no-repeat
+}
+
+.CCB {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/ccb.png) no-repeat
+}
+
+.CEB {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/ebc.png) no-repeat
+}
+
+.CIB {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/alipay.png) no-repeat
+}
+
+.CITIC {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/ccbcl.png) no-repeat
+}
+
+.CMB {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/ccmb.png) no-repeat
+}
+
+.CMBC {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/cmb.png) no-repeat
+}
+
+.COMM {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/bc.png) no-repeat
+}
+
+.FDB {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/alipay.png) no-repeat
+}
+
+.GDB {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/gdb.png) no-repeat
+}
+
+.HZCB {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/hbc.png) no-repeat
+}
+
+.ICBC {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/icbc.png) no-repeat
+}
+
+.NBBANK {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/bn.png) no-repeat
+}
+
+.PSBC {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/alipay.png) no-repeat
+}
+
+.SDB {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/sdb.png) no-repeat
+}
+
+.SHBANK {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/bs.png) no-repeat
+}
+
+.SHRCB {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/alipay.png) no-repeat
+}
+
+.SPABANK {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/pa.png) no-repeat
+}
+
+.SPDB {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/spdb.png) no-repeat
+}
+
+.WZCB {
+    background: url(//static.d2c.cn/common/nc/css/img/bank/alipay.png) no-repeat
+}
+
+.logistics {
+    position: relative;
+}
+
+.logistics_list {
+    overflow: hidden;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #E5E4E2
+}
+
+.logistics_detail {
+    position: absolute;
+    border: 1px solid #FD555D;
+    padding: 15px;
+    top: 33px;
+    left: -60px;
+    width: 240px;
+    z-index: 1;
+    background: #fff;
+    display: none
+}
+
+.logistics_detail:before {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid #fff;
+    top: -10px;
+    left: 115px;
+    z-index: 3
+}
+
+.logistics_detail:after {
+    position: absolute;
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 11px solid transparent;
+    border-right: 11px solid transparent;
+    border-bottom: 11px solid #FD555D;
+    top: -11px;
+    left: 114px;
+    z-index: 2
+}
+
+.logistics_detail p {
+    margin: 2px 0 !important;
+    line-height: 150%;
+    text-align: left;
+}
+
+.logistics_list .logis-detail-d {
+    margin-left: 7px;
+    position: relative;
+    border-left: 1px solid #E5E4E2;
+    padding: 0 0 10px 15px
+}
+
+.logistics_list .logis-detail-d:after {
+    position: absolute;
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 100%;
+    background-color: #E5E4E2;
+    top: 4px;
+    left: -4px;
+}
+
+.logistics_list ul li:first-child .logis-detail-content p {
+    color: #03A3ED;
+}
+
+.logistics_list ul li:first-child .logis-detail-d:after {
+    position: absolute;
+    content: '';
+    width: 14px;
+    height: 14px;
+    border-radius: 100%;
+    background-color: #03A3ED;
+    top: 4px;
+    left: -7px;
+}

@@ -1,0 +1,1166 @@
+.breadcrumb {
+    color: #666;
+    font-family: 'simSun';
+    overflow: hidden;
+    color: #AAA;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 15px 0
+}
+
+.breadcrumb a, .breadcrumb span {
+    font-family: Arial;
+    color: #000
+}
+
+.breadcrumb a:hover {
+    color: #f30
+}
+
+.breadcrumb i {
+    color: #666;
+    font-size: 20px;
+    vertical-align: -3px;
+}
+
+.breadcrumb .float-right {
+    margin-top: 2px;
+    color: #666;
+}
+
+.breadcrumb .search-bar {
+    position: relative;
+    display: inline-block;
+}
+
+.breadcrumb .search-bar input {
+    color: #333
+}
+
+.breadcrumb .search-bar i {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.scroll-top {
+    display: none;
+    width: 46px;
+    height: 46px;
+    position: fixed;
+    right: 1px;
+    top: 609px;
+    cursor: pointer;
+    z-index: 5;
+}
+
+.scroll-top a {
+    width: 46px;
+    height: 46px;
+    display: block;
+    background: #76787A url('//static.d2c.cn/common/nc/css/img/comnon-icon.png') -423px -45px no-repeat;
+    text-indent: -9999px;
+}
+
+
+.service-suspend {
+    width: 46px;
+    height: 251px;
+    position: fixed;
+    right: 1px;
+    top: 297px;
+    z-index: 99;
+    cursor: pointer;
+}
+
+.service-main {
+    display: none;
+    width: 110px;
+    position: absolute;
+    left: -130px;
+    bottom: -50px;
+    background: #FFF;
+    text-align: center;
+    z-index: 1
+}
+
+.service-main .service-qq {
+    padding: 10px 0;
+}
+
+.service-suspend .service-content {
+    text-align: center;
+    width: 46px;
+    height: 46px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-top: 5px;
+    background: url(//static.d2c.cn/common/nc/css/img/comnon-icon.png) no-repeat -1px -1px #76787A;
+    position: relative;
+    overflow: hidden;
+}
+
+.service-suspend .text-info a {
+    width: 46px;
+    height: 46px;
+    line-height: 46px;
+    color: #fff;
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-weight: 700;
+    -webkit-transform-origin: -50% 50%;
+    transform-origin: -50% 50%;
+    -webkit-transform: rotate3d(0, 0, 1, 90deg);
+    transform: rotate3d(0, 0, 1, 90deg);
+    -webkit-transition-webkit-transform .3s ease-in;
+    transition: transform .3s ease-in;
+    background: #fd555d;
+}
+
+.service-suspend .text-info .show {
+    -webkit-transform: rotate3d(0, 0, 0, 0);
+    transform: rotate3d(0, 0, 0, 0);
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+}
+
+.service-suspend .service-phone {
+    border-radius: 0;
+    background-position: -167px -45px;
+    position: relative;
+    background-color: #fd555d
+}
+
+.service-suspend .customer {
+    background-position: -210px -44px;
+    background-color: #fd555d
+}
+
+.service-suspend .cart {
+    background-position: -252px -45px;
+}
+
+.service-suspend .collection {
+    background-position: -341px -45px;
+}
+
+.service-suspend .order {
+    background-position: -382px -45px;
+}
+
+.service-suspend .service-phone-detail {
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    line-height: 46px;
+    position: absolute;
+    width: 0;
+    right: 51px;
+    height: 46px;
+    top: 5px;
+    background: #fd555d;
+    overflow: hidden;
+    z-index: 1;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.service-suspend .show {
+    width: 110px;
+}
+
+.pages {
+    margin: auto;
+    padding: 0;
+    height: 50px;
+    text-align: center;
+    line-height: 50px
+}
+
+.pages span, .pages a {
+    display: inline-block;
+    padding: 6px 5px 4px 5px;
+    font: bold 12px Arial;
+    color: #999
+}
+
+.pages .page-pn {
+    border: 1px solid #999;
+    border-radius: 4px;
+    padding: 10px 14px;
+    margin: 0 10px
+}
+
+.pages span.current {
+    font-weight: bold;
+    color: #FD555D;
+}
+
+.pages span.disabled {
+    border: 1px solid #CCC;
+    color: #999;
+    background: #F5F5F5;
+    cursor: default
+}
+
+.pages a em, .pages span em {
+    display: inline-block;
+    width: 5px;
+    overflow: hidden;
+    text-align: left;
+    color: #f07181;
+    font: normal 12px 'SimSun';
+    margin-right: 3px;
+    vertical-align: middle
+}
+
+.pages a em.right, .pages span em.right {
+    text-align: right;
+    margin-left: 3px;
+    margin-right: 0;
+    text-indent: -7px
+}
+
+.pages span.disabled em {
+    color: #999
+}
+
+.pages span.status {
+    padding-top: 17px
+}
+
+.upload-pic {
+    display: inline-block;
+    background: url(//static.d2c.cn/common/nc/css/img/comnon-icon.png) no-repeat -161px -767px;
+    text-indent: -9999px;
+    width: 40px;
+    height: 40px
+}
+
+.tip {
+    background: none;
+    font-family: Arial;
+    position: relative;
+    color: #Fd555d
+}
+
+.tip-warning {
+    background: #ff6000;
+    color: #FFF;
+    padding: 10px
+}
+
+.tip-validate {
+    background: none;
+    color: #ff6600;
+    box-shadow: none;
+    padding: 8px 0 0 5px;
+    line-height: 15px;
+    display: none
+}
+
+.tip.tip-multi-line {
+    padding: 5px 10px 5px 30px;
+    line-height: 160%;
+    z-index: 1;
+}
+
+.tip.tip-multi-line p {
+    margin: 3px 0;
+    font-family: 'simsun'
+}
+
+.tip.tip-multi-line i.fa {
+    position: absolute;
+    left: 10px;
+    top: 12px;
+}
+
+.tip.tip-warning.tip-outline {
+    background: #fff9f5;
+    color: #cf4e00;
+    border: 1px solid #ed8444
+}
+
+.tip.tip-multi-line.tip-outline {
+    background: #fff;
+    color: #FD555D;
+    border: 1px solid #FD555D;
+    margin-top: 30px
+}
+
+.modal-mask {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    text-align: left
+}
+
+.modal-mask {
+    background-color: #000;
+    filter: alpha(opacity=30);
+    -moz-opacity: 0.3;
+    opacity: 0.3
+}
+
+.modal-hideselect {
+    top: 0;
+    left: 0;
+    background: transparent;
+    border: none;
+    filter: alpha(opacity=0);
+    -moz-opacity: 0;
+    opacity: 0;
+    height: 100%;
+    width: 100%
+}
+
+.modal-outer {
+    position: fixed;
+    text-align: left;
+    background: #fff;
+    border-radius: 5px;
+    border: 4px solid #E5E5E5
+}
+
+.modal-loading {
+    position: fixed;
+    text-align: left;
+    width: 220px;
+    height: 19px;
+    background: url('img/loading.gif') no-repeat;
+    z-index: 50
+}
+
+.modal-inner {
+    padding-bottom: 15px
+}
+
+.modal-inner .modal-title {
+    height: 40px;
+    line-height: 40px;
+}
+
+.modal-inner .modal-title a {
+    margin-top: 2px;
+    *margin-top: 0px
+}
+
+.modal-inner .modal-title p {
+    background: #F8F8F8;
+    padding-left: 15px;
+    letter-spacing: 1px;
+    font-size: 14px;
+}
+
+.modal-inner .modal-remove {
+    position: absolute;
+    right: 10px;
+    top: 8px;
+    font-size: 25px;
+    color: #999;
+    z-index: 9
+}
+
+.modal-inner .modal-remove:hover {
+    color: #666;
+}
+
+.modal-inner .modal-content {
+    margin-top: 15px;
+    color: #222;
+    padding-bottom: 0px;
+    margin: 15px 15px 0
+}
+
+.modal-inner .modal-content #alert-content {
+    padding: 10px
+}
+
+.modal-inner .modal-content #alert-content div {
+    padding-right: 15px;
+    letter-spacing: 1px;
+    font-family: Arial;
+    line-height: 25px;
+    height: auto !important;
+    height: 60px;
+    min-height: 60px
+}
+
+.modal-inner .modal-content #alert-content em {
+    float: left;
+    display: block;
+    width: 70px;
+    height: 50px;
+    font-size: 60px;
+    color: #FF6600;
+}
+
+.modal-inner .modal-content #alert-content .alert {
+    background-position: 10px 5px
+}
+
+.modal-inner .modal-content #alert-content .confirm {
+    background-position: 10px -50px;
+    word-wrap: break-word;
+    word-break: break-all
+}
+
+.modal-inner .modal-content #alert-bar {
+    clear: both;
+    padding-top: 5px;
+    height: 32px;
+    text-align: center
+}
+
+.modal-inner .modal-content #alert-bar button {
+    margin: 0 10px;
+}
+
+.login-app a {
+    float: left;
+    margin-right: 8px
+}
+
+.login-qq, .login-sina, .login-weixin {
+    display: block;
+    width: 126px;
+    height: 26px;
+    margin-bottom: 5px;
+    background: url('img/login_app.png') no-repeat;
+    text-indent: -9999px
+}
+
+.login-qq {
+    background-position: 0 -33px
+}
+
+.login-sina {
+    background-position: 0 0
+}
+
+.login-weixin {
+    background-position: 0 -66px
+}
+
+.modal-login .login, .modal-login .register {
+    float: left;
+    padding: 2% 5%;
+    width: 40%;
+}
+
+.modal-login .register {
+    border-left: 1px dotted #CCC;
+    margin-left: -1px;
+}
+
+.modal-login h2 {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    height: 24px;
+}
+
+.modal-login .form .form-item {
+    border: none;
+    padding: 10px 0 0 0
+}
+
+.modal-login .form-button .button {
+    width: 100px;
+}
+
+.modal-login .quick-login {
+    clear: both;
+    margin-top: 20px;
+    border-top: 1px dotted #CCC;
+}
+
+.modal-login p.login-app a {
+    display: inline-block;
+    width: 70px;
+    height: 21px;
+    line-height: 21px;
+    text-indent: 20px
+}
+
+.modal-login p.login-app .login-qq {
+    background-position: 0 -152px
+}
+
+.modal-login p.login-app .login-sina {
+    background-position: 0 -129px
+}
+
+.modal-login p.login-app .login-weixin {
+    background-position: 0 -175px
+}
+
+.suspend-navs {
+    position: absolute;
+    width: 40px;
+    top: 20px;
+    left: 50%;
+    z-index: 9
+}
+
+.suspend-navs a {
+    display: block;
+    line-height: 33px;
+    margin-top: 3px;
+    text-align: center;
+    background: #FFF;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: -1px;
+    position: relative;
+    z-index: 1;
+    color: #999;
+}
+
+.suspend-navs.suspend-fixed {
+    position: fixed;
+}
+
+.suspend-navs a.on {
+    z-index: 2;
+    color: #FD555D;
+    border-color: #FD555D;
+    -webkit-transition: all .5s linear;
+    -moz-transition: border .5s linear;
+    -o-transition: border .5s linear;
+    -ms-transition: border .5s linear;
+    transition: border .5s linear
+}
+
+.suspend-navs .search-icon {
+    display: block;
+    margin: auto;
+    width: 38px;
+    height: 35px;
+    margin-bottom: -1px;
+}
+
+.suspend-navs .search-icon {
+    font-size: 18px;
+    height: 35px;
+}
+
+.suspend-navs .search-icon .fa {
+    line-height: 35px;
+}
+
+.suspend-navs .float-search {
+    position: absolute;
+    width: 0;
+    left: 39px;
+    top: 0;
+    background: #FFF;
+    overflow: hidden;
+    z-index: 1;
+    -webkit-transition: all 0.3s linear;
+    -moz-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    -ms-transition: all 0.3s linear;
+    transition: all 0.3s linear;
+}
+
+.suspend-navs .float-search form {
+    width: 210px;
+    border: 1px solid #F0F0F0;
+    border-left: none;
+    padding: 4px;
+}
+
+.suspend-navs .float-search input {
+    border: 1px solid #fd555d;
+    padding: 0 8px;
+    height: 28px;
+    width: 145px;
+}
+
+.suspend-navs .float-search button {
+    border: none;
+    background: #fd555d;
+    height: 30px;
+    padding: 0 10px;
+    color: #FFF;
+}
+
+.suspend-navs .float-search.show {
+    width: 217px;
+}
+
+.share-box {
+    display: inline-block;
+    position: relative
+}
+
+.share-box a.share {
+    cursor: pointer;
+    outline: none;
+    vertical-align: middle;
+    display: inline-block;
+    width: 31px;
+    height: 31px;
+    background-image: url(//static.d2c.cn/common/nc/css/img/nicon_share.png);
+    background-repeat: no-repeat;
+    margin: 0 5px
+}
+
+.share-box .weibo {
+    background-position: -120px 0
+}
+
+.share-box .qq {
+    background-position: -40px 0
+}
+
+.share-box .tqq {
+    background-position: -200px 0
+}
+
+.share-box .qzone {
+    background-position: -80px 0
+}
+
+.share-box .weixin {
+    background-position: 0 0
+}
+
+.share-box .douban {
+    background-position: -160px 0
+}
+
+.share-to-weixin {
+    position: absolute;
+    background: #FFF;
+    border-radius: 10px;
+    border: 1px solid #EDEDED;
+    box-shadow: 0 0 5px #CCC;
+    width: 300px;
+    height: 325px;
+    right: 0;
+    bottom: 30px;
+}
+
+.share-to-weixin p {
+    margin: 0;
+}
+
+.share-to-weixin p.title {
+    text-align: left;
+    padding: 10px 15px;
+    border-bottom: 1px solid #EDEDED;
+    font-size: 14px
+}
+
+.share-to-weixin p.barcode {
+    padding: 15px;
+    text-align: center
+}
+
+.share-to-weixin p.info {
+    text-align: left;
+    padding: 10px 15px;
+    border-top: 1px solid #EDEDED
+}
+
+.pcomment-item {
+    margin: 0 10px 20px 10px;
+    padding: 20px;
+    border-bottom: 1px solid #f0f0f0;
+    overflow: hidden;
+}
+
+.pcomment-item .item-stars {
+    width: 16%;
+    float: left;
+    text-align: left;
+}
+
+.pcomment-item .comment-content {
+    width: 68%;
+    text-align: left;
+    font-size: 14px;
+    line-height: 150%;
+    float: left;
+    min-height: 1px
+}
+
+.pcomment-item .hover-img {
+    float: left;
+    display: block;
+    margin-right: 10px;
+    height: 120px;
+    margin-top: 10px
+}
+
+.pcomment-item .item-stars p {
+    margin: 10px 0;
+}
+
+.pcomment-item .comment-form {
+    text-align: center;
+    width: 12%;
+    float: left;
+}
+
+.pcomment-item .comment-form .head {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
+
+.r-star {
+    display: inline-block;
+    width: 20px;
+    height: 18px;
+    background: url(//static.d2c.cn/common/nc/css/img/comnon-icon.png) -251px -779px no-repeat;
+    margin-right: 5px
+}
+
+.w-star {
+    display: inline-block;
+    width: 20px;
+    height: 18px;
+    background: url(//static.d2c.cn/common/nc/css/img/comnon-icon.png) -291px -779px no-repeat;
+    margin-right: 5px
+}
+
+.replay-item .reply {
+    font-size: 14px;
+    width: 68%;
+    float: left;
+    position: relative;
+    background: #f8f8f8;
+    color: #f39700;
+    min-height: 30px;
+    padding: 10px 5px;
+    text-align: left;
+}
+
+.replay-item .reply:before {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-width: 8px;
+    background: #fff;
+    border-color: transparent transparent #f8f8f8 transparent;
+    border-style: solid;
+    line-height: 150%;
+    top: -16px;
+    left: 6%;
+}
+
+.pcomment-item .verified {
+    border-top: 1px dashed #f0f0f0;
+    margin-top: 20px;
+}
+
+.pcomment-item .prozp {
+    float: left;
+    font-size: 14px;
+    text-align: left;
+    padding-top: 10px;
+    line-height: 150%;
+    min-height: 30px
+}
+
+.consult-item {
+    margin: 0 10px;
+    padding: 10px;
+    border-bottom: 1px solid #CCC;
+    font-size: 12px;
+}
+
+.consult-item .d2cuser, .consult-item .d2csonsult, .consult-item .d2cans {
+    text-align: left;
+    padding: 5px 0;
+    overflow: hidden;
+}
+
+.consult-item .consult-content, .consult-item .consult-reply {
+    display: block;
+    float: left;
+}
+
+.consult-item .consult-reply {
+    color: #fba532
+}
+
+.consult-item .replydate {
+    float: right;
+    display: inline-block;
+}
+
+.consult-top {
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px
+}
+
+.consult-publish {
+    text-align: left;
+    margin: 0 10px;
+    float: left;
+    padding-left: 10px;
+    position: absolute;
+    padding-top: 10px
+}
+
+.consult-publish .button-consult, .button-top-consult {
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 3px;
+    background-color: #fd555d;
+    font-size: 12px;
+    margin-left: 5px;
+    padding: 0 10px
+}
+
+.w-consult {
+    position: relative;
+    border: 1px solid #dedede;
+    width: 86%;
+    text-align: left;
+    margin: 0 auto;
+}
+
+.w-consult h5 {
+    padding: 10px 0 0 10px;
+    line-height: 16px;
+    font-size: 14px;
+    margin: 0;
+}
+
+.w-consult p {
+    padding: 10px 20px;
+    margin: 0;
+}
+
+.w-consult .r-consult {
+    width: 80%;
+    height: 50px;
+    border-color: rgb(169, 169, 169);
+    font-size: 14px;
+    padding: 5px;
+    margin: 10px 0 5px 20px;
+}
+
+.w-consult .s-consult {
+    margin-bottom: 5px;
+    margin-left: 20px;
+    border-radius: 3px;
+    background-color: #FD555D;
+    color: #FFF;
+    border: 1px solid #FD555D;
+    height: 35px;
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    font-size: 12px;
+    width: 12%;
+    display: block;
+}
+
+.float-modal {
+    position: absolute;
+    border-radius: 3px;
+    background: #FFF;
+    box-shadow: 0 0 10px #999;
+    margin: 5px 0;
+    color: #222;
+    z-index: 99;
+    text-align: left
+}
+
+.float-modal h3 {
+    line-height: 26px;
+    padding: 3px 5px 0 10px;
+    font-size: 12px;
+    margin: 0;
+    border-bottom: 1px dotted #fd555d
+}
+
+.float-modal h3 a.close {
+    float: right;
+    margin: 2px;
+    font-size: 20px;
+}
+
+.float-modal .modal-cont {
+    padding: 10px 8px
+}
+
+.flash-tips-success, .flash-tips-error, .flash-tips-warning {
+    position: fixed;
+    padding: 8px 12px 6px 12px;
+    line-height: 25px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #999;
+    font-size: 14px;
+    text-align: left;
+    z-index: 999;
+    min-width: 250px
+}
+
+.flash-tips-success {
+    border: 4px solid #7ABD54;
+    background: #fff;
+    color: #7ABD54
+}
+
+.flash-tips-error {
+    border: 4px solid #fd555d;
+    background: #fff;
+    color: #fd555d
+}
+
+.flash-tips-warning {
+    border: 4px solid #EFE241;
+    background: #fff;
+    color: #fd555d
+}
+
+.flash-tips-success i, .flash-tips-error i, .flash-tips-warning i {
+    display: inline-block;
+    width: 35px;
+    height: 26px;
+    vertical-align: middle;
+    font-size: 25px;
+}
+
+
+.scrollbar {
+    width: 100%;
+}
+
+.scrollbar .viewport {
+    width: 95%;
+    height: 600px;
+    overflow: hidden;
+    position: relative;
+}
+
+.scrollbar .overview {
+    list-style: none;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.scrollbar .scrollbar {
+    position: relative;
+    background-position: 0 0;
+    float: right;
+    width: 5px;
+}
+
+.scrollbar .track {
+    height: 100%;
+    width: 5px;
+    position: relative;
+}
+
+.scrollbar .thumb {
+    background: #CCC;
+    height: 20px;
+    width: 3px;
+    cursor: pointer;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+}
+
+/* .scrollbar .thumb .end { background: transparent url(images/bg-scrollbar-thumb-y.png) no-repeat 50% 0; overflow: hidden; height: 5px; width: 25px; } */
+.scrollbar .disable {
+    display: none;
+}
+
+.no-select {
+    user-select: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+}
+
+.datepicker {
+    position: relative;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    width: 196px;
+    height: 147px;
+    position: absolute;
+    cursor: default;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    display: none
+}
+
+.datepicker td, .datepicker a {
+    text-align: center;
+    font-family: Arial;
+    font-size: 11px;
+    font-weight: bold
+}
+
+.datepicker-container {
+    background: #F2F2F2;
+    padding: 5px;
+    position: absolute;
+    border: 1px solid #666;
+    top: 27px;
+    left: 0
+}
+
+.datepicker-hidden {
+    display: none
+}
+
+.datepicker table {
+    border-collapse: collapse
+}
+
+.datepicker a {
+    color: #000;
+    text-decoration: none;
+    cursor: default;
+    outline: none
+}
+
+.datepicker table td {
+    text-align: right;
+    padding: 0;
+    margin: 0
+}
+
+.datepicker th {
+    text-align: center;
+    color: #666;
+    font-weight: normal
+}
+
+.datepicker tbody th {
+    text-align: left
+}
+
+.datepicker tbody a {
+    display: block
+}
+
+.datepicker-days a {
+    width: 25px;
+    line-height: 22px;
+    height: 22px;
+    padding-right: 2px
+}
+
+.datepicker-years a, .datepicker-months a {
+    width: 44px;
+    line-height: 36px;
+    height: 36px;
+    text-align: center
+}
+
+td.datepicker-not-in-month a {
+    color: #BBB
+}
+
+tbody.datepicker-days td.datepicker-selected {
+    background: #136A9F
+}
+
+tbody.datepicker-days td.datepicker-not-in-month.datepicker-selected {
+    background: #17384d
+}
+
+tbody.datepicker-years td.datepicker-selected, tbody.datepicker-months td.datepicker-selected {
+    background: #17384d
+}
+
+.datepicker a:hover, div.datepicker a:hover {
+    color: #88c5eb
+}
+
+.datepicker td.datepicker-not-in-month a:hover {
+    color: #CCC
+}
+
+.datepicker tbody th {
+    text-align: left
+}
+
+.datepicker-space div {
+    width: 20px
+}
+
+.datepicker-go-next a, .datepicker-go-prev a, .datepicker-month a {
+    text-align: center;
+    height: 20px;
+    line-height: 20px
+}
+
+.datepicker-go-next a {
+    float: right;
+    width: 20px
+}
+
+.datepicker-go-prev a {
+    float: left;
+    width: 20px
+}
+
+table.datepicker-view-days tbody.datepicker-months, table.datepicker-view-days tbody.datepicker-years {
+    display: none
+}
+
+table.datepicker-view-days tr.datepicker-do-w th {
+    text-align: center
+}
+
+table.datepicker-view-months tbody.datepicker-days, table.datepicker-view-months tbody.datepicker-years, table.datepicker-view-months tr.datepicker-do-w {
+    display: none
+}
+
+table.datepicker-view-years tbody.datepicker-days, table.datepicker-view-years tbody.datepicker-months, table.datepicker-view-years tr.datepicker-do-w {
+    display: none
+}
+
+td.datepicker-disabled a, td.datepicker-disabled.datepicker-not-in-month a {
+    color: #BBB
+}
+
+td.datepicker-disabled a:hover {
+    color: #333
+}
+
+td.datepicker-special a {
+    background: #700
+}
+
+td.datepicker-special.datepicker-selected a {
+    background: #a00
+}

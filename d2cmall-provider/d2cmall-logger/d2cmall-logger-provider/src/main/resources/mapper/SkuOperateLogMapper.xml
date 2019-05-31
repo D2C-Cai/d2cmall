@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.SkuOperateLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.SkuOperateLog">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="skuId" column="sku_id"/>
+        <result property="sku" column="sku"/>
+        <result property="skuName" column="sku_name"/>
+        <result property="operateType" column="operate_type"/>
+        <result property="content" column="content"/>
+    </resultMap>
+
+</mapper>

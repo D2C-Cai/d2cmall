@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.MemberMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.Member">
+        <result property="openId" column="open_id"/>
+        <result property="unionId" column="union_id"/>
+        <result property="source" column="source"/>
+        <result property="device" column="device"/>
+        <result property="registerIp" column="register_ip"/>
+        <result property="loginDate" column="login_date"/>
+        <result property="nickname" column="nickname"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="sex" column="sex"/>
+        <result property="token" column="token"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="memberInfoId" column="member_info_id"/>
+        <result property="bindDate" column="bind_date"/>
+        <result property="gzOpenId" column="gz_open_id"/>
+        <result property="partnerOpenId" column="partner_open_id"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findByUnionId" resultMap="baseMap">
+		SELECT * FROM m_member
+		WHERE union_id=#{unionId}
+		LIMIT 0,1
+	</select>
+
+    <select id="findTokenByUnionId" resultType="String">
+		SELECT token FROM
+		m_member WHERE union_id=#{unionId}
+		LIMIT 0,1
+	</select>
+
+    <select id="findByUnionIdAndSource" resultMap="baseMap">
+		SELECT * FROM
+		m_member
+		WHERE union_id = #{unionId}
+		LIMIT 0,1
+	</select>
+
+    <select id="findByLoginCodeAndSource" resultMap="baseMap">
+		SELECT * FROM
+		m_member
+		WHERE source=#{source} AND login_code=#{loginCode}
+		LIMIT 0,1
+	</select>
+
+    <select id="findByMemberInfoId" resultMap="baseMap">
+		SELECT * FROM m_member
+		WHERE member_info_id=#{memberInfoId}
+	</select>
+
+    <select id="findPartnerOpenId" resultMap="baseMap">
+		SELECT * FROM m_member
+		WHERE member_info_id=#{memberInfoId} AND partner_open_id IS NOT NULL
+		LIMIT 0,1
+	</select>
+
+    <select id="findBySeach" resultMap="baseMap">
+        SELECT m.* FROM m_member m
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date desc
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySeach" resultType="int">
+        SELECT count(*) FROM m_member m
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test=" searcher.startDate!= null">
+            AND m.create_date &gt;= #{searcher.startDate}
+        </if>
+        <if test=" searcher.endDate!= null">
+            AND m.create_date &lt;= #{searcher.endDate}
+        </if>
+        <if test="searcher.d2c!=null and searcher.d2c==0">
+            AND member_info_id is null
+        </if>
+        <if test="searcher.d2c!=null and searcher.d2c==1">
+            AND member_info_id is not null
+        </if>
+    </sql>
+
+    <select id="findCountGroupBySource" resultType="HashMap">
+        SELECT source, count(id) as count
+        FROM m_member m
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        GROUP BY source
+    </select>
+
+    <update id="updateLogin">
+        UPDATE m_member SET open_id=#{openId}, source=#{source},
+        token=#{token},
+        login_date=now(), modify_date=now()
+        <if test="nickname!=null and nickname!=''">
+            ,nickname=#{nickname}
+        </if>
+        <if test="headPic!=null and headPic!=''">
+            ,head_pic=#{headPic}
+        </if>
+        <if test="sex!=null and sex!=''">
+            ,sex=#{sex}
+        </if>
+        <if test="gzOpenId != null and gzOpenId !=''">
+            ,gz_open_id=#{gzOpenId}
+        </if>
+        <if test="partnerOpenId != null and partnerOpenId !=''">
+            ,partner_open_id=#{partnerOpenId}
+        </if>
+        WHERE union_id = #{unionId}
+    </update>
+
+    <update id="updateInfo">
+        UPDATE m_member
+        <set>
+            <if test="nickname!=null and nickname!=''">
+                nickname=#{nickname},
+            </if>
+            <if test="headPic!=null and headPic!=''">
+                head_pic=#{headPic},
+            </if>
+            <if test="sex!=null and sex!=''">
+                sex=#{sex},
+            </if>
+            modify_date =now()
+        </set>
+        WHERE union_id = #{unionId}
+    </update>
+
+    <update id="updateToken">
+		UPDATE m_member SET token=#{token}, modify_date=now()
+		WHERE union_id = #{unionId}
+	</update>
+
+    <select id="findByToken" resultMap="baseMap">
+		SELECT * FROM m_member WHERE
+		token = #{token}
+		LIMIT 0,1
+	</select>
+
+    <update id="doBindMemberInfo">
+        UPDATE m_member
+        SET member_info_id =#{memberInfoId},
+        login_code=#{loginCode},
+        modify_date=now(), bind_date=now()
+        <if test="nickname != null and nickname !=''">
+            , nickname=#{nickname}
+        </if>
+        <if test="headPic != null and headPic !=''">
+            , head_pic=#{headPic}
+        </if>
+        WHERE union_id = #{unionId}
+    </update>
+
+    <update id="doCancelBind">
+		UPDATE m_member
+		SET member_info_id =null,
+		login_code=null, bind_date=null,
+		modify_date=now()
+		WHERE union_id =
+		#{unionId}
+	</update>
+
+    <update id="doChangeMobile">
+		UPDATE m_member
+		SET login_code=#{newMobile},
+		modify_date=now()
+		WHERE member_info_id
+		=#{memberInfoId}
+	</update>
+
+    <update id="doClean">
+		UPDATE m_member
+		SET member_info_id =null,
+		login_code=null, bind_date=null,
+		modify_date=now()
+		WHERE
+		login_code=#{loginCode}
+	</update>
+
+</mapper>

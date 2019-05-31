@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod="5 seconds">
+    <property resource="conf/app.properties"/>
+    <property name="log.path" value="${user.home}/logs"/>
+    <property name="pattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5level [%thread]  %logger{36} - %msg%n"/>
+    <contextName>d2c</contextName>
+    <jmxConfigurator/>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <Target>System.out</Target>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="allLoggerAppender" class="ch.qos.logback.core.rolling.RollingFileAppender" additivity="false">
+        <file>${log.path}/all/${app.name}.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/all/${app.name}-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>INFO</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="errorLoggerAppender" class="ch.qos.logback.core.rolling.RollingFileAppender" additivity="false">
+        <file>${log.path}/error/${app.name}-error.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/error/${app.name}-error-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 
+    <appender name="debugLoggerAppender" class="ch.qos.logback.core.rolling.RollingFileAppender" additivity="false">
+        <file>${log.path}/debug/${app.name}-debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/${app.name}-debug-%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>3</maxHistory>
+        </rollingPolicy>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>DEBUG</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>${pattern}</pattern>
+        </encoder>
+    </appender> 
+    -->
+
+    <logger name="com.d2c" level="info">
+        <!-- <appender-ref ref="debugLoggerAppender"/> -->
+    </logger>
+
+    <logger name="com.d2c.mybatis.datasource" level="info"/>
+
+    <logger name="org.apache.http" level="info"/>
+    <logger name="org.mybatis" level="info"/>
+    <logger name="com.mongodb" level="info"/>
+
+    <logger name="com.alibaba.druid" level="info"/>
+    <logger name="com.alibaba.dubbo" level="info"/>
+    <logger name="com.alibaba.dubbo.monitor" level="warn" additivity="false"/>
+
+    <logger name="org.springframework" level="info"/>
+    <logger name="org.springframework.web.client" level="info"/>
+    <logger name="org.springframework.data.redis" level="info"/>
+    <logger name="org.springframework.data.mongodb" level="info"/>
+
+    <!-- 
+    <logger name="org.apache.spark" level="warn"/>
+     -->
+
+    <root level="info">
+        <appender-ref ref="allLoggerAppender"/>
+        <appender-ref ref="errorLoggerAppender"/>
+        <appender-ref ref="stdout"/>
+    </root>
+
+</configuration>

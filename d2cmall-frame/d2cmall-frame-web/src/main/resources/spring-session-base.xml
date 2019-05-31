@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <description>分布式 Spring Session Redis</description>
+
+    <!-- pom.xml 资源 -->
+    <!--
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session</artifactId>
+        </dependency>
+     -->
+    <!--
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="1" />
+        <property name="ignoreResourceNotFound" value="true" />
+        <property name="ignoreUnresolvablePlaceholders" value="true" />
+        <property name="locations">
+            <list>
+                <value>classpath:conf/webapp.properties</value>
+            </list>
+        </property>
+    </bean>
+    -->
+
+    <!-- Redis分布式Session -->
+    <!--
+        配置方案:
+        web.xml 添加过滤器
+        <filter>
+            <filter-name>springSessionRepositoryFilter</filter-name>
+            <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+        </filter>
+        <filter-mapping>
+            <filter-name>springSessionRepositoryFilter</filter-name>
+            <url-pattern>/*</url-pattern>
+            <dispatcher>REQUEST</dispatcher>
+            <dispatcher>ERROR</dispatcher>
+        </filter-mapping>
+
+        或	添加 web.xml 配置注入类。   (注意: 嵌入式jetty启动不支持)
+        public class SpringSessionInitializer extends AbstractHttpSessionApplicationInitializer {
+        }
+     -->
+
+    <bean id="redisHttpSessionConfiguration"
+          class="org.springframework.session.data.redis.config.annotation.web.http.RedisHttpSessionConfiguration">
+        <property name="maxInactiveIntervalInSeconds" value="${session.keeptime.seconds}"/>
+    </bean>
+
+    <!-- Session 触发时间 -->
+    <!--
+    <bean class="org.springframework.session.web.http.SessionEventHttpSessionListenerAdapter">
+        <constructor-arg name="listeners">
+            <list>
+                <bean class="com.d2c.flame.listener.SessionEventListener" />
+            </list>
+        </constructor-arg>
+    </bean>
+    -->
+
+</beans>

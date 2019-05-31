@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.RequisitionItemMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.RequisitionItem">
+        <result property="requisitionId" column="requisition_id"/>
+        <result property="requisitionSn" column="requisition_sn"/>
+        <result property="requisitionDate" column="requisition_date"/>
+        <result property="status" column="status"/>
+        <result property="type" column="type"/>
+        <result property="contact" column="contact"/>
+        <result property="tel" column="tel"/>
+        <result property="address" column="address"/>
+        <result property="remark" column="remark"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="orderDate" column="order_date"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="orderItemId" column="order_item_id"/>
+        <result property="orderItemStatus" column="order_item_status"/>
+        <result property="estimateDate" column="estimate_date"/>
+        <result property="productId" column="product_id"/>
+        <result property="productSn" column="product_sn"/>
+        <result property="externalSn" column="external_sn"/>
+        <result property="productName" column="product_name"/>
+        <result property="productImg" column="product_img"/>
+        <result property="topCategory" column="top_category"/>
+        <result property="productCategory" column="product_category"/>
+        <result property="barCode" column="bar_code"/>
+        <result property="externalCode" column="external_code"/>
+        <result property="sp1" column="sp1"/>
+        <result property="sp2" column="sp2"/>
+        <result property="quantity" column="quantity"/>
+        <result property="receiveQuantity" column="receive_quantity"/>
+        <result property="deliveryQuantity" column="delivery_quantity"/>
+        <result property="defectiveQuantity" column="defective_quantity"/>
+        <result property="operation" column="operation"/>
+        <result property="storeId" column="store_id"/>
+        <result property="storeName" column="store_name"/>
+        <result property="designerId" column="designer_id"/>
+        <result property="designerCode" column="designer_code"/>
+        <result property="designerName" column="designer_name"/>
+        <result property="designerMemo" column="designer_memo"/>
+        <result property="designerEstimateDate" column="designer_estimate_date"/>
+        <result property="delayMan" column="delay_man"/>
+        <result property="delayReason" column="delay_reason"/>
+        <result property="closeMan" column="close_man"/>
+        <result property="closeReason" column="close_reason"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="lastLogInfo" column="last_log_info"/>
+        <result property="storeMemo" column="store_memo"/>
+        <result property="delivered" column="delivered"/>
+        <result property="fine" column="fine"/>
+        <result property="expiredDate" column="expired_date"/>
+        <result property="deliveryDate" column="delivery_date"/>
+        <result property="deliveryCorp" column="delivery_corp"/>
+        <result property="deliverySn" column="delivery_sn"/>
+        <result property="receiveDate" column="receive_date"/>
+        <result property="handle" column="handle"/>
+        <result property="locked" column="locked"/>
+        <result property="priority" column="priority"/>
+        <result property="relationSn" column="relation_sn"/>
+        <result property="orderCusMemo" column="order_cus_memo"/>
+        <result property="storeComment" column="store_comment"/>
+        <result property="responseSpeed" column="response_speed"/>
+        <result property="name" column="name"/>
+        <result property="received" column="received"/>
+        <result property="purchaseReason" column="purchase_reason"/>
+        <result property="purchaseRole" column="purchase_role"/>
+        <result property="allocateReason" column="allocate_reason"/>
+        <result property="saleCategory" column="sale_category"/>
+        <result property="direct" column="direct"/>
+    </resultMap>
+
+    <resultMap id="summaryMap" type="com.d2c.order.dto.RequisitionSummaryDto">
+        <result property="storeName" column="storeName"/>
+        <result property="designerName" column="designerName"/>
+        <result property="productImg" column="productImg"/>
+        <result property="barCode" column="barCode"/>
+        <result property="quantity" column="quantity"/>
+    </resultMap>
+
+    <select id="findByOrderItemId" resultMap="baseMap">
+		SELECT * FROM
+		o_requisition_item WHERE order_item_id=#{orderItemId} LIMIT 0,1
+	</select>
+
+    <select id="findByRequisitionId" resultMap="baseMap">
+		SELECT * FROM
+		o_requisition_item WHERE requisition_id=#{requisitionId}
+		ORDER BY
+		create_date DESC
+	</select>
+
+    <select id="findLastOne" resultMap="baseMap">
+		SELECT * FROM
+		o_requisition_item WHERE type=#{type}
+		ORDER BY create_date DESC LIMIT 0,1
+	</select>
+
+    <select id="findByRequisitionSn" resultMap="baseMap">
+		SELECT * FROM o_requisition_item WHERE requisition_sn=#{requisitionSn} ORDER BY create_date DESC LIMIT 0,1
+	</select>
+
+    <select id="findByDeliverySn" resultMap="baseMap">
+		SELECT * FROM
+		o_requisition_item
+		WHERE type=1 and delivery_sn=#{sn}
+		LIMIT 0,500
+	</select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM o_requisition_item WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY
+        <if
+                test="searcher.status!=null and searcher.status.length == 1 and searcher.status[0]==8">
+            modify_date DESC
+        </if>
+        <if
+                test="searcher.status==null or searcher.status.length !=1 or searcher.status[0]!=8">
+            create_date DESC
+        </if>
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="Integer">
+        SELECT count(*) FROM o_requisition_item WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.id!=null">
+            AND id=#{searcher.id}
+        </if>
+        <if test="searcher.requisitionSn!=null and searcher.requisitionSn!=''">
+            AND requisition_sn =#{searcher.requisitionSn}
+        </if>
+        <if test="searcher.orderSn!=null and searcher.orderSn!=''">
+            AND order_sn =#{searcher.orderSn}
+        </if>
+        <if test="searcher.productSn!=null and searcher.productSn!=''">
+            AND product_sn =#{searcher.productSn}
+        </if>
+        <if test="searcher.externalSn!=null and searcher.externalSn!=''">
+            AND external_sn =#{searcher.externalSn}
+        </if>
+        <if test="searcher.relationSn!=null and searcher.relationSn!=''">
+            AND relation_sn =#{searcher.relationSn}
+        </if>
+        <if test="searcher.designerId!=null">
+            AND designer_id=#{searcher.designerId}
+        </if>
+        <if test="searcher.designerIds!= null and searcher.designerIds.size &gt; 0">
+            AND designer_id IN
+            <foreach collection="searcher.designerIds" item="designerId"
+                     index="index" open="(" close=")" separator=",">
+                <if test="designerId!= null">
+                    #{designerId}
+                </if>
+            </foreach>
+        </if>
+        <if test="searcher.createDateStart!=null">
+            AND create_date &gt;=
+            #{searcher.createDateStart}
+        </if>
+        <if test="searcher.createDateEnd!=null">
+            AND create_date &lt;=
+            #{searcher.createDateEnd}
+        </if>
+        <if test="searcher.estimateDateStart!=null">
+            AND estimate_date &gt;= #{searcher.estimateDateStart}
+        </if>
+        <if test="searcher.estimateDateEnd!=null">
+            AND estimate_date &lt;= #{searcher.estimateDateEnd}
+        </if>
+        <if test="searcher.requisitionDateStart!=null">
+            AND requisition_date &gt;=
+            #{searcher.requisitionDateStart}
+        </if>
+        <if test="searcher.requisitionDateEnd!=null">
+            AND requisition_date &lt;=
+            #{searcher.requisitionDateEnd}
+        </if>
+        <if test="searcher.receiveDateStart!=null">
+            AND receive_date &gt;=
+            #{searcher.receiveDateStart}
+        </if>
+        <if test="searcher.receiveDateEnd!=null">
+            AND receive_date &lt;=
+            #{searcher.receiveDateEnd}
+        </if>
+        <if test="searcher.designerEstimateDateStart!=null">
+            AND designer_estimate_date &gt;=
+            #{searcher.designerEstimateDateStart}
+        </if>
+        <if test="searcher.designerEstimateDateEnd!=null">
+            AND designer_estimate_date &lt;=
+            #{searcher.designerEstimateDateEnd}
+        </if>
+        <if test="searcher.status!=null and searcher.status.length &gt; 0">
+            AND status IN
+            <foreach collection="searcher.status" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="searcher.types!=null and searcher.types.length &gt; 0">
+            AND type IN
+            <foreach collection="searcher.types" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="searcher.operation!=null and searcher.operation!=''">
+            AND operation=#{searcher.operation}
+        </if>
+        <if test="searcher.type!=null">
+            AND type=#{searcher.type}
+        </if>
+        <if test="searcher.storeId!=null">
+            AND store_id=#{searcher.storeId}
+        </if>
+        <if test="searcher.orderItemId!=null">
+            AND order_item_id=#{searcher.orderItemId}
+        </if>
+        <if test="searcher.orderItemStatus!=null and searcher.orderItemStatus!=''">
+            AND order_item_status=#{searcher.orderItemStatus}
+        </if>
+        <if test="searcher.fine!=null">
+            AND fine=#{searcher.fine}
+        </if>
+        <if test="searcher.handle!=null">
+            AND handle=#{searcher.handle}
+        </if>
+        <if test="searcher.deliveryCorp!=null and searcher.deliveryCorp!=''">
+            AND delivery_corp=#{searcher.deliveryCorp}
+        </if>
+        <if test="searcher.deliverySn!=null and searcher.deliverySn!=''">
+            AND delivery_sn=#{searcher.deliverySn}
+        </if>
+        <if test="searcher.priority!=null">
+            AND priority=#{searcher.priority}
+        </if>
+        <if test="searcher.locked!=null">
+            AND locked=#{searcher.locked}
+        </if>
+        <if test="searcher.responseSpeed!=null">
+            AND response_speed=#{searcher.responseSpeed}
+        </if>
+        <if test="searcher.deliveryStartDate!=null">
+            AND delivery_date &gt;=
+            #{searcher.deliveryStartDate}
+        </if>
+        <if test="searcher.deliveryEndDate!=null">
+            AND delivery_date &lt;=
+            #{searcher.deliveryEndDate}
+        </if>
+        <if test="searcher.received!=null">
+            AND received =
+            #{searcher.received}
+        </if>
+        <if test="searcher.barCode!=null and searcher.barCode!=''">
+            AND bar_code=#{searcher.barCode}
+        </if>
+        <if test="searcher.purchaseReason!=null and  searcher.purchaseReason!=''">
+            AND purchase_reason=#{searcher.purchaseReason}
+        </if>
+        <if test="searcher.roleType!=null and searcher.roleType!=''">
+            AND purchase_role=#{searcher.roleType}
+        </if>
+        <if test="searcher.allocateReason!=null and  searcher.allocateReason!=''">
+            AND allocate_reason=#{searcher.allocateReason}
+        </if>
+        <if test="searcher.applyMan!=null and searcher.applyMan!=''">
+            and creator LIKE CONCAT('%',#{searcher.applyMan},'%')
+        </if>
+        <if test="searcher.direct!=null">
+            AND direct=#{searcher.direct}
+        </if>
+        <if test="searcher.beginExpiredDate!=null">
+            AND expired_date &gt;= #{searcher.beginExpiredDate}
+        </if>
+        <if test="searcher.endExpiredDate!=null">
+            AND expired_date &lt; #{searcher.endExpiredDate}
+        </if>
+        <if test="searcher.delivered!=null">
+            AND delivered=#{searcher.delivered}
+        </if>
+    </sql>
+
+    <select id="findSummary" resultMap="summaryMap">
+		SELECT store_name as
+		storeName,
+		designer_name as designerName,
+		product_img as productImg,
+		bar_code as barCode,
+		SUM(quantity) as quantity FROM
+		o_requisition_item
+		WHERE `status`=0 AND type=#{type} GROUP BY store_id, designer_id,
+		bar_code
+		LIMIT #{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="countSummary" resultType="Integer">
+		SELECT count(*) FROM
+		(SELECT store_name as storeName,
+		designer_name as designerName,
+		product_img as productImg,
+		bar_code as barCode,
+		SUM(quantity) as
+		quantity FROM
+		o_requisition_item
+		WHERE `status`=0 AND type=#{type} GROUP
+		BY store_id, designer_id,
+		bar_code)t
+	</select>
+
+    <select id="countGroupByDesignerNew" resultType="hashMap">
+		SELECT
+		designer_id
+		AS designerId,designer_name AS designerName,COUNT(*) AS
+		count
+		FROM
+		o_requisition_item WHERE type IN(1,4) AND status=1
+		GROUP BY
+		designer_id
+	</select>
+
+    <select id="countGroupByDesignerExpired" resultType="hashMap">
+		SELECT
+		designer_id
+		AS designerId,designer_name AS designerName,COUNT(*) AS
+		count
+		FROM
+		o_requisition_item WHERE type=1 AND status IN(1,2)
+		AND fine=0
+		AND DAY(now())=DAY(expired_date)
+		GROUP BY
+		designer_id
+	</select>
+
+    <select id="countGroupByDesignerReship" resultType="hashMap">
+        SELECT designer_id
+        AS designerId,designer_name AS designerName,COUNT(*)
+        AS count
+        FROM
+        o_requisition_item WHERE type IN(5,6) AND status=3
+        <if test="importSn!= null and importSn.size &gt; 0">
+            AND requisition_sn IN
+            <foreach collection="importSn" item="item" index="index"
+                     open="(" close=")" separator=",">
+                <if test="item!= null">
+                    #{item}
+                </if>
+            </foreach>
+        </if>
+        GROUP BY
+        designer_id
+    </select>
+
+    <select id="countGroupByStore" resultType="hashMap">
+		SELECT store_id AS
+		storeId,store_name AS storeName, COUNT(*) AS count
+		FROM
+		o_requisition_item WHERE
+		type =3 AND status=1
+		GROUP BY
+		store_id
+	</select>
+
+    <update id="doSubmit">
+		UPDATE o_requisition_item SET status=1,
+		modify_date=now()
+		WHERE id=#{id} AND status=0
+	</update>
+
+    <update id="doSign">
+		UPDATE o_requisition_item SET status=2,
+		modify_date=now()
+		WHERE id=#{id} AND status=1
+	</update>
+
+    <update id="doRefuse">
+		UPDATE o_requisition_item SET status=-1,
+		delay_man=#{delayMan}, delay_reason=#{delayReason}, store_memo=null,
+		modify_date=now()
+		WHERE id=#{id} AND status IN(1, 2)
+	</update>
+
+    <update id="doDelivery">
+		UPDATE o_requisition_item SET status=3,
+		delivery_quantity=#{quantity}, delivery_corp=#{deliveryCorp},
+		delivery_sn=#{deliverySn},
+		delivery_date=now(), modify_date=now()
+		WHERE
+		id=#{id} AND status=2
+	</update>
+
+    <update id="doCancelDelivery">
+		UPDATE o_requisition_item SET status=1,
+		delivery_quantity=null, delivery_corp=null,
+		delivery_sn=null,received=0,
+		modify_date=now()
+		WHERE id=#{id} AND
+		status=3
+	</update>
+
+    <update id="doReceive">
+		UPDATE o_requisition_item SET status=8,
+		receive_quantity=#{quantity},
+		modify_date=now(), receive_date=now()
+		WHERE id=#{id} AND status=3
+	</update>
+
+    <update id="doFine">
+		UPDATE o_requisition_item SET fine=#{fine},
+		modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="doDeliverToCustomer">
+		UPDATE o_requisition_item SET delivered=1,
+		modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="doDeliverByOrderItem">
+		UPDATE o_requisition_item SET delivered=1,
+		modify_date=now()
+		WHERE order_item_id=#{orderItemId}
+	</update>
+
+    <update id="doClose">
+		UPDATE o_requisition_item SET status=-4,
+		close_man=#{closeMan}, close_reason=#{closeReason}, modify_date=now()
+		WHERE id=#{id} AND status IN(0, 1, 2, 3)
+	</update>
+
+    <update id="doCancelClose">
+		UPDATE o_requisition_item SET status=1, type=#{type},
+		contact=#{contact}, tel=#{tel}, address=#{address},
+		store_id=#{storeId}, store_name=#{storeName}, store_memo=null, direct=#{direct},
+		modify_date=now(), handle=0, requisition_date=now()
+		WHERE id=#{id} AND
+		status IN(-1, -4)
+	</update>
+
+    <update id="doCloseByOrderItem">
+		UPDATE o_requisition_item SET status=-4,
+		close_man=#{closeMan}, close_reason=#{closeReason}, modify_date=now()
+		WHERE order_item_id=#{orderItemId}
+	</update>
+
+    <update id="doLock">
+		UPDATE o_requisition_item SET locked=#{lock},
+		modify_date=now()
+		WHERE id=#{id} AND status=2
+	</update>
+
+    <update id="doHandle">
+		UPDATE o_requisition_item set
+		handle=#{handle},last_modify_man=#{operator},modify_date=now()
+		where
+		id=#{id}
+	</update>
+
+    <update id="doStoreComment">
+		UPDATE o_requisition_item SET
+		store_comment=#{storeComment},
+		modify_date=now(),response_speed=#{responseSpeed}
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateRemark">
+		UPDATE o_requisition_item SET remark=#{remark},
+		modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateStoreMemo">
+		UPDATE o_requisition_item SET store_memo=#{memo},
+		modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateDesignerMemo">
+		UPDATE o_requisition_item SET designer_memo=#{memo},
+		modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateQuantity">
+		UPDATE o_requisition_item SET quantity=#{quantity},
+		modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateDeliveryQuantity">
+		UPDATE o_requisition_item SET
+		delivery_quantity=#{quantity}, modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateDefectiveQuantity">
+		UPDATE o_requisition_item SET
+		defective_quantity=#{quantity}, modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateLastLogInfo">
+		UPDATE o_requisition_item SET last_log_info=#{info},
+		modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateReceiveQuantity">
+		UPDATE o_requisition_item SET
+		receive_quantity=#{quantity}, modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateDesignerEstimateDate">
+		UPDATE o_requisition_item SET
+		designer_estimate_date=#{date}, designer_memo=#{memo},
+		modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateBarCode">
+        UPDATE o_requisition_item SET bar_code=#{barCode}, modify_date=now()
+        <if test="sp1!=null and sp1!=''">
+            ,sp1=#{sp1}
+        </if>
+        <if test="sp2!=null and sp2!=''">
+            ,sp2=#{sp2}
+        </if>
+        WHERE id=#{id} AND status IN(0,1)
+    </update>
+
+    <update id="updateLogisticAddress">
+        UPDATE o_requisition_item SET
+        contact=#{contact},address=#{address},tel=#{tel},
+        modify_date=now()
+        <if test="allocateReason!=null and allocateReason!=''">
+            ,allocate_reason=#{allocateReason}
+        </if>
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateDeliveryInfo">
+		UPDATE o_requisition_item set
+		delivery_corp=#{deliveryCorp},delivery_sn=#{deliverySn},
+		last_modify_man=#{operator},modify_date=now(),received=0
+		where id=#{id}
+	</update>
+
+    <update id="updatePriority">
+		UPDATE o_requisition_item set
+		priority=#{priority},
+		modify_date=now()
+		where id=#{id}
+	</update>
+
+    <update id="updateReceive">
+		UPDATE o_requisition_item SET
+		received=1
+		WHERE id=#{id}
+	</update>
+
+    <select id="findStoreExpired" resultMap="baseMap">
+		SELECT * FROM
+		o_requisition_item WHERE type=3 and `status`
+		IN(1,2) and
+		DATEDIFF(NOW(),requisition_date) &gt;1 and
+		DATEDIFF(NOW(),requisition_date) &lt;=2
+		LIMIT
+		#{page.startNumber},#{page.pageSize}
+	</select>
+
+    <select id="countStoreExpired" resultType="int">
+		SELECT count(*) FROM
+		o_requisition_item WHERE type=3 and fine=0 and `status`
+		IN(1,2) and
+		DATEDIFF(NOW(),requisition_date)>1
+	</select>
+
+    <select id="findExpireByStoreId" resultType="hashMap">
+		SELECT
+		count(*),store_id FROM
+		o_requisition_item WHERE type=3 and `status`
+		IN(1,2) and
+		DATEDIFF(#{deadline},requisition_date) &gt;1 and
+		DATEDIFF(#{deadline},requisition_date) &lt;=2 group by store_id
+	</select>
+
+    <select id="findDesignerExpired" resultMap="baseMap">
+		SELECT * FROM
+		o_requisition_item WHERE type=1 AND `status`IN(1,2) AND fine=0 AND
+		delivery_date IS
+		NULL AND
+		expired_date &lt;=#{deadline}
+		LIMIT
+		#{page.startNumber},#{page.pageSize}
+	</select>
+
+    <select id="countDesignerExpired" resultType="int">
+		SELECT COUNT(1)
+		FROM o_requisition_item WHERE type=1 AND `status`IN(1,2) AND fine=0 AND
+		delivery_date IS NULL  AND
+		expired_date
+		&lt;=#{deadline}
+	</select>
+
+</mapper>

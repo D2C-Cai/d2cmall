@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.member.dao.RoleMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.Role">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="description" property="description" jdbcType="LONGVARCHAR"/>
+        <result column="is_system" property="isSystem" jdbcType="BIT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="value" property="value" jdbcType="VARCHAR"/>
+        <result column="last_modify_man" property="lastModifyMan"/>
+        <result column="creator" property="creator"/>
+    </resultMap>
+
+    <select id="findByResourceId" resultMap="baseMap">
+		select
+		distinct m_role.*
+		from
+		m_role_resource,m_role
+		where
+		m_role.id=m_role_resource.role_id
+		and resource_id =
+		#{resourceId,jdbcType=BIGINT}
+		LIMIT 0,500
+	</select>
+
+    <select id="findRoleNameByAdminId" resultType="String">
+		select
+		distinct m_role.name
+		from
+		m_admin_role, m_role
+		where
+		m_role.id = m_admin_role.role_id
+		and m_admin_role.admin_id = #{adminId,jdbcType=BIGINT}
+		LIMIT 0,500	
+	</select>
+
+    <select id="findAll" resultMap="baseMap">
+        select *
+        from m_role WHERE 1=1
+        <if test="searcher.description!=null and searcher.description!=''">
+            AND description =#{searcher.description}
+        </if>
+        <if test="searcher.userName!=null and searcher.userName!=''">
+            AND EXISTS(SELECT * from m_admin a,m_admin_role ar
+            WHERE a.id=ar.admin_id AND ar.role_id=m_role.id AND
+            a.username=#{searcher.userName}
+            )
+        </if>
+        ORDER BY is_system DESC, name
+        LIMIT 0,500
+    </select>
+
+    <delete id="deleteAllResourceByRoleid">
+		delete from
+		m_role_resource
+		where role_id = #{roleid}
+	</delete>
+
+    <delete id="deleteAllAdminByRoleid">
+		delete from
+		m_admin_role
+		where role_id = #{roleid}
+	</delete>
+
+    <insert id="bindAdmin">
+		replace into m_admin_role
+		(admin_id,role_id)
+		VALUES(#{id} ,#{roleid})
+	</insert>
+
+    <delete id="unbindAdmin">
+		delete from m_admin_role
+		where admin_id = #{id}
+		and
+		role_id = #{roleid}
+	</delete>
+
+    <insert id="bindResource">
+		replace into m_role_resource
+		(resource_id,role_id)
+		VALUES(#{id} ,#{roleid})
+	</insert>
+
+    <delete id="unbindResource">
+		delete from m_role_resource
+		where resource_id =
+		#{id}
+		and role_id = #{roleid}
+	</delete>
+
+    <delete id="delete">
+		delete from
+		m_role
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+
+</mapper>

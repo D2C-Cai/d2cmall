@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.logger.dao.RemindMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.Remind">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="mobile" column="mobile"/>
+        <result property="mail" column="mail"/>
+        <result property="sourceId" column="source_id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="content" column="content"/>
+        <result property="sended" column="is_send"/>
+        <result property="sendDate" column="send_date"/>
+        <result property="smsSend" column="sms_send"/>
+        <result property="smsSendDate" column="sms_send_date"/>
+        <result property="type" column="type"/>
+    </resultMap>
+
+    <select id="findByMemberId" resultMap="baseMap">
+		SELECT *
+		FROM member_remind
+		WHERE id = #{id}
+		LIMIT 0,1
+	</select>
+
+    <select id="findSourceIdByType" resultType="long">
+        SELECT DISTINCT source_id
+        FROM member_remind
+        WHERE 1=1
+        <if test="smsSend!=null">
+            AND sms_send=#{smsSend}
+        </if>
+        <if test="type!=null and type!=''">
+            AND type=#{type}
+        </if>
+    </select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT *
+        FROM member_remind
+        <include refid="Searcher"/>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="java.lang.Integer">
+        SELECT count(*) FROM member_remind
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <where>
+            1=1
+            <if test="searcher.memberId != null">
+                AND member_id=#{searcher.memberId}
+            </if>
+            <if test="searcher.sourceId != null">
+                AND source_id=#{searcher.sourceId}
+            </if>
+            <if test="searcher.sended != null">
+                AND is_send=#{searcher.sended} and mail is not null
+            </if>
+            <if test="searcher.smsSend != null">
+                AND sms_send=#{searcher.smsSend} and mobile is not null
+            </if>
+            <if test="searcher.type != null">
+                AND type=#{searcher.type}
+            </if>
+            <if test="searcher.mail != null and searcher.mail !=''">
+                AND mail =#{searcher.mail}
+            </if>
+            <if test="searcher.mobile != null and searcher.mobile !=''">
+                AND mobile =#{searcher.mobile}
+            </if>
+            <if test="searcher.content != null and searcher.content !=''">
+                AND content =#{searcher.content}
+            </if>
+            <if test="searcher.beginCreateDate != null">
+                AND create_date &gt;= #{searcher.beginCreateDate}
+            </if>
+            <if test="searcher.endCreateDate != null">
+                AND create_date &lt;= #{searcher.endCreateDate}
+            </if>
+        </where>
+    </sql>
+
+</mapper>

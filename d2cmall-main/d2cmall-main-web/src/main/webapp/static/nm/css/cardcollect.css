@@ -1,0 +1,1058 @@
+.online-chat,
+.footer-space,
+.app-download-bar {
+    display: none;
+}
+
+img {
+    vertical-align: middle;
+}
+
+#popup-modal-outer {
+    background: rgba(0, 0, 0, .7);
+}
+
+.modal-close {
+    position: absolute;
+    bottom: -12%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    background: url(//static.d2c.cn/img/promo/bargin/icon_close@3x.png) no-repeat;
+    background-size: cover;
+}
+
+.wx-share {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    background-image: url(//static.d2c.cn/img/topic/181031/cardcollect/images/mark_guide_shar.png);
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-color: rgba(0, 0, 0, .7);
+}
+
+.wx-mini-share {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99;
+    background-image: url(//static.d2c.cn/img/topic/181031/cardcollect/images/wx_mini_share.png);
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    background-color: rgba(0, 0, 0, .7);
+}
+
+.final-award {
+    width: 80%;
+    padding-top: 104%;
+    margin: 0 auto;
+    position: relative;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: transform 1s;
+    transition: transform 1s;
+    -webkit-transform-origin: right center;
+    transform-origin: right center;
+}
+
+.final-award .item-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.final-award.flipped {
+    -webkit-transform: translateX(-100%) rotateY(-180deg);
+    transform: translateX(-100%) rotateY(-180deg);
+}
+
+.award-count .down-time {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 16px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    margin-right: 15px;
+    position: relative;
+}
+
+.award-count .down-time:not(:last-child):after {
+    content: ':';
+    position: absolute;
+    top: 0;
+    right: -10px;
+    color: #262626;
+    font-size: 24px;
+}
+
+.award-button {
+    width: 145px;
+    height: 40px;
+    line-height: 40px;
+    background: url(//static.d2c.cn/img/topic/181031/cardcollect/images/button_short.png) no-repeat;
+    background-size: 100% 100%;
+    color: #fff;
+    margin: 25px auto;
+}
+
+.bind-form {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 81;
+    width: 18.75rem;
+    height: 18.75rem;
+    padding: 2.5rem;
+    box-sizing: border-box;
+    background: #FFF;
+    border-radius: 2px;
+}
+
+.bind-sure-button {
+    width: 13.75rem;
+    heigt: 2.75rem;
+    line-height: 2.75rem;
+    text-align: center;
+}
+
+.form-flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-around;
+    margin-top: 1.25rem;
+}
+
+.code-frame {
+    width: 2.75rem;
+    height: 2.75rem;
+    line-height: 2.75rem;
+    text-align: center;
+    color: rgba(0, 0, 0, .85);
+    font-size: 20px;
+    border-radius: 2px;
+    border: 1px solid #B2B2B2;
+}
+
+.code-button {
+    width: 13.75rem;
+    height: 2.75rem;
+    line-height: 2.75rem;
+    text-align: center;
+    color: #FFF;
+    background: #000;
+    border-radius: 1px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 1.25rem;
+    border: 0;
+}
+
+.code-button.code-button-grey {
+    background: rgba(0, 0, 0, .15);
+    color: rgba(0, 0, 0, .2);
+}
+
+.bind-form-close {
+    background: url(//static.d2c.cn/img/topic/180510/auction/images/icon_closed@3x.png) no-repeat;
+    background-size: cover;
+    width: 1.875rem;
+    height: 1.875rem;
+    position: absolute;
+    left: 50%;
+    bottom: -50px;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    z-index: 81;
+}
+
+.bind-mask {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 80;
+    background: rgba(0, 0, 0, .7);
+}
+
+.card-container {
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, .85);
+    padding-bottom: 5px;
+    background: -webkit-linear-gradient(#230F06, #281110);
+    /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#230F06, #281110);
+    /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#230F06, #281110);
+    /* Firefox 3.6 - 15 */
+    background: linear-gradient(#230F06, #281110);
+    /* 标准的语法 */
+    background-size: cover;
+    position: relative;
+}
+
+.top-logo {
+    display: block;
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    top: 1px;
+    left: 15px;
+    z-index: 10;
+    background: url(http://static.d2c.cn/img/topic/190428/520/hb_bg_jiaobiao.png) no-repeat;
+    background-size: cover;
+}
+
+.card-header {
+    position: relative;
+    /* padding:30px 42px 20px 30px; */
+}
+
+.card-rule {
+    position: absolute;
+    top: 15px;
+    right: 100px;
+    width: 70px;
+    height: 21px;
+    font-size: 12px;
+    line-height: 21px;
+    color: #fff;
+    background: #793F16;
+}
+
+a.card-rule:visited,
+a.card-mine:visited {
+    color: #fff;
+    opacity: 0.9;
+}
+
+.card-mine {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 70px;
+    height: 21px;
+    font-size: 12px;
+    line-height: 21px;
+    color: #fff;
+    background: #793F16;
+}
+
+.card-progress {
+    width: 100%;
+    max-width: 360px;
+    height: 150px;
+    /* background:url(//static.d2c.cn/img/topic/181031/cardcollect/images/progress_bg.png) no-repeat; */
+    background-size: cover;
+    margin: 0 auto;
+    position: relative;
+}
+
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 15px;
+    bottom: 0;
+    right: 15px;
+    margin: auto;
+    width: 331.91px;
+    height: 11px;
+    border: 1px solid #E8B880;
+    border-radius: 8px;
+}
+
+.progress-bar-state {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    z-index: 9;
+    height: 9px;
+    max-width: 329.91px;
+    background: -webkit-linear-gradient(#E8B880, #FEDDC5, #E8B880);
+    /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#E8B880, #FEDDC5, #E8B880);
+    /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#E8B880, #FEDDC5, #E8B880);
+    /* Firefox 3.6 - 15 */
+    background: linear-gradient(#E8B880, #FEDDC5, #E8B880);
+    /* 标准的语法 */
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.progress-describe {
+    font-size: 10px;
+    font-weight: 300;
+    line-height: 14px;
+    color: #FCDDB8;
+    position: absolute;
+    top: 18%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 88%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+.progress-describe-flex {
+    display: -webkit-flex;
+    /* Safari */
+    display: flex;
+    flex-direction: column;
+}
+
+.font-bolder {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.progress-flex {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    z-index: 10;
+    width: 75%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.progress-flex img {
+    width: 100%;
+}
+
+.progress-reward img {
+    width: 30%;
+}
+
+.reward-mine {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    color: #FCD8BA;
+    background-size: cover;
+}
+
+.reward-mine label {
+    display: block;
+    font-size: 10px;
+    color: #FCD8BA;
+    line-height: 13px;
+}
+
+.reward-mine label.myCard-bloder {
+    font-size: 14px;
+    line-height: 21px;
+}
+
+/* .reward-button{
+    position:absolute;
+    bottom:-10%;
+    left:50%;
+    -webkit-transform:translateX(-50%);
+    transform:translateX(-50%);
+    width:202px;
+    height:42px;
+    line-height:42px;
+    font-size:16px;
+    color: #F9F3ED;
+    background:url(//static.d2c.cn/img/topic/181031/cardcollect/images/button_short.png) no-repeat;
+    background-size:cover;
+} */
+
+#notice-bar {
+    width: 100%;
+    height: 55px;
+    line-height: 55px;
+    overflow: hidden;
+    position: absolute;
+    top: 195px;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, .3) 33%, rgba(255, 255, 255, .6) 66%, rgba(255, 255, 255, 1) 100%);
+}
+
+#notice-bar ul li {
+    overflow: hidden;
+}
+
+#notice-bar ul li div {
+    color: #fff;
+    overflow: hidden;
+    font-size: 10px;
+    line-height: 13px;
+    margin: 5px 15px;
+    text-align: left;
+}
+
+/* #notice-bar ul li div {
+    animation: fadeOut 5s infinite;
+    -moz-animation: fadeOut 5s infinite;
+    -webkit-animation: fadeOut 5s infinite;
+    -o-animation: fadeOut 5s infinite;
+}
+
+@keyframes myfirst {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes myfirst
+    {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes myfirst
+    {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@-o-keyframes myfirst
+    {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+} */
+
+.card-mask {
+    position: absolute;
+    top: 0;
+    left: 20%;
+    bottom: 0;
+    width: 60%;
+    background: rgba(40, 17, 16, .7);
+}
+
+.content-item {
+    width: 60% !important;
+    padding-top: 280.8px;
+    position: relative;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+    -webkit-transform-origin: right center;
+    transform-origin: right center;
+}
+
+.content-item .item-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+    width: 83.3333%;
+    height: 83.3333%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+div.enlarge {
+    transition: all 0.6s;
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    -webkit-transform-origin: center;
+    transform-origin: center;
+}
+
+div.original {
+    transition: all 0.6s;
+    -webkit-transform: scale(1);
+    transform: scale(1);
+    -webkit-transform-origin: center;
+    transform-origin: center;
+}
+
+.content-item .back,
+.final-award .back {
+    background: url(//static.d2c.cn/img/topic/181031/cardcollect/images/card-bg.jpg) no-repeat;
+    background-size: cover;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    color: #fff;
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.content-item.flipped {
+    -webkit-transform: translateX(-100%) rotateY(-180deg);
+    transform: translateX(-100%) rotateY(-180deg);
+}
+
+.card-turn {
+    position: absolute;
+    top: -1px;
+    right: 0px;
+    width: 63px !important;
+    height: 44px;
+}
+
+.card-more {
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+    line-height: 1 !important;
+    font-size: 12px;
+    color: #f2f0f0 !important;
+    background: #2e0d01;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 5px;
+}
+
+.card-shrink {
+    width: 96%;
+    margin-top: 25px;
+    margin-left: 4%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    font-size: 0;
+}
+
+.card-shrink-new {
+    width: 100%;
+    margin-top: 25px;
+    font-size: 0;
+}
+
+.shrink-item {
+    display: inline-block;
+    width: 15%;
+    margin-right: 4%;
+    margin-top: 8px;
+    position: relative;
+    background: #281110;
+    vertical-align: top;
+}
+
+.shrink-item.disabled img {
+    opacity: 0.5;
+}
+
+.shrink-item span {
+    margin-top: 10px;
+    display: inline-block;
+    font-size: 12px;
+    color: #fff;
+    width: 100%;
+    white-space: pre-wrap;
+}
+
+.shrink-item.selected div {
+    border-radius: 3px;
+    border: 1px solid;
+    border-image: linear-gradient(217deg, rgba(212, 163, 30, 1), rgba(255, 236, 169, 1), rgba(225, 180, 48, 1)) 1 1;
+}
+
+.shrink-item .card-num {
+    position: absolute;
+    top: -18px;
+    right: -8px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    font-size: 12px;
+    background: rgba(121, 63, 22, 1);
+    border: 1px solid #E1B430;
+    border-radius: 10px;
+    background-size: cover;
+    color: #FFF;
+}
+
+.card-shrink-new .shrink-item {
+    margin-right: 2%;
+    margin-left: 2%;
+    margin-top: 14px;
+}
+
+.card-shrink-new .shrink-item img {
+    border-radius: 4px;
+}
+
+.card-draw {
+    width: 92%;
+    height: 44px;
+    line-height: 44px;
+    margin: 25px auto 5px;
+    background-size: cover;
+    font-size: 16px;
+    color: #793F16;
+    letter-spacing: 3px;
+    background: -webkit-linear-gradient(#F5BB70, #FEDA9B, #F9BC6D);
+    /* Safari 5.1 - 6.0 */
+    background: -o-linear-gradient(#F5BB70, #FEDA9B, #F9BC6D);
+    /* Opera 11.1 - 12.0 */
+    background: -moz-linear-gradient(#F5BB70, #FEDA9B, #F9BC6D);
+    /* Firefox 3.6 - 15 */
+    background: linear-gradient(#F5BB70, #FEDA9B, #F9BC6D);
+    /* 标准的语法 */
+}
+
+.task-title {
+    font-size: 16px;
+    margin-bottom: 18px;
+    color: #FCD8BA;
+}
+
+.task-title span {
+    display: inline-block;
+    background-color: #D1B097;
+    vertical-align: middle;
+    margin: 0 2px;
+}
+
+.circle1 {
+    width: 3px;
+    height: 3px;
+    border-radius: 1.5px;
+}
+
+.circle2 {
+    width: 5px;
+    height: 5px;
+    border-radius: 2.5px;
+}
+
+.circle3 {
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+}
+
+.task-item {
+    width: 92%;
+    height: 60px;
+    margin: 4%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.task-item-left {
+    margin-left: 4%;
+    text-align: left;
+}
+
+.task-item-right {
+    width: 66px;
+    height: 29px;
+    line-height: 29px;
+    font-size: 12px;
+    margin-right: 4%;
+    /* border-radius: 14px; */
+    background-image: linear-gradient(-170deg, #FFEBE8 0%, #FCE8E4 42%, #A88F89 60%, #573830 61%, #1E0401 100%);
+    background: #fff;
+    color: #793F16;
+}
+
+.card-drawn {
+    position: relative;
+    width: 360px;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.bg-zuo {
+    position: absolute;
+    bottom: 68px;
+    left: 0px;
+}
+
+.bg-you {
+    position: absolute;
+    top: 28px;
+    right: 0px;
+}
+
+.card-center {
+    width: 228px;
+    height: 301px;
+    margin: 101px auto 0;
+}
+
+.card-center-inside {
+    width: 205px;
+    height: 300px;
+    background: rgba(216, 216, 216, 1);
+    border-radius: 11px;
+    border: 1px solid rgba(151, 151, 151, 1);
+    margin: 0 auto;
+}
+
+.card-center-tip {
+    width: 70%;
+    display: block;
+    font-size: 15px;
+    color: #fff;
+    text-align: center;
+    margin: -34px auto 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+}
+
+.card-drawn-btn {
+    width: 168px;
+    height: 42px;
+    text-align: center;
+    margin: 86px auto 0;
+    background: -webkit-linear-gradient(#F5BB70, #FEDA9B, #F9BC6D);
+    background: -o-linear-gradient(#F5BB70, #FEDA9B, #F9BC6D);
+    background: -moz-linear-gradient(#F5BB70, #FEDA9B, #F9BC6D);
+    background: linear-gradient(#F5BB70, #FEDA9B, #F9BC6D);
+}
+
+.card-drawn-btn-N {
+    margin: 86px auto 0;
+    width: 24px;
+    height: 24px;
+}
+
+.card-drawn-btn-N span {
+    display: block;
+    width: 24px;
+    height: 24px;
+    background: url(//static.d2c.cn/img/topic/180510/auction/images/icon_closed@3x.png) no-repeat;
+    background-size: cover;
+}
+
+.card-lottery {
+    width: 320px;
+    height: 360px;
+    background: #fff;
+    text-align: center;
+    border-radius: 3px;
+}
+
+.card-lottery .lottery-tips {
+    background: #C39B5C;
+    font-size: 16px;
+    color: #fff;
+    height: 50px;
+    line-height: 50px;
+}
+
+.card-lottery ul {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 20px;
+}
+
+.card-li {
+    width: 70px;
+    height: 90px;
+    position: relative;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    transition: transform 1s;
+    -webkit-transform-origin: right center;
+    transform-origin: right center;
+    box-sizing: border-box;
+}
+
+.card-li .card-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+}
+
+.card-li .back {
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.card-li.flipped {
+    -webkit-transform: translateX(-100%) rotateY(-180deg);
+    transform: translateX(-100%) rotateY(-180deg);
+    border: 3px solid #fff;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, .5);
+    position: relative;
+    z-index: 10;
+}
+
+.card-li.flipped-grey {
+    -webkit-transform: translateX(-100%) rotateY(-180deg);
+    transform: translateX(-100%) rotateY(-180deg);
+}
+
+/*我的*/
+.card-tab {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 0 3px #CCC;
+    background: #fff;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card-tab .tab-element {
+    flex: 1;
+    font-size: 15px;
+    height: 44px;
+    line-height: 45px;
+    color: #793F16;
+    opacity: 0.5;
+}
+
+.tab-element.selected {
+    opacity: 1;
+    position: relative;
+}
+
+.tab-element.selected:after {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    width: 25%;
+    height: 2px;
+    background: #793F16;
+}
+
+.card-info {
+    overflow: scroll;
+    width: 100%;
+    height: 472px;
+}
+
+.info-items {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between;
+    height: 53px;
+    line-height: 53px;
+    font-size: 13px;
+    color: #793F16;
+    overflow: hidden;
+    margin: 0 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, .04);
+}
+
+
+/*分享邀请*/
+.card-invite {
+    width: 85%;
+    margin: 7.5%;
+    background: #FFF;
+    box-shadow: 0 2px 14px 0 rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+
+.invite-header {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    padding: 5%;
+    background: #C39B5C;
+    color: #fff;
+    text-align: left;
+
+}
+
+.invite-qrcode {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    align-items: center;
+    text-align: left;
+    padding: 5%;
+}
+
+.share-items {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 48px;
+}
+
+.item-icon {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+    color: #7F7F7F;
+    font-size: 12px
+}
+
+.share_page {
+    position: relative;
+    width: 360px;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.share-center {
+    width: 281px;
+    height: 362px;
+    background: url(//static.d2c.cn/img/topic/190428/520/bg_fenxiang.png) no-repeat;
+    /* margin: 80px auto 0; */
+    overflow: hidden;
+    text-align: center;
+    background-size: 100%;
+}
+
+.share-center span {
+    display: block;
+}
+
+.user-name {
+    height: 25px;
+    background: #23100B;
+    margin: 120px auto 0;
+    overflow: hidden;
+    display: inline-block;
+    border: 1px solid #E8B880;
+}
+
+.user-name span {
+    font-size: 12px;
+    color: #FDDBC2;
+    line-height: 16px;
+    /* border:1px solid #E8B880; */
+    margin: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.share-center img {
+    width: 124px;
+    height: 124px;
+    border: 3px solid #793F16;
+    background: rgba(121, 63, 22, 1);
+    margin-top: 9px;
+}
+
+.line {
+    margin: 20px auto;
+    font-size: 13px;
+    line-height: 1px;
+    color: #FCD8BA;
+    border-left: 106px solid #F5C68E;
+    border-right: 106px solid #F5C68E;
+    text-align: center;
+}
+
+.share-btn {
+    width: 281px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    text-align: center;
+}
+
+.share-btn img {
+    width: 45px;
+    height: 45px;
+}
+
+.share-btn span {
+    display: block;
+    margin-top: 11px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #fff;
+
+}
+
+.myreward {
+    position: relative;
+    margin: 14px auto 0;
+    width: 331px;
+    height: 536px;
+    background: linear-gradient(216deg, #FDF4EA 0%, #FEDDC5 47%, #FCDCB7 94%, #F5C68E 100%);
+    background: -webkit-linear-gradient(216deg, #FDF4EA 0%, #FEDDC5 47%, #FCDCB7 94%, #F5C68E 100%);
+    background: -o-linear-gradient(216deg, #FDF4EA 0%, #FEDDC5 47%, #FCDCB7 94%, #F5C68E 100%);
+    background: -moz-linear-gradient(216deg, #FDF4EA 0%, #FEDDC5 47%, #FCDCB7 94%, #F5C68E 100%);
+    border-radius: 10px;
+}

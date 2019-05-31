@@ -1,0 +1,323 @@
+/*公用*/
+.online-chat {
+    display: none;
+}
+
+img {
+    vertical-align: middle;
+}
+
+button {
+    border: 0;
+}
+
+body {
+    background: url(//static.d2c.cn/img/topic/180510/shareredpackets/images/bg@3x.png) no-repeat;
+    background-size: cover;
+    background-color: #7358b3;
+}
+
+.packets-flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.mask {
+    display: none;
+    background: rgba(0, 0, 0, .7);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 80;
+}
+
+.wechatguide {
+    position: absolute;
+    right: 30px;
+    top: 0;
+    z-index: 81;
+    text-align: right
+}
+
+.wechatguide img {
+    width: 60%;
+}
+
+.earth-love {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 2.7rem;
+    height: 5rem;
+    line-height: 5rem;
+}
+
+.icon-protait {
+    display: block;
+    background: url(//static.d2c.cn/img/topic/180510/shareredpackets/images/group_header.png) no-repeat;
+    background-size: cover;
+    width: 1.6rem;
+    height: .8rem;
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+}
+
+
+/*内容*/
+.packets-rule-container {
+    width: 20rem;
+    height: 26.25rem;
+    box-sizing: border-box;
+    padding: 2.5rem 2.5rem 3.125rem;
+    background: #FFF;
+}
+
+.packets-rule-container .rule-close {
+    background: url(//static.d2c.cn/img/topic/180510/auction/images/icon_closed@3x.png) no-repeat;
+    background-size: cover;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    margin-bottom: -4rem;
+    width: 1.875rem;
+    height: 1.875rem;
+}
+
+.redpackets-container .packets-rule {
+    position: absolute;
+    right: 0;
+    top: 5.6625rem;
+    width: 2.5rem;
+    height: 1.5rem;
+}
+
+.redpackets-container .packets-title {
+    width: 17.8125rem;
+    height: 3.75rem;
+    margin: 1.875rem auto;
+}
+
+.redpackets-container .packets-body {
+    width: 76%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.redpackets-container .packets-form {
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    z-index: 81;
+    width: 18.75rem;
+    height: 18.75rem;
+    padding: 2.5rem;
+    box-sizing: border-box;
+    background: #FFF;
+    border-radius: 2px;
+}
+
+.redpackets-container .packets-form-button {
+    width: 13.75rem;
+    heigt: 2.75rem;
+    line-height: 2.75rem;
+    text-align: center;
+}
+
+.redpackets-container .packets-form-close {
+    background: url(//static.d2c.cn/img/topic/180510/auction/images/icon_closed@3x.png) no-repeat;
+    background-size: cover;
+    width: 1.875rem;
+    height: 1.875rem;
+    position: absolute;
+    left: 50%;
+    bottom: -5rem;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    z-index: 81;
+}
+
+.packets-form .form-input {
+    justify-content: space-around;
+    margin-top: 1.25rem;
+}
+
+.form-input .code-frame {
+    width: 2.75rem;
+    height: 2.75rem;
+    line-height: 2.75rem;
+    text-align: center;
+    color: rgba(0, 0, 0, .85);
+    font-size: 20px;
+    border-radius: 2px;
+    border: 1px solid #B2B2B2;
+}
+
+.code-button {
+    width: 13.75rem;
+    height: 2.75rem;
+    line-height: 2.75rem;
+    text-align: center;
+    color: #FFF;
+    background: #000;
+    border-radius: 1px;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 1.25rem;
+}
+
+.code-button.code-button-grey {
+    background: rgba(0, 0, 0, .15);
+    color: rgba(0, 0, 0, .2);
+}
+
+.packets-body .packets-button {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    width: 13.75rem;
+    height: 2.75rem;
+    line-height: 2.75rem;
+    text-align: center;
+    background: #FFD778;
+    border-radius: 2px;
+    color: #842300;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.packets-button.packets-active {
+    -webkit-animation: jump 1s ease-in-out infinite;
+    animation-name: jump 1s ease-in-out infinite;
+}
+
+@keyframes jump {
+    0% {
+        transform: scale(0.9, 0.9) translateX(-50%);
+        transform-origin: 0 50%;
+        opacity: 1;
+    }
+    25% {
+        transform: scale(1, 1) translateX(-50%);
+        transform-origin: 0 50%;
+        opacity: 0.8;
+    }
+    100% {
+        transform: scale(0.9, 0.9) translateX(-50%);
+        transform-origin: 0 50%;
+        opacity: 1;
+    }
+}
+
+.packets-body .packets-more {
+    display: block;
+    color: #FFF !important;
+    background: #000;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+.packets-group {
+    width: 75%;
+    border-radius: 2px;
+    background: #FFF;
+    margin: .625rem auto 0;
+    box-sizing: border-box;
+    padding: 1.25rem .9375rem 1.25rem;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.packets-group .group-headpic {
+    float: left;
+    position: relative;
+}
+
+.packets-group .group-headpic:not(first-child) {
+    margin-right: 5px;
+}
+
+.packets-group .group-headpic img {
+    width: 1.875rem;
+    height: 1.875rem;
+    border-radius: 100%;
+}
+
+
+.packets-tips {
+    position: absolute;
+    top: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    font-size: 14px;
+    font-weight: bold;
+    color: #842300;
+}
+
+.packets-money {
+    position: absolute;
+    top: 5.625rem;
+    left: 50%;
+    transform: translateX(-50%);
+    -webkit-transform: translateX(-50%);
+    font-size: 18px;
+    font-weight: bold;
+    color: #F21A1A;
+    width: 100%;
+    text-align: center;
+}
+
+.packets-rank-list {
+    width: 91%;
+    padding: .625rem 1.25rem;
+    box-sizing: border-box;
+    background: #FFF;
+    margin: 0 auto;
+    position: relative;
+}
+
+.packets-rank-list .rank-item {
+    height: 3.75rem;
+    line-height: 3.75rem;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, .04);
+}
+
+.rank-item .rank-money {
+    width: 3.5rem;
+    text-align: right;
+    color: #F21A1A;
+    font-size: 18px;
+    font-weight: bold;
+    position: relative;
+}
+
+.rank-item .rank-best {
+    position: absolute;
+    top: 1.2rem;
+    right: 0;
+    color: rgba(0, 0, 0, .85);
+    font-size: 12px;
+}
+
+.packets-slogan {
+    width: 10rem;
+    height: 1.625rem;
+    line-height: 1.625rem;
+    margin: .5rem auto;
+}
+

@@ -1,0 +1,631 @@
+.layout-showroom {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.designer-list a {
+    display: block;
+    width: 20%;
+    overflow: hidden;
+    float: left
+}
+
+.designer-list a img {
+    width: 100%
+}
+
+.designer-block-title {
+    margin: 0;
+    height: 40px;
+    padding-top: 10px;
+    margin-bottom: 2px;
+}
+
+.designer-block-title span {
+    display: block;
+    float: left;
+    width: 160px;
+    background: #ededed;
+    padding: 11px 0;
+    text-align: left;
+    font: bold 14px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    color: #000;
+}
+
+.desiger-img img {
+    width: 234px;
+    display: block
+}
+
+.suspend-navs-showroom {
+    text-align: center;
+    width: 1535px;
+    background-color: #FFF;
+    height: 37px;
+    position: relative;
+    margin-top: 10px;
+    box-shadow: 0 0 5px #CCC;
+}
+
+.suspend-navs-showroom a {
+    overflow: hidden;
+    height: 37px;
+    position: relative;
+    display: block;
+    width: 9.9%;
+    float: left;
+    font: 14px/37px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    border-right: 1px dotted #ccc;
+}
+
+.suspend-navs-showroom .gon {
+    color: #fd555d
+}
+
+.nav-children-fl:hover {
+    color: #fd555d
+}
+
+.suspend-navs-showroom .gon:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent transparent #FFF transparent;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -6px;
+    z-index: 2;
+}
+
+.nav-children {
+    overflow: hidden;
+    width: 100%;
+    background: #fff;
+}
+
+.suspend-navs-showroom a {
+    overflow: visible;
+}
+
+.suspend-navs-showroom .on {
+    background-color: #ededed;
+}
+
+.suspend-navs-showroom.suspend-fixed {
+    position: fixed;
+    top: 37px;
+    z-index: 6;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out
+}
+
+.suspend-navs-children {
+    z-index: 1;
+    text-align: center;
+    width: 1535px;
+    position: absolute;
+    top: 37px;
+    left: 0;
+    display: none;
+    margin-bottom: 10px;
+    padding-top: 10px;
+}
+
+.suspend-navs-children a {
+    background-color: #fff;
+    display: block;
+    width: 7%;
+    overflow: hidden;
+    float: left;
+    font: 14px/37px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    border-right: 1px dotted #ccc;
+}
+
+.designer-detail-fullscreen {
+    width: 100%;
+    height: 400px;
+}
+
+.designer-detail-fullscreen .fullscreen {
+    height: 400px;
+    text-align: center;
+}
+
+.designer-detail-fullscreen p {
+    margin: 0;
+}
+
+.designer-detail-fullscreen .fullscreen .fullscreen-video {
+    display: block;
+    width: 60px;
+    height: 60px;
+    background: url('http://static.d2cmall.com/common/nc/css/img/icon_play.png') no-repeat;
+    position: absolute;
+    left: 50%;
+    margin-left: -30px;
+    top: 50%;
+    margin-top: -30px;
+}
+
+.designer-detail {
+    background: #FFF;
+    overflow: hidden;
+}
+
+.designer-detail .more-info {
+    display: inline-block;
+    background: #000;
+    border-radius: 2px;
+    color: #FFF;
+    padding: 5px 14px
+}
+
+.designer-detail .logo {
+    width: 16%;
+    text-align: center;
+    min-height: 150px;
+    margin: 20px 0
+}
+
+.designer-detail .info {
+    float: right;
+    width: 80%;
+    padding: 0px 20px;
+    border-left: 1px solid #F2F2F2;
+    min-height: 150px;
+    padding-bottom: 9999px;
+    margin-bottom: -9999px;
+}
+
+.designer-detail .info h2 {
+    font-size: 12px;
+    margin-top: 15px;
+}
+
+.designer-detail .info h1 {
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.designer-detail .info h1 .name {
+    font: normal 32px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    vertical-align: -6px;
+}
+
+.designer-detail .logo img {
+    width: 80%;
+    vertical-align: middle;
+}
+
+.designer-detail .simple-info {
+    line-height: 180%;
+    padding-bottom: 20px;
+    font-family: Arial
+}
+
+.designer-detail .simple-info span, .designer-detail .simple-info a, .designer-detail .simple-info p {
+    font-size: 12px !important;
+    color: #444 !important;
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue' !important;
+}
+
+.designer-banner {
+    position: relative;
+    text-align: center;
+    margin-bottom: 10px;
+    background: #FFF;
+}
+
+.designer-banner img {
+}
+
+.designer-banner .button {
+    position: absolute;
+    right: 15px;
+    bottom: 15px;
+    z-index: 5;
+    box-shadow: none;
+}
+
+.designer-product {
+}
+
+.designer-product h2 {
+    font: normal 28px/30px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+}
+
+.designer-product .list-item {
+    width: 20%;
+    position: relative;
+    background: #FFF;
+    padding-bottom: 10px;
+}
+
+.designer-product .list-item .favorite {
+    position: absolute;
+    z-index: 4;
+    top: 10px;
+    right: 10px;
+    display: block;
+    background: #FFF;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    padding: 8px 15px 6px 15px;
+    color: #f60062
+}
+
+.designer-product .list-item .favorite:active {
+    background: #F2F2F2;
+    background: rgba(255, 255, 255, 0.4)
+}
+
+.designer-product .list-item a.img {
+    display: block;
+    background: #000;
+    position: relative;
+    overflow: hidden;
+}
+
+.designer-product .list-item a.img img {
+    opacity: 1;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out
+}
+
+.designer-product .list-item a.img:hover img {
+    opacity: 0.95
+}
+
+.designer-product .list-item a.img span {
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -60px;
+    padding: 10px;
+    line-height: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    color: #FFF;
+    font-family: Arial;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out
+}
+
+.designer-product .list-item a.img:hover span {
+    bottom: 0
+}
+
+.designer-product .list-item a.img i.sale {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: #FFF;
+    z-index: 3;
+    filter: alpha(opacity=60);
+    -moz-opacity: 0.6;
+    -khtml-opacity: 0.6;
+    opacity: 0.6;
+}
+
+.designer-product .list-item a.img i.satip {
+    display: block;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 0;
+    height: 40px;
+    line-height: 40px;
+    background-color: #000;
+    z-index: 4;
+    filter: alpha(opacity=70);
+    -moz-opacity: 0.7;
+    -khtml-opacity: 0.7;
+    opacity: 0.7;
+    color: #FFF;
+    font-size: 20px;
+    font-style: normal
+}
+
+.series-name {
+    display: block;
+    font: normal 22px/30px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    background: #333;
+    padding: 15px 30px;
+    color: #FFF;
+}
+
+.series-name a {
+    font: normal 22px/30px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    color: #FFF;
+}
+
+.series-name.suspend-fixed {
+    background: #FFF;
+    position: fixed;
+    top: 37px;
+    padding: 0;
+    border-left: 1px solid #F2F2F2;
+    border-right: 1px solid #F2F2F2;
+    margin: 0 -1px;
+    z-index: 6;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out
+}
+
+.series-name.suspend-fixed a {
+    display: block;
+    padding: 8px 30px;
+    color: #666;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.series-name.suspend-fixed a:hover {
+    color: #f60062;
+}
+
+.series-name-holder {
+    display: none;
+    height: 60px;
+}
+
+.series-name-bg {
+    position: fixed;
+    top: 37px;
+    display: none;
+    width: 100%;
+    left: 0;
+    background: #FFF;
+    height: 36px;
+    box-shadow: 0 0 5px #CCC;
+    z-index: 3
+}
+
+.letter-top-wrap {
+    height: 41px;
+    margin-top: 10px
+}
+
+.letter-top-wrap.suspend-fixed {
+    position: fixed;
+    top: 27px;
+}
+
+.letter-top {
+    width: 98%;
+    background: #FFF;
+    height: 20px;
+    border-bottom: 1px dotted #CCC;
+    padding: 10px 1%
+}
+
+.letter-top a, .letter-top span {
+    display: block;
+    float: left;
+    padding: 0 1.42%;
+    height: 20px;
+    font: bold 12px/20px Arial;
+    border-right: 1px solid #CCC
+}
+
+.letter-top a {
+    color: #000
+}
+
+.letter-top a:hover {
+    color: #f30
+}
+
+.letter-top span {
+    color: #AAA;
+    cursor: default
+}
+
+.letter-top a:last-child {
+    border: 0
+}
+
+.letter-wrap {
+    border-bottom: 1px dotted #CCC;
+    background: #FFF
+}
+
+.letter-left {
+    float: left;
+    width: 10%;
+    padding: 20px 0;
+    text-align: center;
+    font-size: 28px;
+    font-family: Arial
+}
+
+.letter-right {
+    float: right;
+    width: 89%;
+    padding: 20px 0;
+    border-left: 1px dotted #CCC
+}
+
+.letter-right li {
+    float: left;
+    width: 300px;
+    padding-left: 30px;
+    height: 40px
+}
+
+.letter-right li a {
+    display: block;
+    padding: 10px;
+    font-family: Arial;
+    font-size: 12px;
+}
+
+.letter-right li a i {
+    display: inline-block;
+    background: #FD555D;
+    color: #FFF;
+    width: 28px;
+    height: 14px;
+    border-radius: 7px;
+    font-style: normal;
+    line-height: 14px;
+    text-align: center;
+    margin-left: 6px;
+    font-size: 10px
+}
+
+.tabs-container {
+    width: 100%;
+    height: 36px;
+    background: #FFF;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.tabs-container.suspend-fixed {
+    position: fixed;
+    z-index: 9;
+    top: 37px;
+    margin-top: 0;
+}
+
+.slider-tabs {
+    position: relative;
+}
+
+.slider-tabs .viewport {
+    position: relative;
+    height: 36px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.slider-tabs .viewport .overview {
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    font-size: 0;
+}
+
+.slider-tabs .slider-tab a {
+    display: block;
+    float: left;
+    padding: 0 25px;
+    line-height: 36px;
+    border-right: 1px solid #EEE;
+}
+
+.slider-tabs .slider-tab a:last-child {
+    margin-right: 65px;
+    border: none;
+}
+
+.slider-tabs .slider-tab a.on {
+    border-bottom: 2px solid #ed4c61;
+    line-height: 34px;
+    color: #ed4c61;
+    position: relative;
+}
+
+.tabs-gradient {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: url(img/tabs_gradient.png) right center repeat-y;
+    width: 75px;
+    height: 36px;
+    z-index: 2;
+}
+
+.tabs-gradient div {
+    float: right;
+    line-height: 30px;
+    height: 30px;
+    width: 36px;
+    border-left: 1px solid #EEE;
+    margin: 3px 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+.tabs-gradient div i {
+    line-height: 30px;
+    font-size: 16px;
+    transition: 0.5s ease;
+}
+
+.tabs-gradient.active div i {
+    transform: rotate(180deg);
+}
+
+.tabs-holder {
+    height: 35px;
+}
+
+.tabs-holder-bg {
+    position: fixed;
+    top: 37px;;
+    display: none;
+    width: 100%;
+    left: 0;
+    background: #FFF;
+    height: 36px;
+    box-shadow: 0 0 5px #CCC;
+    z-index: 3;
+}
+
+.tabs-switch {
+    visibility: hidden;
+    background: #FFF;
+    position: absolute;
+    top: 0;
+    opacity: 0;
+    left: 0;
+    right: 0;
+    padding: 10px 60px 10px 10px;
+    box-shadow: 0 2px 2px #CCC;
+    transition: 0.5s ease;
+}
+
+.tabs-switch a {
+    display: block;
+    float: left;
+    margin: 5px;
+    border: 1px solid #CCC;
+    padding: 8px 15px;
+    border-radius: 2px;
+}
+
+.tabs-switch a:hover, .tabs-switch a.on {
+    border-color: #EE6600;
+    box-shadow: 0 1px 1px #CCC;
+    transition: 0.5s ease;
+}
+
+.tabs-switch.active {
+    visibility: visible;
+    top: 0;
+    opacity: 1;
+    z-index: 1;
+}

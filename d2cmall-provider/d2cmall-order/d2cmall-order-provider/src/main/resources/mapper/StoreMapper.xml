@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.StoreMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.Store">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="creator" column="creator"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="sort" column="sort"/>
+        <result property="startHour" column="start_hour"/>
+        <result property="startMinute" column="start_minute"/>
+        <result property="endHour" column="end_hour"/>
+        <result property="endMinute" column="end_minute"/>
+        <result property="busType" column="bus_type"/>
+        <result property="storeService" column="store_service"/>
+        <result property="pic" column="pic"/>
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="tel" column="tel"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="district" column="district"/>
+        <result property="address" column="address"/>
+        <result property="linker" column="linker"/>
+        <result property="xy" column="xy"/>
+        <result property="bdxy" column="bdxy"/>
+        <result property="description" column="description"/>
+        <result property="status" column="status"/>
+        <result property="weixin" column="weixin"/>
+    </resultMap>
+
+    <select id="findByCode" resultMap="baseMap">
+		SELECT * FROM o_store WHERE
+		code=#{code} limit 0,1
+	</select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT *
+        FROM o_store
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY sort DESC, create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(*)
+        FROM o_store
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.name!= null and searcher.name != ''">
+            AND name like CONCAT('%', #{searcher.name},'%')
+        </if>
+        <if test="searcher.status!= null">
+            AND status=#{searcher.status}
+        </if>
+        <if test="searcher.city!=null and searcher.city!=''">
+            AND city=#{searcher.city}
+        </if>
+        <if test="searcher.province!=null and searcher.province!=''">
+            AND province=#{searcher.province}
+        </if>
+        <if test="searcher.busType!=null and searcher.busType!=''">
+            AND bus_type=#{searcher.busType}
+        </if>
+    </sql>
+
+    <select id="findStoreList" resultMap="baseMap">
+		SELECT * FROM o_store WHERE
+		status = 1 AND bus_type='DIRECT'
+		ORDER BY sort DESC, create_date DESC
+	</select>
+
+    <update id="updateStatus">
+        UPDATE o_store SET modify_date=NOW(),status=#{status}
+        WHERE id IN
+        <foreach collection="ids" index="index" item="id" open="("
+                 separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="updateSort">
+		UPDATE o_store SET modify_date=NOW(),sort=#{sort}
+		WHERE id=#{id}
+	</update>
+
+    <select id="findProvinceList" resultType="string">
+		SELECT DISTINCT
+		province FROM o_store WHERE status=1 AND city IS NOT NULL AND bus_type='DIRECT'
+	</select>
+
+    <select id="chooseStore" resultType="long">
+        SELECT id FROM o_store
+        WHERE o_store.`code` in
+        <foreach collection="storeCodeList" open="(" close=")" item="item"
+                 separator=",">
+            #{item}
+        </foreach>
+        ORDER BY
+        SQRT(POW(SUBSTRING_INDEX(xy,',',1)-#{x},2)+POW(SUBSTRING_INDEX(xy,',',-1)-#{y},2))
+        ASC limit 0,1
+    </select>
+
+</mapper>

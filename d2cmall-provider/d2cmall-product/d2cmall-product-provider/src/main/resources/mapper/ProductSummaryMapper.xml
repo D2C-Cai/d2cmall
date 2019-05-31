@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.product.dao.ProductSummaryMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.ProductSummary">
+        <result property="id" column="id"/>
+        <result property="productId" column="product_id"/>
+        <result property="sales" column="sales"/>
+        <result property="views" column="views"/>
+        <result property="carts" column="carts"/>
+        <result property="orders" column="orders"/>
+        <result property="likes" column="likes"/>
+        <result property="vlikes" column="vlikes"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="comments" column="comments"/>
+        <result property="consults" column="consults"/>
+        <result property="recentlySales" column="recently_sales"/>
+        <result property="tlikes" column="tlikes"/>
+        <result property="partnerSales" column="partner_sales"/>
+    </resultMap>
+
+    <select id="findByProductId" resultMap="baseMap">
+		SELECT * FROM
+		p_product_summary WHERE product_id = #{productId} LIMIT 0, 1
+	</select>
+
+    <update id="updateViewsCount">
+		UPDATE p_product_summary SET views = views +
+		#{views},modify_date=now() WHERE product_id
+		= #{productId}
+	</update>
+
+    <update id="updateCartsCount">
+		UPDATE p_product_summary SET carts = carts +
+		#{carts},modify_date=now()
+		WHERE product_id= #{productId}
+	</update>
+
+    <update id="updateOrdersCount">
+		UPDATE p_product_summary SET orders = orders +
+		#{orders},modify_date=now() WHERE product_id = #{productId}
+	</update>
+
+    <update id="updateSalesCount">
+		UPDATE p_product_summary SET sales = sales +
+		#{sales},modify_date=now()
+		WHERE product_id =#{productId}
+	</update>
+
+    <update id="updateLikeCount">
+		UPDATE p_product_summary SET likes = likes +
+		#{likes},modify_date=now()
+		WHERE product_id =#{productId}
+	</update>
+
+    <update id="updateConsultsCount">
+		UPDATE p_product_summary SET consults = consults +
+		#{consults},modify_date=now()
+		WHERE product_id =#{productId}
+	</update>
+
+    <update id="updateCommentsCount">
+		UPDATE p_product_summary SET comments = comments +
+		#{comments},modify_date=now()
+		WHERE product_id =#{productId}
+	</update>
+
+    <update id="updateRecentlySales">
+		UPDATE p_product_summary SET
+		recently_sales=#{recentlySales},modify_date=now() WHERE
+		product_id=#{productId}
+	</update>
+
+    <select id="findAllRecentlySales" resultType="long">
+		SELECT product_id
+		FROM p_product_summary WHERE recently_sales &gt; 0
+	</select>
+
+    <select id="findAllPartnerSales" resultType="long">
+		SELECT product_id
+		FROM p_product_summary WHERE partner_sales &gt; 0
+	</select>
+
+    <update id="updatePartnerSales">
+		UPDATE p_product_summary SET
+		partner_sales=#{sales},modify_date=now() WHERE
+		product_id=#{productId}
+	</update>
+
+</mapper>

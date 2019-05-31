@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.HolidayMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.Holiday">
+        <result property="id" column="id"/>
+        <result property="createDate" column="createDate"/>
+        <result property="modifyDate" column="modifyDate"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="lastModifyMan"/>
+        <result property="date" column="date"/>
+    </resultMap>
+
+    <select id="findList" resultType="date">
+		SELECT * FROM sys_holiday WHERE 
+		`date` &gt;=#{date} 
+		ORDER BY date ASC 
+		LIMIT 0,30
+	</select>
+
+    <insert id="replaceInto">
+		REPLACE INTO sys_holiday(`date`)
+		VALUES(#{date})
+	</insert>
+
+</mapper>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.content.dao.SubModuleMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.SubModule">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result property="parent" column="parent"/>
+        <result property="direction" column="direction"/>
+        <result property="title" column="title"/>
+        <result property="url" column="url"/>
+        <result property="webUrl" column="web_url"/>
+        <result property="color" column="color"/>
+        <result property="sequence" column="sequence"/>
+        <result property="isDefault" column="is_default"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="status" column="status"/>
+        <result property="version" column="version"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="isCategory" column="is_category"/>
+        <result property="tPic" column="t_pic"/>
+        <result property="tbPic" column="tb_pic"/>
+        <result property="backPic" column="back_pic"/>
+        <result property="backColor" column="back_color"/>
+        <result property="backType" column="back_type"/>
+    </resultMap>
+
+    <sql id="simpleEntityColumns">
+		id, parent, direction, title, url, web_url, color,
+		sequence,
+		is_default, create_date, modify_date, last_modify_man,
+		creator, status,
+		version,category_id,category_name,is_category,t_pic,tb_pic,back_pic,back_color
+	</sql>
+
+    <select id="findByParent" resultMap="baseMap">
+        SELECT
+        <include refid="simpleEntityColumns"/>
+        FROM v_sub_module
+        WHERE parent=#{parent} AND status=1
+        <if test="parent!=null and parent=='HOME'">
+            AND category_id is null
+        </if>
+        ORDER BY is_default DESC,sequence DESC,create_date DESC
+    </select>
+
+    <select id="findByParentAndCategory" resultMap="baseMap">
+        SELECT
+        <include refid="simpleEntityColumns"/>
+        FROM v_sub_module WHERE category_id=#{categoryId}
+        AND status=1 ORDER BY
+        sequence DESC,create_date DESC
+    </select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT
+        <include refid="simpleEntityColumns"/>
+        FROM v_sub_module
+        WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY sequence DESC,id ASC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(id) FROM v_sub_module
+        WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.parent!=null and searcher.parent!=''">
+            AND parent=#{searcher.parent}
+        </if>
+        <if test="searcher.direction!=null and searcher.direction!=''">
+            AND direction=#{searcher.direction}
+        </if>
+        <if test="searcher.title!=null and searcher.title!=''">
+            AND title LIKE CONCAT('%',#{searcher.title},'%')
+        </if>
+        <if test="searcher.url!=null and searcher.url!=''">
+            AND url LIKE CONCAT('%',#{searcher.url},'%')
+        </if>
+        <if test="searcher.webUrl!=null and searcher.webUrl!=''">
+            AND web_url LIKE CONCAT('%',#{searcher.webUrl},'%')
+        </if>
+        <if test="searcher.isDefault!=null">
+            AND is_default=#{searcher.isDefault}
+        </if>
+        <if test="searcher.isCategory!=null and searcher.isCategory==1">
+            AND is_category=1
+        </if>
+        <if test="searcher.categoryId!=null">
+            AND category_id=#{searcher.categoryId}
+        </if>
+    </sql>
+
+    <update id="updateDefault">
+		UPDATE v_sub_module SET
+		is_default=#{is_default},modify_date=now() WHERE id=#{id}
+	</update>
+
+    <update id="updateCancelDefault">
+		UPDATE v_sub_module SET
+		is_default=0,modify_date=now()
+		WHERE parent=#{parent}
+	</update>
+
+    <update id="updateStatus">
+		UPDATE v_sub_module SET
+		status=#{status},modify_date=now(),last_modify_man=#{lastModifyMan}
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateVersion">
+		UPDATE v_sub_module SET version = #{newVersion},
+		modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <delete id="delete">
+		DELETE FROM v_sub_module WHERE id=#{id}
+	</delete>
+
+    <select id="findCategory" resultMap="baseMap">
+        SELECT
+        <include refid="simpleEntityColumns"/>
+        FROM v_sub_module WHERE is_category=1
+        <if test="parent!=null and parent!=''">
+            AND parent=#{parent}
+        </if>
+        ORDER BY sequence
+        DESC,create_date
+        DESC
+    </select>
+
+    <update id="updateCategoryId">
+		UPDATE v_sub_module SET
+		category_id=#{categoryId},modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <update id="updatetPic">
+		UPDATE v_sub_module SET t_pic=#{tPic},tb_pic=#{tbPic}
+		WHERE id=#{id}
+	</update>
+</mapper>

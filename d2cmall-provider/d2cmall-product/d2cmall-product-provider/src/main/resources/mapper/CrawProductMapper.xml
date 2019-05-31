@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.product.dao.CrawProductMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.CrawProduct">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="craw_product_id" property="crawProductId"
+                jdbcType="BIGINT"/>
+        <result column="craw_product_url" property="crawProductUrl"
+                jdbcType="VARCHAR"/>
+        <result column="craw_product_price" property="crawProductPrice"
+                jdbcType="DECIMAL"/>
+        <result column="craw_product_pic_url" property="crawProductPicUrl"
+                jdbcType="VARCHAR"/>
+        <result column="craw_product_sn" property="crawProductSn"
+                jdbcType="VARCHAR"/>
+        <result column="craw_product_name" property="crawProductName"
+                jdbcType="VARCHAR"/>
+        <result column="craw_designermall" property="crawDesignermall"
+                jdbcType="BIGINT"/>
+        <result column="d2c_product_id" property="d2cProductId"
+                jdbcType="BIGINT"/>
+        <result column="d2c_designer_id" property="d2cDesignerId"
+                jdbcType="BIGINT"/>
+    </resultMap>
+
+    <select id="countBySearcher" resultType="int">
+        select count(DISTINCT d2c_product_id) from craw_product cp where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        select * from craw_product cp where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        LIMIT #{pager.startNumber}, #{pager.pageSize}
+    </select>
+
+    <select id="countProIdsBySearcher" resultType="long">
+        select DISTINCT d2c_product_id from craw_product cp where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        LIMIT #{pager.startNumber}, #{pager.pageSize}
+    </select>
+
+    <update id="deleteByDesignerId">
+		delete from craw_product where
+		craw_designermall=#{designerId}
+	</update>
+
+    <select id="findByD2cProId" resultMap="baseMap">
+		select * from craw_product
+		cp where d2c_product_id =#{productId}
+		LIMIT 0, 50
+	</select>
+
+    <sql id="Searcher">
+        <if test="searcher.productName!= null and searcher.productName!= ''">
+            AND cp.craw_product_name =#{searcher.productName}
+        </if>
+        <if test="searcher.id!= null and searcher.id!= ''">
+            AND cp.craw_designermall =#{searcher.id}
+        </if>
+        <if test="searcher.designerId!= null">
+            AND cp.d2c_designer_id =#{searcher.designerId}
+        </if>
+
+    </sql>
+
+</mapper>

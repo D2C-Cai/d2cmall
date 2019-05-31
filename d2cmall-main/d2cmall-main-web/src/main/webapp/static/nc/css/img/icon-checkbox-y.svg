@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="60px" height="60px" viewBox="0 0 60 60" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-checkbox-y</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <path d="M30,55 C43.8071187,55 55,43.8071187 55,30 C55,16.1928813 43.8071187,5 30,5 C16.1928813,5 5,16.1928813 5,30 C5,43.8071187 16.1928813,55 30,55 Z M19.7727273,28.8636364 L16.3636364,32.2727273 L25.4545455,41.3636364 L45.9090909,22.0454545 L42.5,18.6363636 L25.4545455,34.5454545 L19.7727273,28.8636364 Z"
+              id="checkbox" fill="#FD555D" sketch:type="MSShapeGroup"></path>
+    </g>
+</svg>

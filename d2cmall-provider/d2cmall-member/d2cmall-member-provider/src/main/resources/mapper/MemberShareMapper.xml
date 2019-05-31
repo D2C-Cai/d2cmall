@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.MemberShareMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.MemberShare">
+        <result property="id" column="id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="verifyMan" column="verify_man"/>
+        <result property="cancelMan" column="cancel_man"/>
+        <result property="verifyDate" column="verify_date"/>
+        <result property="cancelDate" column="cancel_date"/>
+        <result property="nickname" column="nickname"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="pic" column="pic"/>
+        <result property="psPic" column="ps_pic"/>
+        <result property="description" column="description"/>
+        <result property="url" column="url"/>
+        <result property="status" column="status"/>
+        <result property="likes" column="likes"/>
+        <result property="vlikes" column="vlikes"/>
+        <result property="top" column="top"/>
+        <result property="name" column="name"/>
+        <result property="mobile" column="mobile"/>
+        <result property="email" column="email"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="x" column="x"/>
+        <result property="y" column="y"/>
+        <result property="city" column="city"/>
+        <result property="street" column="street"/>
+        <result property="comments" column="comments"/>
+        <result property="designerId" column="designer_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="picTag" column="pic_tag"/>
+        <result property="role" column="role"/>
+        <result property="type" column="type"/>
+        <result property="refuseReason" column="refuse_reason"/>
+        <result property="video" column="video"/>
+        <result property="resourceType" column="resource_type"/>
+        <result property="timeLength" column="time_length"/>
+        <result property="topicId" column="topic_id"/>
+        <result property="topicName" column="topic_name"/>
+        <result property="watched" column="watched"/>
+        <result property="downCount" column="down_count"/>
+        <result property="shareCount" column="share_count"/>
+    </resultMap>
+
+    <select id="findByShareTagId" resultMap="baseMap">
+		SELECT m.* from
+		m_share m,
+		m_share_tag_relation r where m.id=r.share_id and
+		r.tag_id=#{tagId}
+		order by r.sort desc,r.id desc
+		LIMIT
+		#{pager.startNumber},
+		#{pager.pageSize}
+	</select>
+
+    <select id="findMyFollows" resultMap="baseMap">
+        SELECT d.* FROM m_share
+        d,m_member_follow r
+        WHERE
+        r.from_id=#{memberId} and d.member_id=r.to_id
+        <if test="status!=null">
+            AND d.status=#{status}
+        </if>
+        ORDER BY d.top DESC,d.create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT d.*
+        FROM m_share d WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY
+        <if test="searcher.sortLike!=null and searcher.sortLike!=''">
+            d.likes ${searcher.sortLike},
+        </if>
+        d.top desc ,d.create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.status!=null and searcher.status==0">
+            AND d.status=0
+        </if>
+        <if test="searcher.status!=null and searcher.status==1">
+            AND (d.status=1 or d.status=8)
+        </if>
+        <if test="searcher.status!=null and searcher.status==-1">
+            AND d.status=-1
+        </if>
+        <if test="searcher.memberId!=null">
+            AND d.member_id=#{searcher.memberId}
+        </if>
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND d.name =#{searcher.name}
+        </if>
+        <if test="searcher.nickname!=null and searcher.nickname!=''">
+            AND d.nickname =#{searcher.nickname}
+        </if>
+        <if test="searcher.mobile!=null and searcher.mobile!=''">
+            AND d.mobile =#{searcher.mobile}
+        </if>
+        <if test="searcher.email!=null and searcher.email!=''">
+            AND d.email =#{searcher.email}
+        </if>
+        <if test="searcher.beginCreateDate!=null">
+            AND d.create_date&gt;=#{searcher.beginCreateDate}
+        </if>
+        <if test="searcher.endCreateDate!=null">
+            AND d.create_date&lt;= #{searcher.endCreateDate}
+        </if>
+        <if test="searcher.designerId!=null">
+            AND d.designer_id = #{searcher.designerId}
+        </if>
+        <if test="searcher.sourceIds!=null and searcher.sourceIds.size &gt; 0">
+            AND id IN
+            <foreach collection="searcher.sourceIds" index="index" item="id" open="(" separator="," close=")">
+                #{id}
+            </foreach>
+        </if>
+        <if test="searcher.type!=null">
+            AND d.type=#{searcher.type}
+        </if>
+        <if test="searcher.topicId!=null">
+            AND topic_id=#{searcher.topicId}
+        </if>
+    </sql>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(*) FROM m_share d WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <select id="countByMemberId" resultType="int">
+        SELECT COUNT(*) FROM m_share WHERE member_id=#{memberId}
+        <if test="status!=null">
+            AND status=#{status}
+        </if>
+    </select>
+
+    <select id="countByProductId" resultType="int">
+        SELECT COUNT(*) FROM m_share WHERE product_id=#{productId}
+        <if test="status!=null">
+            AND status=#{status}
+        </if>
+    </select>
+
+    <select id="countByShareTagId" resultType="int">
+		SELECT count(m.id)
+		FROM m_share m, m_share_tag_relation r where m.id=r.share_id
+		and tag_id=#{tagId}
+	</select>
+
+    <select id="countByMyFollows" resultType="int">
+        SELECT count(d.id) FROM m_share d,m_member_follow r
+        WHERE
+        r.from_id=#{memberId} and d.member_id=r.to_id
+        <if test="status!=null">
+            AND d.status=#{status}
+        </if>
+    </select>
+
+    <select id="getTotalLikesCount" resultType="int">
+        SELECT
+        COALESCE(SUM(likes),0) FROM m_share WHERE
+        member_id=#{memberId}
+        <if test="status!=null">
+            AND status=#{status}
+        </if>
+    </select>
+
+    <delete id="deleteById">
+		DELETE FROM m_share
+		WHERE id=#{id}
+	</delete>
+
+    <update id="updateColumn">
+		set names utf8mb4
+	</update>
+
+    <update id="updateUrl">
+		UPDATE m_share
+		SET
+		url=#{url} WHERE id=#{id}
+	</update>
+
+    <update id="updateTop">
+        UPDATE m_share
+        <set>
+            top=#{status},modify_date=now()
+        </set>
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateTags">
+		UPDATE m_share SET tags=#{tags}
+		WHERE id=#{id}
+	</update>
+
+    <update id="updatePic">
+		UPDATE m_share SET pic=#{pic} WHERE id=#{id}
+	</update>
+
+    <update id="updatePicTag">
+		UPDATE m_share SET pic_tag=#{picTag} WHERE
+		id=#{id}
+	</update>
+
+    <update id="updateDesignerId">
+        UPDATE m_share SET modify_date=now(),
+        designer_id=#{designerId}
+        <if test="role!=null">
+            ,role=#{role}
+        </if>
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateVideoById">
+		UPDATE m_share SET video=#{video}, modify_date=NOW() WHERE
+		id=#{id} AND resource_type='video'
+	</update>
+
+    <update id="updateBindStatus">
+        UPDATE m_share
+        SET modify_date=now()
+        <if test="productId!=null">
+            ,product_id=#{productId}
+        </if>
+        <if test="designerId!=null">
+            ,designer_id=#{designerId}
+        </if>
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateLikesCount">
+		UPDATE m_share SET
+		likes=likes+#{likes} WHERE
+		id=#{id}
+	</update>
+
+    <update id="updateCommentsCount">
+		UPDATE m_share SET
+		comments=comments+#{comments}
+		WHERE
+		id=#{id}
+	</update>
+
+    <update id="unBindDesigner">
+		UPDATE m_share
+		SET modify_date=now(),
+		designer_id=0
+		WHERE id=#{id}
+	</update>
+
+    <update id="unBindProduct">
+		UPDATE m_share
+		SET modify_date=now(), product_id=0
+		WHERE id=#{id}
+	</update>
+
+    <update id="doAccept">
+		UPDATE m_share SET status=#{status},last_modify_man=#{lastModifyMan} WHERE
+		id=#{id} AND type=3
+	</update>
+
+    <update id="doRefuse">
+		UPDATE m_share SET status=-1,refuse_reason=#{refuseReason},last_modify_man=#{lastModifyMan},modify_date=NOW() WHERE
+		id=#{id} AND status=0
+	</update>
+
+    <update id="doWatch">
+		UPDATE m_share SET watched=watched+1,modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <update id="doVerify">
+		UPDATE m_share SET
+		status=1,verify_date=now(),verify_man=#{verifyMan} WHERE
+		id=#{id}
+	</update>
+
+    <update id="doCancelVerify">
+		UPDATE m_share SET
+		status=0,cancel_date=now(),cancel_man=#{cancelMan} WHERE
+		id=#{id}
+	</update>
+
+    <update id="doCancelBind">
+        UPDATE m_share
+        SET modify_date=now()
+        <if test="type=='product'">
+            ,product_id=0
+        </if>
+        <if test="type=='designer'">
+            ,designer_id=0
+        </if>
+        WHERE id=#{id}
+    </update>
+
+    <update id="doRefreshHeadPic">
+        UPDATE m_share SET
+        <if test="headPic!=null and headPic!=''">
+            head_pic=#{headPic},
+        </if>
+        nickname=#{nickName},modify_date=NOW() WHERE member_id=#{memberInfoId}
+    </update>
+
+    <update id="doMerge">
+		UPDATE m_share SET modify_date=now(),
+		old_member_id=member_id,
+		member_id=#{targetId} WHERE
+		member_id=#{sourceId}
+	</update>
+
+    <update id="doBindTopic">
+		UPDATE m_share SET topic_id=#{topicId},topic_name=#{topicName},modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <select id="countByTopic" resultType="int">
+		SELECT COUNT(*) FROM m_share WHERE topic_id=#{topicId} AND status=1
+	</select>
+
+    <update id="updateRole">
+		UPDATE m_share SET modify_date=now(),role=#{role}
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateRoleByMemberId">
+		UPDATE m_share SET modify_date=now(),role=#{role}
+		WHERE member_id=#{memberId}
+	</update>
+
+    <update id="doAddDownCount">
+		UPDATE m_share SET modify_date=now(),down_count=down_count+1 WHERE id=#{id}
+	</update>
+
+    <update id="doAddShareCount">
+		UPDATE m_share SET modify_date=now(),share_count=share_count+1 WHERE id=#{id}
+	</update>
+</mapper>

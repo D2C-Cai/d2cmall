@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.PartnerCounselorMapper">
+    <resultMap type="com.d2c.member.model.PartnerCounselor" id="baseMap">
+        <result property="name" column="name"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="weixin" column="weixin"/>
+        <result property="qrCode" column="qr_code"/>
+        <result property="description" column="description"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM m_partner_counselor WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date DESC
+        <if test="pager != null">
+            LIMIT #{pager.startNumber}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT count(*) FROM m_partner_counselor WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.name!= null and searcher.name!=''">
+            AND name like CONCAT('%',#{searcher.name},'%')
+        </if>
+        <if test="searcher.status!= null">
+            AND status=#{searcher.status}
+        </if>
+    </sql>
+
+    <update id="doMark">
+		UPDATE m_partner_counselor set status=#{mark} where id=#{id}
+	</update>
+
+</mapper>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+
+
+	http://www.springframework.org/schema/cache 
+	http://www.springframework.org/schema/cache/spring-cache.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="1"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:conf/redis.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <cache:annotation-driven/>
+
+    <bean id="redisHandler" class="com.d2c.cache.redis.RedisHandler"/>
+    <bean id="cacheMethodAop" class="com.d2c.cache.redis.aop.CacheMethodAop"/>
+
+    <!-- 集群配置Cluster  -->
+    <!--
+    <bean id="redisConfig"
+        class="com.d2c.cache.redis.config.RedisConfig">
+        <property name="maxRedirects" value="3"></property>
+        <property name="address" value="${redis.address}"></property>
+    </bean>
+     -->
+
+    <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxTotal" value="3000"/>
+        <property name="maxIdle" value="100"/>
+        <property name="minIdle" value="1"/>
+        <property name="maxWaitMillis" value="30000"/>
+        <property name="testOnBorrow" value="true"/>
+        <property name="testOnReturn" value="true"/>
+        <property name="testWhileIdle" value="true"/>
+    </bean>
+
+    <bean id="jeidsConnectionFactory"
+          class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
+        <property name="hostName" value="${jedis2.home.name}"/>
+        <property name="port" value="${jedis2.port}"/>
+        <property name="usePool" value="true"/>
+        <property name="database" value="${jedis.database}"/>
+        <!-- <constructor-arg ref="redisConfig" /> -->
+        <constructor-arg ref="jedisPoolConfig"/>
+    </bean>
+
+    <!-- redis 访问的模版 -->
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
+        <property name="connectionFactory" ref="jeidsConnectionFactory"/>
+        <property name="hashKeySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="hashValueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+        </property>
+        <property name="keySerializer">
+            <bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
+        </property>
+        <property name="valueSerializer">
+            <bean class="org.springframework.data.redis.serializer.JdkSerializationRedisSerializer"/>
+        </property>
+    </bean>
+
+    <bean id="cacheManager" class="org.springframework.data.redis.cache.RedisCacheManager">
+        <constructor-arg ref="redisTemplate"/>
+        <property name="defaultExpiration" value="86400"/> <!-- 缓存过期时间 (秒) -->
+    </bean>
+
+</beans>

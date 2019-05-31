@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.product.dao.BargainRuleMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.BargainRule">
+        <result property="gradePrice" column="grade_price"/>
+        <result property="min" column="min"/>
+        <result property="max" column="max"/>
+        <result property="bargainPromotionId" column="bargain_promotion_id"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <delete id="delete">
+		delete from o_bargain_rule where id=#{id}
+	</delete>
+
+    <select id="findByPromotionId" resultMap="baseMap">
+		select * from
+		o_bargain_rule where bargain_promotion_id =#{promotionId}
+		order by
+		grade_price desc limit 0,500
+	</select>
+
+    <select id="findUpperRule" resultMap="baseMap">
+		select * from
+		o_bargain_rule where bargain_promotion_id =#{promotionId} and
+		grade_price &lt;= #{price}
+		order by grade_price desc limit 0,1
+	</select>
+
+    <select id="countByPromotion" resultType="int">
+		select count(*) from
+		o_bargain_rule where bargain_promotion_id =#{promotionId}
+	</select>
+
+    <select id="findFirst" resultMap="baseMap">
+		select * from
+		o_bargain_rule where bargain_promotion_id =#{promotionId} 
+		order by grade_price desc limit 0,1
+	</select>
+
+    <select id="findLast" resultMap="baseMap">
+		select * from
+		o_bargain_rule where bargain_promotion_id =#{promotionId} 
+		order by grade_price  limit 0,1
+	</select>
+
+</mapper>

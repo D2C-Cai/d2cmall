@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.AccountItemMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.AccountItem">
+        <result property="memberId" column="member_id"/>
+        <result property="storeId" column="store_id"/>
+        <result property="sourceId" column="source_id"/>
+        <result property="businessType" column="business_type"/>
+        <result property="transactionId" column="transaction_id"/>
+        <result property="transactionSn" column="transaction_sn"/>
+        <result property="transactionTime" column="transaction_time"/>
+        <result property="transactionInfo" column="transaction_info"/>
+        <result property="sn" column="sn"/>
+        <result property="optAccountId" column="opt_account_id"/>
+        <result property="optAccountSn" column="opt_account_sn"/>
+        <result property="selfAccountId" column="self_account_id"/>
+        <result property="selfAccountSn" column="self_account_sn"/>
+        <result property="memo" column="memo"/>
+        <result property="amount" column="amount"/>
+        <result property="giftAmount" column="gift_amount"/>
+        <result property="payType" column="pay_type"/>
+        <result property="direction" column="direction"/>
+        <result property="status" column="status"/>
+        <result property="limited" column="limited"/>
+        <result property="limitGiftAmount" column="limit_gift_amount"/>
+        <result property="limitDate" column="limit_date"/>
+        <result property="confirmDate" column="confirm_date"/>
+        <result property="confirmer" column="confirmer"/>
+        <result property="closeDate" column="close_date"/>
+        <result property="closer" column="closer"/>
+        <result property="closeInfo" column="close_info"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findById" resultMap="baseMap">
+		SELECT * FROM o_account_item WHERE
+		id=#{id} LIMIT 0,1
+	</select>
+
+    <select id="findBySn" resultMap="baseMap">
+		SELECT * FROM o_account_item WHERE 
+		sn=#{sn} LIMIT 0,1
+	</select>
+
+    <select id="findByTransactionSn" resultType="com.d2c.order.model.AccountItem">
+        SELECT * FROM o_account_item
+        WHERE status=1 and transaction_sn=#{transactionSn}
+        <if test="payType!=null and payType!=''">
+            and pay_type=#{payType}
+        </if>
+    </select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT p.*
+        <include refid="joinTableSql"/>
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY p.create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(*)
+        <include refid="joinTableSql"/>
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="joinTableSql">
+        FROM o_account_item p
+        <if test="(searcher.account!=null and searcher.account!='')
+			|| (searcher.cardHolder!=null and searcher.cardHolder!='')">
+            ,m_account a
+        </if>
+        WHERE 1=1
+        <if test="(searcher.account!=null and searcher.account!='')
+			|| (searcher.cardHolder!=null and searcher.cardHolder!='')">
+            AND p.self_account_id=a.id
+        </if>
+    </sql>
+
+    <sql id="Searcher">
+        <if test="searcher.account!=null and searcher.account!=''">
+            AND a.account=#{searcher.account}
+        </if>
+        <if test="searcher.cardHolder!=null and searcher.cardHolder!=''">
+            AND a.card_holder=#{searcher.cardHolder}
+        </if>
+        <if test="searcher.accountId!= null">
+            AND p.self_account_id = #{searcher.accountId}
+        </if>
+        <if test="searcher.status!= null">
+            AND p.status = #{searcher.status}
+        </if>
+        <if test="searcher.memberId!= null">
+            AND p.member_id = #{searcher.memberId}
+        </if>
+        <if test="searcher.businessType!= null">
+            AND p.business_type = #{searcher.businessType}
+        </if>
+        <if test="searcher.startDate!= null">
+            AND p.transaction_time &gt;= #{searcher.startDate}
+        </if>
+        <if test="searcher.endDate!= null">
+            AND p.transaction_time &lt;= #{searcher.endDate}
+        </if>
+        <if test="searcher.payType!= null">
+            AND p.pay_type = #{searcher.payType}
+        </if>
+        <if test="searcher.sn!=null and searcher.sn!=''">
+            AND p.sn =#{searcher.sn}
+        </if>
+        <if test="searcher.inOrOut=='IN'">
+            AND p.direction = 1
+        </if>
+        <if test="searcher.inOrOut=='OUT'">
+            AND p.direction = -1
+        </if>
+        <if test="searcher.memberType==1">
+            AND p.member_id NOT IN(SELECT member_id FROM m_distributor)
+        </if>
+        <if test="searcher.memberType==2">
+            AND p.member_id IN(SELECT member_id FROM m_distributor)
+        </if>
+        <if test="searcher.storeId!=null">
+            AND p.store_id = #{searcher.storeId}
+        </if>
+    </sql>
+
+    <update id="updateTransactionInfo">
+		UPDATE o_account_item SET
+		transaction_id=#{transactionId},transaction_info=#{transactionInfo}
+		WHERE id=#{billId}
+	</update>
+
+    <update id="doCancel">
+		UPDATE o_account_item SET status=-1,closer=#{man},close_date=now(),
+		modify_date=now(),close_info=#{closeInfo}
+		WHERE status=0 and id=#{payId}
+	</update>
+
+    <update id="doConfirm">
+		UPDATE o_account_item SET status=1,confirmer=#{man},
+		confirm_date=now(),modify_date=now() 
+		where status=0 and id=#{payId}
+	</update>
+
+    <select id="sumTotalAmount" resultType="BigDecimal">
+		SELECT
+		COALESCE(sum(amount*direction),0) from o_account_item where
+		source_id=#{sourceId}
+		and
+		status&gt;=0
+	</select>
+
+    <select id="sumTotalGiftAmount" resultType="BigDecimal">
+		SELECT
+		COALESCE(sum(gift_amount*direction),0) from o_account_item where
+		source_id=#{sourceId}
+		and
+		status&gt;=0
+	</select>
+
+    <select id="findWalletAmount" resultType="hashMap">
+		SELECT IFNULL(SUM(amount),0) as amount,IFNULL(SUM(gift_amount),0) as giftAmount,
+		business_type as businessType,pay_type as payType, direction,#{calculateDate} as calculateDate
+		FROM
+		`o_account_item` WHERE
+		YEAR(create_date)=YEAR(#{calculateDate}) AND
+		MONTH(create_date)=MONTH(#{calculateDate}) AND
+		status=1 GROUP BY
+		business_type,pay_type
+		limit 0,500
+	</select>
+
+</mapper>

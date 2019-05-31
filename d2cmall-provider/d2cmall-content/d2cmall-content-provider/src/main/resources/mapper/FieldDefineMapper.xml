@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.content.dao.FieldDefineMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.FieldDefine">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="page_def_id" property="pageDefId" jdbcType="BIGINT"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="type" property="type" jdbcType="SMALLINT"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="pic_size" property="picSize" jdbcType="INTEGER"/>
+        <result column="status" property="status" jdbcType="SMALLINT"/>
+        <result property="aliasCode" column="alias_code"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <select id="findByPageDefId" resultMap="baseMap">
+		SELECT * FROM 
+		v_field_define
+		WHERE page_def_id = #{pageDefId} 
+		ORDER BY status DESC, code ASC
+	</select>
+
+    <select id="findByPageDefIdWithStatus" resultMap="baseMap">
+		SELECT * FROM
+		v_field_define
+		WHERE page_def_id = #{pageDefId} AND status = #{status} 
+		ORDER BY code ASC
+	</select>
+
+    <select id="findOne" resultMap="baseMap">
+		SELECT * FROM 
+		v_field_define
+		WHERE page_def_id = #{pageDefId} AND code = #{code} 
+		LIMIT 0,1
+	</select>
+
+</mapper>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.StatementMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.Statement">
+        <result property="sn" column="sn"/>
+        <result property="title" column="title"/>
+        <result property="status" column="status"/>
+        <result property="billInfo" column="bill_info"/>
+        <result property="year" column="year"/>
+        <result property="month" column="month"/>
+        <result property="sendDate" column="send_date"/>
+        <result property="sender" column="sender"/>
+        <result property="designerId" column="designer_id"/>
+        <result property="designerCode" column="designer_code"/>
+        <result property="designerName" column="designer_name"/>
+        <result property="quantity" column="quantity"/>
+        <result property="tagAmount" column="tag_amount"/>
+        <result property="settleAmount" column="settle_amount"/>
+        <result property="adminMemo" column="admin_memo"/>
+        <result property="designerMemo" column="designer_memo"/>
+        <result property="payer" column="payer"/>
+        <result property="payDate" column="pay_date"/>
+        <result property="payBank" column="pay_bank"/>
+        <result property="paySn" column="pay_sn"/>
+        <result property="payPic" column="pay_pic"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="payMoney" column="pay_money"/>
+        <result property="payMemo" column="pay_memo"/>
+        <result property="finishDate" column="finish_date"/>
+        <result property="apply" column="apply"/>
+        <result property="compensationCount" column="compensation_count"/>
+        <result property="compensationAmount" column="compensation_amount"/>
+        <result property="actualCompensationAmount" column="actual_compensation_amount"/>
+        <result property="operation" column="operation"/>
+        <result property="fromType" column="from_type"/>
+        <result property="periodOfMonth" column="period_of_month"/>
+        <result property="totalPayAmount" column="total_pay_amount"/>
+    </resultMap>
+
+    <select id="findBySn" resultMap="baseMap">
+		select * from o_statement where
+		sn=#{sn} limit 0,1
+	</select>
+
+    <select id="findByDesigner" resultMap="baseMap">
+        select * from (SELECT settle_year as year,settle_month as
+        month,designer_id,designer_code,designer_name,
+        sum(quantity) as
+        quantity,sum(tag_price*quantity) as tag_amount,
+        SUM(settle_amount) as
+        settle_amount FROM
+        o_statement_item where
+        settle_year=#{settleYear} and
+        settle_month=#{settleMonth}
+        <if test="periodOfMonth &gt; 0">
+            <if test="periodOfMonth==1">
+                AND settle_day &lt;= 10
+            </if>
+            <if test="periodOfMonth==2">
+                AND settle_day &gt;= 11 AND settle_day &lt;= 20
+            </if>
+            <if test="periodOfMonth==3">
+                AND settle_day &gt;= 21
+            </if>
+        </if>
+        <if test="fromType!=null and fromType=='online'">
+            AND type IN (0,1,4)
+        </if>
+        <if test="fromType!=null and fromType=='line'">
+            AND type IN (2,3)
+        </if>
+        and status=0
+        and statement_id is null and
+        settle_price is not null and
+        NOT EXISTS
+        (SELECT 1 FROM
+        o_statement_item s
+        WHERE
+        s.settle_year=#{settleYear} and s.settle_month=
+        #{settleMonth}
+        and
+        s.settle_amount IS NULL AND
+        s.designer_id=o_statement_item.designer_id
+        <if test="fromType!=null and fromType=='online'">
+            AND type IN (0,1,4)
+        </if>
+        <if test="fromType!=null and fromType=='line'">
+            AND type IN (2,3)
+        </if>
+        )
+        <choose>
+            <when test="designerId!=null">
+                and designer_id=#{designerId}
+            </when>
+            <otherwise>
+                group by designer_id
+            </otherwise>
+        </choose>
+        )a where designer_id is not null
+    </select>
+
+    <select id="countByDesigner" resultType="hashMap">
+        select count(id) as count,designer_id as designerId from o_statement
+        where year=#{settleYear}
+        and
+        month=#{settleMonth}
+        <if test="designerId!=null">
+            and designer_id=#{designerId}
+        </if>
+        <if test="periodOfMonth &gt; 0">
+            AND period_of_month=#{periodOfMonth}
+        </if>
+        <if test="fromType!=null and fromType!=''">
+            AND from_type =#{fromType}
+        </if>
+        group by designer_id
+    </select>
+
+    <select id="sumByDesigner" resultType="java.math.BigDecimal">
+		select sum(settle_amount)
+		FROM o_statement_item where
+		statement_id=#{statementId} and NOT EXISTS
+		(SELECT 1 FROM
+		o_statement_item s
+		WHERE s.settle_amount IS NULL AND
+		statement_id=#{statementId})
+	</select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        select * from o_statement where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        order by create_date desc
+        <if test="page!=null">
+            limit #{page.startNumber},#{page.pageSize}
+        </if>
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        select count(id) from o_statement where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.settleYear!=null">
+            And year=#{searcher.settleYear}
+        </if>
+        <if test="searcher.settleMonth!=null">
+            And month=#{searcher.settleMonth}
+        </if>
+        <if test="searcher.designerId!=null">
+            And designer_id=#{searcher.designerId}
+        </if>
+        <if test="searcher.payStartTime!=null">
+            and pay_date
+            &gt;=#{searcher.payStartTime}
+        </if>
+        <if test="searcher.payStartTime !=null">
+            and pay_date
+            &lt;=#{searcher.payStartTime}
+        </if>
+        <if test="searcher.sn !=null and searcher.sn!=''">
+            and sn=#{searcher.sn}
+        </if>
+        <if test="searcher.status!=null and searcher.status.length &gt; 0">
+            and status in
+            <foreach collection="searcher.status" item="item" open="("
+                     close=")" separator=",">
+                #{item}
+
+            </foreach>
+        </if>
+        <if test="searcher.designerIds!=null and searcher.designerIds.size &gt; 0">
+            and designer_id in
+            <foreach collection="searcher.designerIds" item="item" open="("
+                     close=")" separator=",">
+                #{item}
+            </foreach>
+        </if>
+        <if test="searcher.apply!=null">
+            and apply=#{searcher.apply}
+        </if>
+        <if test="searcher.operation !=null and searcher.operation!=''">
+            and operation=#{searcher.operation}
+        </if>
+        <if test="searcher.fromType!=null  and searcher.fromType!=''">
+            AND from_type=#{searcher.fromType}
+        </if>
+        <if test="searcher.periodOfMonth!=null">
+            AND period_of_month=#{searcher.periodOfMonth}
+        </if>
+    </sql>
+
+    <update id="updateStatus">
+        update o_statement set status=#{status} where id=#{id}
+        <if test="oldStatus!=null">
+            and status=#{oldStatus}
+        </if>
+    </update>
+
+    <update id="updateAdminMemo">
+		update o_statement set
+		remark=#{memo},modify_date=now()
+		where id=#{id}
+	</update>
+
+    <update id="updateDesignerMemo">
+		update o_statement set
+		designer_memo=#{designerMemo},modify_date=now() where id=#{id}
+	</update>
+
+    <update id="updateSettle">
+        update o_statement
+        <set>
+            <if test="settleAmount!=null">
+                settle_amount=settle_amount+#{settleAmount},
+            </if>
+            <if test="quantity!=null">
+                quantity=quantity+#{quantity},
+            </if>
+            <if test="tagPrice!=null">
+                tag_amount=tag_amount+#{tagPrice},
+            </if>
+            last_modify_man=#{operator},
+            modify_date=now()
+            where id=#{id}
+        </set>
+    </update>
+
+    <update id="doBack">
+		update o_statement set status=0
+		,designer_memo=#{memo}
+		where id=#{id} and status=2
+	</update>
+
+    <update id="doSuccess">
+		update o_statement set
+		status=8,last_modify_man=#{operator}
+		,modify_date=now(),finish_date=#{finishDate} where
+		id=#{id}
+		and status=3
+	</update>
+
+    <update id="doSend">
+		update o_statement set
+		status=1,modify_date=now(),last_modify_man=#{operator},sender=#{operator},send_date=now()
+		where id=#{id}
+	</update>
+
+    <update id="doPay">
+		update o_statement set
+		payer=#{payer},pay_sn=#{paySn},pay_date=#{payDate},last_modify_man=#{operator}
+		,modify_date=now(),pay_bank=#{payBank},pay_pic=#{payPic},pay_money=#{payMoney},
+		total_pay_amount=total_pay_amount+#{payMoney},pay_memo=#{payMemo}
+		where id=#{id}
+		and status=3
+	</update>
+
+    <update id="doApply">
+		update o_statement set
+		apply=#{flag},last_modify_man=#{operator},modify_date=now() where
+		id=#{id}
+	</update>
+
+    <update id="doRetreat">
+		update o_statement set status=0 where id=#{id} and
+		status=1
+	</update>
+
+    <update id="updateCompensation">
+		update o_statement set
+		compensation_count=#{compensationCount},
+		compensation_amount=#{compensationAmount},actual_compensation_amount=#{actualCompensationAmount}
+		where id=#{id}
+	</update>
+
+</mapper>

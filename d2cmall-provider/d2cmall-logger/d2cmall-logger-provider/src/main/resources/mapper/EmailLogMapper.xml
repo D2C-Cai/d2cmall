@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.EmailLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.EmailLog">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="sourceId" column="source_id"/>
+        <result property="maxSend" column="max_send"/>
+    </resultMap>
+
+    <update id="updateSend">
+		UPDATE log_email SET
+		send=send+1,modify_date=now()
+		WHERE id= #{id}
+	</update>
+
+    <select id="findBySourceIdAndType" resultMap="baseMap">
+		SELECT * FROM
+		log_email WHERE source_id=#{sourceId} AND type=#{type} 
+		ORDER BY create_date DESC
+		LIMIT 0,1
+	</select>
+
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.LogisticsPostageMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.LogisticsPostage">
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="basicWeight" column="basic_weight"/>
+        <result property="basicAmount" column="basic_amount"/>
+        <result property="excessAmount" column="excess_amount"/>
+        <result property="excessWeight" column="excess_weight"/>
+        <result property="templateId" column="template_id"/>
+        <result property="templeId" column="temple_id"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <insert id="insertBatch">
+        insert into
+        o_logistics_postage
+        (name,code,basic_weight,basic_amount,excess_amount,
+        excess_weight,template_id,create_date,modify_date)
+        values
+        <foreach collection="postageSettings" item="item" index="index"
+                 separator=",">
+            (#{item.name},#{item.code},#{item.basicWeight},#{item.basicAmount},#{item.excessAmount},#{item.excessWeight},#{templateId},now(),now())
+        </foreach>
+    </insert>
+
+    <select id="findByTemplateId" resultMap="baseMap">
+		select * from
+		o_logistics_postage where template_id=#{id} limit 0,500
+	</select>
+
+    <delete id="deleteById">
+		delete from o_logistics_postage where id=#{id}
+	</delete>
+
+</mapper>

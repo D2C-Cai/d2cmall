@@ -1,0 +1,12 @@
+ALTER TABLE `o_statement`
+ADD COLUMN `period_of_month`  int(1) NULL DEFAULT 0 AFTER `month`,
+ADD COLUMN `from_type`  varchar(32) NULL DEFAULT NULL AFTER `period_of_month`,
+ADD COLUMN `total_pay_amount`  decimal(10,2) NULL DEFAULT 0 AFTER `settle_amount`;
+
+ALTER TABLE `o_statement_item`
+ADD COLUMN `settle_day`  int(2) NOT NULL AFTER `settle_month`;
+update o_statement_item set settle_day=DAY(create_date);
+
+
+ALTER TABLE `p_brand`
+ADD COLUMN `prior`  tinyint(1) NOT NULL DEFAULT 0 AFTER `video_pic`;

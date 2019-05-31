@@ -1,0 +1,43 @@
+[
+  {
+    "name": "用户消费级别",
+    "dataClz": "com.d2c.order.model.OrderItem",
+    "dataSpel": "#{productPrice}",
+    "needDiscret": true,
+    "tags": [
+      {
+        "level": 1,
+        "name": "小于1000",
+        "value": 1000,
+        "maxeq": 1000
+      },
+      {
+        "level": 2,
+        "name": "1000-3000",
+        "value": 3000,
+        "min": 1000,
+        "maxeq": 3000
+      },
+      {
+        "level": 3,
+        "name": "3000-5000",
+        "value": 5000,
+        "min": 3000,
+        "maxeq": 5000
+      },
+      {
+        "level": 4,
+        "name": "5000-10000",
+        "value": 10000,
+        "min": 5000,
+        "maxeq": 10000
+      },
+      {
+        "level": 5,
+        "name": "小于10000",
+        "value": 20000,
+        "min": 10000
+      }
+    ]
+  }
+]

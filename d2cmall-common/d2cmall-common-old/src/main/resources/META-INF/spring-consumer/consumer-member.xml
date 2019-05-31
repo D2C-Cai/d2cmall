@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- - Copyright 1999-2011 Alibaba Group. - - Licensed under the Apache License, 
+	Version 2.0 (the "License"); - you may not use this file except in compliance 
+	with the License. - You may obtain a copy of the License at - - http://www.apache.org/licenses/LICENSE-2.0 
+	- - Unless required by applicable law or agreed to in writing, software - 
+	distributed under the License is distributed on an "AS IS" BASIS, - WITHOUT 
+	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. - See the 
+	License for the specific language governing permissions and - limitations 
+	under the License. -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <description>会员模块</description>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberInfoService"
+                     id="memberInfoService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberService"
+                     id="memberService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberDetailService"
+                     id="memberDetailService"/>
+    <dubbo:reference version="${member.version:${version}}"
+                     interface="com.d2c.member.service.DiscountSettingGroupService"
+                     id="discountSettingGroupService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.DiscountSettingService"
+                     id="discountSettingService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.DistributorService"
+                     id="distributorService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.IntegrationRuleService"
+                     id="integrationRuleService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.LoginService"
+                     id="loginService" timeout="10000"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberLevelService"
+                     id="memberLevelService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberIntegrationService"
+                     id="memberIntegrationService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberTagService"
+                     id="memberTagService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberTagRelationService"
+                     id="memberTagRelationService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.CrmGroupService"
+                     id="crmGroupService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.AccountService"
+                     id="accountService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.CommentReplyService"
+                     id="commentReplyService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.CommentService"
+                     id="commentService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.ConsultService"
+                     id="consultService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberAttentionService"
+                     id="memberAttentionService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberCollectionService"
+                     id="memberColletionService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberFollowService"
+                     id="memberFollowService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberLikeService"
+                     id="memberLikeService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberShareService"
+                     id="memberShareService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberShareCommentService"
+                     id="memberShareCommentService"/>
+    <dubbo:reference version="${member.version:${version}}"
+                     interface="com.d2c.member.service.MemberShareTagRelationService"
+                     id="memberShareTagRelationService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberShareTagService"
+                     id="memberShareTagService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.LiveRoomService"
+                     id="liveRoomService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.PiliLiveService"
+                     id="piliLiveService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.AdminService"
+                     id="adminService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.ResourceService"
+                     id="resourceService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.RoleService"
+                     id="roleService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.DesignersService"
+                     id="designersService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.TopicService"
+                     id="topicService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.PartnerService"
+                     id="partnerService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.PartnerInviteService"
+                     id="partnerInviteService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.PartnerStoreService"
+                     id="partnerStoreService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.PartnerCounselorService"
+                     id="partnerCounselorService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MagazineService"
+                     id="magazineService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MagazinePageService"
+                     id="magazinePageService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MagazineIssueService"
+                     id="magazineIssueService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MagazineMemberService"
+                     id="magazineMemberService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberLottoService"
+                     id="memberLottoService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberLoginService"
+                     id="memberLoginService"/>
+    <dubbo:reference version="${member.version:${version}}"
+                     interface="com.d2c.member.service.MemberCertificationService"
+                     id="memberCertificationService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberDailySignService"
+                     id="memberDailySignService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.MemberTaskService"
+                     id="memberTaskService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.CollectionCardDefService"
+                     id="collectionCardDefService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.CollectionCardService"
+                     id="collectionCardService"/>
+    <dubbo:reference version="${member.version:${version}}"
+                     interface="com.d2c.member.service.CollectionCardRecordService"
+                     id="collectionCardRecordService"/>
+    <dubbo:reference version="${member.version:${version}}"
+                     interface="com.d2c.member.mongo.services.CollectCardTaskService"
+                     id="collectCardTaskService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.WardrobeCategoryService"
+                     id="wardrobeCategoryService"/>
+    <dubbo:reference version="${member.version:${version}}"
+                     interface="com.d2c.member.service.WardrobeCollocationService"
+                     id="wardrobeCollocationService"/>
+    <dubbo:reference version="${member.version:${version}}" interface="com.d2c.member.service.WardrobeService"
+                     id="wardrobeService"/>
+
+</beans>

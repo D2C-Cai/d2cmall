@@ -1,0 +1,1225 @@
+.account-body {
+    width: 100%;
+    background: #FFF;
+    position: relative
+}
+
+.logo {
+    margin-top: 2px;
+    margin-left: 10%;
+    height: 160px;
+}
+
+.account-count {
+    width: 100%;
+    height: 580px;
+    min-width: 1210px;
+    margin-bottom: 50px
+}
+
+.account-show {
+    margin-left: 16%;
+    width: 33.9%;
+    height: 500px;
+    background: url(//static.d2c.cn/img/home/160627/images/register.png) no-repeat center;
+    text-indent: -99999px;
+    float: left;
+}
+
+.account-wrap {
+    border: 1px solid #EDEDED;
+    padding: 0 35px 30px 35px;
+    width: 450px;
+    background-color: #FFF;
+    border-radius: 3px;
+    float: left;
+    margin-left: 6.9%;
+}
+
+.account-wrap form {
+    padding: 34px 0 0 0;
+    border-top: 1px solid #EDEDED
+}
+
+.account-wrap .reg-title {
+    background: url(//static.d2c.cn/img/home/160627/images/join_d2c.png) 0 0 no-repeat
+}
+
+.account-wrap .bind-title {
+    background: url(//static.d2c.cn/img/home/160627/images/bind_d2c.png) 0 0 no-repeat
+}
+
+.account-wrap a {
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+}
+
+.account-wrap .account-title {
+    height: 72px;
+    padding: 0 5%;
+}
+
+.account-wrap .login-title a {
+    width: 40%;
+    display: block;
+    line-height: 70px;
+    font-size: 20px;
+    color: #999;
+    float: left;
+    text-align: center;
+}
+
+.account-wrap .login-title a:first-child {
+    margin-right: 10%;
+}
+
+.account-wrap .login-title a.current {
+    color: #222;
+    border-bottom: 2px solid #FD555D
+}
+
+.account-wrap .account-input {
+    border: 1px solid #EDEDED;
+    margin-bottom: 10px;
+    padding: 12px 8px;
+    position: relative
+}
+
+.account-wrap .account-input i {
+    display: inline-block;
+    width: 16px;
+    font-size: 18px;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.account-wrap .account-input .choose-country {
+    width: 16%;
+}
+
+.account-wrap .account-input .country-data {
+    width: 368px;
+    height: 360px;
+    left: -1px;
+    top: 38px;
+}
+
+.account-wrap span {
+    font-size: 18px;
+}
+
+.account-wrap .account-input .user {
+    width: 25px;
+    height: 25px;
+    background: url(//static.d2c.cn/common/nc/css/img/comnon-icon.png) no-repeat -221px -388px;
+    position: absolute;
+    left: 10px;
+    top: 15px;
+}
+
+.account-wrap .account-input .passw {
+    width: 32px;
+    height: 32px;
+    background: url(//static.d2c.cn/common/nc/css/img/comnon-icon.png) no-repeat -265px -380px;
+    position: absolute;
+    left: 10px;
+    top: 12px;
+}
+
+.account-wrap .account-input .input-tip {
+    position: absolute;
+    left: 22px;
+    top: 18px;
+    color: #BBB
+}
+
+.account-wrap .account-input .validate-send {
+    color: #000;
+    position: absolute;
+    left: 105%;
+    top: -1px;
+    width: 40%;
+    height: 56px;
+    line-height: 56px;
+    font-size: 14px;
+}
+
+.account-wrap .service-dtail {
+    margin-top: 20px;
+    color: #666;
+    font-size: 14px;
+}
+
+.account-wrap .service-dtail a {
+    color: #FD555D;
+    font-size: 14px;
+}
+
+.checkbox input {
+    display: none;
+    visibility: hiiden;
+}
+
+.checkbox input + label {
+    margin-right: 9px;
+    margin-top: -3px;
+    vertical-align: middle;
+    display: inline-block;
+    border: 1px solid #666;
+    width: 14px;
+    height: 14px;
+}
+
+.checkbox input:checked + label {
+    background: url(//static.d2c.cn/common/nc/css/img/comnon-icon.png) -288px -1184px no-repeat
+}
+
+.copyright {
+    width: 910px;
+    margin: 0 auto;
+}
+
+.copyright p {
+    float: left;
+    color: #999;
+    width: 410px;
+    line-height: 20px;
+    font-sizs: 14px;
+    height: 20px
+}
+
+.account-wrap .account-input input {
+    border: none;
+    padding: 5px;
+    width: 70%;
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 18px;
+    color: #999
+}
+
+.account-wrap .account-bar {
+    height: 40px;
+    line-height: 40px;
+    font-size: 14px;
+}
+
+.account-wrap .account-bar a {
+    font-size: 14px;
+}
+
+.account-wrap .account-btn input {
+    cursor: pointer;
+    height: 50px;
+    width: 100%;
+    color: white;
+    background-color: #FD555D;
+    border: 0px;
+    font: bold 20px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    letter-spacing: 2px;
+    margin-top: 14px;
+    border-radius: 8px;
+}
+
+.account-wrap .quick-login {
+    height: 60px;
+}
+
+.account-wrap .quick-login a:first-child {
+    margin-left: 0;
+}
+
+.account-wrap .quick-login a {
+    float: left;
+    display: block;
+    width: 51px;
+    height: 51px;
+    margin-bottom: 10px;
+    background: #FFF url(//static.d2c.cn/common/nc/css/img/comnon-icon.png) no-repeat;
+    text-indent: -9999px;
+    margin-left: 30px
+}
+
+.account-wrap .quick-login .float-left {
+    margin-top: 5px;
+}
+
+.account-wrap .quick-login .qq-login {
+    background-position: -408px -375px
+}
+
+.account-wrap .quick-login .qq-login:hover {
+    background-position: -653px -375px
+}
+
+.account-wrap .quick-login .sina-login {
+    background-position: -328px -375px
+}
+
+.account-wrap .quick-login .sina-login:hover {
+    background-position: -573px -375px
+}
+
+.account-wrap .quick-login .wx-login {
+    background-position: -490px -375px
+}
+
+.account-wrap .quick-login .wx-login:hover {
+    background-position: -735px -375px
+}
+
+.account-wrap .msg {
+    display: none;
+    background-color: #ffffbb;
+    border: 1px solid #FFEEBB;
+    padding: 7px 0;
+    color: red;
+    margin-bottom: 5px;
+    text-align: center
+}
+
+.quick-login-success {
+    text-align: center;
+    color: #46ba29;
+    font-size: 30px;
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    padding: 50px 0;
+    border-bottom: 1px dotted #CCC;
+}
+
+.quick-login-success i {
+    display: block;
+    font-size: 50px;
+}
+
+.bind-form-tip {
+    line-height: 300%;
+    font-size: 14px;
+}
+
+.bind-form-tip-s {
+    line-height: 150%;
+    padding-bottom: 5px;
+    color: #54bcfa
+}
+
+.tab-user-menu .show-num {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    position: absolute;
+    background: #fd555d;
+    color: #fff;
+    top: -6px;
+    right: 2px;
+    font-size: 12px;
+}
+
+.layout-user {
+    margin: 40px auto 20px;
+    display: table
+}
+
+.layout-user-left, .layout-user-right {
+    padding: 15px;
+    box-sizing: border-box;
+    background: #FFF;
+    display: table-cell
+}
+
+.layout-user-right {
+    padding-top: 25px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.layout-user-right h1 {
+    font-size: 14px;
+    padding: 0 0 12px 10px;
+    margin-top: -7px;
+    margin-bottom: 20px;
+    font: normal 20px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    border-bottom: 1px solid #CCC;
+}
+
+.layout-user-right .form-small {
+    padding: 50px;
+    border: 1px solid #F2F2F2;
+    border-radius: 5px;
+    box-shadow: 0 1px 2px #F2F2F2
+}
+
+.layout-user-right .list .list-item {
+    width: 22%;
+    padding: 1.5%;
+}
+
+.layout-user-right .list .list-item:nth-child(4n+1) {
+    clear: left;
+}
+
+.layout-user-right .list .list-item .detail-content {
+    line-height: 22px;
+    border: 1px solid #f0f0f0;
+    border-top: none
+}
+
+.layout-user-right .list .button-form a {
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.layout-user-right .form-info {
+    padding: 30px;
+}
+
+.avatar-user-home {
+    border: 5px solid #FFF;
+    box-shadow: 0 1px 2px #CCC;
+    position: relative;
+}
+
+.avatar-user-home a {
+    display: block;
+}
+
+.avatar-user-home span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    text-align: center;
+    bottom: -25px;
+    left: 0;
+    background: rgba(0, 0, 0, 0.6);
+    line-height: 25px;
+}
+
+.avatar-user-home:hover span {
+    bottom: 0;
+    color: #FFF;
+}
+
+.n_form .form-item input {
+    width: 30%;
+}
+
+.n_form .form-item .prompts {
+    color: #999;
+    margin-left: 10px;
+}
+
+.n_form .form-item > label:first-child {
+    text-align: left;
+    margin-left: 10px;
+    font-size: 14px;
+    width: 100px;
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue'
+}
+
+.n_form .form-item > label:first-child span {
+    display: inline-block;
+    width: 14px;
+    height: 18px;
+    color: #fd555d;
+    vertical-align: middle;
+    tex-align: center;
+    margin: 0;
+}
+
+.n_form .form-item .head-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 100%;
+    display: inline-block;
+    border: none;
+}
+
+.n_form .form-item .tip-validate {
+    margin-left: 180px
+}
+
+.n_form .form-button {
+    padding-top: 10px;
+}
+
+.n_form .step {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    height: 400px;
+}
+
+.n_form .step-count {
+    position: absolute;
+    width: 300%;
+    height: 400px;
+}
+
+.n_form .step .step_box {
+    float: left;
+    height: 450px;
+    width: 33.3%
+}
+
+.card-model {
+    margin: 20px 0 0;
+}
+
+.password.step1_box {
+    background: url(//static.d2c.cn/img/home/160627/images/p_step1.png) no-repeat center;
+}
+
+.password.step2_box {
+    background: url(//static.d2c.cn/img/home/160627/images/p_step2.png) no-repeat center;
+}
+
+.password.step3_box {
+    background: url(//static.d2c.cn/img/home/160627/images/p_step3.png) no-repeat center;
+}
+
+.password.step3_box {
+    background: url(//static.d2c.cn/img/home/160627/images/p_step3.png) no-repeat center;
+}
+
+.refund.step1_box {
+    background: url(//static.d2c.cn/img/nnm/npc/refund1.png) no-repeat center;
+}
+
+.exchange.step1_box {
+    background: url(//static.d2c.cn/img/nnm/npc/exchange1.png) no-repeat center;
+}
+
+.exchange.step2_box {
+    background: url(//static.d2c.cn/img/nnm/npc/exchange2.png) no-repeat center;
+}
+
+.reship.step1_box {
+    background: url(//static.d2c.cn/img/nnm/npc/reship1.png) no-repeat center;
+}
+
+.reship.step2_box {
+    background: url(//static.d2c.cn/img/nnm/npc/reship2.png) no-repeat center;
+}
+
+.n_form .step .st {
+    width: 667px;
+    height: 52px;
+    margin: 0 auto;
+    text-indent: -9999px;
+}
+
+.n_form .form-item-vertical {
+    margin-top: 30px;
+    vertical-align: middle;
+}
+
+.n_form .form-item span {
+    display: inline-block;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.n_form .change-success {
+    width: 600px;
+    margin: 200px auto;
+    height: 55px;
+}
+
+.n_form .change-success span {
+    vertical-align: middle;
+    color: #7ABD54;
+    margin-left: 20px;
+    font-size: 20px;
+}
+
+.n_form .change-success .success-type {
+    background: url(//static.d2c.cn/common/nc/css/img/comnon-icon.png) no-repeat -256px -1239px;
+    height: 55px;
+    width: 55px;
+    display: inline-block;
+}
+
+.user-menu {
+    padding-bottom: 20px;
+}
+
+.user-menu a {
+    color: #666;
+}
+
+.grey-content {
+    width: 110%;
+    height: 20px;
+    background: #F0F0F0;
+    margin-left: -30px;
+    margin-top: 50px;
+}
+
+.password-info {
+    padding: 15px;
+}
+
+.password-info h3 {
+    line-height: 30px;
+    font-size: 18px;
+}
+
+.password-info p {
+    line-height: 150%;
+}
+
+.user-menu dl {
+    display: block;
+    padding-bottom: 8px;
+}
+
+.user-menu dl dt {
+    line-height: 35px;
+    padding-left: 5px;
+    font-size: 14px;
+    border-bottom: 1px dotted #CCC;
+    color: #222;
+}
+
+.user-menu dl dt i {
+    width: 15px;
+}
+
+.user-menu dl dd {
+    line-height: 35px;
+    padding-left: 30px;
+    padding-top: 2px;
+    border-bottom: 1px dotted #EAEAEA;
+    position: relative;
+    color: #666;
+}
+
+.user-menu dl dd.on {
+    background: #F5F5F5;
+    border-radius: 3px;
+    line-height: 38px;
+    border: none;
+    margin-top: -1px;
+    margin-bottom: -1px;
+    color: #fd555d
+}
+
+.user-menu dl dd.on a {
+    color: #fd555d
+}
+
+.user-menu dl dd i {
+    display: none;
+}
+
+.user-menu dl dd.on i {
+    position: absolute;
+    display: block;
+    right: 15px;
+    top: 16px;
+}
+
+.user-panel {
+    margin-top: 30px;
+    border-top: 1px dotted #CCC;
+    border-bottom: 1px dotted #CCC;
+    padding: 20px 10px;
+    text-align: center;
+}
+
+.user-panel a {
+    display: inline-block;
+    width: 90px;
+    height: 85px;
+    margin: 15px;
+    text-align: center;
+    border: 1px solid #DEDEDE;
+    box-shadow: 0 1px 2px #EDEDED;
+    padding: 10px;
+    border-radius: 3px;
+}
+
+.user-panel a i {
+    font-size: 65px;
+    display: block;
+}
+
+.user-panel a:hover {
+    border-color: #f77fa7;
+    box-shadow: 0 1px 2px #febbd2;
+}
+
+.tab.tab-user-menu {
+    border-bottom: 1px solid #CCC;
+    height: 33px;
+}
+
+.tab.tab-user-menu li {
+    margin-right: 1px;
+}
+
+.tab.tab-user-menu li, .tab.tab-user-menu li a {
+    line-height: 20px;
+    position: relative;
+}
+
+.tab.tab-user-menu li i.interval, .tab.tab-user-menu li span.more-filter {
+    font: normal 12px/100% 'Arial';
+    cursor: pointer;
+}
+
+.tab.tab-user-menu li i.interval {
+    position: absolute;
+    right: -2px;
+    top: 4px;
+    color: #CCC;
+}
+
+.tab.tab-user-menu li a span {
+    position: absolute;
+    color: #FFF;
+    text-align: center;
+    line-height: 20px;
+    font-size: 10px;
+    font-family: Arial;
+    font-weight: normal;
+    background: #FD555D;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    right: -18px;
+    top: -5px;
+}
+
+.tab.tab-user-menu li .input, .tab.tab-user-menu li .button {
+    margin: -10px -1px -5px 0;
+    height: 32px;
+}
+
+.tab.tab-user-menu li .input {
+    width: 200px;
+}
+
+.tab.tab-user-menu li .input::-webkit-input-placeholder {
+    line-height: 14px;
+}
+
+.tab.tab-user-menu li .button {
+    padding: 0 15px;
+    line-height: 32px;
+}
+
+.tab.tab-user-menu li.on {
+    border-bottom: 2px solid #FD555D;
+    padding-bottom: 12px;
+    margin-bottom: -13px;
+}
+
+.tab.tab-user-menu li.on a {
+    color: #FD555D;
+}
+
+.order-search-form {
+    margin-top: -1px;
+    width: 500px;
+    position: absolute;
+    right: 0;
+    background: #FFF;
+    box-shadow: 0 2px 3px #CCC;
+}
+
+.coupon .card-item {
+    overflow: hidden;
+    background: #FDFCF5;
+    color: #FFF;
+    height: 370px;
+}
+
+
+.coupon .card-item .card-item-top, .coupon .card-item .card-item-bottom {
+    background: url(img/coupon_border.png) center top no-repeat;
+    background-size: 100%;
+    height: 5px;
+}
+
+.coupon .card-item .card-item-top {
+    margin-top: -2px;
+}
+
+.coupon .card-item .care-item-img {
+    width: 100%;
+    position: absolute;
+    top: 50px;
+    text-align: center
+}
+
+.coupon .card-item .card-item-bottom {
+}
+
+.coupon .card-item .card-item-main {
+    text-align: center;
+    height: 355px;
+}
+
+.coupon .card-item .card-item-main form p {
+    padding: 10px 0;
+    margin: 0;
+}
+
+.coupon .card-item .card-item-main form p.tip-validate {
+    color: #5adee0
+}
+
+.coupon-card-type {
+    padding: 10px 15px;
+    height: 15px;
+}
+
+.coupon-card-amount {
+    padding: 30px 0 10px 0;
+    margin: 0;
+    background: #fd555d
+}
+
+.coupon-card-amount i {
+    display: block;
+    font: bold 50px 'Arial';
+}
+
+.coupon-card-amount span {
+    display: block;
+    font-size: 12px;
+    color: #095c5d;
+}
+
+.coupon-card-time {
+    line-height: 19px;
+    height: 40px;
+    color: #fff;
+    background: #fd555d
+}
+
+.coupon .coupon-bottom {
+    background: url(//static.d2c.cn/common/nc/css/img/card_line.png) repeat-x;
+    height: 9px;
+    width: 100%;
+}
+
+.coupon .uncoupon-bottom {
+    background: url(//static.d2c.cn/img/home/160627/images/card_outline.png) repeat-x;
+    height: 9px;
+    width: 100%;
+}
+
+.coupon-card-desc {
+    height: 140px;
+    padding: 0 15px;
+    color: #000;
+}
+
+.coupon-card-desc pre {
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    color: #555;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}
+
+.coupon .card-item .input {
+    border: 1px solid #0b7c7e;
+    box-shadow: 0 1px 2px #086b6c;
+    color: #0b7c7e;
+    text-align: center;
+}
+
+.coupon .coupon-used {
+    width: 76px;
+    height: 78px;
+    display: block;
+    background: url(//static.d2c.cn/img/home/160627/images/coupon_use.png) no-repeat;
+    right: 15px;
+    bottom: 25px;
+    position: absolute;
+}
+
+.coupon .coupon-timeout {
+    width: 76px;
+    height: 78px;
+    display: block;
+    background: url(//static.d2c.cn/img/home/160627/images/coupon_timeout.png) no-repeat;
+    right: 15px;
+    bottom: 25px;
+    position: absolute;
+}
+
+.address_mana .address-count {
+    position: relative;
+    margin: 10px 0;
+    padding: 20px;
+    border: 1px solid #ccc;
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue' !important
+}
+
+.address_mana h4 {
+    font-size: 16px;
+    margin: 5px 0;
+    line-height: 18px;
+}
+
+.address_mana .address-count p {
+    line-height: 140%;
+    margin: 10px 0;
+}
+
+.address_mana .address-count span {
+    display: inline-block;
+    font-size: 14px;
+    vertical-align: top;
+}
+
+.address_mana .address-count .w-50 {
+    width: 50px;
+}
+
+.address_mana .address-count .address-remove {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    font-size: 18px;
+}
+
+.table-product-item {
+    float: left;
+    width: 50%;
+    padding: 8px 0;
+    position: relative;
+}
+
+.table-product-item .img {
+    float: left;
+    margin: 0 5px;
+}
+
+.table-product-item p.title {
+    height: 35px;
+    width: 95%;
+}
+
+.table-product-item p.desc {
+    padding-top: 4px;
+    line-height: 18px;
+    color: #999;
+    width: 95%;
+}
+
+.table-product-item p.del {
+    position: absolute;
+    right: 5px;
+    bottom: 10px;
+}
+
+.item .table-product-item {
+    border-top: 1px dotted #CCC;
+    border-right: 1px dotted #CCC;
+    margin-right: -1px;
+}
+
+.item .table-product-item:nth-child(2n) {
+    border-right: none;
+}
+
+.item .table-product-item:nth-of-type(1), .item .table-product-item:nth-of-type(2) {
+    border-top: none;
+}
+
+.search-form {
+    border: 1px solid #CCC;
+}
+
+.search-form .search-form-item {
+    float: left;
+    padding: 10px;
+    border-right: 1px solid #CCC;
+    box-sizing: border-box;
+}
+
+.search-form .search-form-item label {
+    display: block;
+    padding-bottom: 5px;
+    color: #999;
+}
+
+.search-form .search-form-item input {
+    width: 100%;
+}
+
+.search-form .search-form-item:last-child {
+    border: none;
+}
+
+.search-form-button {
+    clear: both;
+    padding-top: 10px;
+    text-align: right;
+}
+
+.wallet-top {
+    padding: 0 50px 25px 25px;
+}
+
+.wallet-top span {
+    font-size: 12px;
+}
+
+.wallet-top .price {
+    font-size: 18px;
+    color: #fd555d;
+    font-weight: bold;
+}
+
+.wallet-top .operator {
+    float: right;
+}
+
+.refund-div {
+    width: 430px;
+    margin: auto;
+    padding 10px 20px;
+    color: #4790a8
+}
+
+.refund-div h1 {
+    font: normal 24px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue'
+}
+
+.refund-div .small {
+    font-weight: bold;
+    font-family: Arial;
+    font-size: 11px
+}
+
+.refund-div .arial {
+    font-family: Arial
+}
+
+.comment-font span, .comment-font a, .comment-font div, .comment-font p {
+    font-size: 14px
+}
+
+.comment-font tr.line-item {
+    border: 1px solid #eee !important
+}
+
+.comment-list-add {
+    margin: -5px 0 5px 0;
+    text-align: center;
+    font: bold 18px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue'
+}
+
+.comment-reply {
+    vertical-align: top
+}
+
+.comment-reply .show-img img {
+    margin-right: 20px;
+}
+
+.comment-reply .my-comment {
+    padding: 20px 0 20px 0;
+    line-height: 130%;
+}
+
+.comment-reply .my-comment .comment-content {
+    color: #222;
+    width: 90%;
+}
+
+.line-item .replys {
+    min-height: 60px;
+}
+
+.verticalline {
+    margin-top: 2%;
+    width: 93%;
+    padding-right: 5px;
+}
+
+.line-item .replys.first {
+    margin-top: 20px;
+    width: 90%;
+    position: relative;
+    background: #F8F8F8;
+    min-height: 50px;
+    padding: 10px
+}
+
+.line-item .replys.first a {
+    color: #f39700;
+    display: block;
+    float: left;
+}
+
+.line-item .replys.first:after {
+    content: '';
+    display: block;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent #F8F8F8 transparent;
+    width: 0;
+    height: 0;
+    position: absolute;
+    left: 30px;
+    top: -20px;
+}
+
+.comment-reply .comment-score {
+    width: 100%;
+    padding-bottom: 10px;
+    padding-top: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.comment-reply .comment-score span {
+    display: inline-block;
+}
+
+
+.upload-preview {
+    overflow: hidden;
+    padding: 5px 0
+}
+
+.upload-preview .upload-img {
+    float: left;
+    margin: 0 5px 5px 0;
+    min-width: 60px;
+    text-align: center;
+}
+
+.upload-preview .upload-img .img {
+    display: block;
+    height: 70px;
+    margin-bottom: 5px;
+}
+
+.upload-preview .upload-img .img img {
+    height: 100%;
+}
+
+.form-item .upload-preview {
+    margin-left: 25%;
+}
+
+.form-item.form-item-vertical .upload-preview {
+    margin-left: 0;
+}
+
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    font-size: 23px;
+}
+
+.rating span.star {
+    font-family: FontAwesome;
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+}
+
+.rating span.star:hover {
+    cursor: pointer;
+}
+
+.rating span.star:before {
+    content: "\f006";
+    padding-right: 5px;
+    color: #ededed;
+}
+
+.rating span.star:hover:before, .rating span.star:hover ~ span.star:before {
+    content: "\f005";
+    color: #Fd5562;
+}
+
+.rating span.star.checked:before {
+    content: "\f005";
+    color: #Fd5562;
+}
+
+.form .form-item > label:first-child {
+    width: 15%;
+}
+
+.form .form-item > label.first {
+    text-align: left;
+    margin-left: 15px;
+    width: 20%;
+}
+
+/*
+.my-face{height:400px;}
+.my-face .upload-img .img{height:400px;}
+.my-face .upload-img .img img{height:400px;}
+.my-face .upload-img .photo-del{
+	display:block; 
+	line-height: 30px;height: 30px;padding: 0 10px;box-shadow: 0 1px 2px #CCC;color: #FFF;
+	position: relative;  
+	background: linear-gradient(#777 0px, #717171 100%);
+	border-radius: 2px}
+#preview-pane {
+	display: none;
+	position: absolute;
+	z-index: 2000;
+	top: 0px;
+	right: -240px;
+	padding: 6px;
+	border: 1px rgba(0,0,0,.4) solid;
+	background-color: white;
+	-webkit-border-radius: 6px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+	-webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+	-moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+	box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+}
+
+#preview-pane .preview-container {
+	width: 200px;
+	height: 200px;
+	overflow: hidden;
+}
+*/
+/* jquery.Jcrop.min.css v0.9.12 (build:20130126) */
+/*
+.jcrop-holder{direction:ltr;text-align:left;}
+.jcrop-vline,.jcrop-hline{background:#FFF url(Jcrop.gif);font-size:0;position:absolute;}
+.jcrop-vline{height:100%;width:1px!important;}
+.jcrop-vline.right{right:0;}
+.jcrop-hline{height:1px!important;width:100%;}
+.jcrop-hline.bottom{bottom:0;}
+.jcrop-tracker{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;height:100%;width:100%;}
+.jcrop-handle{background-color:#333;border:1px #EEE solid;font-size:1px;height:7px;width:7px;}
+.jcrop-handle.ord-n{left:50%;margin-left:-4px;margin-top:-4px;top:0;}
+.jcrop-handle.ord-s{bottom:0;left:50%;margin-bottom:-4px;margin-left:-4px;}
+.jcrop-handle.ord-e{margin-right:-4px;margin-top:-4px;right:0;top:50%;}
+.jcrop-handle.ord-w{left:0;margin-left:-4px;margin-top:-4px;top:50%;}
+.jcrop-handle.ord-nw{left:0;margin-left:-4px;margin-top:-4px;top:0;}
+.jcrop-handle.ord-ne{margin-right:-4px;margin-top:-4px;right:0;top:0;}
+.jcrop-handle.ord-se{bottom:0;margin-bottom:-4px;margin-right:-4px;right:0;}
+.jcrop-handle.ord-sw{bottom:0;left:0;margin-bottom:-4px;margin-left:-4px;}
+.jcrop-dragbar.ord-n,.jcrop-dragbar.ord-s{height:7px;width:100%;}
+.jcrop-dragbar.ord-e,.jcrop-dragbar.ord-w{height:100%;width:7px;}
+.jcrop-dragbar.ord-n{margin-top:-4px;}
+.jcrop-dragbar.ord-s{bottom:0;margin-bottom:-4px;}
+.jcrop-dragbar.ord-e{margin-right:-4px;right:0;}
+.jcrop-dragbar.ord-w{margin-left:-4px;}
+.jcrop-light .jcrop-vline,.jcrop-light .jcrop-hline{background:#FFF;filter:alpha(opacity=70)!important;opacity:.70!important;}
+.jcrop-light .jcrop-handle{-moz-border-radius:3px;-webkit-border-radius:3px;background-color:#000;border-color:#FFF;border-radius:3px;}
+.jcrop-dark .jcrop-vline,.jcrop-dark .jcrop-hline{background:#000;filter:alpha(opacity=70)!important;opacity:.7!important;}
+.jcrop-dark .jcrop-handle{-moz-border-radius:3px;-webkit-border-radius:3px;background-color:#FFF;border-color:#000;border-radius:3px;}
+.solid-line .jcrop-vline,.solid-line .jcrop-hline{background:#FFF;}
+.jcrop-holder img,img.jcrop-preview{max-width:none;}
+*/

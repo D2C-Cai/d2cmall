@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" version="1.1" id="图层_1"
+     xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
+     viewBox="-610 1408 20 15.6"
+     style="enable-background:new -610 1408 20 15.6;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#727171;}
+	.st1{display:none;}
+	.st2{display:inline;}
+	.st3{enable-background:new    ;}
+	.st4{fill:#737373;}
+</style>
+    <title>bar-share</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" sketch:type="MSPage">
+	<g id="bg" transform="translate(-621.000000, -506.000000)" sketch:type="MSArtboardGroup">
+		<g id="bar-share" transform="translate(621.000000, 506.683716)" sketch:type="MSLayerGroup">
+			<g id="XMLID_164_" sketch:type="MSShapeGroup">
+				<g id="XMLID_166_">
+					<path id="XMLID_161_" class="st0" d="M-592.7,1423H-608c-1,0-1.7-0.7-1.7-1.7v-11.5c0-0.9,0.8-1.7,1.7-1.7h8.7
+						c0.2,0,0.3,0.1,0.3,0.3s-0.1,0.3-0.3,0.3h-8.7c-0.6,0-1.1,0.5-1.1,1v11.5c0,0.6,0.5,1,1.1,1h15.3c0.6,0,1.1-0.5,1.1-1v-7.3
+						c0-0.2,0.1-0.3,0.3-0.3s0.3,0.1,0.3,0.3v7.3C-591,1422.2-591.8,1423-592.7,1423L-592.7,1423z"/>
+				</g>
+                <g id="XMLID_167_" transform="translate(4.516129, 0.000000)">
+					<g id="XMLID_159_" transform="translate(0.000000, 0.613333)">
+						<path id="XMLID_151_" class="st0" d="M-609.4,1419.1c-0.1,0-0.1,0-0.2-0.1c-0.1-0.1-0.2-0.3-0.1-0.4c0.1-0.1,5.5-8,13.8-10.2
+							c0.2-0.1,0.3,0.1,0.4,0.2c0.1,0.2-0.1,0.3-0.2,0.4c-8.1,2.1-13.4,9.9-13.5,10C-609.2,1419-609.3,1419.1-609.4,1419.1
+							L-609.4,1419.1z"/>
+					</g>
+                    <g id="XMLID_150_" transform="translate(12.258065, 0.000000)">
+						<g id="XMLID_156_">
+							<path id="Shape" class="st0"
+                                  d="M-608.9,1410.6l0.8-1.3l-1.4-0.7l0.9-0.2l1.4,0.7l-0.8,1.3L-608.9,1410.6z"/>
+						</g>
+					</g>
+				</g>
+			</g>
+            <g id="Group-27" transform="translate(0.000000, 20.000000)" sketch:type="MSTextLayer" class="st1">
+				<g id="Group-23" class="st2">
+					
+						<text transform="matrix(1 0 0 1 -610 1418.9999)" class="st4"
+                              style="font-family:'PingFangSC-Regular-GBpc-EUC-H'; font-size:10px;">分享</text>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+</svg>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.BurgeonErrorLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.BurgeonErrorLog">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="type" column="type"/>
+        <result property="error" column="error"/>
+        <result property="sourceId" column="source_id"/>
+        <result property="billDate" column="bill_date"/>
+        <result property="burgeonSn" column="burgeon_sn"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="productSku" column="product_sku"/>
+        <result property="quantity" column="quantity"/>
+        <result property="handle" column="handle"/>
+        <result property="handleMan" column="handle_man"/>
+        <result property="handleDate" column="handle_date"/>
+        <result property="handleContent" column="handle_content"/>
+        <result property="requisitionSn" column="requisition_sn"/>
+        <result property="fallCount" column="fall_count"/>
+        <result property="sourceType" column="source_type"/>
+    </resultMap>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT * FROM log_burgeon_error WHERE 1=1
+        <include refid="Searcher"/>
+        ORDER BY create_date DESC
+        LIMIT #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT COUNT(id) FROM log_burgeon_error WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.beginBillDate!=null">
+            AND bill_date &gt; #{searcher.beginBillDate}
+        </if>
+        <if test="searcher.endBillDate!=null">
+            AND bill_date &lt; #{searcher.endBillDate}
+        </if>
+        <if test="searcher.burgeonSn!=null and searcher.burgeonSn!=''">
+            AND burgeon_sn =#{searcher.burgeonSn}
+        </if>
+        <if test="searcher.orderSn!=null and searcher.orderSn!=''">
+            AND order_sn =#{searcher.orderSn}
+        </if>
+        <if test="searcher.productSku!=null and searcher.productSku!=''">
+            AND product_sku =#{searcher.productSku}
+        </if>
+        <if test="searcher.handle!=null">
+            AND handle=#{searcher.handle}
+        </if>
+    </sql>
+
+    <update id="doHandle">
+		UPDATE log_burgeon_error
+		SET handle=1,handle_man=#{handleMan},handle_content=#{handleContent},
+		handle_date=NOW(),modify_date=NOW(),fall_count=0
+		WHERE id=#{id}
+	</update>
+
+</mapper>

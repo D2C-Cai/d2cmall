@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.order.dao.CashCardDefMapper">
+    <resultMap id="BaseResultMap" type="com.d2c.order.model.CashCardDef">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="code" property="code" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="enable_date" property="enableDate" jdbcType="TIMESTAMP"/>
+        <result column="expire_date" property="expireDate" jdbcType="TIMESTAMP"/>
+        <result column="amount" property="amount" jdbcType="DECIMAL"/>
+        <result column="quantity" property="quantity" jdbcType="INTEGER"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="status" property="status" jdbcType="TINYINT"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="last_modify_man" property="lastModifyMan"
+                jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <select id="findById" resultMap="BaseResultMap">
+		select *
+		from o_cashcard_def
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+
+    <delete id="delete">
+		delete from o_cashcard_def
+		where status=0
+		and id = #{id,jdbcType=BIGINT}
+	</delete>
+
+    <update id="doProduce">
+		update o_cashcard_def set
+		status=8,last_modify_man=now()
+		where id = #{defId,jdbcType=BIGINT} and status=1
+	</update>
+
+    <update id="doAudit">
+		update o_cashcard_def set
+		status=1,last_modify_man=now()
+		where id = #{defId,jdbcType=BIGINT} and status=0
+	</update>
+
+    <update id="doCancelAudit">
+		update o_cashcard_def
+		set status=0,last_modify_man=now()
+		where id = #{defId,jdbcType=BIGINT} and status=1
+	</update>
+
+    <select id="findBySearcher" resultMap="BaseResultMap">
+        select *
+        from o_cashcard_def
+        where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        select count(id)
+        from o_cashcard_def
+        where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.code!=null and searcher.code!=''">
+            and code= #{searcher.code}
+        </if>
+        <if test="searcher.name!=null and searcher.name!=''">
+            and name =#{searcher.name}
+        </if>
+        <if test="searcher.status!=null">
+            and status =#{searcher.status}
+        </if>
+    </sql>
+
+    <select id="findByCode" resultMap="BaseResultMap">
+		select *
+		from o_cashcard_def where
+		code=#{code}
+		ORDER BY create_date DESC
+		LIMIT
+		0,1
+	</select>
+
+</mapper>

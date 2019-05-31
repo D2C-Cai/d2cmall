@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="d2cmall-main-report:war">
+    <output-path>$PROJECT_DIR$/d2cmall-main/d2cmall-main-report/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>d2cmall-main-report</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="d2cmall-flame-report.war">
+      <element id="artifact" artifact-name="d2cmall-main-report:war exploded" />
+    </root>
+  </artifact>
+</component>

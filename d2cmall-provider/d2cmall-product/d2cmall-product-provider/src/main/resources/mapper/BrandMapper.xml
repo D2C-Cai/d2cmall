@@ -1,0 +1,348 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.product.dao.BrandMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.Brand">
+        <result property="id" column="id"/>
+        <result property="creator" column="creator"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="designArea" column="design_area"/>
+        <result property="code" column="code"/>
+        <result property="brandCode" column="brand_code"/>
+        <result property="name" column="name"/>
+        <result property="country" column="country"/>
+        <result property="style" column="style"/>
+        <result property="market" column="market"/>
+        <result property="seo" column="seo"/>
+        <result property="slogan" column="slogan"/>
+        <result property="introPic" column="intro_pic"/>
+        <result property="bigPic" column="big_pic"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="signPic" column="sign_pic"/>
+        <result property="backPic" column="back_pic"/>
+        <result property="intro" column="intro"/>
+        <result property="description" column="description"/>
+        <result property="moreIntro" column="more_intro"/>
+        <result property="designerStore" column="designer_store"/>
+        <result property="subscribe" column="subscribe"/>
+        <result property="fans" column="fans"/>
+        <result property="vfans" column="vfans"/>
+        <result property="pageGroup" column="page_group"/>
+        <result property="recommend" column="recommend"/>
+        <result property="direct" column="direct"/>
+        <result property="mark" column="mark"/>
+        <result property="designers" column="designers"/>
+        <result property="sortDate" column="sort_date"/>
+        <result property="domain" column="domain"/>
+        <result property="operation" column="operation"/>
+        <result property="tags" column="tags"/>
+        <result property="address" column="address"/>
+        <result property="consignee" column="consignee"/>
+        <result property="mobile" column="mobile"/>
+        <result property="after" column="after"/>
+        <result property="cod" column="cod"/>
+        <result property="upMarketDate" column="up_market_date"/>
+        <result property="downMarketDate" column="down_market_date"/>
+        <result property="upMan" column="up_man"/>
+        <result property="downMan" column="down_man"/>
+        <result property="designersId" column="designers_id"/>
+        <result property="video" column="video"/>
+        <result property="videoPic" column="video_pic"/>
+        <result property="appIntro" column="app_intro"/>
+        <result property="tfans" column="tfans"/>
+        <result property="sales" column="sales"/>
+        <result property="backgroundUrl" column="background_url"/>
+    </resultMap>
+
+    <select id="findByCode" resultMap="baseMap">
+		SELECT * FROM p_brand WHERE
+		code = #{code} limit 0,1
+	</select>
+
+    <select id="findSimpleByCode" resultType="hashMap">
+		SELECT id, name FROM
+		p_brand
+		WHERE code = #{code}
+		LIMIT 0,1
+	</select>
+
+    <select id="findByDomain" resultMap="baseMap">
+		SELECT * FROM p_brand
+		WHERE
+		domain = #{domain}
+		LIMIT 0,1
+	</select>
+
+    <select id="findByCouponDefId" resultMap="baseMap">
+		SELECT d.* FROM
+		p_brand
+		d,o_coupon_def_relation c
+		WHERE d.id=c.target_id AND
+		c.coupon_def_id=#{defineId} AND
+		c.type='DESIGNER'
+		ORDER BY d.create_date
+		DESC
+		LIMIT #{pager.startNumber},
+		#{pager.pageSize}
+	</select>
+
+    <select id="countByCouponDefId" resultType="int">
+		SELECT count(d.id)
+		FROM
+		p_brand d,o_coupon_def_relation c
+		WHERE d.id=c.target_id AND
+		c.coupon_def_id=#{defineId} AND
+		c.type='DESIGNER'
+	</select>
+
+    <select id="findByDesignerTagId" resultMap="baseMap">
+		SELECT d.* from
+		p_brand d,
+		p_brand_tag_relation r WHERE d.id=r.designer_id AND
+		tag_id=#{tagId}
+		ORDER BY r.sort desc,r.id desc
+		LIMIT
+		#{pager.startNumber},
+		#{pager.pageSize}
+	</select>
+
+    <select id="countByDesignerTagId" resultType="int">
+		SELECT count(d.id)
+		FROM p_brand d, p_brand_tag_relation r WHERE d.id=r.designer_id
+		AND
+		tag_id=#{tagId}
+	</select>
+
+    <select id="findByDesignersId" resultMap="baseMap">
+        select * from
+        p_brand
+        where designers_id=#{designersId}
+        <if test="mark!=null and mark.length &gt; 0">
+            and mark in
+            <foreach collection="mark" index="index" item="item" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        order by create_date desc
+        limit 0,500
+    </select>
+
+    <select id="findIdsByDesignersId" resultType="java.lang.Long">
+		select id from
+		p_brand where designers_id=#{designersId} limit 0,500
+	</select>
+
+    <select id="findNameByIds" resultType="String">
+        SELECT GROUP_CONCAT(`name`) FROM p_brand
+        WHERE id IN
+        <foreach collection="designerIds" item="id" index="index"
+                 open="(" close=")" separator=",">
+            <if test="id!=null">
+                #{id}
+            </if>
+        </foreach>
+    </select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT *
+        FROM p_brand d
+        WHERE d.deleted = 0
+        <include refid="Searcher"/>
+        <choose>
+            <when test="searcher.orderByStr != null">
+                ORDER BY ${searcher.orderByStr}
+            </when>
+            <otherwise>
+                ORDER BY d.page_group,name,d.sort_date DESC,d.id DESC
+            </otherwise>
+        </choose>
+        <if test="pager != null">
+            LIMIT #{pager.startNumber},#{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countBySearch" resultType="Integer">
+        SELECT count(*)
+        FROM p_brand d
+        WHERE d.deleted = 0
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND d.name LIKE CONCAT('%', #{searcher.name},'%')
+        </if>
+        <if test="searcher.id!=null">
+            AND d.id = #{searcher.id}
+        </if>
+        <if test="searcher.pageGroup!=null and searcher.pageGroup!=''">
+            AND d.page_group = #{searcher.pageGroup}
+        </if>
+        <if test="searcher.code!=null and searcher.code!=''">
+            AND d.code = #{searcher.code}
+        </if>
+        <if test="searcher.mark!=null">
+            AND d.mark = #{searcher.mark}
+        </if>
+        <if test="searcher.designArea!=null and searcher.designArea!=''">
+            AND d.design_area =#{searcher.designArea}
+        </if>
+        <if test="searcher.designers!=null and searcher.designers!=''">
+            AND d.designers like CONCAT('%',#{searcher.designers},'%')
+        </if>
+        <if test="searcher.deleted!=null">
+            AND d.deleted = #{searcher.deleted}
+        </if>
+        <if test="searcher.subscribe!=null">
+            AND d.subscribe = #{searcher.subscribe}
+        </if>
+        <if test="searcher.operation!=null and searcher.operation!=''">
+            AND d.operation = #{searcher.operation}
+        </if>
+        <if test="searcher.keyword!=null and searcher.keyword!=''">
+            AND d.designers like CONCAT('%',#{searcher.keyword},'%')
+            OR d.name LIKE CONCAT('%', #{searcher.keyword},'%')
+        </if>
+        <if test="searcher.marketable != null">
+            AND d.mark = #{searcher.marketable}
+        </if>
+        <if test="searcher.designerId != null">
+            AND d.id = #{searcher.designerId}
+        </if>
+        <if test="searcher.after!=null">
+            AND d.after = #{searcher.after}
+        </if>
+        <if test="searcher.cod!=null">
+            AND d.cod = #{searcher.cod}
+        </if>
+        <if test="searcher.beginUpDate!=null">
+            AND d.up_market_date &gt;= #{searcher.beginUpDate}
+        </if>
+        <if test="searcher.endUpDate!=null">
+            AND d.up_market_date &lt;= #{searcher.endUpDate}
+        </if>
+        <if test="searcher.beginDownDate!=null">
+            AND d.down_market_date &gt;= #{searcher.beginDownDate}
+        </if>
+        <if test="searcher.endDownDate!=null">
+            AND d.down_market_date &lt;= #{searcher.endDownDate}
+        </if>
+        <if test="searcher.beginCreateDate!=null">
+            AND d.create_date &gt;= #{searcher.beginCreateDate}
+        </if>
+        <if test="searcher.endCreateDate!=null">
+            AND d.create_date &lt;= #{searcher.endCreateDate}
+        </if>
+        <if test="searcher.designersId!=null">
+            AND d.designers_id = #{searcher.designersId}
+        </if>
+        <if test="searcher.brandCode!=null">
+            AND d.brand_code = #{searcher.brandCode}
+        </if>
+        <if test="searcher.prior!=null">
+            AND d.prior = #{searcher.prior}
+        </if>
+    </sql>
+
+    <select id="findByLetters" resultMap="baseMap">
+		SELECT * FROM
+		p_brand
+		WHERE
+		deleted = 0 AND mark=1 ORDER BY page_group, sort_date DESC, id
+		DESC
+	</select>
+
+    <select id="findByBrandCode" resultMap="baseMap">
+		SELECT * FROM p_brand
+		WHERE brand_code=#{brandCode} limit 0,1
+	</select>
+
+    <update id="delete">
+		UPDATE p_brand SET deleted=1,modify_date=now()
+		WHERE
+		id=#{id}
+	</update>
+
+    <update id="updateMark">
+        UPDATE p_brand SET mark =#{mark},modify_date=now()
+        <if test="mark==1">
+            ,up_market_date=now(),up_man=#{markMan}
+        </if>
+        <if test="mark==0">
+            ,down_market_date=now(),down_man=#{markMan}
+        </if>
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateSubscribe">
+		UPDATE p_brand SET subscribe =
+		#{subscribe},modify_date=now() WHERE id= #{id}
+	</update>
+
+    <update id="updateFans">
+		UPDATE p_brand
+		SET
+		fans=fans+#{fans},modify_date=now()
+		WHERE id = #{id}
+	</update>
+
+    <update id="updateAfter">
+		UPDATE p_brand SET after =
+		#{after},modify_date=now()
+		WHERE id= #{id}
+	</update>
+
+    <update id="updateCod">
+		UPDATE p_brand SET cod =
+		#{cod},modify_date=now()
+		WHERE id= #{id}
+	</update>
+
+    <update id="updateRecommend">
+		UPDATE p_brand SET recommend =
+		#{recommend},modify_date=now()
+		WHERE id= #{id}
+	</update>
+
+    <update id="updateDesigners">
+		UPDATE p_brand SET code =
+		#{code},modify_date=now(),designers=#{designers}
+		WHERE id= #{id}
+	</update>
+
+    <update id="updateTags">
+		UPDATE p_brand
+		SET tags=#{tags},modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateVideoById">
+		UPDATE p_brand SET video=#{video}, modify_date=NOW()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateBigPic">
+		UPDATE p_brand SET
+		big_pic=#{bigPic}, modify_date=NOW()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateSales">
+		UPDATE p_brand SET sales=#{sales}, modify_date=now() 
+		WHERE id=#{id}
+	</update>
+
+    <select id="findAllSales" resultType="long">
+	   	SELECT id FROM p_brand  
+	   	WHERE sales &gt;0
+	</select>
+
+    <update id="updateStyle">
+	  UPDATE p_brand set style=#{style} where id=#{id}
+	</update>
+
+</mapper>

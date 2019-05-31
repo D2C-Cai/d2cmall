@@ -1,0 +1,1254 @@
+#popup-modal-title {
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+}
+
+body {
+    background: #FFF !important;
+}
+
+#popup-modal-remove {
+    display: block;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url(http://static.d2c.cn/img/promo/bargin/icon_close.png) no-repeat;
+    background-size: cover;
+    margin-left: -15px;
+}
+
+#popup-modal-remove .icon {
+    display: none;
+}
+
+#popup-modal-outer {
+    background: none !important;
+}
+
+.no-result {
+    text-align: center;
+    padding-top: 50px;
+    height: 300px;
+}
+
+.footer-space {
+    background: #FFF;
+}
+
+.rule-title {
+    height: 1.3em;
+    line-height: 1.3em;
+    color: #3F4043;
+    font-weight: bold;
+    font-size: 1.2em;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.rule-info {
+    height: 25em;
+    line-height: 150%;
+    overflow: scroll;
+    font-size: 12px;
+    text-align: left;
+    font-weight: normal;
+    -webkit-overflow-scrolling: touch;
+}
+
+.popup-rule {
+    width: 16em;
+    padding: 1em;
+    background: #FFF url(http://static.d2c.cn/img/promo/bargin/alert_ruler.png);
+    background-size: cover;
+    border-radius: 1em;
+}
+
+.bargain-help-content {
+    width: 270px;
+    height: 282px;
+    text-align: center;
+    border-radius: 0.2em;
+    background: #FFF;
+    box-shadow: 0 0 0.5em rgba(0, 0, 0, 0.6);
+
+}
+
+.bargain-success {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    background: url(http://static.d2c.cn/img/promo/bargin/icon_order_success.png) no-repeat;
+    background-size: cover;
+    left: 105px;
+    top: -30px;
+}
+
+.bargain-help-content .success-info-text {
+    padding-top: 60px;
+}
+
+.bargain-help-content .success-info-text p {
+    color: #F23365;
+    line-height: 25px;
+    font-size: 20px;
+
+}
+
+.bargain-help-content .award-a {
+    width: 110px;
+    height: 55px;
+    background: url(http://static.d2c.cn/img/promo/bargin/bg_quan1.png) no-repeat;
+    background-size: cover;
+    margin: 25px auto 0;
+}
+
+.popup-help-success-info {
+    padding: 30px 0;
+    text-align: center;
+    font-size: 18px;
+    line-height: 25px;
+    color: #92442f;
+
+}
+
+.popup-help-success-info p {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+
+.popup-help-success-info i {
+    display: block;
+    margin: -6em auto 0.5em auto;
+    width: 5em;
+    height: 5em;
+    border-radius: 50%;
+    background: url(http://static.d2c.cn/img/promo/bargin/success_long.jpg) center no-repeat;
+    background-size: 105%
+}
+
+#mobile-text {
+    padding-left: 25px;
+    color: #c1876a;
+    text-align: left;
+}
+
+.popup-text {
+    line-height: 150%;
+    text-align: center;
+    padding: 0.6em 0 1.2em 0;
+    font-weight: normal;
+    font-size: 1em;
+}
+
+.mobile-input {
+    border-radius: 20px;
+    border: 1px solid #C1876A;
+    text-align: left;
+    padding-left: 14px;
+    line-height: 32px;
+    height: 32px;
+    width: 220px;
+    font-size: 12px;
+    margin: 25px 0 0;
+    color: #C1876A
+}
+
+.mobile-input::-webkit-input-placeholder {
+    color: #C1876A;
+}
+
+.sms-code {
+    position: relative;
+    margin: 1em 0
+}
+
+
+.bargain-help-content .button-black {
+    border: 1px solid #000;
+    font-size: 1em;
+    line-height: 2.6em;
+    height: 2.6em;
+}
+
+.bargin-section {
+    background: #FFF
+}
+
+.slide-bargin .img {
+    width: 100%;
+}
+
+.fz-12 {
+    font-size: 12px;
+}
+
+.fz-14 {
+    font-size: 14px;
+}
+
+.fz-20 {
+    font-size: 20px;
+}
+
+.white {
+    color: #FFF
+}
+
+.bargin-navs {
+    width: 100%;
+    height: 35px;
+    padding: 10px 0 0;
+    justify-content: center;
+}
+
+.bargin-navs .nav-itemss {
+    width: 90px;
+    text-align: center;
+    padding: 8px 0;
+    color: rgba(0, 0, 0, .54);
+}
+
+.bargin-navs .nav-itemss.on {
+    font-weight: bold;
+    color: #000;
+    border-bottom: 2px solid #232427;
+}
+
+.bargin-list {
+    margin-top: 10px;
+}
+
+.bargin-list .bargin-item {
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(35, 36, 39, .4);
+    padding-bottom: 10px;
+    margin-bottom: 25px;
+}
+
+.bargin-item .bargin-product {
+    overflow: hidden;
+    position: relative;
+}
+
+.bargin-item .bargin-product a {
+    display: block;
+    padding: 0;
+    line-height: 70%;
+}
+
+.bargin-item .bargin-title {
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    line-height: 30px;
+    color: rgba(255, 255, 255, .8);
+    background: rgba(0, 0, 0, .25);
+    padding: 0 10px;
+    font-size: 14px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    right: 0
+}
+
+.bargin-info {
+    padding: 6px 10px 12px 10px;
+    font-size: 14px;
+    color: #212121;
+    line-height: 24px;
+}
+
+.bargin-price {
+    padding: 0 10px;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    color: rgba(35, 36, 39, .38);
+}
+
+.bargin-item .bargin-but {
+    width: 70px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    background: #000;
+    color: #FFF;
+    border: 0;
+}
+
+.bargin-item .bargin-but.but-grey {
+    color: rgba(255, 255, 255, .7);
+    background-color: rgba(35, 36, 39, .38)
+}
+
+.my-bragin-price {
+    height: 30px;
+    line-height: 30px;
+    margin-top: 35px;
+    font-size: 14px;
+    color: rgba(0, 0, 0, .54);
+    width: 100%;
+}
+
+.prsss-price {
+    justify-content: space-between;
+    color: rgba(0, 0, 0, .54);
+    font-size: 12px;
+    line-height: 16px;
+    margin-top: 5px;
+}
+
+.progress-bar {
+    position: relative;
+    background: #CCC;
+    width: 100%;
+    margin: auto;
+    height: 8px;
+    border-radius: 8px;
+}
+
+.progress-act-bar {
+    position: relative;
+    background: url(http://static.d2c.cn/img/promo/bargin/tip_color.png);
+    background-size: cover;
+    height: 8px;
+    border-radius: 8px;
+    transition: all 0.5s ease-in;
+    width: 0;
+}
+
+.progress-act-bar .progress-tip {
+    position: absolute;
+    top: 15px;
+    right: -20px;
+    width: 80px;
+    height: 18px;
+    line-height: 18px;
+    background: #F23365;
+    color: #FFF;
+    font-size: 10px;
+    text-align: center;
+}
+
+.progress-act-bar .progress-tip:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 50%;
+    margin-left: -6px;
+    top: -4px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 4px solid #F23365;
+}
+
+.progress-act-bar .progress-tip.begin {
+    right: -35px;
+}
+
+.progress-act-bar .progress-tip.begin:after {
+    left: 8px;
+}
+
+.progress-act-bar .progress-tip.end {
+    right: 0;
+}
+
+.progress-act-bar .progress-tip.end:after {
+    left: auto;
+    right: 5px;
+}
+
+.my-bragin-status {
+    color: #F23365;
+}
+
+.my-bragin-button {
+    display: inline-block;
+    width: 70px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    color: #FFF;
+    background: #232427;
+    margin-left: 5px;
+}
+
+a:visited {
+    color: #FFF
+}
+
+.bargin-product .my-bargin-mask {
+    position: absolute;
+    background: rgba(0, 0, 0, .35);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.bargin-product .my-bargin-mask .mask-tips {
+    font-size: 14px;
+    color: #FFF;
+    line-height: 22px;
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+}
+
+.bargin-product .my-bargin-mask .mask-tips div {
+    width: 100%;
+}
+
+.bargin-top {
+    position: relative;
+}
+
+.bargin-productinfo .barpro-title {
+    padding: 8px 10px;
+    font-size: 16px;
+    font-weight: bold;
+    color: rgba(0, 0, 0, .87);
+    line-height: 26px;
+}
+
+.bar-times {
+    width: 250px;
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    position: relative;
+}
+
+.bar-times.on {
+    background: url(http://static.d2c.cn/img/promo/bargin/bg_timetip.png) no-repeat;
+    background-size: cover;
+}
+
+.bar-times.off {
+    background: url(http://static.d2c.cn/img/promo/bargin/bg_timetip_gry.png) no-repeat;
+    background-size: cover;
+    text-align: center;
+    color: #FFF;
+}
+
+.bar-times span:first-child {
+    color: #FFF;
+    padding: 0 5px 0 15px
+}
+
+.bar-times .n-time {
+    background: url(http://static.d2c.cn/img/promo/bargin/bg_timeshow.png) no-repeat;
+    background-size: cover;
+    margin: -3px 5px 0;
+    width: 25px;
+    height: 20px;
+    line-height: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 14px;
+    text-align: center;
+    color: #F8E71C;
+}
+
+.bar-times .k-time {
+    color: #FFF;
+}
+
+.bargin-contents {
+    margin: 20px 10px 10px 10px;
+    padding: 10px 10px 20px 10px;
+    box-shadow: 0 2px 6px rgba(35, 36, 29, .3);
+    height: 200px;
+}
+
+.bargin-contents .pro-price {
+    justify-content: space-between;
+    height: 57px;
+}
+
+.bargin-contents .o-price p:first-child {
+    color: rgba(0, 0, 0, .54);
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.bargin-contents .o-price p:last-child {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 26px;
+}
+
+.bargin-contents .bargin-tips {
+    text-align: left;
+    height: 37px;
+    line-height: 37px;
+    color: rgba(0, 0, 0, .4);
+    font-size: 10px;
+}
+
+.bargin-size {
+    border: 1px solid #E6EAF2;
+    margin: 20px 10px 0;
+}
+
+.bargin-size .c-title th {
+    border-right: 1px solid #E6EAF2;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    background: #F6F5F5;
+    font-size: 14px;
+    width: 110px
+}
+
+.bargin-size .c-title tr {
+    border-bottom: 1px solid #E6EAF2;
+}
+
+.bargin-size .c-title tr:last-child {
+    border: none;
+}
+
+.progress-bar {
+    position: relative;
+    background: #CCC;
+    width: 100%;
+    margin: auto;
+    height: 8px;
+    border-radius: 8px;
+}
+
+.progress-act-bar {
+    position: relative;
+    background: url(http://static.d2c.cn/img/promo/bargin/tip_color.png);
+    background-size: cover;
+    height: 8px;
+    border-radius: 8px;
+    transition: all 0.5s ease-in;
+    width: 0;
+}
+
+.progress-act-bar .progress-tip {
+    position: absolute;
+    top: 15px;
+    right: -20px;
+    width: 80px;
+    height: 18px;
+    line-height: 18px;
+    background: #F23365;
+    color: #FFF;
+    font-size: 10px;
+    text-align: center;
+}
+
+.progress-act-bar .progress-tip:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 50%;
+    margin-left: -6px;
+    top: -4px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 4px solid #F23365;
+}
+
+.progress-act-bar .progress-tip.begin {
+    right: -75px;
+}
+
+.progress-act-bar .progress-tip.begin:after {
+    left: 8px;
+}
+
+.progress-act-bar .progress-tip.end {
+    right: -10px;
+}
+
+.progress-act-bar .progress-tip.end:after {
+    left: auto;
+    right: 5px;
+}
+
+.bargin-size .c-title td {
+    height: 40px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.bargin-detail .t-title {
+    position: relative;
+    margin: 20px 0 15px;
+    font-size: 14px;
+    height: 18px;
+    line-height: 18px;
+}
+
+.bargin-detail .t-title:after {
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background: #E6EAF2;
+    z-index: 1;
+    content: '';
+    top: 9px;
+}
+
+.bargin-detail .t-title span {
+    display: block;
+    padding: 0 10px;
+    position: absolute;
+    left: 50%;
+    margin-left: -38px;
+    background: #FFF;
+    z-index: 2;
+}
+
+.bargin-button {
+    position: fixed;
+    z-index: 10;
+    height: 55px;
+    padding: 5px;
+    box-sizing: border-box;
+    background: #FFF;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    display: -webkit-box;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-around;
+    border-top: 1px solid #E6EAF2
+}
+
+.bargin-button .button-al {
+    border-radius: 20px;
+    border: 1px solid #F23365;
+    background: #F23365;
+    color: #fff;
+}
+
+.icon-bargin {
+    background: url(http://static.d2c.cn/img/promo/bargin/icon_personal.png) no-repeat;
+    background-size: cover;
+    width: 59px;
+    height: 50px;
+}
+
+.bargin-button .c-strong {
+    color: #F23365;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.bargin-button .fh {
+    font-size: 12px;
+    padding-left: 5px;
+    padding-right: 2px;
+}
+
+.bargin-button .bargin-sue button {
+    min-width: 132px;
+    height: 32px;
+    line-height: 32px;
+    color: #232427;
+    text-align: center;
+    display: inline-block;
+    border: 1px solid #F23365;
+    background: #FFF;
+    font-size: 12px;
+    border-radius: 20px;
+}
+
+
+.bargin-nav {
+    margin-top: 20px;
+    height: 35px;
+    text-align: center;
+}
+
+.bargin-nav .nav-items {
+    text-align: center;
+    padding: 8px 0;
+    color: rgba(0, 0, 0, .54);
+    display: inline-block;
+}
+
+.bargin-nav .nav-items.on {
+    font-weight: bold;
+    color: #000;
+    border-bottom: 2px solid #232427;
+}
+
+.mybargin-list .mybargin-item {
+    height: 55px;
+    border-bottom: 1px solid #E6EAF2;
+    justify-content: space-between;
+    padding: 7.5px 20px;
+}
+
+.mybargin-list .mybargin-item .r-time {
+    text-align: right;
+    font-size: 12px;
+    color: rgba(0, 0, 0, .38);
+    line-height: 23px;
+    height: 23px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.mybargin-list .usrinfo {
+    justify-content: space-between;
+    height: 30px;
+    color: #222;
+}
+
+.mybargin-list .usrinfo img {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+.mybargin-list .user-pic span {
+    display: inline-block;
+    vertical-align: middle;
+    margin-left: 12px;
+}
+
+.bargin-alert-title {
+    height: 25px;
+    line-height: 25px;
+    color: #3F4043;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.bargin-alert-info {
+    color: #3F4043;
+    line-height: 21px;
+    padding: 0 0 15px;
+    font-weight: 600;
+}
+
+.alert-alert-sure {
+    width: 120px;
+    height: 40px;
+    background: #232427;
+    color: #FFF;
+    text-align: center;
+    font-sise: 16px;
+    line-height: 40px;
+    border: 0;
+}
+
+.pop-close-cion {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: url(http://static.d2c.cn/img/promo/bargin/icon_close.png) no-repeat;
+    background-size: cover;
+    left: 50%;
+    margin-left: -15px;
+    bottom: -45px;
+}
+
+.bargin-top .brule {
+    display: block;
+    position: absolute;
+    width: 75px;
+    height: 30px;
+    top: 15px;
+    right: 0;
+    z-index: 10;
+    background: url(http://static.d2c.cn/img/promo/bargin/icon_helper.png) no-repeat;
+    background-size: cover;
+}
+
+.greytips {
+    height: 40px;
+    line-height: 40px;
+    background: #5b606F;
+    color: #FFF;
+    padding-left: 30px;
+}
+
+.overpromotion {
+    width: 40%;
+    height: 40px;
+    padding: 0;
+    background: #232427;
+    text-align: center;
+    line-height: 40px;
+    margin: 0 auto;
+    color: #FFF;
+}
+
+.bargin-productinfo .pro-go {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    right: 0;
+    bottom: 80px;
+    z-index: 9
+}
+
+.drawer_screen {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0.2;
+    overflow: hidden;
+    z-index: 40;
+    color: #fff;
+}
+
+.drawer_attr_box {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 41;
+    background: #fff;
+    overflow: visible;
+}
+
+.close_icon_v {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 15px;
+    height: 15px;
+    color: #212121;
+    z-index: 42;
+}
+
+.close_icon {
+    width: 15px;
+    height: 15px;
+}
+
+.drawer_title {
+    font-size: 16px;
+    padding: 10px 0 20px;
+    font-weight: 600;
+}
+
+.drawer_attr_content {
+    padding: 0 15px;
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.product-sku a {
+    border-color: #999 !important;
+    color: #999 !important;
+    line-height: 2.3em !important;
+    padding: 0 1em !important;
+}
+
+.product-sku a.selected {
+    border-color: #000 !important;
+    background: #000 !important;
+    color: #FFF !important;
+}
+
+.num-crease-wrap {
+    line-height: 2em !important;
+    border: none !important;
+}
+
+.num-crease-wrap .num-input {
+    border: none !important;
+    font-weight: bold !important;
+    width: auto !important;
+}
+
+.bargin-productinfo .pro-go {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    right: 0;
+    bottom: 80px;
+    z-index: 9
+}
+
+.marquee {
+    position: absolute;
+    left: 0.6em;
+    right: 0;
+    bottom: 0.6em;
+    height: 6.6em;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    z-index: 2
+}
+
+.marquee-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.marquee-list > div {
+    display: table;
+    margin: 0.3em 0;
+    line-height: 1.6em;
+    padding: 0.4em 1.2em 0.4em 0.4em;
+    font-size: 0.8em;
+    border-radius: 1.6em;
+    background: rgba(0, 0, 0, 0.7);
+    color: #FFF;
+}
+
+.marquee-list > div img {
+    width: 1.6em;
+    height: 1.6em;
+    border-radius: 50%;
+    vertical-align: middle;
+    margin-right: 0.6em;
+}
+
+.marquee-list > div .name {
+    display: inline-block;
+    max-width: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+.share-tip {
+    position: absolute;
+    top: -2.4em;
+    right: 12%;
+    line-height: 2em;
+    height: 2em;
+    color: #FFF;
+    background: rgba(0, 0, 0, 0.7);
+    font-size: 0.8em;
+    padding: 0.3em 0.8em 0 0.8em;
+    border-radius: 0.2em;
+}
+
+.share-tip:after {
+    content: ' ';
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: -0.92em;
+    width: 0;
+    height: 0;
+    border-top: 0.5em solid rgba(0, 0, 0, 0.7);
+    border-left: 0.5em solid transparent;
+    border-bottom: 0.5em solid transparent;
+    border-right: 0.5em solid transparent;
+}
+
+.bg_page, .share-type {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: fixed;
+    z-index: 50;
+    display: none;
+    background: rgba(0, 0, 0, .5);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.bg_page .web_bg {
+    position: absolute;
+    width: 235px;
+    height: 175px;
+    right: 50px;
+    z-index: 3;
+    background-image: url(http://static.d2cmall.com/img/promo/bargin/mark_guide_shar.png);
+    background-size: cover;
+}
+
+.bargin-dobutton {
+    width: 98%;
+    margin: 40px auto 0;
+    height: 100px;
+}
+
+.bargin-dobutton button {
+    width: 100%;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    color: #F23365;
+    border: 1px solid #F23365;
+    background: #FFF;
+    border-radius: 20px;
+}
+
+.bargin-dobutton button:first-child {
+    background: #F23365;
+    color: #FFF;
+    margin-bottom: 10px;
+}
+
+.more-bargain, .more-promotion {
+    padding: 20px 0 20px 15px;
+}
+
+.bargin-list-title {
+    line-height: 18px;
+    height: 18px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    display: -webkit-box;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+}
+
+.bargain-list-content {
+    width: 100%;
+    overflow: hidden;
+    overflow-x: scroll;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+}
+
+.bargain-list-content li {
+    display: inline-block;
+    margin-right: 10px;
+    overflow: hidden;
+    height: 206px;
+    width: 100px;
+}
+
+.bargain-list-content li a {
+    display: block;
+    height: 140px;
+    width: 100px;
+    line-height: 140px;
+    font-size: 0;
+
+
+}
+
+.bargain-list-content li img {
+    width: 100%;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: initial;
+}
+
+.bargain-list-content li .title {
+    text-overflow: -o-ellipsis-lastline;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+    font-size: 12px;
+    line-height: 16px;
+    margin-top: 5px;
+    color: #222;
+    height: 31px;
+}
+
+.bargain-list-content li .a-price {
+    font-size: 14px;
+    padding-left: 5px;
+    line-height: 14px;
+    margin-top: 10px;
+    color: #222;
+}
+
+.more-promotion {
+    margin-top: 15px;
+}
+
+.share-cp {
+    height: 125px;
+    width: 100%;
+    background: #FFF;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 0 65px;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-between;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.share-cp div {
+    width: 66px;
+}
+
+.share-cp div p {
+    line-height: 16px;
+    font-size: 10px;
+    color: #ccc;
+    text-align: center;
+}
+
+.share-cp div i {
+    width: 66px;
+    height: 66px;
+    display: block;
+}
+
+.icon-wx {
+    background: url('http://static.d2c.cn/img/promo/bargin/icon_wechat.png') no-repeat;
+    background-size: cover;
+}
+
+.icon-hb {
+    background: url('http://static.d2c.cn/img/promo/bargin/icon_haibao.png') no-repeat;
+    background-size: cover;
+}
+
+.share-cp .pop-close {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: 10px;
+    top: 10px;
+    background: url('http://static.d2c.cn/img/promo/bargin/icon_guanbi.png') no-repeat;
+    background-size: cover;
+}
+
+#img-bill {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 51;
+    display: none;
+    background: #FFF;
+}
+
+.bargin-color-button {
+    width: 220px;
+    height: 32px;
+    line-height: 32px;
+    background: linear-gradient(to right, #F862FA, #F23365);
+    border: none;
+    border-radius: 20px;
+    color: #FFF;
+    font-size: 12px;
+    margin-top: 25px;
+    display: inline-block;
+}
+
+#nav {
+    position: fixed;
+    bottom: 20%;
+    right: 5%;
+    width: 55px;
+}
+
+.bargin-color-button:visited {
+    color: #fff;
+}
+
+.big-tips > span {
+    margin: 1px;
+    display: inline-block;
+    -webkit-animation: style 1.2s ease-in-out infinite;
+    animation-name: style 1.2s ease-in-out infinite;;
+}
+
+.zoom {
+    -webkit-animation: jump 1s ease-in-out infinite;
+    animation-name: jump 1s ease-in-out infinite;;
+}
+
+@keyframes jump {
+    0% {
+        transform: scale(0.9, 0.9);
+        opacity: 1;
+    }
+    25% {
+        transform: scale(1, 1);
+        opacity: 0.85;
+    }
+    100% {
+        transform: scale(0.9, 0.9);
+        opacity: 1;
+    }
+}
+
+@keyframes style {
+    0%, 20%, 53%, 80%, 100% {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        transform: translate3d(0, 0.5, 0.1);
+    }
+    40%, 43% {
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        transform: translate3d(0px, -18px, 0);
+    }
+}
+
+
+.share-pop-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10
+}
+
+.share-pop-content .share-icon {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    left: 105px;
+    top: -30px;
+}
+
+.share-pop-content .share-pop-center {
+    width: 270px;
+    height: 195px;
+    text-align: center;
+    border-radius: 8px;
+    background: #FFF;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
+}
+
+.share-pop-center .title {
+    padding-top: 55px;
+    font-size: 14px;
+    color: #fd555d;
+    line-height: 18px;
+}
+
+.share-pop-center .share-button {
+    width: 220px;
+    height: 32px;
+    line-height: 32px;
+    background: linear-gradient(to right, #F862FA, #F23365);
+    border: none;
+    border-radius: 20px;
+    color: #FFF;
+    font-size: 12px;
+    margin-top: 25px;
+    display: inline-block
+}

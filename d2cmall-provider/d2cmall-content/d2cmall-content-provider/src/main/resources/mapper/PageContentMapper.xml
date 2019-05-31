@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.content.dao.PageContentMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.PageContent">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_man" property="lastModifyMan"
+                jdbcType="VARCHAR"/>
+        <result column="status" property="status"/>
+        <result column="page_def_id" property="pageDefId" jdbcType="BIGINT"/>
+        <result property="block01" column="block01"/>
+        <result property="block02" column="block02"/>
+        <result property="block03" column="block03"/>
+        <result property="block04" column="block04"/>
+        <result property="block05" column="block05"/>
+        <result property="block06" column="block06"/>
+        <result property="block07" column="block07"/>
+        <result property="block08" column="block08"/>
+        <result property="block09" column="block09"/>
+        <result property="block10" column="block10"/>
+        <result property="block11" column="block11"/>
+        <result property="block12" column="block12"/>
+        <result property="block13" column="block13"/>
+        <result property="block14" column="block14"/>
+        <result property="block15" column="block15"/>
+        <result property="block16" column="block16"/>
+        <result property="block17" column="block17"/>
+        <result property="block18" column="block18"/>
+        <result property="block19" column="block19"/>
+        <result property="block20" column="block20"/>
+        <result property="block21" column="block21"/>
+        <result property="block22" column="block22"/>
+        <result property="block23" column="block23"/>
+        <result property="block24" column="block24"/>
+        <result property="block25" column="block25"/>
+        <result property="block26" column="block26"/>
+        <result property="block27" column="block27"/>
+        <result property="block28" column="block28"/>
+        <result property="block29" column="block29"/>
+        <result property="block30" column="block30"/>
+        <result property="block31" column="block31"/>
+        <result property="block32" column="block32"/>
+        <result property="block33" column="block33"/>
+        <result property="block34" column="block34"/>
+        <result property="block35" column="block35"/>
+        <result property="block36" column="block36"/>
+        <result property="block37" column="block37"/>
+        <result property="block38" column="block38"/>
+        <result property="block39" column="block39"/>
+        <result property="block40" column="block40"/>
+        <result property="block41" column="block41"/>
+        <result property="block42" column="block42"/>
+        <result property="block43" column="block43"/>
+        <result property="block44" column="block44"/>
+        <result property="block45" column="block45"/>
+        <result property="block46" column="block46"/>
+        <result property="block47" column="block47"/>
+        <result property="block48" column="block48"/>
+        <result property="block49" column="block49"/>
+        <result property="block50" column="block50"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <delete id="delete">
+		DELETE FROM v_page_content where id=#{historyId}
+	</delete>
+
+    <select id="findById" resultMap="baseMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        FROM v_page_content
+        WHERE id = #{id,jdbcType=BIGINT}
+    </select>
+
+    <sql id="Base_Column_List">
+		id, create_date, modify_date, last_modify_man, status,
+		page_def_id
+	</sql>
+
+    <sql id="Blob_Column_List">
+		block01, block02, block03, block04, block05,
+		block06,
+		block07, block08, block09, block10,
+		block11, block12, block13,
+		block14,
+		block15,
+		block16, block17, block18, block19, block20,
+		block21, block22,
+		block23,
+		block24, block25,
+		block26, block27, block28, block29, block30,
+		block31,
+		block32, block33, block34, block35,
+		block36, block37, block38,
+		block39,
+		block40,
+		block41, block42, block43, block44, block45,
+		block46,
+		block47,
+		block48, block49, block50
+	</sql>
+
+    <select id="findOneByModule" resultMap="baseMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        FROM v_page_content
+        WHERE status= #{status} AND page_def_id=
+        #{pageDefId} limit 0,1
+    </select>
+
+    <select id="findIdByModule" resultType="Long">
+		SELECT id FROM
+		v_page_content WHERE status= #{status} AND page_def_id=
+		#{pageDefId}
+	</select>
+
+    <update id="updateStatusById">
+		UPDATE v_page_content SET
+		status=#{status},modify_date=now() WHERE id = #{id}
+	</update>
+
+</mapper>

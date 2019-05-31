@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.MemberCollectionMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.MemberCollection">
+        <result property="id" column="id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="productPic" column="product_pic"/>
+        <result property="productInernalSN" column="product_inernalsn"/>
+        <result property="productPrice" column="product_price"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <select id="countBySearch" resultType="int">
+        SELECT COUNT(m.id) FROM m_member_collection m
+        <if test="searcher.designerId!= null">
+            ,p_product p
+        </if>
+        WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT m.* FROM m_member_collection m
+        <if test="searcher.designerId!= null">
+            ,p_product p
+        </if>
+        WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY m.create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.productName!=null and searcher.productName!=''">
+            AND m.product_name =#{searcher.productName}
+        </if>
+        <if test="searcher.nickName!=null and searcher.nickName!=''">
+            AND m.nick_name =#{searcher.nickName}
+        </if>
+        <if test=" searcher.startTime!= null">
+            AND m.create_date &gt;= #{searcher.startTime}
+        </if>
+        <if test=" searcher.endTime!= null">
+            AND m.create_date &lt;= #{searcher.endTime}
+        </if>
+        <if test=" searcher.designerId!= null">
+            AND m.product_id = p.id AND p.designer_id
+            =#{searcher.designerId}
+        </if>
+        <if
+                test=" searcher.productInernalSN!= null and searcher.productInernalSN!=''">
+            AND m.product_inernalsn =#{searcher.productInernalSN}
+        </if>
+        <if test="searcher.memberId!=null">
+            AND m.member_id=#{searcher.memberId}
+        </if>
+    </sql>
+
+    <delete id="delete">
+		DELETE FROM m_member_collection
+		WHERE
+		member_id=#{memberId} AND product_id=#{productId}
+	</delete>
+
+    <select id="countByMemberId" resultType="int">
+		SELECT COUNT(id) FROM
+		m_member_collection WHERE member_id=#{memberId}
+	</select>
+
+    <select id="findByMemberId" resultMap="baseMap">
+		SELECT * FROM
+		m_member_collection WHERE member_id=#{memberId}
+		ORDER BY create_date DESC
+		LIMIT #{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="countByProductId" resultType="int">
+		SELECT COUNT(id) FROM
+		m_member_collection WHERE product_id=#{productId}
+	</select>
+
+    <select id="findByMemberAndProductId" resultMap="baseMap">
+		SELECT * FROM
+		m_member_collection WHERE
+		member_id=#{memberId} AND product_id=#{productId}
+		LIMIT 0,1
+	</select>
+
+    <update id="updateColumn">
+		set names utf8mb4
+	</update>
+
+    <update id="doMerge">
+		UPDATE m_member_collection SET
+		modify_date=now(),old_member_id=member_id ,member_id=#{targetId} WHERE
+		member_id=#{sourceId}
+	</update>
+
+    <update id="doRefreshHeadPic">
+        UPDATE m_member_collection SET
+        <if test="headPic!=null and headPic!=''">
+            head_pic=#{headPic},
+        </if>
+        nick_name=#{nickName},modify_date=NOW() WHERE member_id=#{memberInfoId}
+    </update>
+</mapper>

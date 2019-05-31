@@ -1,0 +1,88 @@
+.layout-help, .layout-warning {
+    background: #FFF;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.layout-warning {
+    text-align: center;
+}
+
+.warning-cont {
+    width: 500px;
+    margin: 200px auto;
+    text-align: left;
+    line-height: 200%;
+}
+
+.warning-cont i {
+    float: left;
+    height: 200px;
+    font-size: 80px;
+    color: #FF6600;
+    margin-right: 30px;
+}
+
+.warning-cont h1 {
+    font: normal 22px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue'
+}
+
+.help-left {
+    float: left;
+    width: 13%;
+    padding-top: 20px;
+    padding-left: 2%;
+    padding-right: 2%;
+    padding-bottom: 9999px;
+    margin-bottom: -9999px;
+}
+
+.help-left dl {
+    margin-bottom: 25px
+}
+
+.help-left dt {
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 45px;
+    border-bottom: 1px dotted #CCC;
+    padding-left: 25px;
+    margin-bottom: 10px
+}
+
+.help-left dd {
+    padding: 10px 0 8px 25px;
+    margin: 10px;
+}
+
+.help-left dd.on {
+    background: #EEE
+}
+
+.help-cont {
+    float: right;
+    min-height: 500px;
+    padding-bottom: 9999px;
+    margin-bottom: -9999px;
+    border-left: 1px solid #F2F2F2;
+    padding-left: 2%;
+    padding-right: 2%;
+    width: 79%;
+    margin-left: -1px;
+}
+
+.help-cont h1 {
+    text-align: center;
+    font-size: 22px;
+    font-weight: normal;
+    line-height: 50px;
+    border-bottom: 1px dotted #CCC;
+    font-family: 'Microsoft Yahei'
+}
+
+.help-cont .content {
+    line-height: 34px;
+    padding: 15px;
+    font-size: 14px
+}

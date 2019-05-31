@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.content.dao.AppNavigationMapper">
+    <resultMap type="com.d2c.content.model.AppNavigation" id="baseMap">
+        <result property="name" column="name"/>
+        <result property="pic" column="pic"/>
+        <result property="clickPic" column="click_pic"/>
+        <result property="sort" column="sort"/>
+        <result property="status" column="status"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="backColor" column="back_color"/>
+    </resultMap>
+
+    <update id="updateStatus">
+		update v_app_navigation set
+		status=#{status},last_modify_man=#{operator} where
+		id=#{id}
+	</update>
+
+    <select id="findAllEnable" resultMap="baseMap">
+		select * from
+		v_app_navigation where status=1 order
+		by sort desc
+	</select>
+
+    <sql id="Searcher">
+        <if test="searcher.name!=null and searcher.name!=''">
+            and name=#{searcher.name}
+        </if>
+        <if test="searcher.status!=null">
+            and status=#{searcher.status}
+        </if>
+    </sql>
+
+    <select id="countBySearcher" resultType="int">
+        select count(1) from
+        v_app_navigation where status!=-1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <select id="selectBySearcher" resultMap="baseMap">
+        select * from
+        v_app_navigation where status!=-1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        order by sort desc
+        limit #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <update id="updateBackColor">
+        UPDATE v_app_navigation SET back_color=#{backColor},last_modify_man=#{lastModifyMan},modify_date=NOW()
+        <if test="id!=null">
+            WHERE id=#{id}
+        </if>
+    </update>
+</mapper>

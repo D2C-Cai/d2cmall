@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.content.dao.ArticleMapper">
+    <resultMap type="com.d2c.content.model.Article" id="baseMap">
+        <result property="title" column="title"/>
+        <result property="name" column="name"/>
+        <result property="picture" column="picture"/>
+        <result property="author" column="author"/>
+        <result property="shareContent" column="share_content"/>
+        <result property="content" column="content"/>
+        <result property="mobileContent" column="mobile_content"/>
+        <result property="publishDate" column="publish_date"/>
+        <result property="metaKeywords" column="meta_keywords"/>
+        <result property="metaDescription" column="meta_description"/>
+        <result property="published" column="published"/>
+        <result property="toped" column="toped"/>
+        <result property="recommend" column="recommend"/>
+        <result property="hits" column="hits"/>
+        <result property="pageCount" column="page_count"/>
+        <result property="htmlFilePath" column="html_file_path"/>
+        <result property="html" column="html"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="articleTemplateId" column="article_template_id"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="backgroundUrl" column="background_url"/>
+        <result property="brandId" column="brand_id"/>
+        <result property="brandPic" column="brand_pic"/>
+    </resultMap>
+
+    <resultMap type="com.d2c.content.dto.ArticleDto" id="dtoMap" extends="baseMap">
+        <collection property="brandName" column="brand_id" select="selectBrand"/>
+    </resultMap>
+
+    <select id="findById" resultMap="baseMap">
+		SELECT * FROM v_article
+		WHERE id=#{id} 
+		LIMIT 0,1
+	</select>
+
+    <select id="findOneByName" resultMap="baseMap">
+		SELECT *
+		FROM v_article
+		WHERE name=#{name} 
+		LIMIT 0,1
+	</select>
+
+    <sql id="simpleEntityColumns">
+		id, creator, create_date, modify_date, last_modify_man,
+		title, name, author, picture, publish_date, 
+		published, toped, recommend,
+		page_count, hits, html_file_path, 
+		article_template_id, category_id,brand_id,brand_pic
+	</sql>
+
+    <select id="findByCategoryId" resultMap="baseMap">
+        SELECT
+        <include refid="simpleEntityColumns"/>
+        FROM v_article
+        WHERE published=true AND
+        category_id=#{catalogId}
+        ORDER BY toped DESC, recommend DESC,
+        publish_date DESC, create_date DESC
+        LIMIT #{pager.startNumber}, #{pager.pageSize}
+    </select>
+
+    <select id="countByCategoryId" resultType="int">
+		SELECT count(*) 
+		FROM v_article 
+		WHERE published=true 
+		AND category_id=#{catalogId} 
+	</select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT
+        <include refid="simpleEntityColumns"/>
+        FROM v_article
+        WHERE 1= 1
+        <if test="search != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY toped DESC, publish_date DESC, create_date DESC
+        <if test="pager != null">
+            LIMIT #{pager.startNumber}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT count(*) FROM v_article
+        WHERE 1= 1
+        <if test="search != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="search.published!= null">
+            AND published=#{search.published}
+        </if>
+        <if test="search.articleCategoryId!= null">
+            AND category_id=#{search.articleCategoryId}
+        </if>
+        <if test="search.title != null and search.title != ''">
+            AND title LIKE CONCAT('%',#{search.title},'%')
+        </if>
+        <if test="search.name != null and search.name != ''">
+            AND name LIKE CONCAT('%',#{search.name},'%')
+        </if>
+        <if test="search.brandId != null">
+            AND brand_id =#{search.brandId}
+        </if>
+    </sql>
+
+    <delete id="delete">
+		DELETE FROM v_article WHERE id=#{articleId}
+	</delete>
+
+    <update id="doPublish" parameterType="com.d2c.content.model.Article">
+		UPDATE v_article
+		SET modify_date=now(), publish_date=now(), published=#{published}
+		WHERE id=#{id}
+	</update>
+
+    <update id="doTop">
+		UPDATE v_article
+		SET toped=1, modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="doCancelTop">
+		UPDATE v_article
+		SET toped=0, modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="doRecommend">
+		UPDATE v_article
+		SET recommend=1, modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="doCancelRecommend">
+		UPDATE v_article
+		SET recommend=0, modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <select id="findDtoBySearcher" resultMap="dtoMap">
+        SELECT
+        <include refid="simpleEntityColumns"/>
+        FROM v_article
+        WHERE 1= 1
+        <if test="search != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY toped DESC, publish_date DESC, create_date DESC
+        <if test="pager != null">
+            LIMIT #{pager.startNumber}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="findDtoById" resultMap="dtoMap">
+		SELECT * FROM v_article
+		WHERE id=#{id} 
+		LIMIT 0,1
+	</select>
+
+    <select id="selectBrand" resultType="string">
+		SELECT name AS brandName FROM p_brand WHERE id=#{brand_id}
+	</select>
+</mapper>

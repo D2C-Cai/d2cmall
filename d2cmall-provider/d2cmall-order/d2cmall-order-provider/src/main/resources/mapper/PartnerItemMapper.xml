@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.PartnerItemMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.PartnerItem">
+        <result property="partnerId" column="partner_id"/>
+        <result property="sourceType" column="source_type"/>
+        <result property="sourceId" column="source_id"/>
+        <result property="sourceSn" column="source_sn"/>
+        <result property="direction" column="direction"/>
+        <result property="amount" column="amount"/>
+        <result property="sourceStatus" column="source_status"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM o_partner_item WHERE 1=1
+        <include refid="Searcher"/>
+        ORDER BY create_date DESC LIMIT
+        #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(*) FROM o_partner_item WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.partnerId!=null">
+            AND partner_id=#{searcher.partnerId}
+        </if>
+        <if test="searcher.sourceType!=null">
+            AND source_type=#{searcher.sourceType}
+        </if>
+        <if test="searcher.sourceId!=null">
+            AND source_id=#{searcher.sourceId}
+        </if>
+        <if test="searcher.direction!=null">
+            AND direction=#{searcher.direction}
+        </if>
+        <if test="searcher.startDate!=null">
+            AND create_date&gt;=#{searcher.startDate}
+        </if>
+        <if test="searcher.endDate!=null">
+            AND create_date&lt;=#{searcher.endDate}
+        </if>
+    </sql>
+
+    <select id="findSummaryByType" resultType="hashMap">
+		SELECT source_type AS type,
+		COALESCE(SUM(amount),0) AS amount
+		FROM o_partner_item 
+		WHERE partner_id=#{partnerId}
+		GROUP BY source_type
+	</select>
+
+</mapper>                                                                                                                                              

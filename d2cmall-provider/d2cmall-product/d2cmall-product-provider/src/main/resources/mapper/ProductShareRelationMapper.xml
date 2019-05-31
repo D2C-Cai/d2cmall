@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.d2c.product.dao.ProductShareRelationMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.ProductShareRelation">
+        <result property="productId" column="product_id"/>
+        <result property="shareId" column="share_id"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="createDate"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modifyDate"/>
+        <result property="lastModifyMan" column="lastModifyMan"/>
+    </resultMap>
+
+    <select id="findByShareId" resultMap="baseMap">
+		SELECT * FROM
+		p_product_share_relation WHERE 1=1 AND share_id=#{shareId}
+		LIMIT
+		0,#{pageSize}
+	</select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM
+        p_product_share_relation WHERE 1=1
+        <include refid="Searcher"/>
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(*) FROM
+        p_product_share_relation WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.shareId!=null">
+            AND share_id=#{searcher.shareId}
+        </if>
+        <if test="searcher.productId!=null">
+            AND product_id=#{searcher.productId}
+        </if>
+    </sql>
+
+    <insert id="doReplace">
+		REPLACE INTO
+		p_product_share_relation
+		(product_id,share_id,create_date)
+		VALUES(#{productShareRelation.productId},#{productShareRelation.shareId},now())
+	</insert>
+
+    <delete id="deleteRelation">
+		delete from p_product_share_relation where share_id=#{shareId} and
+		product_id=#{productId}
+	</delete>
+
+    <select id="findProductIdByShareId" resultType="long">
+		SELECT product_id FROM p_product_share_relation WHERE share_id=#{shareId}
+	</select>
+</mapper>

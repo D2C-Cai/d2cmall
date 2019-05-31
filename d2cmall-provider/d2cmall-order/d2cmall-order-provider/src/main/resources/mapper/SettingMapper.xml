@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.SettingMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.Setting">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="templateId" column="template_id"/>
+        <result property="type" column="type"/>
+        <result property="memberId" column="member_id"/>
+        <result property="memberType" column="member_type"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="value" column="value"/>
+        <result property="info" column="info"/>
+        <result property="system" column="system"/>
+        <result property="user" column="user"/>
+        <result property="designer" column="designer"/>
+        <result property="belongTo" column="belong_to"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT *
+        FROM sys_setting
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY name ASC, create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT COUNT(*)
+        FROM sys_setting
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.type != null">
+            AND type=#{searcher.type}
+        </if>
+        <if test="searcher.memberType != null">
+            AND member_type=#{searcher.memberType}
+        </if>
+        <if test="searcher.status != null">
+            AND status=#{searcher.status}
+        </if>
+        <if test="searcher.code!= null and searcher.code!=''">
+            AND code =#{searcher.code}
+        </if>
+        <if test="searcher.name!= null and searcher.name!=''">
+            AND name =#{searcher.name}
+        </if>
+        <if test="searcher.memberName!= null and searcher.memberName!=''">
+            AND member_name =#{searcher.memberName}
+        </if>
+    </sql>
+
+    <update id="updateValueById">
+		UPDATE sys_setting
+		SET value=#{value},modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateStatusById">
+		UPDATE sys_setting
+		SET status=#{status},modify_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <select id="findByCode" resultMap="baseMap">
+		SELECT * FROM sys_setting
+		WHERE code=#{code} limit 0,1
+	</select>
+
+    <delete id="deleteByBelongto">
+		DELETE FROM sys_setting
+		WHERE belong_to = #{belongto}
+	</delete>
+
+    <delete id="delete">
+		DELETE FROM sys_setting WHERE id=#{id}
+	</delete>
+
+    <update id="updateStatusByBelongto">
+		UPDATE sys_setting
+		SET status=#{status},modify_date=now()
+		WHERE belong_to=#{belongto}
+	</update>
+
+</mapper>

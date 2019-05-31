@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.content.dao.QuizBankMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.QuizBank">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result property="title" column="title"/>
+        <result property="choice" column="choice"/>
+        <result property="pic" column="pic"/>
+        <result property="mark" column="mark"/>
+        <result property="answer" column="answer"/>
+        <result property="type" column="type"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <sql id="Searcher">
+        <if test="searcher.type!=null">
+            and type=#{searcher.type}
+        </if>
+        <if test="searcher.mark!=null">
+            and mark=#{searcher.mark}
+        </if>
+        <if test="searcher.title!=null and searcher.title!=''">
+            and title =#{searcher.title}
+        </if>
+    </sql>
+    <delete id="deleteById">
+		delete from v_quiz_bank where id=#{id}
+	</delete>
+
+    <select id="countBySearcher" resultType="int">
+        select count(id) from v_quiz_bank where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        select * from v_quiz_bank where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        LIMIT #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <update id="updateStatus">
+		update v_quiz_bank set
+		mark=#{mark},last_modify_man=#{operator},modify_date=now() where
+		id=#{id}
+	</update>
+
+    <select id="findByType">
+		select * from v_quiz_bank where mark=1 and
+		type=#{type} order by create_date desc limit 0,500;
+	</select>
+
+    <update id="updateQuizBank">
+		update v_quiz_bank set
+		title=#{quiz.title},pic=#{quiz.pic},type=#{quiz.type},choice=#{quiz.choice}, answer=#{quiz.answer},last_modify_man=#{quiz.lastModifyMan},modify_date=now() where
+		id=#{quiz.id}
+	</update>
+</mapper>

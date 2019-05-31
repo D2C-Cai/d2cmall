@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.report.dao.SalesAmountAnalysisMapper">
+    <resultMap id="baseMap" type="com.d2c.report.model.SalesAmountAnalysis">
+        <result property="yesterdayBuyerCount" column="yesterday_buyer_count"/>
+        <result property="yesterdaySalesAmount" column="yesterday_sales_amount"/>
+        <result property="yesterdayRebuyBuyerCount" column="yesterday_rebuy_buyer_count"/>
+        <result property="yesterdayRebuySalesAmount" column="yesterday_rebuy_sales_amount"/>
+        <result property="yesterdayOldCustomerBuyerCount" column="yesterday_old_customer_buyer_count"/>
+        <result property="yesterdayOldCustomerSalesAmount" column="yesterday_old_customer_sales_amount"/>
+        <result property="yesterdayNewCustomerBuyerCount" column="yesterday_new_customer_buyer_count"/>
+        <result property="yesterdayNewCustomerSalesAmount" column="yesterday_new_customer_sales_amount"/>
+        <result property="lastWeekBuyerCount" column="last_week_buyer_count"/>
+        <result property="lastWeekSalesAmount" column="last_week_sales_amount"/>
+        <result property="lastWeekRebuyBuyerCount" column="last_week_rebuy_buyer_count"/>
+        <result property="lastWeekRebuySalesAmount" column="last_week_rebuy_sales_amount"/>
+        <result property="lastWeekOldCustomerBuyerCount" column="last_week_old_customer_buyer_count"/>
+        <result property="lastWeekOldCustomerSalesAmount" column="last_week_old_customer_sales_amount"/>
+        <result property="lastWeekNewCustomerBuyerCount" column="last_week_new_customer_buyer_count"/>
+        <result property="lastWeekNewCustomerSalesAmount" column="last_week_new_customer_sales_amount"/>
+        <result property="lastMonthBuyerCount" column="last_month_buyer_count"/>
+        <result property="lastMonthSalesAmount" column="last_month_sales_amount"/>
+        <result property="lastMonthRebuyBuyerCount" column="last_month_rebuy_buyer_count"/>
+        <result property="lastMonthRebuySalesAmount" column="last_month_rebuy_sales_amount"/>
+        <result property="lastMonthOldCustomerBuyerCount" column="last_month_old_customer_buyer_count"/>
+        <result property="lastMonthOldCustomerSalesAmount" column="last_month_old_customer_sales_amount"/>
+        <result property="lastMonthNewCustomerBuyerCount" column="last_month_new_customer_buyer_count"/>
+        <result property="lastMonthNewCustomerSalesAmount" column="last_month_new_customer_sales_amount"/>
+        <result property="lastSeasonBuyerCount" column="last_season_buyer_count"/>
+        <result property="lastSeasonSalesAmount" column="last_season_sales_amount"/>
+        <result property="lastSeasonRebuyBuyerCount" column="last_season_rebuy_buyer_count"/>
+        <result property="lastSeasonRebuySalesAmount" column="last_season_rebuy_sales_amount"/>
+        <result property="lastSeasonOldCustomerBuyerCount" column="last_season_old_customer_buyer_count"/>
+        <result property="lastSeasonOldCustomerSalesAmount" column="last_season_old_customer_sales_amount"/>
+        <result property="lastSeasonNewCustomerBuyerCount" column="last_season_new_customer_buyer_count"/>
+        <result property="lastSeasonNewCustomerSalesAmount" column="last_season_new_customer_sales_amount"/>
+        <result property="lastYearBuyerCount" column="last_year_buyer_count"/>
+        <result property="lastYearSalesAmount" column="last_year_sales_amount"/>
+        <result property="lastYearRebuyBuyerCount" column="last_year_rebuy_buyer_count"/>
+        <result property="lastYearRebuySalesAmount" column="last_year_rebuy_sales_amount"/>
+        <result property="lastYearOldCustomerBuyerCount" column="last_year_old_customer_buyer_count"/>
+        <result property="lastYearOldCustomerSalesAmount" column="last_year_old_customer_sales_amount"/>
+        <result property="lastYearNewCustomerBuyerCount" column="last_year_new_customer_buyer_count"/>
+        <result property="lastYearNewCustomerSalesAmount" column="last_year_new_customer_sales_amount"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findByLastOne" resultMap="baseMap">
+		SELECT * FROM rp_sales_amount_analysis ORDER BY create_date DESC LIMIT 0,1
+	</select>
+</mapper>

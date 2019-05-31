@@ -1,0 +1,929 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.OrderMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.Order">
+        <result property="id" column="id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="paymentType" column="payment_type"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="tempId" column="temp_id"/>
+        <result property="productTotalPrice" column="product_total_price"/>
+        <result property="productTotalQuantity" column="product_total_quantity"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="productPromotionAmount" column="product_promotion_amount"/>
+        <result property="promotionAmount" column="promotion_amount"/>
+        <result property="promotionName" column="promotion_name"/>
+        <result property="paidAmount" column="paid_amount"/>
+        <result property="memo" column="memo"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="memberEmail" column="member_email"/>
+        <result property="memberMobile" column="member_mobile"/>
+        <result property="deleted" column="deleted"/>
+        <result property="type" column="type"/>
+        <result property="reciver" column="reciver"/>
+        <result property="contact" column="contact"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="district" column="district"/>
+        <result property="address" column="address"/>
+        <result property="crossBorder" column="cross_border"/>
+        <result property="deliveryCorpName" column="delivery_corp_name"/>
+        <result property="deliverySn" column="delivery_sn"/>
+        <result property="protection" column="protection"/>
+        <result property="adminMemo" column="admin_memo"/>
+        <result property="shippingRates" column="shipping_rates"/>
+        <result property="paymentId" column="payment_id"/>
+        <result property="couponAmount" column="coupon_amount"/>
+        <result property="couponId" column="coupon_id"/>
+        <result property="redAmount" column="red_amount"/>
+        <result property="redId" column="red_id"/>
+        <result property="partnerAmount" column="partner_amount"/>
+        <result property="device" column="device"/>
+        <result property="orderCloseMan" column="order_close_man"/>
+        <result property="orderCloseTime" column="order_close_time"/>
+        <result property="paymentSn" column="payment_sn"/>
+        <result property="paymentTime" column="payment_time"/>
+        <result property="deliveryTime" column="delivery_time"/>
+        <result property="closeReason" column="close_reason"/>
+        <result property="terminal" column="terminal"/>
+        <result property="terminalId" column="terminal_id"/>
+        <result property="flag" column="flag"/>
+        <result property="recId" column="rec_id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="appVersion" column="app_version"/>
+        <result property="drawDate" column="draw_date"/>
+        <result property="drawee" column="drawee"/>
+        <result property="invoiced" column="invoiced"/>
+        <result property="drawer" column="drawer"/>
+        <result property="crmGroupId" column="crm_group_id"/>
+        <result property="storeGroupId" column="store_group_id"/>
+        <result property="bargainId" column="bargain_id"/>
+        <result property="collageId" column="collage_id"/>
+        <result property="partnerId" column="partner_id"/>
+        <result property="taxAmount" column="tax_amount"/>
+        <result property="exchangRate" column="exchang_rate"/>
+        <result property="currency" column="currency"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+        <result property="substitute" column="substitute"/>
+    </resultMap>
+
+    <select id="findByTempId" resultMap="baseMap">
+		SELECT * FROM Orders
+		WHERE temp_id = #{id}
+		LIMIT 0,1
+	</select>
+
+    <select id="findByOrderSn" resultMap="baseMap">
+		SELECT * FROM Orders
+		WHERE order_sn = #{orderSn}
+		LIMIT 0,1
+	</select>
+
+    <select id="findByOrderSnAndMemberInfoId" resultMap="baseMap">
+		SELECT *
+		FROM Orders
+		WHERE order_sn = #{orderSn} AND member_id =#{memberInfoId}
+		LIMIT 0,1
+	</select>
+
+    <select id="findByIdAndMemberInfoId" resultMap="baseMap">
+		SELECT * FROM
+		Orders
+		WHERE id = #{id} AND member_id =#{memberInfoId}
+		LIMIT 0,1
+	</select>
+
+    <select id="findByTerminal" resultMap="baseMap">
+		SELECT * FROM Orders
+		WHERE terminal = #{terminal} AND terminal_id=#{terminalId}
+		LIMIT 0,1000
+	</select>
+
+    <select id="findRemindOrder" resultType="Long">
+		SELECT member_id FROM
+		orders
+		WHERE order_status=1
+		AND (UNIX_TIMESTAMP(NOW()) -
+		UNIX_TIMESTAMP(create_date)) &gt; #{time1}
+		AND (UNIX_TIMESTAMP(NOW()) -
+		UNIX_TIMESTAMP(create_date)) &lt;=#{time2}
+	</select>
+
+    <select id="findPartnerOrder" resultType="HashMap">
+        SELECT partner_id, COUNT(id) as count
+        FROM orders
+        WHERE order_status=1
+        AND create_date &lt;=#{endDate}
+        GROUP BY partner_id
+        <if test="pager != null">
+            LIMIT #{pager.startNumber},#{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countPartnerOrder" resultType="Integer">
+		SELECT COUNT(*) FROM
+		(SELECT partner_id, COUNT(id) as count
+		FROM orders
+		WHERE order_status=1
+		AND create_date &lt;=#{endDate}
+		GROUP BY partner_id)t
+	</select>
+
+    <update id="updateOrderStatus">
+        UPDATE Orders
+        SET modify_date=now()
+        <if test="orderStatus != null">
+            ,order_status = #{orderStatus.code}
+        </if>
+        WHERE id=#{orderId}
+    </update>
+
+    <update id="updateCloseInfo">
+		UPDATE Orders
+		SET modify_date=now(),
+		order_close_man=#{orderCloseMan},
+		close_reason=#{closeReason},
+		order_close_time=now(), order_status=#{orderStatus}
+		WHERE id=#{id}
+	</update>
+
+    <update id="updatePaySuccess">
+		UPDATE Orders
+		SET modify_date=now(),
+		payment_id=#{paymentId}, paid_amount=#{paidAmount},
+		payment_type=#{paymentType}, payment_sn=#{alipaySn}, order_status=3,
+		payment_time=now()
+		WHERE id=#{orderId} AND order_status&lt;=1
+	</update>
+
+    <update id="doDeliveryOrder">
+		UPDATE Orders
+		SET modify_date=now(), order_status=4,
+		delivery_corp_name=#{deliveryCorpName},
+		delivery_sn=#{deliverySn},
+		delivery_time=now()
+		WHERE id=#{orderId} AND order_status=3
+	</update>
+
+    <update id="updateAddress">
+        UPDATE Orders
+        SET modify_date=now()
+        <if test="province != null">
+            ,province = #{province}
+        </if>
+        <if test="city != null">
+            ,city = #{city}
+        </if>
+        <if test="district != null">
+            ,district = #{district}
+        </if>
+        <if test="address != null">
+            ,address = #{address}
+        </if>
+        <if test="contact != null">
+            ,contact = #{contact}
+        </if>
+        <if test="receiver != null">
+            ,reciver = #{receiver}
+        </if>
+        WHERE id = #{orderId}
+    </update>
+
+    <update id="updateAdminMemo">
+		UPDATE Orders
+		SET modify_date=now(),
+		admin_memo=#{adminMemo}
+		WHERE id = #{orderId}
+	</update>
+
+    <update id="updateTempOrder" parameterType="com.d2c.order.model.Order">
+        UPDATE Orders
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="memo != null">
+                memo = #{memo},
+            </if>
+            <if test="paymentType != null">
+                payment_type = #{paymentType},
+            </if>
+            <if test="paymentId != null">
+                payment_id = #{paymentId},
+            </if>
+            <if test="deleted != null">
+                deleted = #{deleted},
+            </if>
+            <if test="province != null">
+                province = #{province},
+            </if>
+            <if test="city != null">
+                city = #{city},
+            </if>
+            <if test="reciver != null">
+                reciver = #{reciver},
+            </if>
+            <if test="contact != null">
+                contact = #{contact},
+            </if>
+            <if test="address != null">
+                address = #{address},
+            </if>
+            <if test="shippingRates != null">
+                shipping_rates = #{shippingRates},
+            </if>
+            <if test="device != null">
+                device = #{device},
+            </if>
+            modify_date=now()
+        </trim>
+        WHERE id=#{id}
+    </update>
+
+    <update id="updateCouponAmount">
+		UPDATE Orders
+		SET modify_date=now(),
+		coupon_amount=#{couponAmount}, coupon_id=#{couponId}
+		WHERE
+		id=#{orderId}
+	</update>
+
+    <update id="updateFlag">
+		UPDATE Orders
+		SET modify_date=now(), flag =#{flag}
+		WHERE id=#{orderId}
+	</update>
+
+    <update id="updateSubstitute">
+		UPDATE Orders
+		SET modify_date=now(), substitute =#{substitute}
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateInvoiced">
+		UPDATE Orders
+		SET modify_date=now(),
+		invoiced=#{invoiced},
+		drawer=#{drawer}, draw_date=now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="deleteById">
+		UPDATE Orders
+		SET modify_date=now(), deleted = 1
+		WHERE id = #{id}
+	</update>
+
+    <select id="countBargain" resultType="int">
+		SELECT count(*) FROM orders
+		WHERE member_id=#{memberId}
+		AND terminal='Bargain'
+		AND create_date &gt;=#{startDate}
+		AND create_date &lt;#{endDate}
+		AND order_status &gt;=0
+	</select>
+
+    <select id="countGropByStatus" resultType="hashMap">
+		SELECT order_status as
+		orderStatus, count(*) as counts
+		FROM orders
+		WHERE deleted=0 AND member_id=#{memberInfoId}
+		GROUP BY order_status
+	</select>
+
+    <select id="findBy" resultMap="baseMap">
+        SELECT distinct o.* FROM orders o
+        <include refid="MyOrderItem"/>
+        WHERE 1=1 AND o.deleted=0
+        <include refid="MyOrderSearcher"/>
+        <include refid="MyOrderItemQuery"/>
+        ORDER BY o.create_date DESC, o.member_id
+        <if test="pager != null">
+            LIMIT #{pager.startNumber},#{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countBy" resultType="Integer">
+        SELECT count(distinct o.id) FROM orders o
+        <include refid="MyOrderItem"/>
+        WHERE 1=1 AND o.deleted=0
+        <include refid="MyOrderSearcher"/>
+        <include refid="MyOrderItemQuery"/>
+    </select>
+
+    <sql id="MyOrderItem">
+        <if test="(itemStatus != null and itemStatus.length &gt; 0)
+		||(productName != null and productName !='')
+		||(designer != null and designer !='')
+		||(commented != null)">
+            ,orderItem oi
+        </if>
+    </sql>
+
+    <sql id="MyOrderItemQuery">
+        <if test="(itemStatus != null and itemStatus.length &gt; 0)
+		||(productName != null and productName !='')
+		||(designer != null and designer !='')
+		||(commented != null)">
+            AND oi.order_id =o.id
+            <include refid="MyOrderItemSearcher"/>
+        </if>
+    </sql>
+
+    <sql id="MyOrderSearcher">
+        <if test="orderStatus!= null and orderStatus.length &gt; 0">
+            AND o.order_status IN
+            <foreach collection="orderStatus" item="orderStatus" index="index"
+                     open="(" close=")" separator=",">
+                <if test="orderStatus!= null">
+                    #{orderStatus.code}
+                </if>
+            </foreach>
+        </if>
+        <if test="orderSn != null and  orderSn != ''">
+            AND o.order_sn = #{orderSn}
+        </if>
+        <if test="startDate != null">
+            AND o.create_date &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+            AND o.create_date &lt;= #{endDate}
+        </if>
+        <if test="memberInfoId!= null">
+            AND o.member_id=#{memberInfoId}
+        </if>
+    </sql>
+
+    <sql id="MyOrderItemSearcher">
+        <if test="productName!= null and productName!=''">
+            AND oi.product_name LIKE CONCAT('%',#{productName},'%')
+        </if>
+        <if test="designer!= null and designer!=''">
+            AND oi.designer_name LIKE CONCAT('%',#{designer},'%')
+        </if>
+        <if test="commented!= null">
+            AND oi.comment_id is null
+        </if>
+        <if test="itemStatus !=null and itemStatus.length &gt; 0">
+            AND oi.status IN
+            <foreach collection="itemStatus" item="itemStatus" index="index"
+                     open="(" close=")" separator=",">
+                <if test="itemStatus!= null">
+                    #{itemStatus}
+                </if>
+            </foreach>
+        </if>
+    </sql>
+
+    <select id="findSimpleBySearch" resultMap="baseMap">
+        SELECT distinct o.* FROM orders o
+        <include refid="OrderItem"/>
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="OrderSearcher"/>
+        </if>
+        <include refid="OrderItemQuery"/>
+        ORDER BY ${searcher.orderByStr}, o.order_status
+        <if test="pager != null">
+            LIMIT #{pager.startNumber},#{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countSimpleBySearch" resultType="int">
+        SELECT count(distinct o.id) FROM orders o
+        <include refid="OrderItem"/>
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="OrderSearcher"/>
+        </if>
+        <include refid="OrderItemQuery"/>
+    </select>
+
+    <select id="countSimpleByMemberId" resultType="int">
+		SELECT count(*)
+		FROM orders o WHERE o.member_id= #{memberId}
+	</select>
+
+    <select id="countGroupByStatus" resultType="hashMap">
+		SELECT order_status,
+		COUNT(*) as counts
+		FROM orders
+		GROUP BY order_status
+		ORDER BY order_status ASC
+	</select>
+
+    <select id="countOrdersAmount" resultType="java.math.BigDecimal">
+        SELECT
+        SUM(o.total_amount+o.shipping_rates-o.coupon_amount-o.red_amount)
+        FROM
+        orders o
+        WHERE 1=1
+        <include refid="OrderSearcher"/>
+        AND EXISTS(
+        SELECT 1 FROM orderItem oi WHERE oi.order_id =o.id
+        <if test="searcher != null">
+            <include refid="OrderItemSearcher"/>
+        </if>
+        )
+    </select>
+
+    <select id="findCountAndAmountGroupByPayType" resultType="HashMap">
+        SELECT payment_type as payType,
+        COUNT(o.id) as count,
+        SUM(o.total_amount+o.shipping_rates-o.coupon_amount-o.red_amount) as
+        total
+        FROM orders o
+        WHERE o.order_status &gt; 1
+        <include refid="OrderSearcher"/>
+        GROUP BY payment_type
+    </select>
+
+    <select id="findCountAndAmountGroupByStatus" resultType="HashMap">
+        SELECT order_status as status,
+        COUNT(o.id) as count,
+        SUM(o.total_amount+o.shipping_rates-o.coupon_amount-o.red_amount) as
+        total
+        FROM orders o
+        WHERE o.order_status &gt; 0
+        <include refid="OrderSearcher"/>
+        GROUP BY order_status
+    </select>
+
+    <select id="findCountAndAmountGroupByDevice" resultType="HashMap">
+        SELECT device as device,
+        COUNT(o.id) as count,
+        SUM(o.total_amount+o.shipping_rates-o.coupon_amount-o.red_amount) as
+        total
+        FROM orders o
+        WHERE o.order_status &gt; 1
+        <include refid="OrderSearcher"/>
+        GROUP BY device
+    </select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT distinct o.* FROM orders o
+        <include refid="OrderItem"/>
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="OrderSearcher"/>
+        </if>
+        <include refid="OrderItemQuery"/>
+        ORDER BY ${searcher.orderByStr}, o.order_status
+        <if test="pager != null">
+            LIMIT #{pager.startNumber},#{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countBySearcher" resultType="Integer">
+        SELECT count(distinct o.id) FROM orders o
+        <include refid="OrderItem"/>
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="OrderSearcher"/>
+        </if>
+        <include refid="OrderItemQuery"/>
+    </select>
+
+    <sql id="OrderItem">
+        <if test="(searcher.itemStatus != null and searcher.itemStatus.length &gt; 0)
+		||(searcher.skuSn != null and searcher.skuSn != '')
+		||(searcher.productSn != null and searcher.productSn != '')
+		||(searcher.productName != null and searcher.productName !='')
+		||(searcher.productSource != null and searcher.productSource !='')
+		||(searcher.operation != null and searcher.operation != '')
+		||(searcher.designerId != null) 
+		||(searcher.storeId != null)
+		||(searcher.sf != null)
+		||(searcher.st != null)
+		||(searcher.pop != null)
+		||(searcher.deliveryType != null)
+		||(searcher.deliverySn != null and searcher.deliverySn != '')
+		||(searcher.billNumber != null and searcher.billNumber != '')
+		||(searcher.allot != null)
+		||(searcher.balance != null)
+		||(searcher.requisition != null)
+		||(searcher.inCollage != null)">
+            ,orderItem oi
+        </if>
+    </sql>
+
+    <sql id="OrderItemQuery">
+        <if test="(searcher.itemStatus != null and searcher.itemStatus.length &gt; 0)
+		||(searcher.skuSn != null and searcher.skuSn != '')
+		||(searcher.productSn != null and searcher.productSn != '')
+		||(searcher.productName != null and searcher.productName !='')
+		||(searcher.productSource != null and searcher.productSource !='')
+		||(searcher.operation != null and searcher.operation != '')
+		||(searcher.designerId != null) 
+		||(searcher.storeId != null)
+		||(searcher.sf != null)
+		||(searcher.st != null)
+		||(searcher.pop != null)
+		||(searcher.deliveryType != null)
+		||(searcher.deliverySn != null and searcher.deliverySn != '')
+		||(searcher.billNumber != null and searcher.billNumber != '')
+		||(searcher.allot != null)
+		||(searcher.balance != null)
+		||(searcher.requisition != null)
+		||(searcher.inCollage != null)">
+            AND oi.order_id =o.id
+            <include refid="OrderItemSearcher"/>
+        </if>
+    </sql>
+
+    <sql id="OrderSearcher">
+        <if test="searcher.orderType!= null and searcher.orderType.length &gt; 0">
+            AND o.type IN
+            <foreach collection="searcher.orderType" item="orderType"
+                     index="index" open="(" close=")" separator=",">
+                <if test="orderType!= null">
+                    #{orderType}
+                </if>
+            </foreach>
+        </if>
+        <if test="searcher.orderStatus!= null and searcher.orderStatus.length &gt; 0">
+            AND o.order_status IN
+            <foreach collection="searcher.orderStatus" item="orderStatus"
+                     index="index" open="(" close=")" separator=",">
+                <if test="orderStatus!= null">
+                    #{orderStatus.code}
+                </if>
+            </foreach>
+        </if>
+        <if test="searcher.paymentType!= null and searcher.paymentType.length &gt; 0">
+            AND o.payment_type IN
+            <foreach collection="searcher.paymentType" item="paymentType"
+                     index="index" open="(" close=")" separator=",">
+                <if test="paymentType!= null">
+                    #{paymentType}
+                </if>
+            </foreach>
+        </if>
+        <if test="searcher.crmGroupId!=null and searcher.crmGroupId.length &gt; 0">
+            AND o.crm_group_id IN
+            <foreach collection="searcher.crmGroupId" index="index" item="itemId"
+                     open="(" separator="," close=")">
+                <if test="itemId!= null">
+                    #{itemId}
+                </if>
+            </foreach>
+        </if>
+        <if test="searcher.orderSn != null and searcher.orderSn != ''">
+            AND o.order_sn = #{searcher.orderSn}
+        </if>
+        <if test="searcher.startDate != null">
+            AND o.create_date &gt;= #{searcher.startDate}
+        </if>
+        <if test="searcher.endDate != null">
+            AND o.create_date &lt;= #{searcher.endDate}
+        </if>
+        <if test="searcher.startPayDate != null">
+            AND o.payment_time &gt;= #{searcher.startPayDate}
+        </if>
+        <if test="searcher.endPayDate != null">
+            AND o.payment_time &lt;= #{searcher.endPayDate}
+        </if>
+        <if test="searcher.memberId!= null">
+            AND o.member_id=#{searcher.memberId}
+        </if>
+        <if test="searcher.loginCode != null">
+            AND o.login_code = #{searcher.loginCode}
+        </if>
+        <if test="searcher.device != null and searcher.device != ''">
+            AND o.device =#{searcher.device}
+        </if>
+        <if test="searcher.deleted!= null">
+            AND o.deleted = #{searcher.deleted}
+        </if>
+        <if test="searcher.province != null and searcher.province != ''">
+            AND o.province =#{searcher.province}
+        </if>
+        <if test="searcher.city != null and searcher.city != ''">
+            AND o.city =#{searcher.city}
+        </if>
+        <if test="searcher.reciver != null and searcher.reciver != ''">
+            AND o.reciver =#{searcher.reciver}
+        </if>
+        <if test="searcher.contact != null and searcher.contact != ''">
+            AND o.contact =#{searcher.contact}
+        </if>
+        <if test="searcher.paymentSn != null and searcher.paymentSn != ''">
+            AND o.payment_sn =#{searcher.paymentSn}
+        </if>
+        <if test="searcher.invoiced != null and searcher.invoiced==0">
+            AND o.invoiced=0 AND o.drawee is not null
+        </if>
+        <if test="searcher.invoiced != null and searcher.invoiced==1">
+            AND o.invoiced=1
+        </if>
+        <if test="searcher.terminal!=null and searcher.terminal!=''">
+            AND o.terminal=#{searcher.terminal}
+        </if>
+        <if test="searcher.memo!=null and searcher.memo!=''">
+            AND o.memo =#{searcher.memo}
+        </if>
+        <if test="searcher.orderPromotionName !=null and searcher.orderPromotionName!=''">
+            AND o.promotion_name = #{searcher.orderPromotionName}
+        </if>
+        <if test="searcher.crossBorder != null">
+            AND o.cross_border = #{searcher.crossBorder}
+        </if>
+        <if test="searcher.gift ==1">
+            AND o.terminal ='Partner' AND o.terminal_id IS NOT NULL
+        </if>
+    </sql>
+
+    <sql id="OrderItemSearcher">
+        <if test="searcher.itemStatus!= null and searcher.itemStatus.length &gt; 0">
+            AND oi.status IN
+            <foreach collection="searcher.itemStatus" item="itemStatus"
+                     index="index" open="(" close=")" separator=",">
+                <if test="itemStatus!= null">
+                    #{itemStatus}
+                </if>
+            </foreach>
+        </if>
+        <if test="searcher.deliverySn!= null and searcher.deliverySn!= ''">
+            AND oi.delivery_sn=#{searcher.deliverySn}
+        </if>
+        <if test="searcher.designerId!= null">
+            AND oi.designer_id =#{searcher.designerId}
+        </if>
+        <if test="searcher.productName!= null and searcher.productName!=''">
+            AND oi.product_name =#{searcher.productName}
+        </if>
+        <if test="searcher.skuSn != null and searcher.skuSn != ''">
+            AND oi.product_sku_sn =#{searcher.skuSn}
+        </if>
+        <if test="searcher.productSn != null and searcher.productSn != ''">
+            AND oi.product_sn = #{searcher.productSn}
+        </if>
+        <if test="searcher.productSource!=null and searcher.productSource!=''">
+            AND oi.product_source = #{searcher.productSource}
+        </if>
+        <if test="searcher.storeId == 0">
+            AND oi.store_id IS NULL
+        </if>
+        <if test="searcher.storeId == 1">
+            AND oi.store_id IS NOT NULL
+        </if>
+        <if test="searcher.storeId != null and searcher.storeId !=0 and searcher.storeId !=1">
+            AND oi.store_id=#{searcher.storeId}
+        </if>
+        <if test="searcher.deliveryTimeStart != null">
+            AND oi.delivery_time &gt;= #{searcher.deliveryTimeStart}
+        </if>
+        <if test="searcher.deliveryTimeEnd != null">
+            AND oi.delivery_time &lt;= #{searcher.deliveryTimeEnd}
+        </if>
+        <if test="searcher.warningTime!= null">
+            AND estimate_date &lt; date_add(now(),
+            interval-#{searcher.warningTime} second)
+            AND oi.status
+            IN('NORMAL','WAITDELIVERED')
+        </if>
+        <if test="searcher.signStartDate!=null">
+            AND oi.sign_date &gt; #{searcher.signStartDate}
+        </if>
+        <if test="searcher.signEndDate!=null">
+            AND oi.sign_date &lt; #{searcher.signEndDate}
+        </if>
+        <if test="searcher.balance!= null">
+            AND oi.balance = #{searcher.balance}
+        </if>
+        <if test="searcher.balanceStartDate!=null">
+            AND oi.balance_date &gt;= #{searcher.balanceStartDate}
+        </if>
+        <if test="searcher.balanceEndDate!=null">
+            AND oi.balance_date &lt;= #{searcher.balanceEndDate}
+        </if>
+        <if test="searcher.deliveryType!=null">
+            AND oi.delivery_type = #{searcher.deliveryType}
+        </if>
+        <if test="searcher.estimateStartDate!=null">
+            AND oi.estimate_date &gt;= #{searcher.estimateStartDate}
+        </if>
+        <if test="searcher.estimateEndDate!=null">
+            AND oi.estimate_date &lt;= #{searcher.estimateEndDate}
+        </if>
+        <if test="searcher.billNumber!=null and searcher.billNumber!=''">
+            AND oi.bill_number = #{searcher.billNumber}
+        </if>
+        <if test="searcher.requisition != null">
+            AND oi.requisition=#{searcher.requisition}
+        </if>
+        <if test="searcher.allot != null">
+            AND oi.allot=#{searcher.allot}
+        </if>
+        <if test="searcher.pop!=null">
+            AND oi.pop=#{searcher.pop}
+        </if>
+        <if test="searcher.sf == 1">
+            AND EXISTS(SELECT 1 FROM product_sku_stock_summary WHERE
+            sku_id=oi.product_sku_id and sf_stock &gt; 0)
+        </if>
+        <if test="searcher.sf == 0">
+            AND EXISTS(SELECT 1 FROM product_sku_stock_summary WHERE
+            sku_id=oi.product_sku_id and sf_stock = 0)
+        </if>
+        <if test="searcher.st == 1">
+            AND EXISTS(SELECT 1 FROM product_sku_stock_summary WHERE
+            sku_id=oi.product_sku_id and st_stock &gt; 0)
+        </if>
+        <if test="searcher.st == 0">
+            AND EXISTS(SELECT 1 FROM product_sku_stock_summary WHERE
+            sku_id=oi.product_sku_id and st_stock = 0)
+        </if>
+        <if test="searcher.operation != null and searcher.operation != ''">
+            AND EXISTS(SELECT 1 FROM p_brand WHERE
+            id=oi.designer_id
+            and operation = #{searcher.operation})
+        </if>
+        <if test="searcher.inCollage!=null and !searcher.inCollage">
+            AND oi.collage_status !=1
+        </if>
+        <if test="searcher.inCollage!=null and searcher.inCollage">
+            AND oi.collage_status =1
+        </if>
+    </sql>
+
+    <select id="findWaitingSuccessOrder" resultMap="baseMap">
+        SELECT o.* FROM
+        orders o WHERE 1=1
+        <if test="orderStatuses!= null and orderStatuses.length &gt; 0">
+            AND o.order_status IN
+            <foreach collection="orderStatuses" item="orderStatus" index="index"
+                     open="(" close=")" separator=",">
+                <if test="orderStatus!= null">
+                    #{orderStatus.code}
+                </if>
+            </foreach>
+        </if>
+        AND
+        (select count(id) from orderitem where orderitem.order_id=o.id)=
+        (select count(id) from orderitem where orderitem.order_id=o.id and
+        orderitem.`status` in ('SUCCESS','MALLCLOSE','AFTERCLOSE'))
+        <if test="pager != null">
+            LIMIT #{pager.startNumber}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countWaitingSuccessOrder" resultType="Integer">
+        SELECT count(*)
+        FROM orders o WHERE 1=1
+        <if test="orderStatuses!= null and orderStatuses.length &gt; 0">
+            AND o.order_status IN
+            <foreach collection="orderStatuses" item="orderStatus" index="index"
+                     open="(" close=")" separator=",">
+                <if test="orderStatus!= null">
+                    #{orderStatus.code}
+                </if>
+            </foreach>
+        </if>
+        AND
+        (select count(id) from orderitem where orderitem.order_id=o.id)=
+        (select count(id) from orderitem where orderitem.order_id=o.id and
+        orderitem.`status` in ('SUCCESS','MALLCLOSE','AFTERCLOSE'))
+    </select>
+
+    <select id="findPushMinutesOrder" resultMap="baseMap">
+		SELECT o.* FROM
+		orders o
+		WHERE o.order_status &gt;=2 AND now() &lt;=ADDDATE(payment_time, interval
+		#{minutes} MINUTE)
+		ORDER BY payment_time DESC
+		LIMIT 0,1
+	</select>
+
+    <select id="findExpireOrder" resultType="Long">
+        SELECT id FROM orders
+        WHERE order_status=1
+        AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(create_date) &gt;
+        #{expireTime}
+        <if test="types!= null and types.length &gt; 0">
+            AND type IN
+            <foreach collection="types" item="orderType" index="index"
+                     open="(" close=")" separator=",">
+                <if test="orderType!= null">
+                    #{orderType}
+                </if>
+            </foreach>
+        </if>
+        <if test="cross != null">
+            AND cross_border = #{cross}
+        </if>
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countExpireOrder" resultType="int">
+        SELECT count(id) FROM orders
+        WHERE order_status=1
+        AND UNIX_TIMESTAMP(NOW()) - UNIX_TIMESTAMP(create_date) &gt;
+        #{expireTime}
+        <if test="types!= null and types.length &gt; 0">
+            AND type IN
+            <foreach collection="types" item="orderType" index="index"
+                     open="(" close=")" separator=",">
+                <if test="orderType!= null">
+                    #{orderType}
+                </if>
+            </foreach>
+        </if>
+        <if test="cross != null">
+            AND cross_border = #{cross}
+        </if>
+    </select>
+
+    <select id="findSaleBySearcher" resultType="hashMap">
+        SELECT
+        `product_id` AS productId,
+        `product_sn` AS productSn,
+        `product_name` AS productName,
+        product_img AS img,
+        product_sku_sn AS barCode,
+        SUM(`product_quantity`)
+        AS quantity,
+        SUM(`product_quantity`*`product_price`-`promotion_amount`-`order_promotion_amount`-`coupon_amount`-`red_amount`)
+        AS amount,
+        COUNT(DISTINCT(`buyer_member_id`)) AS memberCount,
+        COUNT(DISTINCT(`order_id`)) AS orderCount
+        FROM `orderitem`
+        WHERE `status` IN('NORMAL','DELIVERED','SIGNED','AFTERCLOSE','SUCCESS')
+        <if test="searcher!=null">
+            <include refid="SaleSearcher"/>
+        </if>
+        <choose>
+            <when test="searcher!=null and searcher.type==2 ">
+                GROUP BY product_sku_id
+            </when>
+            <otherwise>
+                GROUP BY `product_id`
+            </otherwise>
+        </choose>
+        LIMIT #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <select id="countSaleBySearcher" resultType="int">
+        SELECT COUNT(*)
+        FROM
+        (SELECT id from `orderitem`
+        WHERE `status` IN('NORMAL','DELIVERED','SIGNED','AFTERCLOSE','SUCCESS')
+        <if test="searcher!=null">
+            <include refid="SaleSearcher"/>
+        </if>
+        <choose>
+            <when test="searcher!=null and searcher.type==2 ">
+                GROUP BY product_sku_id
+            </when>
+            <otherwise>
+                GROUP BY `product_id`
+            </otherwise>
+        </choose>
+        )t
+    </select>
+
+    <sql id="SaleSearcher">
+        <if test="searcher.startDate!=null">
+            AND create_date &gt;=#{searcher.startDate}
+        </if>
+        <if test="searcher.endDate!=null">
+            AND create_date &lt;#{searcher.endDate}
+        </if>
+        <choose>
+            <when
+                    test="searcher.type==1 and searcher.productSn!=null and searcher.productSn.size &gt;0">
+                AND product_sn in
+                <foreach collection="searcher.productSn" item="item" open="("
+                         close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+            <when
+                    test="searcher.type==2 and searcher.barCode!=null and searcher.barCode.size &gt;0">
+                AND product_sku_sn in
+                <foreach collection="searcher.barCode" item="item" open="("
+                         close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+            <when
+                    test="searcher.type==0 and searcher.productId!=null and searcher.productId.size &gt;0">
+                AND product_id in
+                <foreach collection="searcher.productId" item="item" open="("
+                         close=")" separator=",">
+                    #{item}
+                </foreach>
+            </when>
+        </choose>
+    </sql>
+
+    <select id="findOrderStat" resultType="java.util.Map">
+		SELECT COUNT(id) as payCount, SUM(paid_amount) as payAmount, MAX(create_date) as consumeDate
+		FROM orders where member_id = #{memberInfoId} and order_status &gt;2
+	</select>
+
+</mapper>

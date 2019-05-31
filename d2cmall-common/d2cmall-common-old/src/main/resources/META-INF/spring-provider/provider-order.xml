@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- - Copyright 1999-2011 Alibaba Group. - - Licensed under the Apache License, 
+	Version 2.0 (the "License"); - you may not use this file except in compliance 
+	with the License. - You may obtain a copy of the License at - - http://www.apache.org/licenses/LICENSE-2.0 
+	- - Unless required by applicable law or agreed to in writing, software - 
+	distributed under the License is distributed on an "AS IS" BASIS, - WITHOUT 
+	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. - See the 
+	License for the specific language governing permissions and - limitations 
+	under the License. -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <description>订单模块</description>
+    <dubbo:service interface="com.d2c.order.service.AddressService"
+                   ref="addressService"/>
+    <dubbo:service interface="com.d2c.order.service.AreaService"
+                   ref="areaService"/>
+    <dubbo:service interface="com.d2c.order.service.AuctionMarginService"
+                   ref="auctionMarginService"/>
+    <dubbo:service interface="com.d2c.order.service.AuctionOfferService"
+                   ref="auctionOfferService"/>
+    <dubbo:service interface="com.d2c.order.service.CartService"
+                   ref="cartService"/>
+    <dubbo:service interface="com.d2c.order.service.ExchangeService"
+                   ref="exchangeService"/>
+    <dubbo:service interface="com.d2c.order.service.OrderItemService"
+                   ref="orderItemService"/>
+    <dubbo:service interface="com.d2c.order.service.OrderService"
+                   ref="orderService"/>
+    <dubbo:service interface="com.d2c.order.service.OrderQueryService"
+                   ref="orderQueryService"/>
+    <dubbo:service interface="com.d2c.order.service.RefundService"
+                   ref="refundService"/>
+    <dubbo:service interface="com.d2c.order.service.ReshipService"
+                   ref="reshipService"/>
+    <dubbo:service interface="com.d2c.order.service.LogisticsService"
+                   ref="logisticsService"/>
+    <dubbo:service interface="com.d2c.order.service.RequisitionItemService"
+                   ref="requisitionItemService"/>
+    <dubbo:service interface="com.d2c.order.service.StatementService"
+                   ref="statementService"/>
+    <dubbo:service interface="com.d2c.order.service.StatementItemService"
+                   ref="statementItemService"/>
+    <dubbo:service interface="com.d2c.order.service.OrderReportService"
+                   ref="orderReportService"/>
+    <dubbo:service interface="com.d2c.order.service.PresentOrderService"
+                   ref="presentOrderService"/>
+    <dubbo:service interface="com.d2c.order.service.LogisticsPostageService"
+                   ref="logisticsPostageService"/>
+    <dubbo:service interface="com.d2c.order.service.LogisticsTemplateService"
+                   ref="logisticsTemplateService"/>
+    <dubbo:service interface="com.d2c.order.service.CompensationService"
+                   ref="compensationService"/>
+    <dubbo:service interface="com.d2c.order.service.CustomerCompensationService"
+                   ref="customerCompensationService"/>
+    <dubbo:service interface="com.d2c.order.service.CouponDefGroupService"
+                   ref="couponDefGroupService"/>
+    <dubbo:service interface="com.d2c.order.service.CouponDefGroupQueryService"
+                   ref="couponDefGroupQueryService"/>
+    <dubbo:service interface="com.d2c.order.service.CouponDefRelationService"
+                   ref="couponDefRelationService"/>
+    <dubbo:service interface="com.d2c.order.service.CouponDefService"
+                   ref="couponDefService"/>
+    <dubbo:service interface="com.d2c.order.service.CouponService"
+                   ref="couponService"/>
+    <dubbo:service interface="com.d2c.order.service.CouponDefQueryService"
+                   ref="couponDefQueryService"/>
+    <dubbo:service interface="com.d2c.order.service.CouponQueryService"
+                   ref="couponQueryService"/>
+    <dubbo:service interface="com.d2c.order.service.CouponOrderService"
+                   ref="couponOrderService"/>
+    <dubbo:service interface="com.d2c.order.service.ShareRedPacketsService"
+                   ref="shareRedPacketsService"/>
+    <dubbo:service interface="com.d2c.order.service.ShareRedPacketsGroupService"
+                   ref="shareRedPacketsGroupService"/>
+    <dubbo:service interface="com.d2c.order.service.ShareRedPacketsPromotionService"
+                   ref="shareRedPacketsPromotionService"/>
+    <dubbo:service interface="com.d2c.order.service.PromotionRunService"
+                   ref="promotionRunService"/>
+    <dubbo:service interface="com.d2c.order.service.CashCardDefService"
+                   ref="cashCardDefService"/>
+    <dubbo:service interface="com.d2c.order.service.CashCardService"
+                   ref="cashCardService"/>
+    <dubbo:service interface="com.d2c.order.service.PartnerItemService"
+                   ref="partnerItemService"/>
+    <dubbo:service interface="com.d2c.order.service.PartnerBillService"
+                   ref="partnerBillService"/>
+    <dubbo:service interface="com.d2c.order.service.PartnerCashService"
+                   ref="partnerCashService"/>
+    <dubbo:service interface="com.d2c.order.service.PartnerWithholdService"
+                   ref="partnerWithholdService"/>
+    <dubbo:service interface="com.d2c.order.service.PartnerGiftService"
+                   ref="partnerGiftService"/>
+    <dubbo:service interface="com.d2c.order.service.O2oSubscribeItemService"
+                   ref="o2oSubscribeItemService"/>
+    <dubbo:service interface="com.d2c.order.service.O2oSubscribeService"
+                   ref="o2oSubscribeService"/>
+    <dubbo:service interface="com.d2c.order.service.StoreService"
+                   ref="storeService"/>
+    <dubbo:service interface="com.d2c.order.service.ComplainantService"
+                   ref="complainantService"/>
+    <dubbo:service interface="com.d2c.order.service.ComplaintService"
+                   ref="complaintService"/>
+    <dubbo:service interface="com.d2c.order.service.ComplaintTrackService"
+                   ref="complaintTrackService"/>
+    <dubbo:service interface="com.d2c.order.service.AwardRecordService"
+                   ref="awardRecordService"/>
+    <dubbo:service interface="com.d2c.order.service.RedPacketsItemService"
+                   ref="redPacketsItemService"/>
+    <dubbo:service interface="com.d2c.order.mongo.service.BargainPriceService"
+                   ref="bargainPriceService"/>
+    <dubbo:service interface="com.d2c.order.mongo.service.BargainHelpService"
+                   ref="bargainHelpService"/>
+    <dubbo:service interface="com.d2c.order.service.AccountItemService"
+                   ref="accountItemService"/>
+    <dubbo:service interface="com.d2c.order.service.PaymentService"
+                   ref="paymentService"/>
+    <dubbo:service interface="com.d2c.order.service.RechargeRuleService"
+                   ref="rechargeRuleService"/>
+    <dubbo:service interface="com.d2c.order.service.RechargeService"
+                   ref="rechargeService"/>
+    <dubbo:service interface="com.d2c.order.service.WithdrawCashService"
+                   ref="withdrawCashService"/>
+    <dubbo:service interface="com.d2c.order.service.GuanyiOrderService"
+                   ref="guanyiOrderService"/>
+    <dubbo:service interface="com.d2c.order.service.GuanyiOrderItemService"
+                   ref="guanyiOrderItemService"/>
+    <dubbo:service interface="com.d2c.order.service.CollageOrderService"
+                   ref="collageOrderService"/>
+    <dubbo:service interface="com.d2c.order.service.CollageGroupService"
+                   ref="collageGroupService"/>
+    <dubbo:service interface="com.d2c.order.service.SettingService"
+                   ref="settingService"/>
+    <dubbo:service interface="com.d2c.order.service.HolidayService"
+                   ref="holidayService"/>
+    <dubbo:service interface="com.d2c.order.service.RequisitionErrorService"
+                   ref="requisitionErrorService"/>
+
+</beans>

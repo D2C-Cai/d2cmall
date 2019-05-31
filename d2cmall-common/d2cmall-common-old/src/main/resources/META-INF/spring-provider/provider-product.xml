@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- - Copyright 1999-2011 Alibaba Group. - - Licensed under the Apache License, 
+	Version 2.0 (the "License"); - you may not use this file except in compliance 
+	with the License. - You may obtain a copy of the License at - - http://www.apache.org/licenses/LICENSE-2.0 
+	- - Unless required by applicable law or agreed to in writing, software - 
+	distributed under the License is distributed on an "AS IS" BASIS, - WITHOUT 
+	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. - See the 
+	License for the specific language governing permissions and - limitations 
+	under the License. -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <description>商品模块</description>
+    <dubbo:service interface="com.d2c.product.service.AuctionProductService"
+                   ref="auctionProductService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductAttributeService"
+                   ref="productAttributeService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductAttributeGroupService"
+                   ref="productAttributeGroupService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductCategoryService"
+                   ref="productCategoryService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductCombService"
+                   ref="productCombService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductDetailService"
+                   ref="productDetailService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductModuleSearchService"
+                   ref="productModuleSearchService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductRelationService"
+                   ref="productRelationService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductService"
+                   ref="productService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductSkuService"
+                   ref="productSkuService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductSummaryService"
+                   ref="productSummaryService"/>
+    <dubbo:service interface="com.d2c.product.service.SalesPropertyService"
+                   ref="salesPropertyService"/>
+    <dubbo:service interface="com.d2c.product.service.SalesPropertyGroupService"
+                   ref="salesPropertyGroupService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductTagRelationService"
+                   ref="productTagRelationService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductTagService"
+                   ref="productTagService"/>
+    <dubbo:service interface="com.d2c.product.service.TopCategoryService"
+                   ref="topCategoryService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductSkuStockService"
+                   ref="productSkuStockService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductSkuStockSummaryService"
+                   ref="productSkuStockSummaryService"/>
+    <dubbo:service interface="com.d2c.product.service.PresentService"
+                   ref="presentService"/>
+    <dubbo:service interface="com.d2c.product.service.CrawDesignerService"
+                   ref="crawDesignerService"/>
+    <dubbo:service interface="com.d2c.product.service.CrawProductService"
+                   ref="crawProductService"/>
+    <dubbo:service interface="com.d2c.product.service.CrawUrlService"
+                   ref="crawUrlService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductShareRelationService"
+                   ref="productShareRelationService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductMagazineRelationService"
+                   ref="productMagazineRelationService"/>
+    <dubbo:service interface="com.d2c.product.service.BrandCategoryService"
+                   ref="brandCategoryService"/>
+    <dubbo:service interface="com.d2c.product.service.BrandService"
+                   ref="brandService"/>
+    <dubbo:service interface="com.d2c.product.service.SeriesService"
+                   ref="seriesService"/>
+    <dubbo:service interface="com.d2c.product.service.BrandTagRelationService"
+                   ref="brandTagRelationService"/>
+    <dubbo:service interface="com.d2c.product.service.BrandTagService"
+                   ref="brandTagService"/>
+    <dubbo:service interface="com.d2c.product.service.AwardProductService"
+                   ref="awardProductService"/>
+    <dubbo:service interface="com.d2c.product.service.AwardSessionService"
+                   ref="awardSessionService"/>
+    <dubbo:service interface="com.d2c.product.service.PromotionService"
+                   ref="promotionService"/>
+    <dubbo:service interface="com.d2c.product.service.PromotionTagService"
+                   ref="promotionTagService"/>
+    <dubbo:service interface="com.d2c.product.service.PromotionTagRelationService"
+                   ref="promotionTagRelationService"/>
+    <dubbo:service interface="com.d2c.product.service.FlashPromotionService"
+                   ref="flashPromotionService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductPartnerRelationService"
+                   ref="productPartnerRelationService"/>
+    <dubbo:service interface="com.d2c.product.service.BrandDetailService"
+                   ref="brandDetailService"/>
+    <dubbo:service interface="com.d2c.product.service.BrandContractService"
+                   ref="brandContractService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductOptionService"
+                   ref="productOptionService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductSkuOptionService"
+                   ref="productSkuOptionService"/>
+    <dubbo:service interface="com.d2c.product.service.GuanyiStockService"
+                   ref="guanyiStockService"/>
+    <dubbo:service interface="com.d2c.product.service.ProductThirdService"
+                   ref="productThirdService"/>
+    <dubbo:service interface="com.d2c.product.service.CollagePromotionService"
+                   ref="collagePromotionService"/>
+    <dubbo:service interface="com.d2c.product.service.BargainPromotionService"
+                   ref="bargainPromotionService"/>
+    <dubbo:service interface="com.d2c.product.service.BargainRuleService"
+                   ref="bargainRuleService"/>
+    <dubbo:service interface="com.d2c.product.service.PointProductService"
+                   ref="pointProductService"/>
+    <dubbo:service interface="com.d2c.product.service.ExternalCardService"
+                   ref="externalCardService"/>
+    <dubbo:service interface="com.d2c.product.service.StockCheckService"
+                   ref="stockCheckService"/>
+    <dubbo:service interface="com.d2c.product.service.StockCheckItemService"
+                   ref="stockCheckItemService"/>
+
+</beans>

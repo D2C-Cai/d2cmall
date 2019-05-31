@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.report.dao.WalletSummaryMapper">
+    <resultMap type="com.d2c.report.model.WalletSummary" id="baseMap">
+        <result property="calculateDate" column="calculate_date"/>
+        <result property="businessType" column="business_type"/>
+        <result property="outAmount" column="out_amount"/>
+        <result property="outGiftAmount" column="out_gift_amount"/>
+        <result property="inAmount" column="in_amount"/>
+        <result property="inGiftAmount" column="in_gift_amount"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="amount" column="amount"/>
+        <result property="giftAmount" column="gift_amount"/>
+        <result property="direction" column="direction"/>
+        <result property="payType" column="pay_type"/>
+    </resultMap>
+
+    <sql id="Searcher">
+        <if test="searcher.year!=null">
+            and Year(calculate_date)=#{searcher.year}
+        </if>
+        <if test="searcher.month!=null">
+            AND month(calculate_date)=#{searcher.month}
+        </if>
+        <if test="searcher.direction!=null">
+            and direction=#{searcher.direction}
+        </if>
+    </sql>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        select * from rp_wallet_summary where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        order by calculate_date desc
+        limit #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        select count(*) from rp_wallet_summary where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <select id="findLastOne" resultMap="baseMap">
+		select * from
+		rp_wallet_summary
+		order by calculate_date desc limit 0,1
+	</select>
+
+</mapper>

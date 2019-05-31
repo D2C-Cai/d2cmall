@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.product.dao.ProductRelationMapper">
+
+    <resultMap id="baseMap" type="com.d2c.product.model.ProductRelation">
+        <result property="sourceId" column="source_id"/>
+        <result property="relationId" column="relation_id"/>
+        <result property="type" column="type"/>
+        <result property="sort" column="sort"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <resultMap id="productMap" type="com.d2c.product.model.Product">
+        <result property="id" column="id"/>
+        <result property="designerId" column="designer_id"/>
+        <result property="designerName" column="designer_name"/>
+        <result property="designerCode" column="designer_code"/>
+        <result property="seriesId" column="series_id"/>
+        <result property="topCategoryId" column="top_category_id"/>
+        <result property="productCategoryId" column="product_category_id"/>
+        <result property="saleCategory" column="sale_category"/>
+        <result property="productSaleType" column="product_sale_type"/>
+        <result property="productSellType" column="product_sell_type"/>
+        <result property="productTradeType" column="product_trade_type"/>
+        <result property="inernalSn" column="inernal_sn"/>
+        <result property="name" column="name"/>
+        <result property="subTitle" column="sub_title"/>
+        <result property="introPic" column="intro_pic"/>
+        <result property="remark" column="remark"/>
+        <result property="seo" column="seo"/>
+        <result property="externalSn" column="external_sn"/>
+        <result property="originalName" column="original_name"/>
+        <result property="topCategory" column="top_category"/>
+        <result property="productCategory" column="product_category"/>
+        <result property="salesproperty" column="salesproperty"/>
+        <result property="compositionId" column="composition_id"/>
+        <result property="tags" column="tags"/>
+        <result property="subscribe" column="subscribe"/>
+        <result property="cart" column="cart"/>
+        <result property="cod" column="cod"/>
+        <result property="ad" column="ad"/>
+        <result property="topical" column="topical"/>
+        <result property="timing" column="timing"/>
+        <result property="search" column="search"/>
+        <result property="mark" column="mark"/>
+        <result property="upMarketDate" column="up_market_date"/>
+        <result property="downMarketDate" column="down_market_date"/>
+        <result property="upMan" column="up_man"/>
+        <result property="downMan" column="down_man"/>
+        <result property="sort" column="sort"/>
+        <result property="syncStamp" column="sync_stamp"/>
+        <result property="status" column="status"/>
+        <result property="minPrice" column="min_price"/>
+        <result property="maxPrice" column="max_price"/>
+        <result property="originalPrice" column="original_price"/>
+        <result property="aPrice" column="a_price"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="after" column="after"/>
+        <result property="estimateDate" column="estimate_date"/>
+        <result property="estimateDay" column="estimate_day"/>
+        <result property="video" column="video"/>
+        <result property="afterMemo" column="after_memo"/>
+        <result property="recom" column="recom"/>
+        <result property="operRecom" column="oper_recom"/>
+        <result property="firstRatio" column="first_ratio"/>
+        <result property="secondRatio" column="second_ratio"/>
+        <result property="grossRatio" column="gross_ratio"/>
+        <result property="goodPromotionId" column="good_promotion_id"/>
+        <result property="orderPromotionId" column="order_promotion_id"/>
+        <result property="flashPromotionId" column="flash_promotion_id"/>
+        <result property="flashPrice" column="flash_price"/>
+        <result property="costPrice" column="cost_price"/>
+        <result property="gpSort" column="gp_sort"/>
+        <result property="opSort" column="op_sort"/>
+        <result property="fpSort" column="fp_sort"/>
+    </resultMap>
+
+    <insert id="insertBatch">
+        REPLACE INTO p_product_relation(type,source_id,relation_id) VALUES
+        <foreach collection="list" item="item" index="index"
+                 separator=",">
+            (#{type},#{sourceId},#{relationId})
+        </foreach>
+    </insert>
+
+    <insert id="insertOne">
+		REPLACE INTO
+		p_product_relation(type,source_id,relation_id)
+		VALUES
+		(#{type},#{sourceId},#{relationId})
+	</insert>
+
+    <delete id="deleteByTypeAndSourceId">
+		DELETE FROM p_product_relation WHERE type= #{type} AND
+		source_id= #{sourceId}
+	</delete>
+
+    <delete id="deleteByTypeAndRelationId">
+		DELETE FROM p_product_relation WHERE type= #{type} AND
+		relation_id= #{relationId}
+	</delete>
+
+    <select id="findRelations" resultMap="baseMap">
+        SELECT *
+        FROM p_product_relation
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="relationSearcher"/>
+        </if>
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countRelations" resultType="int">
+        SELECT count(*)
+        FROM p_product_relation
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="relationSearcher"/>
+        </if>
+    </select>
+
+    <sql id="relationSearcher">
+        <if test="searcher.type!= null ">
+            AND type=#{searcher.type}
+        </if>
+        <if test="searcher.sourceId!= null ">
+            AND source_id=#{searcher.sourceId}
+        </if>
+        <if test="searcher.relationId!= null ">
+            AND relation_id=#{searcher.relationId}
+        </if>
+    </sql>
+
+    <update id="updateSort">
+		UPDATE p_product_relation
+		SET
+		sort=#{sort},modify_date=now()
+		WHERE type= #{type} and source_id=
+		#{sourceId} and relation_id=
+		#{relationId}
+	</update>
+
+    <delete id="deleteOne">
+		delete from p_product_relation where type= #{type} AND
+		relation_id= #{relationId} AND
+		source_id= #{sourceId}
+	</delete>
+
+    <select id="findRelationProducts" resultMap="productMap">
+		SELECT p.* FROM
+		p_product p, p_product_relation r WHERE r.relation_id=p.id
+		AND r.source_id=
+		#{sourceId} AND r.type="PRODUCT" AND p.mark=#{mark}
+		LIMIT 0,5
+	</select>
+
+    <select id="findSourceIdsByRelationId" resultType="long">
+        SELECT
+        source_id FROM p_product_relation r WHERE r.relation_id=#{relationId}
+        <if test="type!=null and type!=''">
+            and type=#{type}
+        </if>
+    </select>
+
+    <select id="findBySourceId" resultType="long">
+        select relation_id from p_product_relation where source_id=#{sourceId}
+        <if test="type!=null and type!=''">
+            and type=#{type}
+        </if>
+        limit 0,500
+    </select>
+
+</mapper>

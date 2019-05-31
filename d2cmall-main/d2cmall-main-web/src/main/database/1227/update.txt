@@ -1,0 +1,32 @@
+ALTER TABLE `v_app_navigation`
+ADD COLUMN `back_color`  varchar(200) NULL DEFAULT NULL COMMENT '打底背景颜色' AFTER `last_modify_man`;
+
+//需要重建索引
+ALTER TABLE `v_section_value`
+ADD COLUMN `tags`  varchar(190) NULL DEFAULT NULL COMMENT '标签' AFTER `end_time`;
+
+ALTER TABLE `v_sub_module`
+ADD COLUMN `back_pic`  varchar(190) NULL COMMENT '背景图片' AFTER `tb_pic`,
+ADD COLUMN `back_color`  varchar(190) NULL COMMENT '背景颜色' AFTER `back_pic`,
+ADD COLUMN `back_type`  varchar(64) NULL COMMENT '背景类型' AFTER `back_color`;
+
+//需要重建索引
+ALTER TABLE `v_theme`
+ADD COLUMN `begin_date`  datetime NULL DEFAULT NULL COMMENT '开始时间' ,
+ADD COLUMN `end_date`  datetime NULL DEFAULT NULL COMMENT '结束时间' ;
+
+
+
+
+
+ALTER TABLE `shop`.`o_statement` 
+ADD COLUMN `operation` varchar(10) NULL COMMENT '运营小组' AFTER `actual_compensation_amount`;
+
+UPDATE p_brand b, o_statement s SET s.operation=b.operation WHERE b.id=s.designer_id;
+
+ALTER TABLE `shop`.`o_collage_promotion` 
+MODIFY COLUMN `member_count` int(10) NULL DEFAULT NULL COMMENT '要求几人成团' AFTER `expire_time`,
+ADD COLUMN `real_count` int(10) NULL COMMENT '达标几人成团' AFTER `member_count`;
+
+ALTER TABLE `shop`.`o_cart_item` 
+ADD COLUMN `tax_price` decimal(10, 2) NULL COMMENT '税费' AFTER `taxation`;

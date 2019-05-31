@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.DesignersLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.DesignersLog">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="designersId" column="designers_id"/>
+        <result property="info" column="info"/>
+    </resultMap>
+
+    <select id="findByDesignersId" resultMap="baseMap">
+		SELECT * FROM log_designers
+		WHERE designers_id=#{designersId}
+		ORDER BY create_date DESC
+		LIMIT
+		#{page.startNumber},#{page.pageSize}
+	</select>
+
+    <select id="countByDesignersId" resultType="int">
+		SELECT COUNT(id) FROM
+		log_designers WHERE designers_id=#{designersId}
+	</select>
+
+</mapper>

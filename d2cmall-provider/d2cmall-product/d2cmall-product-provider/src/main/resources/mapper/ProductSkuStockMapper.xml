@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.product.dao.ProductSkuStockMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.ProductSkuStock">
+        <id property="id" column="id" jdbcType="BIGINT"/>
+        <result property="barCode" column="bar_code"/>
+        <result property="storeCode" column="store_code"/>
+        <result property="stock" column="stock"/>
+        <result property="occupyStock" column="occupy_stock"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <delete id="delete">
+		DELETE FROM product_sku_stock where
+		bar_code=#{barCode} and store_code=#{storeCode}
+	</delete>
+
+    <update id="update">
+		update product_sku_stock set
+		stock=#{stock},modify_date=now() where bar_code=#{barCode} and
+		store_code=#{storeCode}
+	</update>
+
+    <delete id="deleteAll">
+		DELETE FROM product_sku_stock
+	</delete>
+
+    <select id="findOne" resultMap="baseMap">
+		SELECT * FROM product_sku_stock
+		WHERE bar_code=#{barCode} AND
+		store_code=#{storeCode} LIMIT 0,1
+	</select>
+
+    <select id="findBySkuAndStore" resultMap="baseMap">
+        select * from product_sku_stock pss
+        where pss.bar_code =
+        #{productSkuSn}
+        <if test="isPrimary == 1">
+            and pss.store_code='0000'
+        </if>
+        <if test="isPrimary != 1">
+            and pss.store_code!='0000'
+        </if>
+        ORDER BY pss.stock DESC
+    </select>
+
+    <update id="updateOccupyStock">
+		UPDATE product_sku_stock SET
+		occupy_stock=occupy_stock + #{stock} WHERE bar_code=#{barCode} AND
+		store_code=#{storeCode} AND stock &gt;= (occupy_stock+ #{stock})
+	</update>
+
+    <update id="doCleanOccupy">
+		UPDATE product_sku_stock SET occupy_stock=0
+	</update>
+
+    <select id="findStoreBySku" resultMap="baseMap">
+		SELECT pss.*
+		FROM product_sku_stock pss
+		WHERE pss.bar_code = #{productSkuSn} AND stock &gt;0
+	</select>
+
+    <select id="findByStore" resultMap="baseMap">
+        SELECT *
+        FROM product_sku_stock
+        WHERE store_code=#{storeCode}
+        <if test="pager!=null">
+            LIMIT #{pager.startNumber}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countByStore" resultType="Integer">
+		SELECT COUNT(*) FROM product_sku_stock
+		WHERE store_code=#{storeCode}
+	</select>
+
+</mapper>

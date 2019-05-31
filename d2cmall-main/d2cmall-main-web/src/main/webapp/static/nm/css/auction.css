@@ -1,0 +1,503 @@
+/*公用样式*/
+.auction-flex {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.auction-icon {
+    display: inline-block;
+    width: 3.5rem;
+    height: 1.125rem;
+    vertical-align: middle;
+    background: red;
+    color: #FFF;
+    text-align: center;
+    font-size: 12px;
+}
+
+.auction-mymargin {
+    position: fixed;
+    bottom: .9375rem;
+    right: .9375rem;
+    z-index: 99;
+    width: 4.5rem;
+    height: 4.5rem;
+}
+
+.online-chat {
+    display: none;
+}
+
+/*拍卖商品总列表*/
+.auction-product-list {
+    position: relative;
+    min-height: 8rem;
+}
+
+.product-item {
+    justify-content: space-around;
+    background: #FFF;
+    padding: 1.25rem .625rem;
+    margin-top: .625rem;
+}
+
+.product-item .product-item-img {
+    flex: 1;
+    position: relative;
+}
+
+.product-item .product-item-img img {
+    vertical-align: middle;
+}
+
+.product-item .product-item-img .product-num {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1.25rem;
+    line-height: 1.25rem;
+    text-align: center;
+    font-size: 12px;
+    color: #FFF;
+    background: rgba(0, 0, 0, .65);
+}
+
+.product-item .product-item-cont {
+    flex: 2.5;
+    margin-left: .625rem;
+}
+
+.product-item-cont .product-title {
+    color: rgba(0, 0, 0, .85);
+    font-size: 14px;
+    font-weight: bold;
+    display: block;
+    height: 3rem;
+    line-height: 1.5rem;
+    overflow: hidden;
+}
+
+.product-item-cont .product-margin {
+    font-size: 12px;
+    color: rgba(0, 0, 0, .5);
+    margin-top: 15px;
+    line-height: .875rem;
+}
+
+.product-item-cont .product-current {
+    font-size: 12px;
+    color: rgba(0, 0, 0, .85);
+    margin-top: 15px;
+}
+
+.product-item-cont .product-status {
+    margin-top: 15px;
+    font-size: 12px;
+    color: #FFF;
+}
+
+.product-status .status-text {
+    display: inline-block;
+    width: 3rem;
+    line-height: 1rem;
+    background: #F21A1A;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.product-status .statu-time {
+    display: inline-block;
+    width: 7.5625rem;
+    line-height: 1rem;
+    background: rgba(0, 0, 0, .85);
+    border-radius: 10px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+/*我的保证金列表*/
+.margin-item {
+    background: #FFF;
+    position: relative;
+    margin-top: .625rem;
+    padding: 1.25rem .625rem 0 .9375rem;
+}
+
+.margin-item-img {
+    float: left;
+    width: 20%;
+}
+
+.margin-item-img img {
+    vertical-align: middle;
+}
+
+.margin-item-cont {
+    float: left;
+    width: 75%;
+    margin-left: .625rem;
+    line-height: 1.5;
+}
+
+.margin-item-cont .margin-being {
+    background: url(//static.d2c.cn/img/topic/180510/auction/images/aucting.png) no-repeat;
+    background-size: cover;
+}
+
+.margin-item-cont .margin-done {
+    background: url(//static.d2c.cn/img/topic/180510/auction/images/aucted.png) no-repeat;
+    background-size: cover;
+}
+
+.margin-item-cont .margin-not {
+    background: url(//static.d2c.cn/img/topic/180510/auction/images/auct-lose.png) no-repeat;
+    background-size: cover;
+}
+
+.margin-item-cont .margin-title {
+    color: rgba(33, 33, 33, .85);
+    line-height: 1rem;
+    font-size: 14px;
+    margin-top: 5px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.margin-item-cont .margin-bond {
+    color: rgba(0, 0, 0, .5);
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.margin-item-cont .margin-offer {
+    color: rgba(0, 0, 0, .85);
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+.margin-offer .margin-status-item {
+    float: right;
+    display: block;
+    width: 3.875rem;
+    height: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    border: .2px solid rgba(0, 0, 0, .5);
+    color: rgba(0, 0, 0, .85);
+    font-size: 12px;
+}
+
+.offer-record {
+    min-height: 2rem;
+    text-align: center;
+}
+
+.offer-record-header {
+    font-size: 12px;
+    color: rgba(0, 0, 0, .3);
+    position: relative;
+    display: inline-block;
+    line-height: 2.75rem;
+}
+
+.offer-record-header:after {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 1rem;
+    right: -1rem;
+    background: url(//static.d2c.cn/img/topic/180510/auction/images/icon_zhankai02@3x.png) no-repeat;
+    background-size: cover;
+    width: .875rem;
+    height: .875rem;
+}
+
+.offer-record-header.offer-up:after {
+    content: '';
+    transform: rotate(180deg);
+    -webkit-transform: rotate(180deg);
+}
+
+.offer-record-item {
+    justify-content: space-between;
+    height: 3.75rem;
+    line-height: 3.75rem;
+    border-bottom: 1px solid rgba(0, 0, 0, .04);
+}
+
+.offer-record-item:first-child {
+    border-top: 1px solid rgba(0, 0, 0, .04);
+}
+
+.offer-record-item:last-child {
+    border-bottom: none;
+}
+
+/*拍卖商品详情*/
+.auction-detail-container {
+    position: relative;
+    overflow: auto;
+    height: 100%;
+}
+
+.auction-detail-header {
+    justify-content: space-between;
+    padding: .625rem .9375rem .625rem;
+    background: #1F1F1F !important;
+    font-size: 12px;
+}
+
+.header-count {
+    line-height: 1.8;
+    font-weight: bold;
+    color: #FFF;
+}
+
+.header-count p {
+    color: #888;
+}
+
+.header-count .count-down {
+    font-size: 14px;
+}
+
+.header-plus {
+    color: #888;
+    height: 2.5rem;
+    line-height: 1.8;
+    padding-left: .625rem;
+    border-left: 1px solid;
+}
+
+.auction-offers-list {
+    padding: 0 .9375rem;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 10;
+    width: 100%;
+    max-height: 32rem;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
+    background: rgba(0, 0, 0, .85);
+    box-sizing: border-box;
+}
+
+.auction-offers-list .auction-product-open {
+    background: url(//static.d2c.cn/img/topic/180510/auction/images/pic_shouqi@3x.png) no-repeat;
+    background-size: cover;
+    position: relative;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    width: 1.75rem;
+    height: .75rem;
+}
+
+.auction-offers-list .auction-product-open.auction-open-down {
+    background: url(//static.d2c.cn/img/topic/180510/auction/images/pic_zhankai@3x.png) no-repeat;
+    background-size: cover;
+    transform: translate(-50%, .75rem);
+}
+
+.offers-item-none {
+    position: absolute;
+    left: 0;
+    top: 0;
+    color: #FFF;
+    font-size: 12px;
+    background: rgba(0, 0, 0, .85);
+    width: 100%;
+    height: 1.2rem;
+    line-height: 1.2rem;
+    text-align: center;
+    z-index: 10;
+}
+
+.offers-item {
+    position: relative;
+    width: 100%;
+    line-height: 4.0625rem;
+    display: table;
+}
+
+.offers-item-font {
+    display: table-cell;
+    font-size: 14px;
+    color: #888;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.offers-item-time {
+    float: right;
+    font-size: 10px;
+    color: rgba(255, 255, 255, .5);
+}
+
+.offers-item:first-child .offers-item-font {
+    color: #C39B5C !important;
+}
+
+.offers-item:first-child .offers-item-time {
+    color: #C39B5C !important;
+}
+
+.offers-item:not(:last-child):after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background-color: #FFF;
+    opacity: .04;
+    -webkit-transform: scaleY(.5);
+    transform: scaleY(.5);
+}
+
+.auction-rule-container {
+    width: 20rem;
+    height: 23.75rem;
+    padding: 2.5rem;
+    box-sizing: border-box;
+    background: #FFF;
+    position: relative;
+    border-radius: 2px;
+}
+
+.auction-fix {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3rem;
+    text-align: center;
+    z-index: 10;
+    background: #FFF;
+}
+
+.auction-fix .auction-assistant {
+    width: 21%;
+    float: left;
+    height: 3rem;
+    font-size: 10px;
+    color: rgba(0, 0, 0, .5);
+}
+
+.auction-fix .auction-pay {
+    width: 79%;
+    float: left;
+    height: 3rem;
+    border: none;
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    font-weight: bold;
+    background: #c39b5c;
+}
+
+.auction-fix .auction-fix-wrap {
+    float: left;
+    width: 46%;
+    height: 3rem;
+    box-sizing: border-box;
+}
+
+.auction-fix .auction-fix-wrap .wrap-item {
+    height: 2rem;
+    line-height: 2rem;
+    margin: .5rem;
+    border: 1px solid #EEE;
+    display: flex;
+    justify-content: space-between;
+}
+
+
+.auction-product-text {
+    justify-content: space-between;
+    padding: .9375rem .9375rem 1.25rem;
+    background: #FFF;
+}
+
+.auction-detail-process {
+    background: #FAFAFC;
+    padding: .9375rem;
+    line-height: 2.5;
+}
+
+.auction-process-header {
+    justify-content: space-between;
+}
+
+.auction-detail-process span:not(:first-child) {
+    margin-left: 3px;
+}
+
+.detail-process-icon {
+    width: 1rem;
+    height: 1rem;
+    vertical-align: middle;
+}
+
+.rule-close {
+    background: url(//static.d2c.cn/img/topic/180510/auction/images/icon_closed@3x.png) no-repeat;
+    background-size: cover;
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    margin-bottom: -2.5rem;
+    width: 1.875rem;
+    height: 1.875rem;
+}
+
+/*确认拍卖订单*/
+.auction-order-item {
+    padding: .9375rem .3125rem .9375rem .625rem;
+    background: #FFF;
+    position: relative;
+}
+
+.auction-order-item:first-child:after {
+    content: '';
+    background: url(//static.d2c.cn/img/topic/180510/auction/images/pic_addressline@3x.png) center;
+    background-size: 10%;
+    width: 100%;
+    height: 5px;
+    position: absolute;
+    bottom: 0;
+    left;
+    0;
+}
+
+.auction-order-item .icon-location {
+    display: inline-block;
+    background: url(//static.d2c.cn/img/topic/180510/auction/images/icon_dizhi@3x.png) no-repeat;
+    background-size: cover;
+    width: .75rem;
+    height: .875rem;
+    vertical-align: middle;
+}
+
+.auction-order-item .icon-right {
+    display: block;
+    background: url(//static.d2c.cn/img/topic/180510/auction/images/icon_more_black@3x.png) no-repeat;
+    background-size: cover;
+    width: 1.5rem;
+    height: 1.5rem;
+    position: absolute;
+    top: 1.875rem;
+    right: .3125rem;
+}
+
+
+
+
+
+

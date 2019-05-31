@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.product.dao.GuanyiStockMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.GuanyiStock">
+        <result property="sku" column="sku"/>
+        <result property="productSn" column="product_sn"/>
+        <result property="salableQty" column="salable_qty"/>
+        <result property="roadQty" column="road_qty"/>
+        <result property="pickQty" column="pick_qty"/>
+        <result property="qty" column="qty"/>
+        <result property="saleCategory" column="sale_category"/>
+        <result property="productName" column="product_name"/>
+        <result property="store" column="store"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findLast" resultMap="baseMap">
+		SELECT * FROM p_guanyi_stock
+		ORDER BY create_date DESC LIMIT 0,1
+	</select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+		SELECT * FROM p_guanyi_stock 
+		ORDER BY create_date ASC
+		LIMIT #{pager.startNumber}, #{pager.pageSize}
+	</select>
+
+    <select id="countBySearcher" resultType="int">
+		SELECT COUNT(id) FROM p_guanyi_stock
+	</select>
+
+    <delete id="deleteIgnoreId">
+		DELETE FROM p_guanyi_stock WHERE id !=#{id}
+	</delete>
+
+    <select id="findFirst" resultMap="baseMap">
+		SELECT * FROM p_guanyi_stock ORDER BY create_date ASC LIMIT 0,1
+	</select>
+</mapper>

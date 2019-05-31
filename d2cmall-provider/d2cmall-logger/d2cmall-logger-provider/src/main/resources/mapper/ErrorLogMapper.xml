@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.ErrorLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.ErrorLog">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_mMan"/>
+        <result property="ip" column="ip"/>
+        <result property="errorInfo" column="error_info"/>
+        <result property="source" column="source"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        select * from errors where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        order by create_date desc
+        limit #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        select count(id) from errors where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.startDate!=null">
+            and create_date &gt;=#{searcher.startDate}
+        </if>
+        <if test="searcher.endDate!=null">
+            and create_date &lt;=#{searcher.endDate}
+        </if>
+        <if test="searcher.source!=null and searcher.source!=''">
+            and source=#{searcher.source}
+        </if>
+        <if test="searcher.keywords!=null and searcher.keywords!=''">
+            and error_info =#{searcher.keywords}
+        </if>
+    </sql>
+
+    <delete id="delete">
+		delete from errors where id=#{id}
+	</delete>
+
+</mapper>

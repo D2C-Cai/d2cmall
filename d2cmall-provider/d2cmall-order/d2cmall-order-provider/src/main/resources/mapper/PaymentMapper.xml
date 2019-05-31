@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.PaymentMapper">
+    <resultMap id="baseMapper" type="com.d2c.order.model.Payment">
+        <result property="paymentSn" column="payment_sn"/>
+        <result property="paymentStatus" column="payment_status"/>
+        <result property="paymentType" column="payment_type"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="paymentFee" column="payment_fee"/>
+        <result property="payer" column="payer"/>
+        <result property="payDate" column="pay_date"/>
+        <result property="alipaySn" column="alipay_sn"/>
+        <result property="memberId" column="member_id"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="orderType" column="order_type"/>
+        <result property="mchId" column="mch_id"/>
+        <result property="appId" column="appid"/>
+        <result property="id" column="id"/>
+        <result property="creator" column="creator"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findByAlipaySn" resultMap="baseMapper">
+		SELECT * FROM o_payment p
+		WHERE p.alipay_sn = #{alipaySn} LIMIT 0,1
+	</select>
+
+    <select id="findBySearcher" resultMap="baseMapper">
+        select * FROM o_payment where
+        payment_status='success'
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        limit #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        select COUNT(1) FROM o_payment where
+        payment_status='success'
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.payAmount!=null">
+            and total_amount &lt;=#{searcher.payAmount}
+            and total_amount &gt;=0
+        </if>
+        <if test="searcher.beginDate!=null">
+            and create_date &gt;=#{searcher.beginDate}
+        </if>
+        <if test="searcher.endDate!=null">
+            and create_date &lt;=#{searcher.endDate}
+        </if>
+        <if test="searcher.orderType!=null and searcher.orderType!=''">
+            and order_type =#{searcher.orderType}
+        </if>
+        <if test="searcher.payer!=null and searcher.payer!=''">
+            and payer =#{searcher.payer}
+        </if>
+    </sql>
+
+    <select id="findAbnormalPayment" resultType="com.d2c.order.dto.AbnormalPaymentDto">
+        SELECT payer, member_id as memberId,
+        COUNT(1) as totalCount, SUM(total_amount) as totalAmount
+        FROM o_payment
+        WHERE payment_status='success'
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        GROUP BY payer
+        <if test="searcher!=null and searcher.orderNum!=null">
+            HAVING COUNT(1)&gt;=#{searcher.orderNum}
+        </if>
+        ORDER BY COUNT(1) DESC
+        LIMIT #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <select id="countAbnormalPayment" resultType="int">
+        SELECT COUNT(1)
+        FROM (SELECT COUNT(1) FROM o_payment
+        WHERE payment_status='success'
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        GROUP BY payer
+        <if test="searcher!=null and searcher.orderNum!=null">
+            HAVING COUNT(1)&gt;=#{searcher.orderNum}
+        </if>
+        )t
+    </select>
+
+    <update id="doSuccess">
+        update o_payment
+        <set>
+            payment_status='success',pay_date=now(),member_id=#{memberId},
+            modify_date=now()
+        </set>
+        where id=#{id} and payment_status='ready'
+    </update>
+
+    <update id="doInvalid">
+        update o_payment
+        <set>
+            payment_status='invalid',
+            modify_date=now()
+        </set>
+        where id=#{id}
+    </update>
+
+    <update id="doCancel">
+        update o_payment
+        <set>
+            payment_status='failure',
+            modify_date=now()
+        </set>
+        where id=#{id} and payment_status!='success'
+    </update>
+
+</mapper>

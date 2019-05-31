@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.MemberLevelMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.MemberLevel">
+        <result property="name" column="name"/>
+        <result property="reach" column="reach"/>
+        <result property="memo" column="memo"/>
+        <result property="level" column="level"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="deduction" column="deduction"/>
+    </resultMap>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT *
+        FROM m_member_level
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY reach DESC
+        <if test="page != null">
+            LIMIT #{page.startNumber},#{page.pageSize}
+        </if>
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(*)
+        FROM m_member_level
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher != null">
+            <if test="searcher.name != null">
+                AND name =#{searcher.name}
+            </if>
+        </if>
+    </sql>
+
+    <select id="findByLevel" resultMap="baseMap">
+		SELECT *
+		FROM m_member_level
+		WHERE level=#{level} LIMIT 0,1
+	</select>
+
+    <resultMap id="levelMap" type="java.util.HashMap">
+        <result property="key" column="level"/>
+        <result property="value" column="reach"/>
+    </resultMap>
+
+    <select id="findVaildLevel" resultMap="baseMap">
+		select * from m_member_level where  reach &lt;=#{amount} order by
+		reach desc limit 0,1
+	</select>
+
+</mapper>

@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.member.dao.CommentMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.Comment">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="memberId" column="member_id"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="sourceId" column="source_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="productImg" column="product_img"/>
+        <result property="productSkuId" column="product_sku_id"/>
+        <result property="skuProperty" column="sku_property"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="designerId" column="designer_id"/>
+        <result property="name" column="name"/>
+        <result property="tel" column="tel"/>
+        <result property="email" column="email"/>
+        <result property="source" column="source"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="verified" column="verified"/>
+        <result property="pic" column="pic"/>
+        <result property="deleted" column="deleted"/>
+        <result property="creator" column="creator"/>
+        <result property="device" column="device"/>
+        <result property="appVersion" column="app_version"/>
+        <result property="recomend" column="recomend"/>
+        <result property="recomendDate" column="recomend_date"/>
+        <result property="recomendContent" column="recomend_content"/>
+        <result property="shareId" column="share_id"/>
+        <result property="video" column="video"/>
+        <result property="productScore" column="product_score"/>
+        <result property="packageScore" column="package_score"/>
+        <result property="deliverySpeedScore" column="delivery_speed_score"/>
+        <result property="deliveryServiceScore" column="delivery_service_score"/>
+        <result property="score" column="score"/>
+    </resultMap>
+
+    <select id="findById" resultMap="baseMap">
+		select *
+		from m_comment
+		where id =
+		#{id,jdbcType=BIGINT} and member_id= #{memberInfoId}
+	</select>
+
+    <select id="findTop3ByProductId" resultMap="baseMap">
+		SELECT * FROM m_comment
+		WHERE verified=1 AND product_id=#{productId} AND pic IS NOT NULL
+		ORDER
+		BY create_date DESC LIMIT 0,3
+	</select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT c.* FROM m_comment c WHERE deleted=0
+        <if test="searcher !=null">
+            <include refid="Searcher"/>
+        </if>
+        order by
+        <if test="searcher !=null and searcher.title != null and searcher.title != ''">
+            c.recomend desc,
+        </if>
+        c.create_date desc
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT count(*) FROM m_comment c WHERE deleted=0
+        <if test="searcher !=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.memberId != null and searcher.memberId != 0">
+            AND c.member_id=#{searcher.memberId}
+        </if>
+        <if test="searcher.memberName != null and searcher.memberName != ''">
+            AND c.member_name =#{searcher.memberName}
+        </if>
+        <if test="searcher.nickName != null and searcher.nickName != ''">
+            AND c.nick_name =#{searcher.nickName}
+        </if>
+        <if test="searcher.title != null and searcher.title != ''">
+            AND c.title =#{searcher.title}
+        </if>
+        <if test="searcher.content != null and searcher.content != ''">
+            AND c.content =#{searcher.content}
+        </if>
+        <if test="searcher.sourceId != null and searcher.sourceId !=  0">
+            AND c.source_id = #{searcher.sourceId}
+        </if>
+        <if test="searcher.source != null and searcher.source !=  ''">
+            AND c.source = #{searcher.source}
+        </if>
+        <if test="searcher.verified != null">
+            AND c.verified = #{searcher.verified}
+        </if>
+        <if test="searcher.id != null">
+            AND c.id = #{searcher.id}
+        </if>
+        <if test="searcher.productScore != null">
+            AND c.product_score= #{searcher.productScore}
+        </if>
+        <if test="searcher.packageScore!= null">
+            AND c.package_score= #{searcher.packageScore}
+        </if>
+        <if test="searcher.deliverySpeedScore != null">
+            AND c.delivery_speed_score=
+            #{searcher.deliverySpeedScore}
+        </if>
+        <if test="searcher.deliveryServiceScore != null">
+            AND c.delivery_service_score=
+            #{searcher.deliveryServiceScore}
+        </if>
+        <if test="searcher.startDate != null">
+            AND c.create_date &gt;= #{searcher.startDate}
+        </if>
+        <if test="searcher.endDate != null">
+            AND c.create_date &lt;= #{searcher.endDate}
+        </if>
+        <if test="searcher.productId != null">
+            AND (c.source='ORDERITEM' OR c.source='PRODUCTSKU') AND
+            c.product_id=#{searcher.productId}
+        </if>
+        <if test="searcher.hasPic == 1">
+            AND pic IS NOT NULL
+        </if>
+        <if test="searcher.designerId!=null">
+            AND c.designer_id=#{searcher.designerId}
+        </if>
+        <if test="searcher.designerIds!= null and searcher.designerIds.size &gt; 0">
+            AND c.designer_id IN
+            <foreach collection="searcher.designerIds" item="designerId"
+                     index="index" open="(" close=")" separator=",">
+                <if test="designerId!= null">
+                    #{designerId}
+                </if>
+            </foreach>
+        </if>
+        <if test="searcher.device!=null and searcher.device!=''">
+            AND c.device=#{searcher.device}
+        </if>
+        <if test="searcher.productSn!=null and searcher.productSn!=''">
+            AND EXISTS (SELECT 1 FROM p_product WHERE id=c.product_id AND `inernal_sn`=#{searcher.productSn})
+        </if>
+        <if test="searcher.externalSn!=null and searcher.externalSn!=''">
+            AND EXISTS (SELECT 1 FROM p_product WHERE id=c.product_id AND external_sn=#{searcher.externalSn})
+        </if>
+    </sql>
+
+    <select id="countByProduct" resultType="int">
+        SELECT count(c.id) FROM m_comment c WHERE 1=1
+        <if test="verified != null">
+            AND c.verified = #{verified}
+        </if>
+        <if test="productId != null">
+            AND (c.source='ORDERITEM' OR c.source='PRODUCTSKU') AND
+            c.product_id=#{productId}
+        </if>
+    </select>
+
+    <select id="countGroupByStatus" resultType="HashMap">
+		SELECT verified,
+		COUNT(*) as counts
+		FROM `m_comment` WHERE deleted = 0 GROUP BY verified
+		ORDER BY verified ASC
+	</select>
+
+    <select id="findCountGroupByScore" resultType="HashMap">
+        SELECT ${scoreKey} as score,
+        count(*) as count
+        FROM `m_comment`
+        WHERE source='ORDERITEM'
+        <if test="startDate != null">
+            AND create_date &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+            AND create_date &lt;= #{endDate}
+        </if>
+        GROUP BY ${scoreKey}
+    </select>
+
+    <update id="delete">
+		update m_comment set deleted=1, verified =0
+		where id
+		=#{id,jdbcType=BIGINT}
+	</update>
+
+    <update id="updateColumn">
+		set names utf8mb4
+	</update>
+
+    <update id="updateStatus">
+		UPDATE m_comment SET
+		verified=#{status},modify_date=now()
+		WHERE id=#{commentId}
+	</update>
+
+    <update id="updateTop">
+        UPDATE m_comment SET
+        recomend=#{top},modify_date=now()
+        <if test="top==1">
+            ,recomend_date=now()
+        </if>
+        <if test="top==0">
+            ,recomend_date=create_date
+        </if>
+        WHERE id IN
+        <foreach collection="ids" index="index" item="id" open="("
+                 separator="," close=")">
+            #{id}
+        </foreach>
+    </update>
+
+    <update id="updateShareId">
+		UPDATE m_comment SET share_id=#{shareId},modify_date=now() WHERE id=#{id}
+	</update>
+
+    <update id="updateVideoById">
+		UPDATE m_comment SET video=#{video},modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <update id="doMerge">
+		UPDATE m_comment SET
+		old_member_id=member_id,
+		member_id=#{targetId} WHERE
+		member_id=#{sourceId}
+	</update>
+
+    <update id="doRefreshHeadPic">
+        UPDATE m_comment SET
+        <if test="headPic!=null and headPic!=''">
+            head_pic=#{headPic},
+        </if>
+        nick_name=#{nickName},modify_date=NOW()
+        WHERE member_id=#{memberInfoId}
+    </update>
+
+</mapper>

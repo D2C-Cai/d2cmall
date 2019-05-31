@@ -1,0 +1,55 @@
+mysql -u dbz78941244e7f65 -h  rdsb2emir2yjjry.mysql.rds.aliyuncs.com -P3306 -pdianchuang123
+mysqldump -u dbz78941244e7f65 -h  rdsb2emir2yjjry.mysql.rds.aliyuncs.com -P3306 -pdianchuang123 shop orders>db.sql
+==============================================================================================================================================================
+/*特定key清空*/
+./redis-cli -h 127.0.0.1 -p 7000 -n 1 KEYS "product_store_*" | xargs ./redis-cli -h 127.0.0.1 -p 7000 -n 1 DEL
+==============================================================================================================================================================
+/*清空所有*/
+./redis-cli -h 127.0.0.1 -p 7000 FLUSHALL
+==============================================================================================================================================================
+/*密码授权清理缓存*/
+./redis-cli -h 127.0.0.1 -p 7000
+AUTH d2cmall
+FLUSHALL
+==============================================================================================================================================================
+/*备份日志*/
+create table useroperatelog_history4 as SELECT * from useroperatelog WHERE create_date<'2016-12-29 23:59:59';
+ALTER TABLE `useroperatelog_history4`
+ADD PRIMARY KEY (`id`);
+DELETE from useroperatelog WHERE create_date<'2016-12-29 23:59:59';
+==============================================================================================================================================================
+/*门店库存重置*/
+TRUNCATE TABLE base_sku_stock_sync;
+INSERT INTO base_sku_stock_sync(id, status_,version_,bar_code_,stock_,store_code_) SELECT UUID(),0,0,bar_code_,stock_,store_code_ FROM base_sku_stock;
+UPDATE base_sku_stock_sync SET key_=CONCAT(bar_code_,'-',store_code_)  WHERE  key_ IS NULL;
+
+TRUNCATE table product_sku_stock;
+INSERT INTO product_sku_stock(bar_code,stock,store_code) SELECT bar_code_,stock_,store_code_ FROM base_sku_stock;
+UPDATE product_sku_stock_summary SET sf_stock=0;
+UPDATE product_sku_stock_summary a,product_sku_stock b SET a.sf_stock=b.stock WHERE a.bar_code=b.bar_code AND b.store_code='0000';	
+UPDATE product_sku_stock_summary SET st_stock=0; 
+UPDATE product_sku_stock_summary a SET a.st_stock=(SELECT COALESCE(SUM(stock),0) FROM product_sku_stock WHERE bar_code=a.bar_code AND store_code!='0000');
+==============================================================================================================================================================
+/*D2C会员总数*/
+SELECT COUNT(DISTINCT(`member_info_id`))  FROM `member`;
+/*其中手机注册的D2C账号总数*/
+SELECT COUNT(*) FROM  `member` WHERE `login_code`  REGEXP "^[1][2356789][0-9]{9}$";
+/*会员手机号*/
+SELECT `login_code` FROM `member` WHERE `login_code`  REGEXP "^[1][2356789][0-9]{9}$";
+==============================================================================================================================================================
+/*设计师网签*/
+SELECT `name`,`designers`,`code`,`operation` FROM  `designer` WHERE 
+FIND_IN_SET(`id`, (SELECT GROUP_CONCAT(designer_ids)  FROM `memberinfo` WHERE `agree_date` IS NOT NULL));
+==============================================================================================================================================================
+/*支付数据修复*/
+INSERT INTO payment (payer, device, member_id, create_date, modify_date, order_type, order_sn, pay_date,
+payment_fee, payment_sn, payment_type, total_amount, alipay_sn, payment_status, memo)
+VALUES ('18857362589','APPIOS',2718605,NOW(),NOW(),'ORDER','Q15021626686058605',NOW(),0.00,
+'20170808210010047302077310980001',1,249.00,'2017080821001004730207731098','success','数据修复');
+UPDATE `shop`.`orderitem` set `status`='NORMAL',`payment_type`=1 where `id`=457917;
+UPDATE `shop`.`orders` set  `order_status`=3, `payment_id`=227456,`payment_sn`='2017080821001004730207731098',`payment_time`=NOW() where `id`=318360;
+==============================================================================================================================================================
+/*红包金额清零*/
+INSERT INTO o_account_red_item(create_date, modify_date, member_id,login_code, account_id,amount,`status`,sn,business_type)
+SELECT now(),now(),member_id,account,id,red_amount*-1,8,UUID(),'OTHER' FROM m_account WHERE `red_amount`>0;
+UPDATE `m_account` SET `red_amount` =0,`red_date` =null;

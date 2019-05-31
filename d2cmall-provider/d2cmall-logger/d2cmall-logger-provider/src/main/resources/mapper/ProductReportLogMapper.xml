@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.ProductReportLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.ProductReportLog">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="reportId" column="report_id"/>
+        <result property="logType" column="log_type"/>
+        <result property="info" column="info"/>
+    </resultMap>
+
+    <select id="findByReportId" resultMap="baseMap">
+		SELECT * FROM
+		log_product_report
+		WHERE report_id=#{reportId} 
+		ORDER BY create_date DESC
+		LIMIT
+		#{page.startNumber},#{page.pageSize}
+	</select>
+
+    <select id="countByReportId" resultType="int">
+		SELECT count(*) FROM
+		log_product_report
+		WHERE report_id=#{reportId}
+	</select>
+
+</mapper>

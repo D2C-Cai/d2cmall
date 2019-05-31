@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.content.dao.AppVersionMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.AppVersion">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="device" column="device"/>
+        <result property="version" column="version"/>
+        <result property="info" column="info"/>
+        <result property="upgrade" column="upgrade"/>
+        <result property="type" column="type"/>
+        <result property="url" column="url"/>
+        <result property="size" column="size"/>
+        <result property="iconUrl" column="icon_url"/>
+        <result property="digit" column="digit"/>
+    </resultMap>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT * FROM v_app_version
+        WHERE 1=1 and upgrade!=-1
+        <if test="searcher!=null">
+            <include refid="searcher"/>
+        </if>
+        ORDER BY create_date DESC
+        LIMIT #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT COUNT(*) FROM v_app_version
+        WHERE 1=1 and upgrade!=-1
+        <if test="searcher!=null">
+            <include refid="searcher"/>
+        </if>
+    </select>
+
+    <sql id="searcher">
+        <if test="searcher.beginTime!=null and searcher.beginTime!=''">
+            and create_date &gt; =#{searcher.beginTime}
+        </if>
+        <if test="searcher.endTime!=null and searcher.endTime!=''">
+            and create_date &lt; =#{searcher.endTime}
+        </if>
+        <if test="searcher.version!=null and searcher.version!=''">
+            and version =#{searcher.version}
+        </if>
+        <if test="searcher.device!=null and searcher.device!=''">
+            and device=#{searcher.device}
+        </if>
+        <if test="searcher.type!=null and searcher.type!=''">
+            and type=#{searcher.type}
+        </if>
+        <if test="searcher.force!=null">
+            AND upgrade=#{searcher.force}
+        </if>
+    </sql>
+
+    <select id="findAllVersion" resultMap="baseMap">
+		SELECT * FROM v_app_version
+		WHERE device=#{appTerminal} and upgrade!=-1 ORDER
+		BY create_date DESC LIMIT 0,500
+	</select>
+
+    <select id="findByVersion" resultMap="baseMap">
+		SELECT * FROM v_app_version
+		WHERE version=#{version} and type=#{type} and
+		device=#{appTerminal}
+		order by create_date decs limit 0,1
+	</select>
+
+    <select id="findUpgrade" resultType="java.lang.Long">
+		select id from
+		v_app_version
+		where digit &gt;#{digit} and type=#{type} and
+		device=#{appTerminal} and upgrade=1 limit 0,1
+	</select>
+
+    <select id="findLastVersion" resultMap="baseMap">
+        select * from
+        v_app_version
+        where upgrade!=-1 and device=#{appTerminal}
+        and type=#{type}
+        <if test="digit!=null">
+            and digit &gt;#{digit}
+        </if>
+        order by digit desc
+        limit 0,1
+    </select>
+
+    <select id="findSameVersion" resultMap="baseMap">
+		select * from
+		v_app_version
+		where upgrade!=-1 and device=#{version.device} and
+		type=#{version.type} and version=#{version.version} limit 0,1
+	</select>
+
+    <update id="updateForce">
+		UPDATE v_app_version SET
+		upgrade=#{upgrade},last_modify_man=#{name},modify_date=NOW()
+		WHERE id=#{id}
+	</update>
+
+    <update id="deleteById">
+		UPDATE v_app_version SET upgrade = -1
+		,last_modify_man=#{lastModifyMan},modify_date=NOW() WHERE id=#{id}
+	</update>
+
+</mapper>
+
+

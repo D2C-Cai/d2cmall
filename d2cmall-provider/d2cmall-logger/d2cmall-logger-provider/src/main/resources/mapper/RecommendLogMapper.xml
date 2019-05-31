@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.RecommendLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.RecommendLog">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="memberId" column="member_id"/>
+        <result property="recId" column="rec_id"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="recommendRebates" column="recommend_rebates"/>
+        <result property="recommendDate" column="recommend_date"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM log_recommend WHERE recommend_rebates&gt;0
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date DESC
+        LIMIT #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM log_recommend WHERE recommend_rebates&gt;0
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.memberId!=null">
+            AND member_id=#{searcher.memberId}
+        </if>
+        <if test="searcher.recId!=null">
+            AND rec_id=#{searcher.recId}
+        </if>
+        <if test="searcher.nickName!=null">
+            AND nickName=#{searcher.nickName}
+        </if>
+    </sql>
+
+</mapper>

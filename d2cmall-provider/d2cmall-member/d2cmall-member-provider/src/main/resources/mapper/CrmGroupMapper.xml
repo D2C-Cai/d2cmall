@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.CrmGroupMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.CrmGroup">
+        <result property="name" column="name"/>
+        <result property="mobile" column="mobile"/>
+        <result property="status" column="status"/>
+        <result property="sort" column="sort"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <select id="findByName" resultMap="baseMap">
+		SELECT * FROM m_crm_group WHERE name=#{name}
+	</select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM m_crm_group
+        WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(id) FROM m_crm_group
+        WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND name=#{searcher.name}
+        </if>
+        <if test="searcher.mobile!=null and searcher.mobile!=''">
+            AND mobile=#{searcher.mobile}
+        </if>
+        <if test="searcher.status!=null">
+            AND status=#{searcher.status}
+        </if>
+    </sql>
+
+    <update id="updateStatus">
+		UPDATE m_crm_group SET status=#{status}
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateSort">
+		UPDATE m_crm_group SET sort=#{sort}
+		WHERE id=#{id}
+	</update>
+
+</mapper>

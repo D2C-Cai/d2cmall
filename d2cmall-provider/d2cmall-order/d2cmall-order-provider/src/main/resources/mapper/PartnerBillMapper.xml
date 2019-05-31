@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.PartnerBillMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.PartnerBill">
+        <result property="sn" column="sn"/>
+        <result property="status" column="status"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="orderItemId" column="order_item_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="productPic" column="product_pic"/>
+        <result property="productSn" column="product_sn"/>
+        <result property="actualAmount" column="actual_amount"/>
+        <result property="masterId" column="master_id"/>
+        <result property="superId" column="super_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="partnerId" column="partner_id"/>
+        <result property="masterRatio" column="master_ratio"/>
+        <result property="superRatio" column="super_ratio"/>
+        <result property="parentRatio" column="parent_ratio"/>
+        <result property="partnerRatio" column="partner_ratio"/>
+        <result property="partnerCode" column="partner_code"/>
+        <result property="partnerLevel" column="partner_level"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="excep" column="excep"/>
+        <result property="buyerCode" column="buyer_code"/>
+        <result property="topPartnerCode" column="top_partner_code"/>
+        <result property="agreeMan" column="agree_man"/>
+    </resultMap>
+
+    <select id="findByOrderItemId" resultMap="baseMap">
+		SELECT * FROM
+		o_partner_bill
+		WHERE order_item_id=#{orderItemId} AND status=1
+		LIMIT 0,1
+	</select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM o_partner_bill WHERE 1=1
+        <include refid="Searcher"/>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(*) FROM o_partner_bill WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.status!=null">
+            AND status=#{searcher.status}
+        </if>
+        <if test="searcher.sn!=null and searcher.sn!=''">
+            AND sn=#{searcher.sn}
+        </if>
+        <if test="searcher.orderSn!=null and searcher.orderSn!=''">
+            AND order_sn=#{searcher.orderSn}
+        </if>
+        <if test="searcher.partnerId!=null">
+            AND partner_id=#{searcher.partnerId}
+        </if>
+        <if test="searcher.parentId!=null">
+            AND parent_id=#{searcher.parentId}
+        </if>
+        <if test="searcher.superId!=null">
+            AND super_id=#{searcher.superId}
+        </if>
+        <if test="searcher.masterId!=null">
+            AND master_id=#{searcher.masterId}
+        </if>
+        <if test="searcher.startDate!=null">
+            AND create_date &gt;= #{searcher.startDate}
+        </if>
+        <if test="searcher.endDate!=null">
+            AND create_date &lt;= #{searcher.endDate}
+        </if>
+        <if test="searcher.partnerLevel!=null">
+            AND partner_level=#{searcher.partnerLevel}
+        </if>
+        <if test="searcher.partnerCode!=null and searcher.partnerCode!=''">
+            AND partner_code=#{searcher.partnerCode}
+        </if>
+        <if test="searcher.parentCode!=null and searcher.parentCode!=''">
+            AND top_partner_code=#{searcher.parentCode}
+        </if>
+        <if test="searcher.excep!=null">
+            AND excep=#{searcher.excep}
+        </if>
+        <if test="searcher.gtStatus!=null">
+            AND status &gt; #{searcher.gtStatus}
+        </if>
+    </sql>
+
+    <update id="updateStatus">
+		UPDATE o_partner_bill SET
+		status=#{status},modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <update id="doClose">
+		UPDATE o_partner_bill SET status=-1,modify_date=NOW()
+		WHERE order_item_id=#{orderItemId} AND status=1
+	</update>
+
+    <select id="findPartnerSummaryToday" resultType="hashMap">
+        SELECT COUNT(id) AS count,
+        COALESCE(SUM(actual_amount*partner_ratio),0) AS rebate,
+        COALESCE(SUM(actual_amount),0) AS amount
+        FROM o_partner_bill
+        WHERE
+        partner_id=#{partnerId}
+        <if test="status!= null and status.length &gt; 0">
+            AND status IN
+            <foreach collection="status" item="item" index="index" open="("
+                     close=")" separator=",">
+                <if test="item!= null">
+                    #{item}
+                </if>
+            </foreach>
+        </if>
+        <if test="beginDate!=null">
+            AND create_date &gt;= #{beginDate}
+        </if>
+        <if test="endDate!=null">
+            AND create_date &lt;= #{endDate}
+        </if>
+    </select>
+
+    <select id="findChildrenSummaryToday" resultType="hashMap">
+        SELECT COUNT(id) AS count,
+        COALESCE(SUM(actual_amount*parent_ratio),0)
+        AS rebate,
+        COALESCE(SUM(actual_amount),0) AS amount
+        FROM o_partner_bill
+        WHERE parent_id=#{partnerId}
+        <if test="status!= null and status.length &gt; 0">
+            AND status IN
+            <foreach collection="status" item="item" index="index" open="("
+                     close=")" separator=",">
+                <if test="item!= null">
+                    #{item}
+                </if>
+            </foreach>
+        </if>
+        <if test="beginDate!=null">
+            AND create_date &gt;= #{beginDate}
+        </if>
+        <if test="endDate!=null">
+            AND create_date &lt;= #{endDate}
+        </if>
+    </select>
+
+    <select id="findBillSummary" resultType="hashMap">
+		SELECT status AS status,
+		COUNT(id) AS count,
+		COALESCE(SUM(actual_amount*${ratio}),0) AS rebate,
+		COALESCE(SUM(actual_amount),0) AS amount
+		FROM o_partner_bill
+		WHERE
+		${rid}=#{id}
+		GROUP BY status
+	</select>
+
+    <select id="findCountGroupByStatus" resultType="hashMap">
+        SELECT status AS status, COUNT(id) AS count,
+        SUM(IF(isnull(partner_id), 0, 1) * partner_ratio * actual_amount)
+        +SUM(IF(isnull(parent_id), 0, 1) * parent_ratio * actual_amount)
+        +SUM(IF(isnull(super_id), 0, 1) * super_ratio * actual_amount)
+        +SUM(IF(isnull(master_id), 0, 1) * master_ratio * actual_amount) AS
+        rebate,
+        COALESCE(SUM(actual_amount),0) AS amount
+        FROM o_partner_bill
+        WHERE 1=1
+        <if test="beginDate!=null">
+            AND create_date &gt;= #{beginDate}
+        </if>
+        <if test="endDate!=null">
+            AND create_date &lt;= #{endDate}
+        </if>
+        GROUP BY status
+    </select>
+
+    <select id="findCountGroupByLevel" resultType="hashMap">
+        SELECT partner_level AS level, COUNT(id) AS count,
+        COALESCE(SUM(actual_amount),0) AS amount
+        FROM o_partner_bill
+        WHERE 1=1
+        <if test="beginDate!=null">
+            AND create_date &gt;= #{beginDate}
+        </if>
+        <if test="endDate!=null">
+            AND create_date &lt;= #{endDate}
+        </if>
+        GROUP BY partner_level
+    </select>
+
+</mapper>

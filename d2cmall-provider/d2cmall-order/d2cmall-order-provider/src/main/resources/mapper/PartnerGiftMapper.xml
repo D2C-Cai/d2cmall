@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.PartnerGiftMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.PartnerGift">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="productPic" column="product_pic"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="partnerId" column="partner_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="masterId" column="master_id"/>
+        <result property="partnerRebate" column="partner_rebate"/>
+        <result property="parentRebate" column="parent_rebate"/>
+        <result property="masterRebate" column="master_rebate"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM o_partner_gift WHERE 1=1
+        <include refid="Searcher"/>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(*) FROM o_partner_gift WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.status!=null">
+            AND status=#{searcher.status}
+        </if>
+        <if test="searcher.partnerId!=null">
+            AND partner_id=#{searcher.partnerId}
+        </if>
+        <if test="searcher.parentId!=null">
+            AND parent_id=#{searcher.parentId}
+        </if>
+        <if test="searcher.masterId!=null">
+            AND master_id=#{searcher.masterId}
+        </if>
+    </sql>
+
+</mapper>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.content.dao.SectionValueMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.SectionValue">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result property="moduleId" column="module_id"/>
+        <result property="sectionDefId" column="section_def_id"/>
+        <result property="shortTitle" column="short_title"/>
+        <result property="longTitle" column="long_title"/>
+        <result property="price" column="price"/>
+        <result property="originalPrice" column="original_price"/>
+        <result property="brand" column="brand"/>
+        <result property="url" column="url"/>
+        <result property="frontPic" column="front_pic"/>
+        <result property="endPic" column="end_pic"/>
+        <result property="videoPic" column="video_pic"/>
+        <result property="videoPath" column="video_path"/>
+        <result property="sequence" column="sequence"/>
+        <result property="type" column="type"/>
+        <result property="properties" column="properties"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="status" column="status"/>
+        <result property="watched" column="watched"/>
+        <result property="relationType" column="relation_type"/>
+        <result property="relationId" column="relation_id"/>
+        <result property="deteled" column="deteled"/>
+        <result property="deleted" column="deleted"/>
+        <result property="timing" column="timing"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="tags" column="tags"/>
+    </resultMap>
+
+    <resultMap id="dtoMap" type="com.d2c.content.dto.SectionValueDto">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result property="moduleId" column="module_id"/>
+        <result property="sectionDefId" column="section_def_id"/>
+        <result property="shortTitle" column="short_title"/>
+        <result property="longTitle" column="long_title"/>
+        <result property="price" column="price"/>
+        <result property="originalPrice" column="original_price"/>
+        <result property="brand" column="brand"/>
+        <result property="url" column="url"/>
+        <result property="frontPic" column="front_pic"/>
+        <result property="endPic" column="end_pic"/>
+        <result property="videoPic" column="video_pic"/>
+        <result property="videoPath" column="video_path"/>
+        <result property="sequence" column="sequence"/>
+        <result property="type" column="type"/>
+        <result property="properties" column="properties"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="title" column="title"/>
+        <result property="visible" column="visible"/>
+        <result property="types" column="types"/>
+        <result property="fixed" column="fixed"/>
+        <result property="sort" column="sort"/>
+        <result property="prop" column="prop"/>
+        <result property="status" column="status"/>
+        <result property="watched" column="watched"/>
+        <result property="relationType" column="relation_type"/>
+        <result property="relationId" column="relation_id"/>
+        <result property="deteled" column="deteled"/>
+        <result property="timing" column="timing"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="tags" column="tags"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM v_section_value sv
+        WHERE 1=1 AND sv.deleted=0
+        <if test="searcher!=null">
+            <include refid="searcher"/>
+        </if>
+        ORDER BY sv.sequence DESC, sv.id DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="findDtoBySearcher" resultMap="dtoMap">
+        SELECT sv.*, s.title, s.visible, s.type as types, s.fixed, s.sequence
+        as sort, s.properties as prop
+        FROM v_section_value sv, v_section s
+        WHERE sv.section_def_id=s.id AND
+        sv.deleted=0
+        <if test="searcher!=null">
+            <include refid="searcher"/>
+        </if>
+        ORDER BY s.sequence DESC, sv.sequence DESC, sv.id DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(id) FROM v_section_value sv
+        WHERE 1=1 AND sv.deleted=0
+        <if test="searcher!=null">
+            <include refid="searcher"/>
+        </if>
+    </select>
+
+    <sql id="searcher">
+        <if test="searcher.status!=null">
+            AND sv.status=#{searcher.status}
+        </if>
+        <if test="searcher.moduleId!=null">
+            AND sv.module_id=#{searcher.moduleId}
+        </if>
+        <if test="searcher.sectionDefId!=null">
+            AND sv.section_def_id=#{searcher.sectionDefId}
+        </if>
+        <if test="searcher.shortTitle!=null and searcher.shortTitle!=''">
+            AND sv.short_title LIKE
+            CONCAT('%',#{searcher.shortTitle},'%')
+        </if>
+        <if test="searcher.longTitle!=null and searcher.longTitle!=''">
+            AND sv.long_title LIKE
+            CONCAT('%',#{searcher.longTitle},'%')
+        </if>
+        <if test="searcher.url!=null and searcher.url!=''">
+            AND sv.url LIKE CONCAT('%',#{searcher.url},'%')
+        </if>
+        <if test="searcher.sectionIds!=null and searcher.sectionIds.size>0">
+            AND sv.section_def_id IN
+            <foreach collection="searcher.sectionIds" index="index" item="item"
+                     open="(" separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test="searcher.timing!=null">
+            AND timing=#{searcher.timing}
+        </if>
+        <if test="searcher.beginStartTime!=null">
+            AND start_time &gt;= #{searcher.beginStartTime}
+        </if>
+        <if test="searcher.endStartTime!=null">
+            AND start_time &lt; #{searcher.endStartTime}
+        </if>
+        <if test="searcher.beginEndTime!=null">
+            AND end_time &gt;= #{searcher.beginEndTime}
+        </if>
+        <if test="searcher.endEndTime!=null">
+            AND end_time &lt; #{searcher.endEndTime}
+        </if>
+    </sql>
+
+    <update id="delete">
+		UPDATE v_section_value SET deleted=1,status=0 WHERE
+		id=#{id}
+	</update>
+
+    <delete id="deleteBySectionId">
+		DELETE FROM v_section_value WHERE
+		section_def_id=#{sectionId}
+	</delete>
+
+    <delete id="deleteByModuleId">
+		DELETE FROM v_section_value WHERE
+		module_id=#{moduleId}
+	</delete>
+
+    <update id="updateStatus">
+		UPDATE v_section_value SET
+		modify_date=now(),status=#{status} WHERE id=#{id}
+	</update>
+
+    <update id="doRecovery">
+		UPDATE v_section_value SET
+		deleted=0,modify_date=now(),status=0 WHERE id=#{id}
+	</update>
+
+    <select id="findDeletedBySearcher" resultMap="baseMap">
+        SELECT * FROM v_section_value sv
+        WHERE 1=1 AND sv.deleted=1
+        <if test="searcher!=null">
+            <include refid="searcher"/>
+        </if>
+        ORDER BY sv.sequence DESC, sv.id DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countDeletedBySearcher" resultType="int">
+        SELECT COUNT(id) FROM v_section_value sv
+        WHERE 1=1 AND sv.deleted=1
+        <if test="searcher!=null">
+            <include refid="searcher"/>
+        </if>
+    </select>
+</mapper>

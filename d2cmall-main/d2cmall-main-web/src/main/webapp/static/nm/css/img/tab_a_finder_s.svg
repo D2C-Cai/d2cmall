@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="32px" height="32px" viewBox="0 0 32 32" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+    <!-- Generator: Sketch 3.5.2 (25235) - http://www.bohemiancoding.com/sketch -->
+    <title>tab_a_finder_s</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="bg" sketch:type="MSArtboardGroup" transform="translate(-653.000000, -228.000000)" fill="#EA555F">
+            <g id="Group" sketch:type="MSLayerGroup" transform="translate(659.000000, 234.000000)">
+                <g id="XMLID_962_" sketch:type="MSShapeGroup">
+                    <path d="M10.0684211,0.996842105 C15.1042105,0.996842105 19.2015789,5.09421053 19.2015789,10.13 C19.2015789,15.1657895 15.1042105,19.2631579 10.0684211,19.2631579 C5.03263158,19.2631579 0.935263158,15.1657895 0.935263158,10.13 C0.935263158,5.09368421 5.03210526,0.996842105 10.0684211,0.996842105 L10.0684211,0.996842105 Z M10.0684211,0.470526316 C4.73368421,0.470526316 0.408947368,4.79526316 0.408947368,10.13 C0.408947368,15.4647368 4.73368421,19.7894737 10.0684211,19.7894737 C15.4031579,19.7894737 19.7278947,15.4647368 19.7278947,10.13 C19.7278947,4.79526316 15.4031579,0.470526316 10.0684211,0.470526316 L10.0684211,0.470526316 L10.0684211,0.470526316 Z"
+                          id="Shape"></path>
+                </g>
+                <g transform="translate(5.789474, 3.684211)" sketch:type="MSShapeGroup">
+                    <path d="M3.05578947,5.99052632 L8.08210526,0.11 L5.50210526,7.40315789 L3.05578947,5.99052632 Z"
+                          id="XMLID_953_"></path>
+                    <g id="XMLID_951_" transform="translate(0.000000, 5.789474)">
+                        <path d="M3.19789474,0.586842105 L5.09631579,1.68315789 L1.19631579,6.24631579 L3.19789474,0.586842105 L3.19789474,0.586842105 Z M3.05578947,0.201052632 L0.476315789,7.49421053 L5.50263158,1.61368421 L3.05578947,0.201052632 L3.05578947,0.201052632 L3.05578947,0.201052632 Z"
+                              id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

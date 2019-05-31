@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="1"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:conf/app.properties</value>
+                <value>file:///${user.home}/conf/*.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <context:component-scan base-package="com.d2c"/>
+
+    <import resource="classpath:spring-mybatis-shop.xml"/>
+    <import resource="classpath:spring-dubbo-provider.xml"/>
+    <import resource="classpath:dubbo-bean.xml"/>
+
+    <import resource="classpath:spring-redis-order.xml"/>
+    <import resource="classpath:spring-activemq.xml"/>
+    <import resource="classpath:spring-mongo.xml"/>
+
+    <!-- 支付宝相关 -->
+    <bean class="com.d2c.order.third.payment.alipay.core.pcwap.AlipayConfig">
+        <property name="refund_notify_url" value="${ALIPAY_REFUND_NOTIFY_URL}"/>
+    </bean>
+    <!-- 微信支付相关 -->
+    <bean class="com.d2c.order.third.payment.wxpay.refund.RefundConfig301" scope="prototype">
+        <property name="refund_notify_url" value="${WXPAY_REFUND_NOTIFY_URL}"/>
+    </bean>
+    <bean class="com.d2c.order.third.payment.wxpay.refund.RefundConfig801" scope="prototype">
+        <property name="refund_notify_url" value="${WXPAY_REFUND_NOTIFY_URL}"/>
+    </bean>
+
+</beans>
+
+

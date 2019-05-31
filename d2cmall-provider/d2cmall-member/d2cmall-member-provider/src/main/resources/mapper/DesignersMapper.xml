@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.DesignersMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.Designers">
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="memberId" column="member_id"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findByCode" resultMap="baseMap">
+		select * from m_designers
+		where
+		code=#{code} limit 0,1
+	</select>
+
+    <sql id="Searcher">
+        <if test="searcher.loginCode!=null and searcher.loginCode!=''">
+            and login_code=#{searcher.loginCode}
+        </if>
+        <if test="searcher.name!=null and searcher.name!=''">
+            and name =#{searcher.name}
+        </if>
+        <if test="searcher.code!=null and searcher.code!=''">
+            and code=#{searcher.code}
+        </if>
+        <if test="searcher.designerId!=null">
+            and EXISTS(select 1 from p_brand where
+            id=#{searcher.designerId} and m_designers.id=p_brand.designers_id)
+        </if>
+    </sql>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        select * from m_designers where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        LIMIT #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        select count(id) from m_designers where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <update id="updateMemberInfo">
+		update m_designers set
+		member_id=#{memberId},login_code=#{loginCode} where id=#{id}
+	</update>
+
+    <update id="cancelMemberInfo">
+		update m_designers set
+		member_id=null,login_code=null where member_id=#{memberId}
+	</update>
+
+</mapper>

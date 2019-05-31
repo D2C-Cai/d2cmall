@@ -1,0 +1,685 @@
+.online-chat {
+    display: none
+}
+
+.footer-space {
+    display: none
+}
+
+.game-begin {
+    position: relative;
+}
+
+.game-begin .begin-button {
+    display: block;
+    position: absolute;
+    bottom: 70px;
+    width: 76%;
+    height: 45px;
+    line-height: 45px;
+    background: #fff;
+    text-align: center;
+    font-size: 18px;
+    color: #e83333;
+    border-radius: 4px;
+    left: 50%;
+    margin-left: -38%
+}
+
+.game-begin .rulelink {
+    display: block;
+    width: 60px;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    color: #fff;
+    font-size: 12px;
+    background: rgba(0, 0, 0, .5);
+    border-radius: 20px;
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    margin-left: -30px;
+}
+
+.question-progress {
+    width: 72%;
+    height: 64px;
+    margin: 16px auto 0;
+    position: relative;
+}
+
+.game-begin {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    background: #D34455
+}
+
+.question-progress .question-line {
+    height: 12px;
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    margin-top: -6px;
+    background: #FD7484;
+}
+
+.question-progress .question-num span {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    box-sizing: border-box;
+    top: 17px;
+    border-radius: 100%;
+    z-index: 1;
+    background: #FD7484;
+    color: #fff;
+    font-weight: bold;
+    line-height: 30px;
+    font-size: 16px;
+    text-align: center;
+}
+
+.question-progress .question-num span.on {
+    background: #EB4C5E;
+}
+
+.question-content {
+    border: 1px solid #222;
+    width: 76%;
+    margin: 20px auto;
+    box-sizing: border-box;
+    padding: 20px 15px;
+    display: none
+}
+
+.question-content .question-title .f-title {
+    font-size: 12px;
+    line-height: 16px;
+    text-align: center;
+}
+
+.question-content .question-title .z-title {
+    font-size: 18px;
+    line-height: 24px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.question-content .question-ans {
+    margin-top: 20px;
+    overflow: hidden
+}
+
+.question-content .question-ans .question-line {
+    width: 50%;
+    float: left;
+}
+
+.question-content .question-ans .radio-box {
+    display: inline-block
+}
+
+.question-content .question-ans .item-name {
+    display: inline-block;
+    font-size: 10px;
+    vertical-align: middle;
+    line-height: 16px;
+}
+
+.question-content .question-ans .item-name p:first-child {
+    font-size: 16px;
+    font-weight: bold;
+    line-height: 24px;
+}
+
+.question-next-button, .seeResult, .praise-button, .poster-tips button {
+    width: 76%;
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    font-size: 18px;
+    color: #262626;
+    border-radius: 4px;
+    border: 1px solid #262626;
+    margin: 10px auto 30px;
+}
+
+.question-content .question-block {
+    width: 49%;
+    float: left;
+    text-align: center;
+    overflow: hidden;
+    margin-right: 2%
+}
+
+.question-content .question-block:nth-child(2n) {
+    margin-right: 0;
+}
+
+.question-content .question-block label {
+    display: block
+}
+
+.question-content .radio-line .option-button {
+    display: inline-block;
+    vertical-align: middle;
+    width: 44%;
+    height: 22px;
+    line-height: 22px;
+    text-align: center;
+    border-radius: 10px;
+    border: 2px solid #222;
+    color: #fff;
+    font-weight: bold;
+    background: #eb4c5e;
+    font-size: 14px;
+}
+
+.question-teta {
+    margin: 15px auto;
+    text-align: center;
+}
+
+.question-teta .sub-title {
+    font-size: 10px;
+    line-height: 20px;
+    margin: 5px 10px;
+}
+
+.my-resultbill {
+    min-height: 100%;
+    background: #e8e8e8;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 8% 7%;
+    text-align: center
+}
+
+.my-resultbill .mask-title {
+    position: absolute;
+    bottom: 3px;
+    height: 26px;
+    background: rgba(255, 255, 255, 0.5);
+    line-height: 26px;
+    width: 100%;
+    font-size: 12px;
+    text-align: center
+}
+
+.my-resultbill .mask-title .symbol {
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.my-resultbill .mask-title .price {
+    padding-left: 5px;
+    font-weight: bold;
+    color: #c40001
+}
+
+.my-resultbill .mask-title span:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 60%
+}
+
+.my-resultbill .mask-title span {
+    display: inline-block;
+    line-height: inherit;
+    vertical-align: middle
+}
+
+.my-resultbill .img {
+    width: 100%;
+    border: 2px solid #fff;
+    position: relative;
+}
+
+.my-resultbill .praise {
+    margin: 20px 0 5px;
+    font-size: 25px;
+    line-height: 60px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.my-resultbill .praise-button {
+    margin: 0 auto 10px;
+}
+
+body {
+    background: #e8e8e8
+}
+
+.my-resultbill .refresh {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 2%;
+    bottom: 35px;
+    background: url('//static.d2c.cn/img/topic/181031/posters/refresh.png') no-repeat;
+    background-size: cover;
+    box-sizing: border-box;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 100%;
+}
+
+.my-resultbill .reset {
+    font-size: 14px;
+    padding: 4px;
+    border-bottom: 1px solid #222;
+    text-align: center;
+    margin: 10px auto 0;
+    display: inline-block;
+}
+
+.poster-back {
+    padding: 4% 5%;
+    position: relative;
+}
+
+.poster-back img {
+    display: block;
+    box-shadow: #666 0px 5px 10px;
+}
+
+。my-title {
+    margin: 15px auto;
+    width: 80%
+}
+
+.dochoice {
+    margin: 30px auto 15px;
+    width: 60%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+}
+
+.dochoice .choice-item {
+    width: 60px;
+    text-align: center;
+}
+
+.dochoice .choice-icon {
+    background: #FF0101;
+    border-radius: 100%;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 0;
+    box-shadow: 3px 5px 10px #999
+}
+
+.dochoice .choice-icon img {
+    vertical-align: middle
+}
+
+.dochoice .choice-num {
+    margin-top: 15px;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: italic;
+    position: relative;
+}
+
+.dochoice .choice-num:after {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    background: #ff0101;
+    right: 10px;
+    top: -5px;
+}
+
+.rank {
+    margin: 5px auto 30px;
+    text-align: center;
+}
+
+.rank .rank-detail span {
+    display: inline-block;
+    padding: 5px 20px;
+    font-size: 14px;
+    line-height: 18px;
+}
+
+.rank .rank-detail span:first-child {
+    border-bottom: 1px solid #222;
+    font-weight: bold;
+    font-size: 22px;
+    font-style: italic
+}
+
+.poster-tips {
+    margin: 14px auto;
+    text-align: center;
+}
+
+.poster-tips button {
+    margin-top: 20px;
+    background: #f2f869;
+    border-radius: 20px;
+}
+
+.poster-promotion .promotion-time {
+    margin: 32px auto 12px;
+    width: 75%;
+    border-top: 1px solid #666;
+    border-bottom: 1px solid #666;
+    text-align: center;
+    padding: 20px 0
+}
+
+.poster-promotion .time-title {
+    font-size: 30px;
+    line-height: 40px;
+    font-weight: bold;
+}
+
+.poster-promotion .time-tips {
+    font-size: 14px;
+    padding: 10px 0;
+}
+
+.poster-promotion .counts {
+    font-size: 32px;
+    line-height: 60px;
+    height: 60px;
+    font-weight: bold
+}
+
+.poster-promotion .counts .down {
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    background: #222;
+    border-radius: 5px;
+}
+
+.poster-promotion .promotion-rule {
+    padding: 5px 10px;
+    border-bottom: 1px solid #222;
+    margin: 30px auto 20px;
+    display: inline-block
+}
+
+.poster-promotion .rank-title {
+    padding: 15px 0;
+    text-align: center
+}
+
+.poster-promotion .rank-title p:first-child {
+    font-size: 24px;
+    font-weight: bold;
+    padding-bottom: 10px
+}
+
+.poster-promotion .rank-list {
+    padding: 0;
+    width: 92%;
+    margin: 0 auto 30px;
+    overflow: hidden
+}
+
+.poster-promotion .rank-item {
+    width: 48%;
+    margin-bottom: 2.5%;
+    margin-right: 4%;
+    display: inline-block;
+    position: relative;
+    min-height: 14em;
+    float: left;
+    line-height: 70%;
+}
+
+.poster-promotion .rank-item:nth-child(2n) {
+    margin-right: 0;
+}
+
+.poster-promotion .rank-tips {
+    position: absolute;
+    width: 60px;
+    height: 20px;
+    left: 0;
+    top: 60%;
+    font-size: 12px;
+    background: #eb4c5e;
+    line-height: 20px;
+    text-align: center;
+    color: #fff;
+}
+
+.poster-promotion .up-item {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: .8em;
+    position: relative;
+    text-align: center;
+    box-sizing: border-box;
+    height: 45px;
+    line-height: 25px;
+    -webkit-align-items: center;
+    align-items: center
+}
+
+.poster-promotion .up-item .nickname {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 50px;
+    display: inline-block;
+    vertical-align: middle
+}
+
+.poster-promotion .up-item .headpic {
+    display: inline-block;
+    font-size: 0;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+    overflow: hidden;
+    border-radius: 100%;
+    margin-right: 5px;
+}
+
+.poster-promotion .up-item p {
+    -webkit-flex: 1;
+    flex: 1;
+    line-height: 18px;
+}
+
+.poster-promotion .up-item p:first-child {
+    border-right: 1px solid #c9c9c9
+}
+
+.poster-promotion .up-icon {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    line-height: 18px;
+    font-size: 0;
+    background: #FF0101;
+    border-radius: 100%;
+    text-align: center;
+    vertical-align: middle
+}
+
+.poster-promotion .up-icon img {
+    display: inline-block;
+    vertical-align: middle
+}
+
+.full-poster {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    max-height: 100%;
+    display: none;
+    overflow: scroll;
+    -webkit-overflow-scrolling: touch;
+    height: 100%;
+    background: #e8e8e8
+}
+
+#popup-modal-outer {
+    background: rgba(0, 0, 0, .4);
+}
+
+.product-detail img {
+    width: 100% !important
+}
+
+.product-detail .t-title {
+    position: relative;
+    margin: 20px 0 15px;
+    font-size: 14px;
+    height: 18px;
+    line-height: 18px;
+}
+
+.product-detail .t-title span {
+    display: block;
+    padding: 0 10px;
+    position: absolute;
+    left: 50%;
+    margin-left: -38px;
+    background: #FFF;
+    z-index: 2;
+}
+
+.product-detail .t-title:after {
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background: #E6EAF2;
+    z-index: 1;
+    content: '';
+    top: 9px;
+}
+
+.app-poster {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: fixed;
+    z-index: 20;
+    background: #e8e8e8;
+}
+
+.like-list .like-items {
+    height: 55px;
+    border-bottom: 1px solid #E6EAF2;
+    padding: 7.5px 20px;
+    display: block
+}
+
+.like-items .r-time {
+    text-align: right;
+    font-size: 12px;
+    color: rgba(0, 0, 0, .38);
+    line-height: 23px;
+    height: 23px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.like-items .userinfo {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    height: 30px;
+    color: #222;
+    font-size: 14px;
+    line-height: 30px;
+}
+
+.like-items .userinfo div:first-child {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.like-items .userinfo img {
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+}
+
+.poster-back .see-product {
+    background: url(//static.d2c.cn/img/topic/181031/posters/see_product.png) no-repeat;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    bottom: 6%;
+    right: 10%;
+    display: block
+}
+
+#nav {
+    position: fixed;
+    bottom: 20%;
+    right: 5%;
+    width: 55px;
+}
+
+.modal-close {
+    position: absolute;
+    bottom: -12%;
+    left: 50%;
+    -webkit-transform: translateX(-50%);
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    background: url(//static.d2c.cn/img/promo/bargin/icon_close.png) no-repeat;
+    background-size: cover;
+}
+
+.share-items {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0 48px 30px;
+}
+
+.item-icon {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    width: 80px;
+    color: #7F7F7F;
+    text-align: center
+}
+
+.item-icon img {
+    display: inline-block;
+    margin: 0 auto;
+}

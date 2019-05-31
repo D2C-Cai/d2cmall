@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- - Copyright 1999-2011 Alibaba Group. - - Licensed under the Apache License, 
+	Version 2.0 (the "License"); - you may not use this file except in compliance 
+	with the License. - You may obtain a copy of the License at - - http://www.apache.org/licenses/LICENSE-2.0 
+	- - Unless required by applicable law or agreed to in writing, software - 
+	distributed under the License is distributed on an "AS IS" BASIS, - WITHOUT 
+	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. - See the 
+	License for the specific language governing permissions and - limitations 
+	under the License. -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <description>消息模块</description>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.AccountLogService"
+                     id="accountLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.ErrorLogService"
+                     id="errorLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.ExchangeLogService"
+                     id="exchangeLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.ExportLogService"
+                     id="exportLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.OrderLogService"
+                     id="orderLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.ProductLogService"
+                     id="productLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.BrandLogService"
+                     id="brandLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.RecommendLogService"
+                     id="recommendLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.RefundLogService"
+                     id="refundLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.RequisitionLogService"
+                     id="requisitionLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.ReshipLogService"
+                     id="reshipLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.ShareLogService"
+                     id="shareLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.SkuOperateLogService"
+                     id="skuOperateLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.StatementLogService"
+                     id="statementLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.UserOperateLogService"
+                     id="userOperateLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.DiscountSettingLogService"
+                     id="discountSettingLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.BurgeonErrorLogService"
+                     id="burgeonErrorLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.CompensationLogService"
+                     id="compensationLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.DesignersLogService"
+                     id="designersLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.ProductReportLogService"
+                     id="productReportLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.MagazineLogService"
+                     id="magazineLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.PartnerLogService"
+                     id="partnerLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.GuanyiSkuStockLogService"
+                     id="guanyiSkuStockLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.AwardRabateLogService"
+                     id="awardRabateLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.MemberStoreLogService"
+                     id="memberStoreLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.KaolaOrderErrorLogService"
+                     id="kaolaOrderErrorLogService"/>
+    <dubbo:reference version="${logger.version:${version}}"
+                     interface="com.d2c.logger.service.CaomeiOrderErrorLogService"
+                     id="caomeiOrderErrorLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.CollageOrderLogService"
+                     id="collageOrderLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.LoginLogService"
+                     id="loginLogService"/>
+
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.MsgUniteService"
+                     id="msgUniteService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.MsgPushService"
+                     id="msgPushService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.WeixinPushService"
+                     id="weixinPushService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.EmailLogService"
+                     id="emailLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.EmailService"
+                     id="emailService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.SmsLogService"
+                     id="smsLogService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.SmsService"
+                     id="smsService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.BossDeviceService"
+                     id="bossDeviceService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.MemberDeviceService"
+                     id="memberDeviceService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.MemberSearchKeyService"
+                     id="memberSearchKeyService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.MemberSearchSumService"
+                     id="memberSearchSumService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.MessageDefService"
+                     id="messageDefService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.MessageService"
+                     id="messageService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.PopMessageService"
+                     id="popMessageService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.TemplateService"
+                     id="templateService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.UpyunTaskService"
+                     id="upyunTaskService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.RemindService"
+                     id="remindService"/>
+    <dubbo:reference version="${logger.version:${version}}" interface="com.d2c.logger.service.SignatureService"
+                     id="signatureService"/>
+
+</beans>

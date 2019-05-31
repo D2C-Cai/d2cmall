@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.ExportLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.ExportLog">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="logType" column="log_type"/>
+        <result property="fileName" column="file_name"/>
+        <result property="filePath" column="file_path"/>
+        <result property="fileSize" column="file_size"/>
+    </resultMap>
+
+    <select id="findByCreatorAndType" resultMap="baseMap">
+		SELECT * FROM log_export
+		WHERE log_type=#{log_type} AND creator=#{creator}
+		ORDER BY create_date DESC
+		LIMIT 0,500
+	</select>
+
+    <select id="countNum" resultType="int">
+        SELECT count(0)
+        FROM log_export
+        WHERE log_type IN
+        <foreach collection="log_type" item="item" index="index" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+        AND creator=#{creator}
+    </select>
+
+    <select id="findForPage" resultMap="baseMap">
+        SELECT *
+        FROM log_export
+        WHERE log_type in
+        <foreach collection="log_type" item="item" index="index" open="("
+                 separator="," close=")">
+            #{item}
+        </foreach>
+        AND
+        creator=#{creator}
+        ORDER BY create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <delete id="deleteById">
+		DELETE FROM log_export WHERE id=#{id} AND
+		creator=#{creator}
+	</delete>
+
+</mapper>

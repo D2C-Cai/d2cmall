@@ -1,0 +1,236 @@
+.wrap {
+    position: relative;
+    color: #fff;
+    height: 100%;
+    overflow: hidden;
+}
+
+.hide {
+    display: none;
+}
+
+.mod_loading {
+    position: absolute;
+    height: 100%;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+    background-color: #b9ccd5;
+    display: -webkit-box;
+    -webkit-box-align: center;
+}
+
+.mod_loading .content {
+    text-align: center;
+    -webkit-box-flex: 1;
+    margin: 0 80px;
+}
+
+.mod_loading .content .progress {
+    height: 13px;
+    padding: 2px;
+    -webkit-border-radius: 17px;
+    border-radius: 17px;
+    background-color: #242a39;
+}
+
+.mod_loading .content .progress span {
+    display: block;
+    height: 13px;
+    -webkit-border-radius: 13px;
+    border-radius: 13px;
+    background-color: #65cfd5;
+}
+
+.mod_loading .content p {
+    line-height: 34px;
+    color: #5f696a;
+}
+
+.slider {
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    margin-left: -18px;
+    left: 50%;
+    bottom: 70px;
+    z-index: 9999;
+}
+
+.slider span {
+    position: absolute;
+    width: 24px;
+    height: 35px;
+    left: 50%;
+    top: 50%;
+    margin: -17px 0 0 -12px;
+    background-position: -158px -46px;
+    -webkit-animation: slide_up 2s infinite ease-out;
+}
+
+.islide-item {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5), not all, only screen and (min-resolution: 240dpi) {
+    .sprite_global {
+        background-image: url(http://static.d2c.cn/img/topic/171120/marie/images/sprite_global@2x.png);
+        background-size: 355px;
+    }
+}
+
+@-webkit-keyframes slide_up {
+    0%, 30% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 10px, 0);
+    }
+    60% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -8px, 0);
+    }
+}
+
+@-webkit-keyframes play_sate {
+    0% {
+        -webkit-transform: perspective(400px) rotateY(0);
+    }
+    100% {
+        -webkit-transform: perspective(400px) rotateY(360deg);
+    }
+}
+
+@-webkit-keyframes micro_fade_down {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -30px, 0);
+    }
+    100% {
+        opacity: 1;
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+}
+
+@-webkit-keyframes music_1 {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translate3d(-50px, -50px, 0);
+    }
+}
+
+@-webkit-keyframes music_2 {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translate3d(40px, -10px, 0);
+    }
+}
+
+@-webkit-keyframes music_3 {
+    0% {
+        opacity: 0;
+        -webkit-transform: rotate(0) translate3d(0, 0, 0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: rotate(-45deg) translate3d(65px, -36px, 0);
+    }
+}
+
+@-webkit-keyframes music_4 {
+    0% {
+        opacity: 0;
+        -webkit-transform: rotate(0) translate3d(0, 0, 0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: rotate(15deg) translate3d(10px, -80px, 0);
+    }
+}
+
+@-webkit-keyframes music_5 {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translate3d(-10px, -50px, 0);
+    }
+}
+
+@-webkit-keyframes music_6 {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        -webkit-transform: translate3d(0, -30px, 0);
+    }
+}
+
+@-webkit-keyframes ScalingLeft {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate(-100%, 100%) scale(6);
+    }
+    100% {
+        opacity: 0.99;
+        -webkit-transform: translate(0, 0) scale(1);
+    }
+}
+
+@-webkit-keyframes ScalingRight {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate(100%, -100%) scale(6);
+    }
+    100% {
+        opacity: 0.99;
+        -webkit-transform: translate(0, 0) scale(1);
+    }
+}
+
+@-webkit-keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        -webkit-transform: translateY(0)
+    }
+    40% {
+        -webkit-transform: translateY(-10px)
+    }
+    60% {
+        -webkit-transform: translateY(-5px)
+    }
+}

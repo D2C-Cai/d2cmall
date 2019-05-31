@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <context:component-scan base-package="com.codingapi.tx"/>
+
+    <import resource="classpath:spring-rw-mybatis.xml"/>
+
+    <bean id="masterDataSource" parent="parentDataSource" init-method="init"
+          destroy-method="close">
+        <property name="url" value="${log.master.jdbc.url}"/>
+        <property name="username" value="${log.master.jdbc.username}"/>
+        <property name="password" value="${log.master.jdbc.password}"/>
+    </bean>
+
+    <bean id="slave1DataSource" parent="parentDataSource" init-method="init"
+          destroy-method="close">
+        <property name="url" value="${log.slave1.jdbc.url}"/>
+        <property name="username" value="${log.slave1.jdbc.username}"/>
+        <property name="password" value="${log.slave1.jdbc.password}"/>
+        <property name="defaultReadOnly" value="true"/>
+    </bean>
+
+    <bean id="slave2DataSource" parent="parentDataSource" init-method="init"
+          destroy-method="close">
+        <property name="url" value="${log.slave2.jdbc.url}"/>
+        <property name="username" value="${log.slave2.jdbc.username}"/>
+        <property name="password" value="${log.slave2.jdbc.password}"/>
+        <property name="defaultReadOnly" value="true"/>
+    </bean>
+
+</beans>

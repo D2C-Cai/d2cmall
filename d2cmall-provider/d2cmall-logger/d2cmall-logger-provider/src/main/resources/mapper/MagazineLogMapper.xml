@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.MagazineLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.MagazineLog">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="memberId" column="member_id"/>
+        <result property="magazineId" column="magazine_id"/>
+        <result property="magazineName" column="magazine_name"/>
+        <result property="magazineCode" column="magazine_code"/>
+        <result property="magazinePic" column="magazine_pic"/>
+    </resultMap>
+
+    <insert id="doInsert" parameterType="com.d2c.logger.model.MagazineLog"
+            useGeneratedKeys="true" keyProperty="id">
+		REPLACE INTO log_magazine
+		(create_date,member_id,magazine_id,magazine_name,magazine_code,magazine_pic)
+		VALUES
+		(now(),#{memberId},#{magazineId},#{magazineName},#{magazineCode},#{magazinePic})
+	</insert>
+
+    <select id="findByMemberId" resultMap="baseMap">
+		SELECT * FROM log_magazine WHERE member_id=#{memberId}
+		ORDER BY create_date DESC
+		LIMIT #{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="countByMemberId" resultType="int">
+		SELECT COUNT(*) FROM log_magazine WHERE member_id=#{memberId}
+	</select>
+
+</mapper>

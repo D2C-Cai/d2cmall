@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.product.dao.BargainPromotionMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.BargainPromotion">
+        <result property="name" column="name"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="beginDate" column="begin_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="mark" column="mark"/>
+        <result property="actualMan" column="actual_man"/>
+        <result property="sort" column="sort"/>
+        <result property="virtualMan" column="virtual_man"/>
+        <result property="description" column="description"/>
+        <result property="productId" column="product_id"/>
+        <result property="minPrice" column="min_price"/>
+        <result property="sharePic" column="share_pic"/>
+        <result property="shareTitle" column="share_title"/>
+        <result property="shareDes" column="share_des"/>
+        <result property="id" column="id"/>
+        <result property="coverPic" column="cover_pic"/>
+        <result property="limit" column="limit"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        select * from o_bargain_promotion where 1=1 and mark!=-1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        order by sort desc ,create_date desc
+        <if test="page!=null">
+            LIMIT
+            #{page.startNumber},#{page.pageSize}
+        </if>
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        select count(*) from o_bargain_promotion where 1=1 and mark!=-1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <update id="updateSort">
+		update o_bargain_promotion set
+		sort=#{sort},modify_date=now() where id=#{id}
+	</update>
+
+    <update id="updateMark">
+		update o_bargain_promotion set
+		mark=#{mark},modify_date=now()  ,last_modify_man=#{operator} where id=#{id}
+	</update>
+
+    <sql id="Searcher">
+        <if test="searcher.name!=null and searcher.name!=''">
+            and name Like CONCAT('%',#{searcher.name},'%')
+        </if>
+        <if test="searcher.promotionStatus!=null">
+            <!-- 即将开始 -->
+            <if test="searcher.promotionStatus==0">
+                and begin_date &gt; now()
+            </if>
+            <!-- 进行中 -->
+            <if test="searcher.promotionStatus==1">
+                and begin_date &lt;=now()
+                and end_date &gt;=now()
+            </if>
+            <!-- 已结束 -->
+            <if test="searcher.promotionStatus==-1">
+                and end_date &lt;now()
+            </if>
+        </if>
+        <if test="searcher.mark!=null">
+            and mark=#{searcher.mark}
+        </if>
+    </sql>
+
+    <update id="addCount">
+		update o_bargain_promotion set
+		actual_man=actual_man+1,modify_date=now() where id=#{id}
+	</update>
+
+</mapper>

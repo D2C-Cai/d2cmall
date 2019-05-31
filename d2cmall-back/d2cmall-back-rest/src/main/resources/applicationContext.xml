@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd"
+       default-autowire="byName">
+
+    <description>后台支撑系统</description>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="1"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:conf/app.properties</value>
+                <value>file:///${user.home}/conf/*.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <context:component-scan base-package="com.d2c">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <import resource="classpath:spring-activemq.xml"/>
+
+
+    <!-- 微信公众号相关 -->
+    <bean id="weixinGzOauthClient" class="com.d2c.member.third.oauth.WeixinGzOauthClient">
+        <property name="WEIXIN_GZ_APPKEY" value="${WEIXIN_GZ_APPKEY}"/>
+        <property name="WEIXIN_GZ_APPSECRET" value="${WEIXIN_GZ_APPSECRET}"/>
+        <property name="WEIXIN_GZ_CALLBACK" value="${WEIXIN_GZ_CALLBACK}"/>
+    </bean>
+
+    <!-- 内存缓存 -->
+    <bean id="cacheTimerHandler" class="com.d2c.common.core.cache.old.CacheTimerHandler"
+          init-method="init">
+        <property name="defaultValidateTime" value="2"/>
+    </bean>
+
+</beans>

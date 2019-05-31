@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.product.dao.ProductTagMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.ProductTag">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name"/>
+        <result property="fixed" column="fixed"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="type" column="type"/>
+        <result property="sort" column="sort"/>
+    </resultMap>
+
+    <select id="findByProductId" resultMap="baseMap">
+		SELECT * FROM p_product_tag
+		WHERE id IN
+		(SELECT tag_id FROM p_product_tag_relation WHERE
+		product_id=#{productId})
+		ORDER
+		BY create_date DESC
+	</select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT COUNT(*) FROM p_product_tag WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT * FROM p_product_tag WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND name =#{searcher.name}
+        </if>
+        <if test="searcher.type!=null and searcher.type!=''">
+            AND type=#{searcher.type}
+        </if>
+    </sql>
+
+    <delete id="delete">
+    	DELETE FROM p_product_tag WHERE id=#{id}
+ 	</delete>
+
+    <update id="updateStatus">
+		UPDATE p_product_tag SET status=#{status},
+		modify_date=NOW()
+		WHERE id=#{id}
+	</update>
+
+    <select id="countSynProductTags" resultType="int">
+		SELECT count(*) FROM p_product_tag r 
+		where r.modify_date &gt; #{lastSysDate}
+	</select>
+
+    <select id="findSynProductTags" resultMap="baseMap">
+		SELECT * FROM
+		p_product_tag r where r.modify_date &gt; #{lastSysDate}
+		LIMIT #{pager.startNumber},#{pager.pageSize} 
+	</select>
+
+    <select id="findByType" resultMap="baseMap">
+		SELECT * FROM p_product_tag WHERE type=#{type} AND status=1 ORDER BY sort DESC
+	</select>
+
+    <update id="updateSort">
+		UPDATE p_product_tag SET sort=#{sort},modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <select id="findByIds" resultMap="baseMap">
+        SELECT * FROM p_product_tag WHERE id IN
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="findOneFixByType" resultMap="baseMap">
+		SELECT * FROM p_product_tag WHERE type=#{type} ORDER BY sort DESC LIMIT 0,1
+	</select>
+</mapper>

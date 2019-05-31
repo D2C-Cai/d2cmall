@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.d2c.content.dao.ProductReportMapper">
+    <resultMap type="com.d2c.content.model.ProductReport" id="baseMap">
+        <result property="content" column="content"/>
+        <result property="pic" column="pic"/>
+        <result property="status" column="status"/>
+        <result property="productId" column="product_id"/>
+        <result property="productName" column="product_name"/>
+        <result property="memberId" column="member_id"/>
+        <result property="submitDate" column="submit_date"/>
+        <result property="verifyDate" column="verify_date"/>
+        <result property="verifyReason" column="verify_reason"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="id" column="id"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="createDate" column="create_date"/>
+        <result property="productImg" column="product_img"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="verifyMan" column="verify_man"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <sql id="searcher">
+        <if test="searcher.memberId!=null">
+            AND member_id =#{searcher.memberId}
+        </if>
+        <if test="searcher.loginCode!=null and searcher.loginCode!=''">
+            AND login_code =#{searcher.loginCode}
+        </if>
+        <if test="searcher.status!=null ">
+            AND status =#{searcher.status}
+        </if>
+        <if test="searcher.nickName!=null and searcher.nickName!=''">
+            AND nick_name =#{searcher.nickName}
+        </if>
+        <if test="searcher.productName!=null and searcher.productName!=''">
+            AND product_name =#{searcher.productName}
+        </if>
+        <if test="searcher.submitStartDate!=null ">
+            AND submit_date &gt;=#{searcher.submitStartDate}
+        </if>
+        <if test="searcher.submitEndDate!=null">
+            AND submit_date &lt;=#{searcher.submitEndDate}
+        </if>
+
+        <if test="searcher.verifyStartDate!=null ">
+            AND verify_date &gt;=#{searcher.verifyStartDate}
+        </if>
+        <if test="searcher.verifyEndDate!=null ">
+            AND verify_date &lt;=#{searcher.verifyEndDate}
+        </if>
+    </sql>
+
+    <select id="countBySearcher" resultType="int">
+        select count(*) from v_product_report where 1=1 and deleted=0
+        <if test="searcher!=null">
+            <include refid="searcher"/>
+        </if>
+    </select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        select * from v_product_report where 1=1 and deleted=0
+        <if test="searcher!=null">
+            <include refid="searcher"/>
+        </if>
+        order by submit_date DESC
+        <if test="page != null">
+            LIMIT #{page.startNumber}, #{page.pageSize}
+        </if>
+    </select>
+
+    <update id="doRefuse">
+		update v_product_report set
+		status=-1,verify_reason=#{verifyReason},verify_man=#{operator},verify_date=now()
+		where
+		id=#{id} and status=1
+	</update>
+
+    <update id="doVerify">
+		update v_product_report set
+		status=2,verify_reason=#{verifyReason},verify_man=#{operator},verify_date=now()
+		where
+		id=#{id} and status=1
+	</update>
+
+    <update id="cancelSumbit">
+		update v_product_report set
+		status=0,last_modify_man=#{operator}
+		where
+		id=#{id} and status=1
+	</update>
+
+    <update id="updateReport">
+		update v_product_report set
+		status=1,content=#{report.content},pic=#{report.pic},submit_date=now(),last_modify_man=#{report.loginCode}
+		where
+		id=#{report.id} and status in(0,-1)
+	</update>
+
+    <update id="deleteById">
+		update v_product_report set deleted=1,
+		last_modify_man=#{operator} where id=#{id}
+	</update>
+
+    <delete id="customerDelete">
+		delete from v_product_report where id=#{id}
+	</delete>
+
+    <update id="updatePic">
+		update v_product_report set
+		pic=#{pic}
+		where
+		id=#{id} and status=1
+	</update>
+
+</mapper>

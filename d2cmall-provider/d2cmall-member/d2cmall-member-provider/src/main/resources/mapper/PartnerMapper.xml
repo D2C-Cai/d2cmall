@@ -1,0 +1,456 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.PartnerMapper">
+    <resultMap type="com.d2c.member.model.Partner" id="baseMap">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="status" column="status"/>
+        <result property="level" column="level"/>
+        <result property="contract" column="contract"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="name" column="name"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="memberId" column="member_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="oldParentId" column="old_parent_id"/>
+        <result property="storeId" column="store_id"/>
+        <result property="masterId" column="master_id"/>
+        <result property="counselorId" column="counselor_id"/>
+        <result property="balanceAmount" column="balance_amount"/>
+        <result property="memo" column="memo"/>
+        <result property="expiredDate" column="expired_date"/>
+        <result property="firstDate" column="first_date"/>
+        <result property="consumeDate" column="consume_date"/>
+        <result property="counselorDate" column="counselor_date"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="cashAmount" column="cash_amount"/>
+        <result property="applyAmount" column="apply_amount"/>
+        <result property="totalOrderAmount" column="total_order_amount"/>
+        <result property="region" column="region"/>
+        <result property="realName" column="real_name"/>
+        <result property="identityCard" column="identity_card"/>
+        <result property="alipay" column="alipay"/>
+        <result property="weixin" column="weixin"/>
+        <result property="openId" column="open_id"/>
+        <result property="appId" column="app_id"/>
+        <result property="bank" column="bank"/>
+        <result property="bankType" column="bank_type"/>
+        <result property="bankSn" column="bank_sn"/>
+        <result property="address" column="address"/>
+        <result property="occupation" column="occupation"/>
+        <result property="experience" column="experience"/>
+        <result property="birthday" column="birthday"/>
+        <result property="weixinCount" column="weixin_count"/>
+        <result property="weiboCount" column="weibo_count"/>
+        <result property="consumption" column="consumption"/>
+        <result property="matrimony" column="matrimony"/>
+        <result property="license" column="license"/>
+        <result property="licenseNum" column="license_num"/>
+        <result property="company" column="company"/>
+        <result property="storeMark" column="store_mark"/>
+        <result property="tags" column="tags"/>
+        <result property="giftCount" column="gift_count"/>
+        <result property="pointCount" column="point_count"/>
+        <result property="prestore" column="prestore"/>
+        <result property="path" column="path"/>
+        <result property="upgrade" column="upgrade"/>
+        <result property="withdraw" column="withdraw"/>
+        <result property="lastLoginDate" column="last_login_date"/>
+    </resultMap>
+
+    <select id="findByLoginCode" resultMap="baseMap">
+		SELECT * FROM m_partner
+		WHERE login_code=#{loginCode}
+	</select>
+
+    <select id="findByMemberId" resultMap="baseMap">
+		SELECT * FROM m_partner
+		WHERE member_id=#{memberId}
+	</select>
+
+    <select id="findContract" resultMap="baseMap">
+		SELECT * FROM m_partner
+		WHERE identity_card=#{identityCard} AND contract=1
+		LIMIT 0,1
+	</select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM m_partner WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date DESC
+        <if test="pager != null">
+            LIMIT #{pager.startNumber}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT count(*) FROM m_partner WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.level!=null">
+            AND level =#{searcher.level}
+        </if>
+        <if test="searcher.loginCode!=null and searcher.loginCode!=''">
+            AND login_code =#{searcher.loginCode}
+        </if>
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND name =#{searcher.name}
+        </if>
+        <if test="searcher.status!=null">
+            AND status =#{searcher.status}
+        </if>
+        <if test="searcher.memberId!=null">
+            AND member_id =#{searcher.memberId}
+        </if>
+        <if test="searcher.createDateStart!=null">
+            AND create_date &gt;= #{searcher.createDateStart}
+        </if>
+        <if test="searcher.createDateEnd!=null">
+            AND create_date &lt;= #{searcher.createDateEnd}
+        </if>
+        <if test="searcher.counselorDateStart!=null">
+            AND counselor_date &gt;= #{searcher.counselorDateStart}
+        </if>
+        <if test="searcher.counselorDateEnd!=null">
+            AND counselor_date &lt;= #{searcher.counselorDateEnd}
+        </if>
+        <if test="searcher.parentId!=null">
+            AND parent_id =#{searcher.parentId}
+        </if>
+        <if test="searcher.masterId!=null">
+            AND master_id =#{searcher.masterId}
+        </if>
+        <if test="searcher.counselorId!=null">
+            AND counselor_id =#{searcher.counselorId}
+        </if>
+        <if test="searcher.partnerId!=null">
+            AND id =#{searcher.partnerId}
+        </if>
+        <if test="searcher.totalOrderAmount!=null">
+            AND total_order_amount &gt;=#{searcher.totalOrderAmount}
+        </if>
+        <if test="searcher.consume!=null and searcher.consume==0">
+            AND consume_date IS NULL
+        </if>
+        <if test="searcher.consume!=null and searcher.consume==1">
+            AND consume_date IS NOT NULL
+        </if>
+        <if test="searcher.storeMark!=null">
+            AND store_mark=#{searcher.storeMark}
+        </if>
+        <if test="searcher.tags!=null and searcher.tags!=''">
+            AND tags=#{searcher.tags}
+        </if>
+        <if test="searcher.realName!=null and searcher.realName!=''">
+            AND real_name=#{searcher.realName}
+        </if>
+        <if test="searcher.lastLoginDateEnd!=null">
+            AND last_login_date &lt;=#{searcher.lastLoginDateEnd}
+        </if>
+    </sql>
+
+    <select id="findExpired" resultMap="baseMap">
+        SELECT * FROM m_partner
+        WHERE level=2 AND status=0
+        AND expired_date &lt;= NOW()
+        ORDER BY create_date DESC
+        <if test="pager != null">
+            LIMIT #{pager.startNumber}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countExpired" resultType="int">
+		SELECT count(*) FROM m_partner
+		WHERE level=2 AND status=0
+		AND expired_date &lt;= NOW()
+	</select>
+
+    <select id="findVaildIds" resultType="Long">
+		SELECT parent_id FROM m_partner 
+		WHERE total_order_amount &gt; 1000 
+		GROUP BY parent_id HAVING COUNT(parent_id) &gt;=30
+	</select>
+
+    <select id="countChildrenGroup" resultType="hashMap">
+		SELECT `level`,`status`,COUNT(id) as count 
+		FROM m_partner 
+		WHERE ${rid}=#{id} AND `level` IN(1,2) 
+		GROUP BY `level`,`status`
+	</select>
+
+    <select id="countChildrenToday" resultType="hashMap">
+        SELECT `level`,COUNT(id) as count
+        FROM m_partner
+        WHERE ${rid}=#{id} AND `level` IN(1,2)
+        <if test="startDate != null">
+            AND create_date &gt;= #{startDate}
+        </if>
+        <if test="endDate != null">
+            AND create_date &lt;= #{endDate}
+        </if>
+        GROUP BY `level`
+    </select>
+
+    <select id="findCountGroupByLevel" resultType="hashMap">
+        SELECT `level`,COUNT(id) as count
+        FROM m_partner
+        WHERE `status`&gt;=0
+        <if test="beginDate!=null">
+            AND create_date &gt;= #{beginDate}
+        </if>
+        <if test="endDate!=null">
+            AND create_date &lt;= #{endDate}
+        </if>
+        GROUP BY `level`
+    </select>
+
+    <select id="findCountGroupByStatus" resultType="hashMap">
+		SELECT `status`,COUNT(id) as count 
+		FROM m_partner 
+		GROUP BY `status`
+	</select>
+
+    <update id="updateFirstDate">
+		UPDATE m_partner 
+		SET first_date=#{date}, modify_date=NOW()
+		WHERE id=#{id} AND first_date IS NULL
+	</update>
+
+    <update id="updateConsumeDate">
+		UPDATE m_partner 
+		SET consume_date=#{date}, modify_date=NOW()
+		WHERE id =#{id}
+	</update>
+
+    <update id="updateStatus">
+        UPDATE m_partner SET
+        status=#{status},last_modify_man=#{name}
+        <if test="status==-1">
+            ,level=2
+        </if>
+        WHERE id=#{id}
+    </update>
+
+    <update id="doChangeMobile">
+		UPDATE m_partner
+		SET login_code=#{newMobile},
+		modify_date=now()
+		WHERE member_id=#{memberId}
+	</update>
+
+    <update id="doRebate">
+		UPDATE m_partner SET
+		total_amount=total_amount+#{amount},
+		total_order_amount=total_order_amount+#{actualAmount},
+		modify_date=NOW()
+		WHERE id=#{id}
+	</update>
+
+    <update id="doAward">
+		UPDATE m_partner SET
+		total_amount=total_amount+#{amount},
+		modify_date=NOW(),last_login_date=NOW()
+		WHERE id=#{id}
+	</update>
+
+    <update id="doGift">
+		UPDATE m_partner SET
+		total_amount=total_amount+#{amount}, modify_date=NOW()
+		WHERE id=#{id}
+	</update>
+
+    <update id="doApplyCash">
+        UPDATE m_partner SET
+        <if test="direction==1">
+            apply_amount=apply_amount+#{amount}
+        </if>
+        <if test="direction==-1">
+            apply_amount=apply_amount-#{amount}
+        </if>
+        WHERE id=#{id}
+    </update>
+
+    <update id="doWithdCash">
+		UPDATE m_partner SET
+		cash_amount=cash_amount+#{amount}
+		,apply_amount=apply_amount-#{applyAmount}
+		,modify_date=NOW() 
+		WHERE id=#{id}
+	</update>
+
+    <update id="doBindCounselor">
+		UPDATE m_partner SET
+		counselor_id = #{counselorId}, counselor_date=NOW(), modify_date=NOW() 
+		WHERE id=#{id}
+	</update>
+
+    <update id="doContract">
+		UPDATE m_partner SET contract=#{contract}, modify_date=NOW() 
+		WHERE id=#{id} 
+	</update>
+
+    <update id="updateParentId">
+		UPDATE m_partner SET
+		parent_id=#{parentId}
+		,modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <update id="updateStoreId">
+		UPDATE m_partner SET
+		store_id=#{storeId}
+		,modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <update id="updateLevel">
+		UPDATE m_partner SET
+		level=#{level}
+		,modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <update id="updateOpenId">
+		UPDATE m_partner SET
+		open_id=#{openId}
+		,modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <update id="doSeparate">
+		UPDATE m_partner p
+		SET parent_id=null
+		,modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <update id="cancelParentMaster">
+		UPDATE m_partner p
+		SET parent_id=null,master_id=null
+		,modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <update id="doRefreshHeadPic">
+        UPDATE m_partner SET
+        <if test="headPic!=null and headPic!=''">
+            head_pic=#{headPic},
+        </if>
+        name=#{nickName},modify_date=NOW() WHERE member_id=#{memberInfoId}
+    </update>
+
+    <update id="doDelete">
+		UPDATE m_partner SET
+		login_code=CONCAT(login_code,'#',UNIX_TIMESTAMP()), 
+		status=-9, modify_date=now()
+		WHERE login_code =#{loginCode}
+	</update>
+
+    <update id="doWithhold">
+		UPDATE m_partner SET 
+		total_amount=total_amount-#{amount}
+		,modify_date=NOW() 
+		WHERE id=#{id}
+	</update>
+
+    <select id="findCancelRemind" resultMap="baseMap">
+		SELECT * FROM m_partner WHERE 1=1
+		AND level=2 AND status=0
+		AND TO_DAYS(expired_date)-TO_DAYS(NOW())=#{intervalDays}
+	</select>
+
+    <select id="findOpenIdByMemberId" resultType="string">
+        SELECT open_id FROM m_partner WHERE `status` &gt;=0 AND open_id IS NOT NULL
+        <if test="memberIds!=null">
+            <foreach collection="memberIds" index="index" item="memberId" open="and member_id in(" separator=","
+                     close=")">
+                #{memberId}
+            </foreach>
+        </if>
+    </select>
+
+    <select id="findTags" resultType="string">
+		SELECT DISTINCT tags FROM m_partner WHERE tags IS NOT null
+	</select>
+
+    <update id="updateTags">
+		UPDATE m_partner SET modify_date=NOW(), tags=#{tags} WHERE id=#{id}
+	</update>
+
+    <update id="updateGiftCount">
+		UPDATE m_partner SET modify_date=NOW(), gift_count=gift_count+#{count}, point_count=point_count+100*#{count}
+		WHERE id=#{id}
+	</update>
+
+    <update id="updatePrestore">
+		UPDATE m_partner SET modify_date=NOW(), prestore=prestore+#{count}
+		WHERE id=#{id}
+	</update>
+
+    <update id="cancelPrestore">
+		UPDATE m_partner SET modify_date=NOW(), prestore=0
+		WHERE id=#{id}
+	</update>
+
+    <update id="updatePath">
+		UPDATE m_partner SET modify_date=NOW(), path=#{path}
+		WHERE id=#{id}
+	</update>
+
+    <select id="findLevelsByIds" resultMap="baseMap">
+        SELECT id,level FROM m_partner
+        WHERE
+        <if test="ids!= null and ids.size &gt; 0">
+            id IN
+            <foreach collection="ids" item="id" index="index"
+                     open="(" close=")" separator=",">
+                <if test="id!=null">
+                    #{id}
+                </if>
+            </foreach>
+        </if>
+        <if test="ids == null or ids.size == 0">
+            id = 0
+        </if>
+        LIMIT 0,100
+    </select>
+
+    <update id="updatePoint">
+        UPDATE m_partner SET modify_date=NOW(),
+        gift_count=gift_count+#{count}, point_count=point_count+100*#{count}
+        WHERE
+        <if test="ids!= null and ids.size &gt; 0">
+            id IN
+            <foreach collection="ids" item="id" index="index"
+                     open="(" close=")" separator=",">
+                <if test="id!=null">
+                    #{id}
+                </if>
+            </foreach>
+        </if>
+        <if test="ids == null or ids.size == 0">
+            id = 0
+        </if>
+    </update>
+
+    <update id="updateUpgrade">
+		UPDATE m_partner SET modify_date=NOW(), upgrade=#{upgrade}
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateWithdraw">
+		UPDATE m_partner SET modify_date=NOW(), withdraw=#{withdraw}
+		WHERE id=#{id}
+	</update>
+
+    <update id="doLogin">
+		UPDATE m_partner SET modify_date=NOW(), last_login_date=NOW()
+		WHERE id=#{id}
+	</update>
+
+</mapper>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.product.dao.SalesPropertyGroupMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.SalesPropertyGroup">
+        <result property="id" column="id"/>
+        <result property="code" column="code"/>
+        <result property="name" column="name"/>
+        <result property="status" column="status"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT d.* FROM p_product_salesproperty_group d
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY d.create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="Integer">
+        SELECT count(*) FROM p_product_salesproperty_group d
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.id!=null">
+            AND d.id=#{searcher.id}
+        </if>
+        <if test="searcher.status!=null">
+            AND d.status=#{searcher.status}
+        </if>
+        <if test="searcher.type!=null">
+            AND d.type=#{searcher.type}
+        </if>
+        <if test="searcher.title!=null and searcher.title!=''">
+            AND d.title LIKE CONCAT('%',#{searcher.title},'%')
+        </if>
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND d.name LIKE CONCAT('%',#{searcher.name},'%')
+        </if>
+        <if test="searcher.code!=null and searcher.code!=''">
+            AND d.code=#{searcher.code}
+        </if>
+    </sql>
+
+    <update id="updateStatus">
+		UPDATE p_product_salesproperty_group SET status=#{status} WHERE id=#{id}
+	</update>
+
+    <select id="findNameById" resultType="String">
+        SELECT s.title FROM p_product_salesproperty_group s
+        WHERE s.id=#{id}
+    </select>
+
+</mapper>

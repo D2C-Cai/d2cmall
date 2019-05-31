@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.BossDeviceMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.BossDevice">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="memberId" column="member_id"/>
+        <result property="clientId" column="client_id"/>
+        <result property="app" column="app"/>
+        <result property="version" column="version"/>
+        <result property="device" column="device"/>
+        <result property="os" column="os"/>
+        <result property="ip" column="ip"/>
+    </resultMap>
+
+    <insert id="doInsert" parameterType="com.d2c.logger.model.BossDevice"
+            useGeneratedKeys="true" keyProperty="id">
+		REPLACE INTO device_boss
+		(create_date,member_id,app,version,device,os,ip,client_id)
+		VALUES
+		(now(),#{memberId},#{app},#{version},#{device},#{os},#{ip},#{clientId})
+	</insert>
+
+    <select id="findByMemberId" resultMap="baseMap">
+		SELECT * FROM
+		device_boss WHERE member_id=#{memberId}
+		LIMIT 0,1
+	</select>
+
+</mapper>

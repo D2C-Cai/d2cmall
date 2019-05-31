@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.report.dao.FinanceOnlineDailyAmountMapper">
+    <resultMap id="onlineMap" type="com.d2c.report.model.FinanceOnlineDailyAmount">
+        <result property="calculateDate" column="calculate_date"/>
+        <result property="receivableAmount" column="receivable_amount"/>
+        <result property="deliveryAmount" column="delivery_amount"/>
+        <result property="refundAmount" column="refund_amount"/>
+        <result property="balanceAmount" column="balance_amount"/>
+        <result property="preAmount" column="pre_amount"/>
+        <result property="paymentType" column="payment_type"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="reshipAmount" column="reship_amount"/>
+    </resultMap>
+
+    <sql id="Searcher">
+        <if test="searcher.year!=null">
+            and Year(calculate_date)=#{searcher.year}
+        </if>
+        <if test="searcher.month!=null">
+            AND month(calculate_date)=#{searcher.month}
+        </if>
+        <if test="searcher.paymentType!=null">
+            And payment_type=#{searcher.paymentType}
+        </if>
+    </sql>
+
+    <select id="countOnlineBySearcher" resultType="int">
+        select count(id) from rp_online_amount where 1=1
+        and
+        payment_type!=3
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        limit 0,1
+    </select>
+
+    <select id="findOnlineBySearcher" resultMap="onlineMap">
+        select * from rp_online_amount where 1=1 and
+        payment_type!=3
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        order by calculate_date desc
+        limit #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <select id="findLastOne" resultMap="onlineMap">
+		select * from
+		rp_online_amount order by calculate_date desc limit 0,1
+	</select>
+
+</mapper>

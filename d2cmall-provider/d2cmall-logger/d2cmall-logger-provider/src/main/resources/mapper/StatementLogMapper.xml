@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.StatementLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.StatementLog">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_mMan"/>
+        <result property="logType" column="log_type"/>
+        <result property="info" column="info"/>
+        <result property="statementId" column="statement_id"/>
+        <result property="statementItemId" column="statement_item_id"/>
+    </resultMap>
+
+    <select id="findByStatementId" resultMap="baseMap">
+        select * from log_statement
+        where statement_id=#{id}
+        <if test="logType!=null and logType!=''">
+            AND log_type=#{logType}
+        </if>
+        order by create_date desc
+    </select>
+
+</mapper>

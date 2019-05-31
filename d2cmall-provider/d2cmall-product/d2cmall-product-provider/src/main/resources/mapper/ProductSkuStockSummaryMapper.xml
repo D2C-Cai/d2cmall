@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.product.dao.ProductSkuStockSummaryMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.ProductSkuStockSummary">
+        <result property="id" column="id"/>
+        <result property="productId" column="product_id"/>
+        <result property="skuId" column="sku_id"/>
+        <result property="sfStock" column="sf_stock"/>
+        <result property="stStock" column="st_stock"/>
+        <result property="barCode" column="bar_code"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="status" column="status"/>
+        <result property="sp1" column="sp1"/>
+        <result property="sp2" column="sp2"/>
+    </resultMap>
+
+    <resultMap id="stockMap" type="com.d2c.product.dto.ProductSkuStockDto">
+        <result property="designerId" column="designer_id"/>
+        <result property="brandName" column="brand_name"/>
+        <result property="inernalSn" column="inernal_sn"/>
+        <result property="externalSn" column="external_sn"/>
+        <result property="barCode" column="bar_code"/>
+        <result property="sp1" column="sp1"/>
+        <result property="sp2" column="sp2"/>
+        <result property="name" column="name"/>
+        <result property="stock" column="stock"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <update id="initSfStock">
+		UPDATE product_sku_stock_summary SET sf_stock=0;
+	</update>
+
+    <update id="sumSfStock">
+		UPDATE product_sku_stock_summary a,product_sku_stock
+		b SET a.sf_stock=b.stock WHERE a.bar_code=b.bar_code AND
+		b.store_code='0000';
+	</update>
+
+    <update id="initStStock">
+		UPDATE product_sku_stock_summary SET st_stock=0;
+	</update>
+
+    <update id="sumStStock">
+		UPDATE product_sku_stock_summary a SET
+		a.st_stock=(SELECT COALESCE(SUM(stock),0) FROM product_sku_stock WHERE
+		bar_code=a.bar_code AND store_code!='0000');
+	</update>
+
+    <select id="findBySkuId" resultMap="baseMap">
+		SELECT * FROM
+		product_sku_stock_summary WHERE sku_id=#{skuId}
+	</select>
+
+    <select id="findByProductId" resultMap="baseMap">
+		SELECT * FROM
+		product_sku_stock_summary WHERE product_id=#{productId} AND status
+		&gt;= 0
+	</select>
+
+    <select id="findBySearch" resultMap="stockMap">
+        SELECT *
+        FROM productskustock
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        <if test="pager!=null">
+            LIMIT #{pager.startNumber}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countBySearch" resultType="Integer">
+        SELECT COUNT(*) FROM productskustock
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher != null">
+            <if test="searcher.designerId != null">
+                AND designer_id = #{searcher.designerId}
+            </if>
+        </if>
+        <if test="searcher.designerIds!= null and searcher.designerIds.size &gt; 0">
+            AND designer_id IN
+            <foreach collection="searcher.designerIds" item="designerId"
+                     index="index" open="(" close=")" separator=",">
+                #{designerId}
+            </foreach>
+        </if>
+        <if test="searcher.inernalSn!=null and searcher.inernalSn!=''">
+            AND inernal_sn=#{searcher.inernalSn}
+        </if>
+        <if test="searcher.storeName!=null and searcher.storeName!=''">
+            AND name =#{searcher.storeName}
+        </if>
+        <if test="searcher.stocked == 1">
+            AND stock &gt;0
+        </if>
+        <if test="searcher.stocked == 0">
+            AND stock &lt;=0
+        </if>
+    </sql>
+
+    <update id="updateSkuBySkuId">
+		UPDATE product_sku_stock_summary SET
+		bar_code=#{barCode},sp1=#{sp1},sp2=#{sp2} where
+		sku_id=#{skuId}
+	</update>
+
+    <update id="delete">
+		UPDATE product_sku_stock_summary SET status=-1 WHERE
+		sku_id=#{id}
+	</update>
+
+</mapper>

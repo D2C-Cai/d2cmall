@@ -1,0 +1,45 @@
+.item-element {
+    float: left;
+    position: relative;
+    width: 30%;
+    text-align: center;
+    margin: 2.5% 0 2.5% 2.5%;
+    background: #F2F2F2;
+    font-size: .875em;
+}
+
+.item-element .item-name {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    line-height: 4em;
+    text-align: center;
+    color: #FFF;
+}
+
+.item-gap {
+    margin: .5em;
+    padding: .8em;
+    background: #FFF;
+}
+
+.item-img {
+    width: 5em;
+    height: 8em;
+    margin-right: 5%;
+}
+
+.item-cont {
+    flex: 4;
+}
+
+.item-title {
+    height: 4em;
+    margin-bottom: 1.5em;
+    overflow: hidden;
+}
+
+.item-info {
+    font-size: .8em;
+}

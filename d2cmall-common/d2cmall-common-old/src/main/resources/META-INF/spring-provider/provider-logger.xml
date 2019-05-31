@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- - Copyright 1999-2011 Alibaba Group. - - Licensed under the Apache License, 
+	Version 2.0 (the "License"); - you may not use this file except in compliance 
+	with the License. - You may obtain a copy of the License at - - http://www.apache.org/licenses/LICENSE-2.0 
+	- - Unless required by applicable law or agreed to in writing, software - 
+	distributed under the License is distributed on an "AS IS" BASIS, - WITHOUT 
+	WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. - See the 
+	License for the specific language governing permissions and - limitations 
+	under the License. -->
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo" xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+	http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+	http://code.alibabatech.com/schema/dubbo
+	http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <description>消息模块</description>
+    <dubbo:service interface="com.d2c.logger.service.AccountLogService"
+                   ref="accountLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.ErrorLogService"
+                   ref="errorLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.ExchangeLogService"
+                   ref="exchangeLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.ExportLogService"
+                   ref="exportLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.OrderLogService"
+                   ref="orderLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.ProductLogService"
+                   ref="productLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.BrandLogService"
+                   ref="brandLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.RecommendLogService"
+                   ref="recommendLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.RefundLogService"
+                   ref="refundLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.RequisitionLogService"
+                   ref="requisitionLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.ReshipLogService"
+                   ref="reshipLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.ShareLogService"
+                   ref="shareLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.SkuOperateLogService"
+                   ref="skuOperateLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.StatementLogService"
+                   ref="statementLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.UserOperateLogService"
+                   ref="userOperateLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.DiscountSettingLogService"
+                   ref="discountSettingLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.BurgeonErrorLogService"
+                   ref="burgeonErrorLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.CompensationLogService"
+                   ref="compensationLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.DesignersLogService"
+                   ref="designersLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.ProductReportLogService"
+                   ref="productReportLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.MagazineLogService"
+                   ref="magazineLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.PartnerLogService"
+                   ref="partnerLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.GuanyiSkuStockLogService"
+                   ref="guanyiSkuStockLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.AwardRabateLogService"
+                   ref="awardRabateLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.MemberStoreLogService"
+                   ref="memberStoreLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.KaolaOrderErrorLogService"
+                   ref="kaolaOrderErrorLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.CaomeiOrderErrorLogService"
+                   ref="caomeiOrderErrorLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.CollageOrderLogService"
+                   ref="collageOrderLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+    <dubbo:service interface="com.d2c.logger.service.LoginLogService"
+                   ref="loginLogService">
+        <dubbo:method name="insert" async="true"/>
+    </dubbo:service>
+
+    <dubbo:service interface="com.d2c.logger.service.MsgUniteService"
+                   ref="msgUniteService" async="true"/>
+    <dubbo:service interface="com.d2c.logger.service.MsgPushService"
+                   ref="msgPushService" async="true"/>
+    <dubbo:service interface="com.d2c.logger.service.WeixinPushService"
+                   ref="weixinPushService" async="true"/>
+    <dubbo:service interface="com.d2c.logger.service.EmailLogService"
+                   ref="emailLogService" async="true"/>
+    <dubbo:service interface="com.d2c.logger.service.EmailService"
+                   ref="emailService" async="true"/>
+    <dubbo:service interface="com.d2c.logger.service.SmsLogService"
+                   ref="smsLogService" async="true"/>
+    <dubbo:service interface="com.d2c.logger.service.SmsService"
+                   ref="smsService" async="true"/>
+    <dubbo:service interface="com.d2c.logger.service.SignatureService"
+                   ref="signatureService"/>
+
+    <dubbo:service interface="com.d2c.logger.service.BossDeviceService"
+                   ref="bossDeviceService"/>
+    <dubbo:service interface="com.d2c.logger.service.MemberDeviceService"
+                   ref="memberDeviceService"/>
+    <dubbo:service interface="com.d2c.logger.service.MemberSearchKeyService"
+                   ref="memberSearchKeyService"/>
+    <dubbo:service interface="com.d2c.logger.service.MemberSearchSumService"
+                   ref="memberSearchSumService"/>
+    <dubbo:service interface="com.d2c.logger.service.MessageDefService"
+                   ref="messageDefService"/>
+    <dubbo:service interface="com.d2c.logger.service.MessageService"
+                   ref="messageService"/>
+    <dubbo:service interface="com.d2c.logger.service.PopMessageService"
+                   ref="popMessageService"/>
+    <dubbo:service interface="com.d2c.logger.service.TemplateService"
+                   ref="templateService"/>
+    <dubbo:service interface="com.d2c.logger.service.UpyunTaskService"
+                   ref="upyunTaskService"/>
+    <dubbo:service interface="com.d2c.logger.service.RemindService"
+                   ref="remindService"/>
+
+</beans>

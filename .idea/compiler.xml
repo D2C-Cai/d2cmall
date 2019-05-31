@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="d2cmall-back-rest" />
+        <module name="d2cmall-behavior-api" />
+        <module name="d2cmall-behavior-provider" />
+        <module name="d2cmall-common-api" />
+        <module name="d2cmall-common-base" />
+        <module name="d2cmall-common-cache" />
+        <module name="d2cmall-common-core" />
+        <module name="d2cmall-common-math" />
+        <module name="d2cmall-common-mongo" />
+        <module name="d2cmall-common-mq" />
+        <module name="d2cmall-common-mybatis" />
+        <module name="d2cmall-common-old" />
+        <module name="d2cmall-common-search" />
+        <module name="d2cmall-content-api" />
+        <module name="d2cmall-content-provider" />
+        <module name="d2cmall-frame-api" />
+        <module name="d2cmall-frame-back" />
+        <module name="d2cmall-frame-provider" />
+        <module name="d2cmall-frame-web" />
+        <module name="d2cmall-logger-api" />
+        <module name="d2cmall-logger-provider" />
+        <module name="d2cmall-main-openapi" />
+        <module name="d2cmall-main-report" />
+        <module name="d2cmall-main-rest" />
+        <module name="d2cmall-main-web" />
+        <module name="d2cmall-member-api" />
+        <module name="d2cmall-member-provider" />
+        <module name="d2cmall-openapi-api" />
+        <module name="d2cmall-openapi-provider" />
+        <module name="d2cmall-order-api" />
+        <module name="d2cmall-order-provider" />
+        <module name="d2cmall-product-api" />
+        <module name="d2cmall-product-provider" />
+        <module name="d2cmall-report-api" />
+        <module name="d2cmall-report-provider" />
+        <module name="d2cmall-services-quartz" />
+        <module name="d2cmall-similar-api" />
+        <module name="d2cmall-similar-provider" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="d2cmall-back" target="1.8" />
+      <module name="d2cmall-back-rest" target="1.8" />
+      <module name="d2cmall-behavior" target="1.8" />
+      <module name="d2cmall-behavior-api" target="1.8" />
+      <module name="d2cmall-behavior-provider" target="1.8" />
+      <module name="d2cmall-common" target="1.8" />
+      <module name="d2cmall-common-api" target="1.8" />
+      <module name="d2cmall-common-base" target="1.8" />
+      <module name="d2cmall-common-cache" target="1.8" />
+      <module name="d2cmall-common-core" target="1.8" />
+      <module name="d2cmall-common-math" target="1.8" />
+      <module name="d2cmall-common-mongo" target="1.8" />
+      <module name="d2cmall-common-mq" target="1.8" />
+      <module name="d2cmall-common-mybatis" target="1.8" />
+      <module name="d2cmall-common-old" target="1.8" />
+      <module name="d2cmall-common-search" target="1.8" />
+      <module name="d2cmall-content" target="1.8" />
+      <module name="d2cmall-content-api" target="1.8" />
+      <module name="d2cmall-content-provider" target="1.8" />
+      <module name="d2cmall-frame" target="1.8" />
+      <module name="d2cmall-frame-api" target="1.8" />
+      <module name="d2cmall-frame-back" target="1.8" />
+      <module name="d2cmall-frame-provider" target="1.8" />
+      <module name="d2cmall-frame-web" target="1.8" />
+      <module name="d2cmall-logger" target="1.8" />
+      <module name="d2cmall-logger-api" target="1.8" />
+      <module name="d2cmall-logger-provider" target="1.8" />
+      <module name="d2cmall-main" target="1.8" />
+      <module name="d2cmall-main-openapi" target="1.8" />
+      <module name="d2cmall-main-report" target="1.8" />
+      <module name="d2cmall-main-rest" target="1.8" />
+      <module name="d2cmall-main-web" target="1.8" />
+      <module name="d2cmall-member" target="1.8" />
+      <module name="d2cmall-member-api" target="1.8" />
+      <module name="d2cmall-member-provider" target="1.8" />
+      <module name="d2cmall-openapi" target="1.8" />
+      <module name="d2cmall-openapi-api" target="1.8" />
+      <module name="d2cmall-openapi-provider" target="1.8" />
+      <module name="d2cmall-order" target="1.8" />
+      <module name="d2cmall-order-api" target="1.8" />
+      <module name="d2cmall-order-provider" target="1.8" />
+      <module name="d2cmall-parent" target="1.8" />
+      <module name="d2cmall-product" target="1.8" />
+      <module name="d2cmall-product-api" target="1.8" />
+      <module name="d2cmall-product-provider" target="1.8" />
+      <module name="d2cmall-provider" target="1.8" />
+      <module name="d2cmall-report" target="1.8" />
+      <module name="d2cmall-report-api" target="1.8" />
+      <module name="d2cmall-report-provider" target="1.8" />
+      <module name="d2cmall-services" target="1.8" />
+      <module name="d2cmall-services-quartz" target="1.8" />
+      <module name="d2cmall-similar" target="1.8" />
+      <module name="d2cmall-similar-api" target="1.8" />
+      <module name="d2cmall-similar-provider" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

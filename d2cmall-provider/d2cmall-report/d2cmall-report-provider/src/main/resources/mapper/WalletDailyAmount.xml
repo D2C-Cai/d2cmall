@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.report.dao.WalletDailyAmountMapper">
+    <resultMap id="walletMap" type="com.d2c.report.model.WalletDailyAmount">
+        <result property="calculateDate" column="calculate_date"/>
+        <result property="readyAmount" column="ready_amount"/>
+        <result property="readyGiftAmount" column="ready_gift_amount"/>
+        <result property="deliveryAmount" column="delivery_amount"/>
+        <result property="refundAmount" column="refund_amount"/>
+        <result property="refundGiftAmount" column="refund_gift_amount"/>
+        <result property="reshipAmount" column="reship_amount"/>
+        <result property="reshipGiftAmount" column="reship_gift_amount"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <sql id="Searcher">
+        <if test="searcher.year!=null">
+            and Year(calculate_date)=#{searcher.year}
+        </if>
+        <if test="searcher.month!=null">
+            AND month(calculate_date)=#{searcher.month}
+        </if>
+    </sql>
+    <select id="findLastOne" resultMap="walletMap">
+		select * from
+		rp_wallet_day_amount order by calculate_date desc limit 0,1
+	</select>
+
+    <select id="findBySearcher" resultMap="walletMap">
+        select * from
+        rp_wallet_day_amount where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"></include>
+        </if>
+        order by calculate_date desc
+        limit
+        #{page.startNumber},#{page.pageSize}
+    </select>
+    <select id="countBySearcher" resultType="java.lang.Integer">
+        select count(*) from
+        rp_wallet_day_amount where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"></include>
+        </if>
+    </select>
+
+</mapper>

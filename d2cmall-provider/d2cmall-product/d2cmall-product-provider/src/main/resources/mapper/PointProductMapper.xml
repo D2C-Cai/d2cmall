@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.d2c.product.dao.PointProductMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.PointProduct">
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="point" column="point"/>
+        <result property="amount" column="amount"/>
+        <result property="mark" column="mark"/>
+        <result property="limitCount" column="limit_count"/>
+        <result property="description" column="description"/>
+        <result property="sort" column="sort"/>
+        <result property="count" column="count"/>
+        <result property="productId" column="product_id"/>
+        <result property="introPic" column="intro_pic"/>
+        <result property="detailPic" column="detail_pic"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="startDate" column="start_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="sourceId" column="source_id"/>
+    </resultMap>
+
+    <sql id="Searcher">
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND name LIKE CONCAT('%',#{searcher.name},'%')
+        </if>
+        <if test="searcher.type!=null and searcher.type!=''">
+            AND type =#{searcher.type}
+        </if>
+        <if test="searcher.mark!=null">
+            AND mark=#{searcher.mark}
+        </if>
+        <if test="searcher.minStartTime!=null">
+            AND start_date &gt;=#{searcher.minStartTime}
+        </if>
+        <if test="searcher.maxStartTime!=null">
+            AND start_date &lt;=#{searcher.maxStartTime}
+        </if>
+        <if test="searcher.minEndTime!=null">
+            AND end_date &gt;=#{searcher.minEndTime}
+        </if>
+        <if test="searcher.maxEndTime!=null">
+            AND end_date &lt;=#{searcher.maxEndTime}
+        </if>
+    </sql>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(1) FROM p_point_product WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM p_point_product WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY sort desc,create_date desc
+        LIMIT
+        #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <update id="updateMark">
+		UPDATE p_point_product SET
+		mark=#{mark},last_modify_man=#{operator},modify_date=NOW() WHERE
+		id=#{id}
+	</update>
+
+    <update id="updateCount">
+		UPDATE p_point_product SET count=count+#{count} WHERE
+		id=#{id} and count+#{count}>=0 and mark=1 
+		and start_date &lt;=now()
+		and end_date &gt;=now()
+	</update>
+
+    <update id="updateSort">
+		UPDATE p_point_product SET
+		sort=#{sort},last_modify_man=#{operator},modify_date=NOW() WHERE
+		id=#{id}
+	</update>
+
+</mapper>

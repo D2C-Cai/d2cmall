@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.CompensationLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.CompensationLog">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="compensationId" column="compensation_id"/>
+        <result property="customerCompensationId" column="customer_compensation_id"/>
+        <result property="info" column="info"/>
+    </resultMap>
+
+    <select id="findCompensation" resultMap="baseMap">
+		select * from log_compensation where 1=1
+		and compensation_id=#{id}
+		order by create_date desc
+		LIMIT
+		#{page.startNumber},#{page.pageSize}
+	</select>
+
+    <select id="countCompensation" resultType="int">
+		select count(*) from log_compensation 
+		where compensation_id=#{id}
+	</select>
+
+    <select id="findCusCompensation" resultMap="baseMap">
+		select * from log_compensation where 1=1
+		and customer_compensation_id=#{id}
+		order by create_date desc
+		LIMIT
+		#{page.startNumber},#{page.pageSize}
+	</select>
+
+    <select id="countCusCompensation" resultType="int">
+		select count(*) from log_compensation 
+		where customer_compensation_id=#{id}
+	</select>
+
+</mapper>

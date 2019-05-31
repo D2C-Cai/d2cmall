@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.MemberShareTagRelationMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.MemberShareTagRelation">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="tagId" column="tag_id"/>
+        <result property="shareId" column="share_id"/>
+        <result property="sort" column="sort"/>
+        <result property="top" column="top"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <insert id="insertNotNull" parameterType="com.d2c.member.model.MemberShareTagRelation">
+		REPLACE INTO m_share_tag_relation (tag_id,share_id,create_date)
+		VALUES(#{tagId},#{shareId},now())
+	</insert>
+
+    <delete id="deleteByTagIdAndMemberShareId">
+    	DELETE FROM m_share_tag_relation WHERE tag_id=#{tagId} AND share_id=#{shareId}
+ 	</delete>
+
+    <delete id="deleteByTagId">
+		DELETE FROM m_share_tag_relation WHERE tag_id =#{tagId}
+	</delete>
+
+    <delete id="deleteByMemberShareId">
+		DELETE FROM m_share_tag_relation WHERE share_id =#{shareId}
+	</delete>
+
+    <update id="updateTop">
+	    UPDATE m_share_tag_relation SET top=#{status} WHERE share_id =#{shareId}
+	</update>
+
+    <update id="updateSort">
+	    UPDATE m_share_tag_relation SET sort=#{sort} WHERE share_id =#{shareId} AND tag_id=#{tagId}
+	</update>
+
+</mapper>

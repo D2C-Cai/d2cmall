@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="60px" height="60px" viewBox="0 0 60 60" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-ok</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="check" sketch:type="MSLayerGroup" transform="translate(5.000000, 5.000000)" fill="#5BBD72">
+            <path d="M25,49.8970588 C11.2720588,49.8970588 0.102941176,38.7279412 0.102941176,25 C0.102941176,11.2720588 11.2720588,0.102941176 25,0.102941176 C38.7279412,0.102941176 49.8970588,11.2720588 49.8970588,25 C49.8970588,38.7279412 38.7279412,49.8970588 25,49.8970588 L25,49.8970588 Z M25,2.83823529 C12.7794118,2.83823529 2.83823529,12.7794118 2.83823529,25 C2.83823529,37.2205882 12.7794118,47.1617647 25,47.1617647 C37.2205882,47.1617647 47.1617647,37.2205882 47.1617647,25 C47.1617647,12.7794118 37.2205882,2.83823529 25,2.83823529 L25,2.83823529 Z"
+                  id="Fill-43" sketch:type="MSShapeGroup"></path>
+            <path d="M22.0264706,35.7588235 L9.32647059,23.025 L11.2617647,21.0926471 L22.0308824,31.8882353 L38.7397059,15.1779412 L40.6720588,17.1132353 L22.0264706,35.7588235"
+                  id="Fill-44" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

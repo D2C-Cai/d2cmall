@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.report.dao.FinanceCodDailyAmountMapper">
+    <resultMap id="codMap" type="com.d2c.report.model.FinanceCodDailyAmount">
+        <result property="calculateDate" column="calculate_date"/>
+        <result property="readyAmount" column="ready_amount"/>
+        <result property="deliveryAmount" column="delivery_amount"/>
+        <result property="refundAmount" column="refund_amount"/>
+        <result property="balanceAmount" column="balance_amount"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="refuseAmount" column="refuse_amount"/>
+    </resultMap>
+
+    <sql id="Searcher">
+        <if test="searcher.year!=null">
+            and Year(calculate_date)=#{searcher.year}
+        </if>
+        <if test="searcher.month!=null">
+            AND month(calculate_date)=#{searcher.month}
+        </if>
+    </sql>
+
+    <select id="countCodBySearcher" resultType="int">
+        select count(id) from rp_cod_amount where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        limit 0,1
+    </select>
+
+    <select id="findCodBySearcher" resultMap="codMap">
+        select * from rp_cod_amount where 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        order by calculate_date desc
+        limit #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <select id="findLastCod" resultMap="codMap">
+		select * from
+		rp_cod_amount
+		order by calculate_date desc limit 0,1
+	</select>
+
+</mapper>

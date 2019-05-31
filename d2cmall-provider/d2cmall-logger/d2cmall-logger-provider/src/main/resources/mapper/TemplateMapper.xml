@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.TemplateMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.Template">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="templateType" column="template_type"/>
+        <result property="createMan" column="create_man"/>
+        <result property="subject" column="subject"/>
+        <result property="content" column="content"/>
+        <result property="fixed" column="fixed"/>
+        <result property="paramInfo" column="param_info"/>
+    </resultMap>
+
+    <sql id="simpleEntity">
+       template_type,create_man,create_date,subject,
+       fixed,param_info,id,modify_date,last_modify_man,creator
+    </sql>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT
+        <include refid="simpleEntity"></include>
+        FROM template
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY id
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="Integer">
+        SELECT count(*)
+        FROM template
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test=" searcher.templateType!= null">
+            AND template_type=#{searcher.templateType}
+        </if>
+        <if test="searcher.subject!= null and searcher.subject!=''">
+            AND subject =#{searcher.subject}
+        </if>
+    </sql>
+
+    <delete id="delete">
+		DELETE FROM template WHERE id=#{id}
+	</delete>
+
+</mapper>

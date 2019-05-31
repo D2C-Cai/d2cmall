@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.O2oSubscribeItemMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.O2oSubscribeItem">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="subscribeId" column="subscribe_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="productSn" column="product_sn"/>
+        <result property="productName" column="product_name"/>
+        <result property="productSkuId" column="product_sku_id"/>
+        <result property="productSkuSn" column="product_sku_sn"/>
+        <result property="productCategory" column="product_category"/>
+        <result property="memberId" column="member_id"/>
+        <result property="memberName" column="member_name"/>
+        <result property="designerId" column="designer_id"/>
+        <result property="designerName" column="designer_name"/>
+        <result property="itemMemo" column="item_memo"/>
+        <result property="productImg" column="product_img"/>
+        <result property="originalPrice" column="original_price"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="quantity" column="quantity"/>
+        <result property="price" column="price"/>
+        <result property="sp1" column="sp1"/>
+        <result property="sp2" column="sp2"/>
+        <result property="sp3" column="sp3"/>
+        <result property="creator" column="creator"/>
+        <result property="storeId" column="store_id"/>
+    </resultMap>
+
+    <select id="findBySubscribeId" resultMap="baseMap">
+		SELECT * FROM
+		o_store_reserve_item
+		WHERE subscribe_id=#{subscribeId}
+	</select>
+
+    <select id="countBySubscribeId" resultType="int">
+		SELECT count(id) FROM
+		o_store_reserve_item
+		WHERE subscribe_id=#{subscribeId}
+	</select>
+
+    <delete id="deleteByIdAndMemberId">
+		DELETE FROM o_store_reserve_item
+		WHERE id=#{id} AND
+		member_id=#{memberInfoId}
+	</delete>
+
+    <delete id="deleteBySubscribeIdAndMemberId">
+		DELETE FROM o_store_reserve_item
+		WHERE
+		subscribe_id=#{subscribeId} AND member_id=#{memberInfoId}
+	</delete>
+
+    <delete id="deleteByProductIds">
+        DELETE FROM o_store_reserve_item
+        WHERE product_id IN
+        <foreach collection="ids" index="index" item="id" open="("
+                 separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="doMerge">
+		UPDATE o_store_reserve_item
+		SET
+		modify_date=now(),old_member_id=member_id,member_id=#{targetId}
+		WHERE
+		member_id=#{sourceId}
+	</update>
+
+</mapper>

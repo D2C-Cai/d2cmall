@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.RechargeRuleMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.RechargeRule">
+        <result property="id" column="id"/>
+        <result property="ruleType" column="rule_type"/>
+        <result property="solution" column="solution"/>
+        <result property="name" column="name"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="pcCode" column="pc_code"/>
+        <result property="mobileCode" column="mobile_code"/>
+        <result property="status" column="status"/>
+        <result property="publishMan" column="publish_man"/>
+        <result property="publishDate" column="publish_date"/>
+        <result property="cancelMan" column="cancel_man"/>
+        <result property="cancelDate" column="cancel_date"/>
+        <result property="description" column="description"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="timing" column="timing"/>
+        <result property="limited" column="limited"/>
+    </resultMap>
+
+    <select id="findValidRule" resultMap="baseMap">
+		select * from o_recharge_rule 
+		where status=1 and now()&gt;=start_time and now()&lt;=end_time 
+		order by create_date desc limit 0,1
+	</select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT * from o_recharge_rule where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(*) from o_recharge_rule where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND name =#{searcher.name}
+        </if>
+        <if test="searcher.beginStartTime!= null">
+            AND start_time &gt;= #{searcher.startDate}
+        </if>
+        <if test="searcher.endStartTime!= null">
+            AND start_time &lt;= #{searcher.endDate}
+        </if>
+        <if test="searcher.status!=null">
+            AND status=#{searcher.status}
+        </if>
+    </sql>
+
+    <update id="doMark">
+		UPDATE o_recharge_rule SET modify_date=now(),status
+		=#{status},publish_man=#{man},publish_date=now() 
+		WHERE id=#{ruleId}
+	</update>
+
+    <update id="doOverRule">
+		UPDATE o_recharge_rule SET `status`=0 
+		WHERE `status`=1 AND end_time>=NOW()
+	</update>
+
+</mapper>

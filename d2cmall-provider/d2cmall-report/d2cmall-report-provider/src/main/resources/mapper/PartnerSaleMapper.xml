@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.report.dao.PartnerSaleMapper">
+
+    <select id="findSaleStat" resultType="com.d2c.report.mongo.dto.SaleStatDTO">
+        SELECT COUNT(id) as count, SUM(actual_amount) as payAmount,
+        SUM(actual_amount * partner_ratio) as partnerRebates,
+        SUM(actual_amount * parent_ratio) as parentRebates,
+        SUM(actual_amount * super_ratio) as superRebates,
+        SUM(actual_amount * master_ratio) as masterRebates
+        FROM o_partner_bill where status > 0 and ${fieldName} = #{fieldValue}
+        <if test="startTime != null">
+            and create_date &gt;= #{startTime}
+        </if>
+        <if test="endTime != null">
+            and create_date &lt;= #{endTime}
+        </if>
+    </select>
+
+    <select id="countInvite" resultType="int">
+        SELECT count(id) FROM m_partner
+        where status != -9 and parent_id = #{partnerId} and level = #{level}
+        <if test="startTime != null">
+            and create_date &gt;= #{startTime}
+        </if>
+        <if test="endTime != null">
+            and create_date &lt;= #{endTime}
+        </if>
+    </select>
+
+</mapper>

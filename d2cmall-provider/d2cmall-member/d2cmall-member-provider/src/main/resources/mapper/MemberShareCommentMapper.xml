@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.member.dao.MemberShareCommentMapper">
+    <resultMap id="BaseResultMap" type="com.d2c.member.model.MemberShareComment">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result property="memberId" column="member_id"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="sourceId" column="source_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="verified" column="verified"/>
+        <result property="memberShareUserId" column="member_share_user_id"/>
+        <result property="score" column="score"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="toMemberId" column="to_member_id"/>
+        <result property="toMemberPic" column="to_member_pic"/>
+        <result property="toNickName" column="to_nick_name"/>
+        <result property="toCommentId" column="to_comment_id"/>
+        <result property="device" column="device"/>
+        <result property="appVersion" column="app_version"/>
+        <result property="toCommentContent" column="to_comment_content"/>
+        <result property="likes" column="likes"/>
+        <result property="hot" column="hot"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="BaseResultMap">
+        SELECT * FROM
+        m_share_comment
+        WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date
+        ${searcher.sortCreateDate}
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT count(*) FROM
+        m_share_comment
+        WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.sourceId!=null">
+            AND source_id=#{searcher.sourceId}
+        </if>
+        <if test="searcher.verified!=null and !searcher.allList">
+            AND verified=#{searcher.verified}
+        </if>
+        <if test="searcher.startDate!=null">
+            AND create_date &gt; #{searcher.startDate}
+        </if>
+        <if test="searcher.endDate!=null">
+            AND create_date &lt; #{searcher.endDate}
+        </if>
+        <if test="searcher.content!=null and  searcher.content!=''">
+            AND content =#{searcher.content}
+        </if>
+        <if test="searcher.memberId!=null and !searcher.allList">
+            AND member_id = #{searcher.memberId}
+        </if>
+        <if test="searcher.device!=null and searcher.device!=''">
+            AND device=#{searcher.device}
+        </if>
+        <if test="searcher.hot!=null">
+            AND hot=#{searcher.hot}
+        </if>
+        <if test="searcher.allList and searcher.memberId!=null">
+            AND (verified=1 or member_id=#{searcher.memberId})
+        </if>
+    </sql>
+
+    <update id="updateColumn">
+		set names utf8mb4
+	</update>
+
+    <update id="updateStatus">
+		UPDATE m_share_comment SET modify_date=now(),verified=#{status} WHERE id=#{id}
+	</update>
+
+    <delete id="deleteById">
+		DELETE FROM m_share_comment
+		WHERE id=#{id}
+	</delete>
+
+    <delete id="deleteAllBySourceId">
+		DELETE FROM m_share_comment
+		WHERE
+		source_id=#{sourceId}
+	</delete>
+
+    <update id="doRefreshHeadPic">
+        UPDATE m_share_comment SET
+        <if test="headPic!=null and headPic!=''">
+            head_pic=#{headPic},
+        </if>
+        modify_date=now(),nick_name=#{nickName} WHERE member_id=#{memberInfoId}
+    </update>
+
+    <update id="doRefreshHeadPic4To">
+        UPDATE m_share_comment SET
+        <if test="headPic!=null and headPic!=''">
+            to_member_pic=#{headPic},
+        </if>
+        modify_date=now(),to_nick_name=#{nickName} WHERE to_member_id=#{memberInfoId}
+    </update>
+
+    <update id="doLike">
+		UPDATE m_share_comment SET likes=likes+1,modify_date=NOW() WHERE id=#{id}
+	</update>
+
+    <update id="updateHot">
+		UPDATE m_share_comment SET hot=#{hot},modify_date=NOW() WHERE id=#{id}
+	</update>
+</mapper>

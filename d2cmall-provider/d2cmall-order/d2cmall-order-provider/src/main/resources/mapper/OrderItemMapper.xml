@@ -1,0 +1,1422 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.OrderItemMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.OrderItem">
+        <result property="orderId" column="order_id"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="type" column="type"/>
+        <result property="status" column="status"/>
+        <result property="pop" column="pop"/>
+        <result property="requisition" column="requisition"/>
+        <result property="buyerMemberId" column="buyer_member_id"/>
+        <result property="buyerMemberName" column="buyer_member_name"/>
+        <result property="estimateDate" column="estimate_date"/>
+        <result property="signDate" column="sign_date"/>
+        <result property="expectDate" column="expect_date"/>
+        <result property="finishDate" column="finish_date"/>
+        <result property="refundId" column="refund_id"/>
+        <result property="reshipId" column="reship_id"/>
+        <result property="exchangeId" column="exchange_id"/>
+        <result property="paymentType" column="payment_type"/>
+        <result property="paymentTime" column="payment_time"/>
+        <result property="billNumber" column="bill_number"/>
+        <result property="promotionAmount" column="promotion_amount"/>
+        <result property="orderPromotionAmount" column="order_promotion_amount"/>
+        <result property="couponAmount" column="coupon_amount"/>
+        <result property="redAmount" column="red_amount"/>
+        <result property="partnerAmount" column="partner_amount"/>
+        <result property="cashAmount" column="cash_amount"/>
+        <result property="giftAmount" column="gift_amount"/>
+        <result property="codAmount" column="cod_amount"/>
+        <result property="diffAmount" column="diff_amount"/>
+        <result property="taxAmount" column="tax_amount"/>
+        <result property="compensationAmount" column="compensation_amount"/>
+        <result property="collageStatus" column="collage_status"/>
+        <result property="goodPromotionId" column="good_promotion_id"/>
+        <result property="orderPromotionId" column="order_promotion_id"/>
+        <result property="productCombId" column="product_comb_id"/>
+        <result property="flashPromotionId" column="flash_promotion_id"/>
+        <result property="promotionName" column="promotion_name"/>
+        <result property="orderPromotionName" column="order_promotion_name"/>
+        <result property="deliveryType" column="delivery_type"/>
+        <result property="deliveryTime" column="delivery_time"/>
+        <result property="deliverySn" column="delivery_sn"/>
+        <result property="deliveryCorpName" column="delivery_corp_name"/>
+        <result property="deliveryBarCode" column="delivery_bar_code"/>
+        <result property="deliveryQuantity" column="delivery_quantity"/>
+        <result property="itemMemo" column="item_memo"/>
+        <result property="productId" column="product_id"/>
+        <result property="saleCategory" column="sale_category"/>
+        <result property="productSaleType" column="product_sale_type"/>
+        <result property="productSellType" column="product_sell_type"/>
+        <result property="productTradeType" column="product_trade_type"/>
+        <result property="productSource" column="product_source"/>
+        <result property="productSn" column="product_sn"/>
+        <result property="externalSn" column="external_sn"/>
+        <result property="productName" column="product_name"/>
+        <result property="productImg" column="product_img"/>
+        <result property="productPrice" column="product_price"/>
+        <result property="productQuantity" column="product_quantity"/>
+        <result property="originalPrice" column="original_price"/>
+        <result property="productRemark" column="product_remark"/>
+        <result property="designerId" column="designer_id"/>
+        <result property="designerCode" column="designer_code"/>
+        <result property="designerName" column="designer_name"/>
+        <result property="productSkuId" column="product_sku_id"/>
+        <result property="productSkuSn" column="product_sku_sn"/>
+        <result property="productSkuName" column="product_sku_name"/>
+        <result property="sp1" column="sp1"/>
+        <result property="sp2" column="sp2"/>
+        <result property="sp3" column="sp3"/>
+        <result property="cod" column="cod"/>
+        <result property="after" column="after"/>
+        <result property="coupon" column="coupon"/>
+        <result property="taxation" column="taxation"/>
+        <result property="shipping" column="shipping"/>
+        <result property="balance" column="balance"/>
+        <result property="locked" column="locked"/>
+        <result property="storeId" column="store_id"/>
+        <result property="bindDate" column="bind_date"/>
+        <result property="storeMemo" column="store_memo"/>
+        <result property="itemCloseReason" column="item_close_reason"/>
+        <result property="itemCloseMan" column="item_close_man"/>
+        <result property="itemCloseTime" column="item_close_time"/>
+        <result property="balanceMan" column="balance_man"/>
+        <result property="balanceDate" column="balance_date"/>
+        <result property="balanceReason" column="balance_reason"/>
+        <result property="balanceMoney" column="balance_money"/>
+        <result property="commentId" column="comment_id"/>
+        <result property="masterId" column="master_id"/>
+        <result property="superId" column="super_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="partnerId" column="partner_id"/>
+        <result property="masterRatio" column="master_ratio"/>
+        <result property="superRatio" column="super_ratio"/>
+        <result property="parentRatio" column="parent_ratio"/>
+        <result property="partnerRatio" column="partner_ratio"/>
+        <result property="partnerStyle" column="partner_style"/>
+        <result property="warehouseId" column="warehouse_id"/>
+        <result property="warehouseName" column="warehouse_name"/>
+        <result property="busType" column="bus_type"/>
+        <result property="dplusId" column="dplus_id"/>
+        <result property="dplusCode" column="dplus_code"/>
+        <result property="dplusName" column="dplus_name"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="thirdCcyPrice" column="third_ccy_price"/>
+        <result property="code" column="code"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT oi.* FROM OrderItem oi
+        WHERE 1=1
+        <if test="queryOrder != null">
+            <include refid="OrderItemSearcher"/>
+        </if>
+        ORDER BY ${queryOrder.itemOrderBy}
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="Integer">
+        SELECT COUNT(oi.id) FROM OrderItem oi
+        WHERE 1=1
+        <if test="queryOrder != null">
+            <include refid="OrderItemSearcher"/>
+        </if>
+    </select>
+
+    <sql id="OrderItemSearcher">
+        <if test="queryOrder.orderStatus!= null and queryOrder.orderStatus.length &gt; 0">
+            AND oi.order_id IN (select id from orders where
+            order_status in
+            <foreach collection="queryOrder.orderStatus" item="orderStatus"
+                     index="index" open="(" close=")" separator=",">
+                <if test="orderStatus!= null">
+                    #{orderStatus.code}
+                </if>
+            </foreach>
+            )
+        </if>
+        <if test="queryOrder.paymentType!= null and queryOrder.paymentType.length &gt; 0">
+            AND payment_type IN
+            <foreach collection="queryOrder.paymentType" item="paymentType"
+                     index="index" open="(" close=")" separator=",">
+                <if test="paymentType != null">
+                    #{paymentType}
+                </if>
+            </foreach>
+        </if>
+        <if test="queryOrder.itemStatus!= null and queryOrder.itemStatus.length &gt; 0">
+            AND oi.status IN
+            <foreach collection="queryOrder.itemStatus" item="itemStatus"
+                     index="index" open="(" close=")" separator=",">
+                <if test="itemStatus != null and itemStatus !=''">
+                    #{itemStatus}
+                </if>
+            </foreach>
+        </if>
+        <if test="queryOrder.orderSn !=null and queryOrder.orderSn!=''">
+            AND oi.order_sn = #{queryOrder.orderSn}
+        </if>
+        <if test="queryOrder.storeId ==1">
+            AND oi.store_id is not null
+        </if>
+        <if test="queryOrder.storeId != null and queryOrder.storeId !=1">
+            AND oi.store_id = #{queryOrder.storeId}
+        </if>
+        <if test="queryOrder.designerId != null">
+            AND oi.designer_id = #{queryOrder.designerId}
+        </if>
+        <if test="queryOrder.memberId != null">
+            AND oi.buyer_member_id = #{queryOrder.memberId}
+        </if>
+        <if test="queryOrder.productName != null and queryOrder.productName != ''">
+            AND oi.product_name =#{queryOrder.productName}
+        </if>
+        <if test="queryOrder.productSn != null and queryOrder.productSn != ''">
+            AND oi.product_sn =#{queryOrder.productSn}
+        </if>
+        <if test="queryOrder.paymentSn!=null and queryOrder.paymentSn!=''">
+            AND oi.order_id IN (SELECT id FROM orders WHEREW
+            payment_sn=#{queryOrder.paymentSn})
+        </if>
+        <if test="queryOrder.deliverySn!=null and queryOrder.deliverySn != ''">
+            AND oi.delivery_sn=#{queryOrder.deliverySn}
+        </if>
+        <if test="queryOrder.deliveryType!=null">
+            And oi.delivery_type=#{queryOrder.deliveryType}
+        </if>
+        <if test="queryOrder.billNumber!=null and queryOrder.billNumber != ''">
+            AND oi.bill_number=#{queryOrder.billNumber}
+        </if>
+        <if test="queryOrder.startDate != null">
+            AND oi.create_date &gt;= #{queryOrder.startDate}
+        </if>
+        <if test="queryOrder.endDate != null">
+            AND oi.create_date &lt;= #{queryOrder.endDate}
+        </if>
+        <if test="queryOrder.startModifyDate != null">
+            AND oi.modify_date &gt; #{queryOrder.startModifyDate}
+        </if>
+        <if test="queryOrder.endModifyDate != null">
+            AND oi.modify_date &lt; #{queryOrder.endModifyDate}
+        </if>
+        <if test="queryOrder.deliveryTimeStart != null">
+            AND oi.delivery_time &gt;= #{queryOrder.deliveryTimeStart}
+        </if>
+        <if test="queryOrder.deliveryTimeEnd != null">
+            AND oi.delivery_time &lt;= #{queryOrder.deliveryTimeEnd}
+        </if>
+        <if test="queryOrder.signStartDate != null">
+            AND oi.sign_date &gt;= #{queryOrder.signStartDate}
+        </if>
+        <if test="queryOrder.signEndDate != null">
+            AND oi.sign_date &lt;= #{queryOrder.signEndDate}
+        </if>
+        <if test="queryOrder.balanceStartDate != null">
+            AND oi.balance_date &gt; #{queryOrder.balanceStartDate}
+        </if>
+        <if test="queryOrder.balanceEndDate != null">
+            AND oi.balance_date &lt; #{queryOrder.balanceEndDate}
+        </if>
+        <if test="queryOrder.estimateStartDate">
+            AND oi.estimate_date &gt;= #{queryOrder.estimateStartDate}
+        </if>
+        <if test="queryOrder.estimateEndDate">
+            AND oi.estimate_date &lt;= #{queryOrder.estimateEndDate}
+        </if>
+        <if test="queryOrder.sf == 1">
+            AND EXISTS(SELECT 1 FROM product_sku_stock_summary WHERE
+            sku_id=oi.product_sku_id and sf_stock &gt; 0)
+        </if>
+        <if test="queryOrder.sf == 0">
+            AND EXISTS(SELECT 1 FROM product_sku_stock_summary WHERE
+            sku_id=oi.product_sku_id and sf_stock = 0)
+        </if>
+        <if test="queryOrder.st == 1">
+            AND EXISTS(SELECT 1 FROM product_sku_stock_summary WHERE
+            sku_id=oi.product_sku_id and st_stock &gt; 0)
+        </if>
+        <if test="queryOrder.st == 0">
+            AND EXISTS(SELECT 1 FROM product_sku_stock_summary WHERE
+            sku_id=oi.product_sku_id and st_stock = 0)
+        </if>
+        <if test="queryOrder.balance == 1">
+            AND oi.balance=1
+        </if>
+        <if test="queryOrder.balance == 0">
+            AND oi.balance=0
+        </if>
+        <if test="queryOrder.commented==1">
+            AND oi.status IN ('SUCCESS','SIGNED')
+            AND comment_id is NOT
+            NULL
+        </if>
+        <if test="queryOrder.commented==0">
+            AND oi.status IN ('SUCCESS','SIGNED')
+            AND comment_id is
+            NULL
+        </if>
+        <if test="queryOrder.operation != null and queryOrder.operation != ''">
+            AND EXISTS(SELECT 1 FROM p_brand WHERE
+            id=oi.designer_id
+            AND operation = #{queryOrder.operation})
+        </if>
+        <if test="queryOrder.externalSn != null and queryOrder.externalSn != ''">
+            AND oi.external_sn = #{queryOrder.externalSn}
+        </if>
+        <if test="queryOrder.refuse!=null and queryOrder.refuse==1">
+            AND (`sign_date` IS NULL AND `reship_id` IS NOT NULL AND
+            `payment_type`=3 AND `status`='AFTERCLOSE')
+        </if>
+        <if test="queryOrder.requisition!=null">
+            AND oi.requisition=#{queryOrder.requisition}
+        </if>
+        <if test="queryOrder.productSaleType!=null and queryOrder.productSaleType!=''">
+            AND oi.product_sale_type=#{queryOrder.productSaleType}
+        </if>
+        <if test="queryOrder.productTradeType!=null and queryOrder.productTradeType!=''">
+            AND oi.product_trade_type=#{queryOrder.productTradeType}
+        </if>
+        <if test="queryOrder.productSource!=null and queryOrder.productSource!=''">
+            AND oi.product_source=#{queryOrder.productSource}
+        </if>
+        <if test="queryOrder.finishStartDate!=null">
+            AND oi.finish_date &gt; #{queryOrder.finishStartDate}
+        </if>
+        <if test="queryOrder.finishEndDate!=null">
+            AND oi.finish_date &lt; #{queryOrder.finishEndDate}
+        </if>
+        <if test="queryOrder.afterType!=null and queryOrder.afterType=='refund'">
+            AND oi.refund_id IS NOT NULL AND oi.reship_id IS NULL
+        </if>
+        <if test="queryOrder.afterType!=null and queryOrder.afterType=='reship'">
+            AND oi.reship_id IS NOT NULL AND oi.refund_id IS NULL
+        </if>
+        <if test="queryOrder.afterType!=null and queryOrder.afterType=='all'">
+            AND oi.refund_id IS NOT NULL AND oi.reship_id IS NOT NULL
+        </if>
+    </sql>
+
+    <select id="findByMemberInfoId" resultMap="baseMap">
+		SELECT * FROM
+		OrderItem
+		WHERE buyer_member_id = #{memberInfoId}
+		ORDER BY create_date
+		LIMIT #{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="findByIdAndMemberInfoId" resultMap="baseMap">
+		SELECT * FROM
+		OrderItem
+		WHERE id = #{id} AND buyer_member_id=#{memberInfoId}
+	</select>
+
+    <select id="findByOrderId" resultMap="baseMap">
+		SELECT * FROM OrderItem
+		WHERE order_id = #{id}
+	</select>
+
+    <select id="findByOrderSn" resultMap="baseMap">
+		SELECT * FROM OrderItem
+		WHERE order_sn = #{orderSn}
+	</select>
+
+    <select id="findByRefundId" resultMap="baseMap">
+		SELECT * FROM OrderItem
+		WHERE refund_id = #{refundId} LIMIT 0,1
+	</select>
+
+    <select id="findByOrderSnAndSku" resultMap="baseMap">
+		SELECT * FROM
+		orderItem
+		WHERE order_sn=#{orderSn} AND delivery_bar_code=#{barCode}
+		LIMIT 0,1
+	</select>
+
+    <select id="findByDeliverySn" resultMap="baseMap">
+		SELECT * FROM orderItem
+		WHERE delivery_sn=#{deliverySn}
+	</select>
+
+    <select id="findPartnerOrder" resultMap="baseMap">
+        SELECT oi.* FROM OrderItem oi
+        WHERE oi.type!='distribution'
+        <if test="queryOrder.partnerId != null">
+            AND oi.partner_id=#{queryOrder.partnerId}
+        </if>
+        <if test="queryOrder.parentId !=null">
+            AND oi.parent_id=#{queryOrder.parentId}
+        </if>
+        <if test="queryOrder.superId != null">
+            AND oi.super_id=#{queryOrder.superId}
+        </if>
+        <if test="queryOrder.masterId != null">
+            AND oi.master_id=#{queryOrder.masterId}
+        </if>
+        <if test="queryOrder != null">
+            <include refid="OrderItemSearcher"/>
+        </if>
+        ORDER BY ${queryOrder.itemOrderBy}
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countPartnerOrder" resultType="int">
+        SELECT count(*) FROM OrderItem oi
+        WHERE oi.type!='distribution'
+        <if test="queryOrder.partnerId != null">
+            AND oi.partner_id=#{queryOrder.partnerId}
+        </if>
+        <if test="queryOrder.parentId != null">
+            AND oi.parent_id=#{queryOrder.parentId}
+        </if>
+        <if test="queryOrder.superId != null">
+            AND oi.super_id=#{queryOrder.superId}
+        </if>
+        <if test="queryOrder.masterId != null">
+            AND oi.master_id=#{queryOrder.masterId}
+        </if>
+        <if test="queryOrder != null">
+            <include refid="OrderItemSearcher"/>
+        </if>
+    </select>
+
+    <select id="findDeliveredByDate" resultMap="baseMap">
+		SELECT * FROM
+		orderItem
+		WHERE status='DELIVERED'
+		AND
+		delivery_time&lt;=DATE_SUB(#{date},INTERVAL #{interval} DAY)
+	</select>
+
+    <select id="countDeliveredByDate" resultType="int">
+		SELECT count(id)
+		FROM orderItem
+		WHERE status='DELIVERED'
+		AND
+		delivery_time&lt;=DATE_SUB(#{date},INTERVAL #{interval} DAY)
+	</select>
+
+    <select id="findSignedByDate" resultMap="baseMap">
+		SELECT * FROM orderItem
+		WHERE status='SIGNED'
+		AND expect_date &lt;= NOW()
+	</select>
+
+    <select id="countSignedByDate" resultType="int">
+		SELECT count(id) FROM
+		orderItem
+		WHERE status='SIGNED'
+		AND expect_date &lt;= NOW()
+	</select>
+
+    <select id="findProductOrderAnalysis" resultType="hashMap">
+        SELECT t.*, d.operation FROM (
+        SELECT oi.product_id AS productId,
+        oi.product_sn AS productSn,
+        oi.product_sku_sn AS productSku,
+        oi.designer_id AS designerId,
+        oi.designer_code AS designerCode,
+        oi.designer_name AS designerName,
+        SUM(oi.product_quantity) AS quantity,
+        o.payment_time AS payTime,
+        oi.product_name AS productName,
+        product_img
+        AS productImg
+        FROM orderItem oi, `orders` o
+        WHERE 1=1
+        <choose>
+            <when test="type=='SALE'">
+                AND (
+                (oi.payment_type!=null AND oi.payment_type!=3
+                AND oi.delivery_time &gt; #{startDayTime}
+                AND oi.delivery_time &lt;
+                #{endDayTime})
+                OR
+                (oi.payment_type=3 AND oi.delivery_time &gt;
+                #{startDayTime}
+                AND oi.delivery_time &lt; #{endDayTime})
+                )
+            </when>
+            <when test="type=='DELIVERY'">
+                AND oi.delivery_time &gt; #{startDayTime}
+                AND
+                oi.delivery_time &lt; #{endDayTime}
+            </when>
+            <when test="type=='CLOSE'">
+                AND oi.item_close_time &gt; #{startDayTime}
+                AND
+                oi.item_close_time &lt; #{endDayTime}
+            </when>
+        </choose>
+        AND o.order_status IN (2, 3, 4, 8, -2, -4) AND oi.order_id=o.id
+        GROUP
+        BY oi.product_sku_id
+        LIMIT #{pager.startNumber},#{pager.pageSize})t
+        ,
+        p_brand d WHERE d.id=t.designerId
+    </select>
+
+    <select id="countProductOrderAnalysis" resultType="int">
+        SELECT COUNT(product_sku_id) FROM (
+        SELECT DISTINCT oi.product_sku_id
+        FROM orderItem oi, `orders` o
+        WHERE oi.order_id=o.id
+        <choose>
+            <when test="type=='SALE'">
+                AND (
+                (oi.payment_type!=null AND oi.payment_type!=3
+                AND oi.delivery_time &gt; #{startDayTime}
+                AND oi.delivery_time &lt;
+                #{endDayTime})
+                OR
+                (oi.payment_type=3 AND oi.delivery_time
+                &gt;#{startDayTime}
+                AND oi.delivery_time &lt; #{endDayTime})
+                )
+            </when>
+            <when test="type=='DELIVERY'">
+                AND oi.delivery_time &gt; #{startDayTime}
+                AND
+                oi.delivery_time &lt; #{endDayTime}
+            </when>
+            <when test="type=='CLOSE'">
+                AND oi.item_close_time &gt; #{startDayTime}
+                AND
+                oi.item_close_time &lt; #{endDayTime}
+            </when>
+        </choose>
+        AND o.order_status IN (2, 3, 4, 8, -2, -4))t
+    </select>
+
+    <select id="findForStatement" resultMap="baseMap">
+		SELECT * FROM orderItem
+		WHERE orderItem.`status`
+		IN('DELIVERED','SIGNED','SUCCESS','AFTERCLOSE')
+		AND
+		DATEDIFF(NOW(),delivery_time) >= 1
+		AND
+		DATEDIFF(delivery_time,#{beginDate}) >= 0
+		AND payment_type!=3
+		AND EXISTS
+		(SELECT 1 FROM p_product WHERE
+		product_sale_type
+		in('CONSIGN','COOPERATIVE') AND product_trade_type='COMMON' and source='D2CMALL' AND orderitem.product_id
+		= p_product.id)
+		LIMIT #{page.startNumber},#{page.pageSize}
+	</select>
+
+    <select id="countForStatement" resultType="int">
+		SELECT count(*) FROM
+		orderItem
+		WHERE orderItem.`status`
+		IN('DELIVERED','SIGNED','SUCCESS','AFTERCLOSE')
+		AND
+		DATEDIFF(NOW(),delivery_time) >= 1
+		AND
+		DATEDIFF(delivery_time,#{beginDate}) >= 0
+		AND payment_type!=3
+		AND EXISTS
+		(SELECT 1 FROM p_product WHERE
+		product_sale_type
+		in('CONSIGN','COOPERATIVE') AND product_trade_type='COMMON' and source='D2CMALL' AND orderitem.product_id
+		= p_product.id)
+	</select>
+
+    <select id="findCodStatement" resultMap="baseMap">
+		SELECT * FROM orderItem
+		WHERE orderItem.`status`
+		IN('DELIVERED','SIGNED','SUCCESS','AFTERCLOSE')
+		AND
+		DATEDIFF(NOW(),balance_date) >= 1
+		AND
+		DATEDIFF(balance_date,#{beginDate}) >= 0
+		AND payment_type=3
+		AND EXISTS
+		(SELECT 1 FROM p_product WHERE
+		product_sale_type
+		in('CONSIGN','COOPERATIVE') AND product_trade_type='COMMON' and source='D2CMALL' AND orderitem.product_id
+		= p_product.id)
+		LIMIT #{page.startNumber},#{page.pageSize}
+	</select>
+
+    <select id="countCodStatement" resultType="int">
+		SELECT count(*) FROM
+		orderItem
+		WHERE orderItem.`status`
+		IN('DELIVERED','SIGNED','SUCCESS','AFTERCLOSE')
+		AND
+		DATEDIFF(NOW(),balance_date) >= 1
+		AND
+		DATEDIFF(balance_date,#{beginDate}) >= 0
+		AND payment_type=3
+		AND EXISTS
+		(SELECT 1 FROM p_product WHERE
+		product_sale_type
+		in('CONSIGN','COOPERATIVE') AND product_trade_type='COMMON' and source='D2CMALL' AND orderitem.product_id
+		= p_product.id)
+	</select>
+
+    <select id="findPopOrderitems" resultMap="baseMap">
+        SELECT * FROM orderItem oi
+        WHERE oi.pop=1
+        AND oi.requisition=0
+        AND
+        oi.status='NORMAL'
+        AND EXISTS(SELECT 1 FROM orders WHERE
+        id=oi.order_id
+        AND order_status = 3
+        <if test="deadline != null">
+            AND payment_time &gt; #{deadline}
+        </if>
+        )
+        LIMIT #{pager.startNumber}, #{pager.pageSize}
+    </select>
+
+    <select id="countPopOrderitems" resultType="int">
+        SELECT count(*) FROM orderItem oi
+        WHERE oi.pop=1
+        AND oi.requisition=0
+        AND oi.status='NORMAL'
+        AND EXISTS(SELECT 1 FROM orders
+        WHERE
+        id=oi.order_id AND order_status = 3
+        <if test="deadline != null">
+            AND payment_time &gt; #{deadline}
+        </if>
+        )
+    </select>
+
+    <select id="findNormalOrderitems" resultMap="baseMap">
+        SELECT * FROM orderItem oi
+        WHERE oi.pop=0
+        AND oi.requisition=0
+        AND
+        oi.status='NORMAL'
+        AND EXISTS(SELECT 1 FROM orders WHERE
+        id=oi.order_id
+        AND order_status = 3
+        <if test="deadline != null">
+            AND payment_time &gt; #{deadline}
+        </if>
+        )
+        LIMIT #{pager.startNumber}, #{pager.pageSize}
+    </select>
+
+    <select id="countNormalOrderitems" resultType="int">
+        SELECT count(*) FROM orderItem oi
+        WHERE oi.pop=0
+        AND oi.requisition=0
+        AND oi.status='NORMAL'
+        AND EXISTS(SELECT 1 FROM orders
+        WHERE
+        id=oi.order_id AND order_status = 3
+        <if test="deadline != null">
+            AND payment_time &gt; #{deadline}
+        </if>
+        )
+    </select>
+
+    <select id="findRankingByProduct" resultType="hashMap">
+        SELECT
+        oi.product_sku_id AS productSkuId,
+        oi.product_sku_sn AS productSkuSn,
+        oi.product_img AS productImg,
+        oi.product_id AS productId,
+        oi.designer_code AS designerCode,
+        oi.designer_name AS designerName,
+        oi.product_sn AS productSn,
+        oi.product_name AS productName,
+        SUM(oi.product_price*oi.product_quantity-oi.promotion_amount-oi.order_promotion_amount-oi.red_amount-oi.coupon_amount)
+        AS totalAmount,
+        SUM(oi.product_quantity) AS totalCount,
+        s.pop_store AS popStore,
+        s.store AS store,
+        d.operation AS operation
+        FROM orderItem oi,p_product_sku s,p_brand d
+        WHERE
+        oi.product_sku_id=s.id
+        AND oi.designer_id=d.id
+        AND oi.status NOT
+        IN('MALLCLOSE', 'AFTERCLOSE', 'CLOSE', 'INIT')
+        <include refid="rankingByProductSearcher"/>
+        GROUP BY oi.product_sku_id
+        ORDER BY
+        <if test="searcher.orderStr!=null and searcher.orderStr!=''">
+            ${searcher.orderStr}
+        </if>
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countRankingByProduct" resultType="int">
+        SELECT count(*) FROM
+        (SELECT oi.product_sku_id
+        FROM orderItem oi, p_product_sku s, p_brand d
+        WHERE oi.product_sku_id=s.id
+        AND oi.designer_id=d.id
+        AND oi.status NOT
+        IN('MALLCLOSE', 'AFTERCLOSE', 'CLOSE', 'INIT')
+        <include refid="rankingByProductSearcher"/>
+        GROUP BY oi.product_sku_id)t
+    </select>
+
+    <select id="findRankingSummaryByProduct" resultType="hashMap">
+        SELECT
+        oi.designer_name AS designerName,
+        SUM(oi.product_price*oi.product_quantity
+        -oi.promotion_amount-oi.order_promotion_amount-oi.red_amount-oi.coupon_amount)
+        AS totalAmount,
+        SUM(oi.product_quantity) AS totalCount,
+        d.operation AS operation
+        FROM orderItem oi, p_brand d
+        WHERE oi.designer_id=d.id
+        AND oi.status NOT IN('MALLCLOSE', 'AFTERCLOSE', 'CLOSE', 'INIT')
+        <include refid="rankingByProductSearcher"/>
+        GROUP BY oi.designer_id
+        ORDER BY
+        <if test="searcher.orderStr!=null and searcher.orderStr!=''">
+            ${searcher.orderStr}
+        </if>
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countRankingSummaryByProduct" resultType="int">
+        SELECT count(*) FROM
+        (SELECT oi.product_sku_id FROM orderItem oi, p_brand d
+        WHERE oi.designer_id=d.id
+        AND oi.status NOT IN('MALLCLOSE', 'AFTERCLOSE', 'CLOSE', 'INIT')
+        <include refid="rankingByProductSearcher"/>
+        GROUP BY oi.designer_id) t
+    </select>
+
+    <sql id="rankingByProductSearcher">
+        <if test="searcher.startDate != null">
+            AND oi.create_date &gt;= #{searcher.startDate}
+        </if>
+        <if test="searcher.endDate != null">
+            AND oi.create_date &lt;= #{searcher.endDate}
+        </if>
+        <if test="searcher.operation!=null and searcher.operation!=''">
+            AND d.operation = #{searcher.operation}
+        </if>
+    </sql>
+
+    <select id="findExpiredDelivery" resultMap="baseMap">
+        SELECT
+        orderitem.buyer_member_id,
+        login_code,
+        IFNULL(orderitem.estimate_date, orders.payment_time) AS estimate_date,
+        orderitem.order_sn,
+        orderitem.product_name,
+        requisition
+        FROM orderItem
+        LEFT JOIN orders
+        ON orderitem.order_id=orders.id
+        WHERE
+        orderItem.`status`='NORMAL'
+        <include refid="expiredSearcher"/>
+    </select>
+
+    <select id="countExpiredDelivery" resultType="int">
+        SELECT count(*) FROM orderItem
+        LEFT JOIN orders
+        ON
+        orderitem.order_id=orders.id
+        WHERE orderItem.`status`='NORMAL'
+        <include refid="expiredSearcher"/>
+    </select>
+
+    <sql id="expiredSearcher">
+        <if test="beginDate!=null">
+            AND
+            IFNULL(orderitem.estimate_date,orders.payment_time)&gt;=#{beginDate}
+        </if>
+        <if test="endDate!=null">
+            AND
+            IFNULL(orderitem.estimate_date,orders.payment_time)&lt;=#{endDate}
+        </if>
+    </sql>
+
+    <select id="findProductSales" resultType="hashMap">
+		SELECT
+		product_id AS id,
+		SUM(product_quantity) AS count
+		FROM orderItem
+		WHERE
+		YEAR(modify_date)=YEAR(NOW())
+		AND MONTH(modify_date)=MONTH(NOW())
+		AND
+		DAY(modify_date)=DAY(NOW())-1
+		AND status NOT IN('MALLCLOSE','CLOSE')
+		GROUP BY product_id
+	</select>
+
+    <select id="findBrandSales" resultType="hashMap">
+		SELECT
+		SUM(product_quantity) as sales, designer_id as brandId FROM
+		orderItem
+		WHERE orderItem.`status`
+		IN('NORMAL','DELIVERED','SIGNED','AFTERCLOSE','SUCCESS') AND
+		DATEDIFF(NOW(),create_date) &lt;=#{days}
+		GROUP BY designer_id
+		LIMIT
+		#{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="countBrandSales" resultType="int">
+		SELECT count(*)
+		FROM(SELECT designer_id FROM
+		orderItem WHERE orderItem.`status`
+		IN('NORMAL','DELIVERED','SIGNED','AFTERCLOSE','SUCCESS') AND
+		DATEDIFF(NOW(),create_date) &lt;=#{days}
+		GROUP BY designer_id)T
+	</select>
+
+    <select id="findProductIdByBuyer" resultType="long">
+		SELECT product_id
+		FROM orderItem
+		WHERE buyer_member_id=#{buyerId}
+		AND status NOT
+		IN('MALLCLOSE', 'AFTERCLOSE', 'CLOSE', 'INIT')
+	</select>
+
+    <select id="findDailyFinishAmount" resultType="hashMap">
+		SELECT
+		buyer_member_id AS memberId,
+		SUM(product_price*product_quantity
+		-coupon_amount-promotion_amount-order_promotion_amount-red_amount) AS
+		amount
+		FROM orderItem
+		WHERE
+		`status`='SUCCESS'
+		AND
+		DATEDIFF(finish_date,NOW()) = 0
+		GROUP BY buyer_member_id
+		LIMIT
+		#{page.startNumber},#{page.pageSize}
+	</select>
+
+    <select id="countDailyFinishAmount" resultType="int">
+		SELECT COUNT(*)
+		FROM (SELECT * FROM orderItem WHERE `status`='SUCCESS' AND
+		DATEDIFF(finish_date,NOW()) = 0
+		GROUP BY buyer_member_id) t
+	</select>
+
+    <select id="findRecentlySales" resultType="hashMap">
+		SELECT product_id FROM orderItem
+		WHERE payment_time &gt; date_sub(NOW(),interval 1 day)
+		GROUP BY product_id
+		ORDER BY payment_time DESC
+		LIMIT
+		#{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="findRecentlyMonthSales" resultType="hashMap">
+		SELECT
+		product_id AS productId,
+		sum(product_quantity) AS sales
+		FROM orderItem
+		WHERE
+		payment_time &gt; date_sub(NOW(),interval #{month} MONTH)
+		GROUP BY product_id
+		ORDER BY sales DESC
+		LIMIT
+		#{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="findPartnerSales" resultType="hashMap">
+		SELECT
+		SUM(product_quantity) as sales, product_id as productId FROM orderItem
+		WHERE partner_id IS not NULL AND
+		orderItem.`status`
+		IN('NORMAL','DELIVERED','SIGNED','AFTERCLOSE','SUCCESS') AND
+		DATEDIFF(NOW(),create_date) &lt;=#{days}
+		GROUP BY product_id ORDER BY
+		SUM(product_quantity) DESC
+		LIMIT #{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="findBrandsByMemberId" resultType="string">
+        SELECT GROUP_CONCAT(designer_name)
+        FROM (SELECT designer_name,count(*)
+        AS count
+        FROM orderItem
+        WHERE buyer_member_id=#{memberId} AND
+        status='SUCCESS'
+        <if test="beginDate!=null">
+            AND create_date &gt;#{beginDate}
+        </if>
+        <if test="endDate!=null">
+            AND create_date &lt;#{endDate}
+        </if>
+        GROUP BY designer_name
+        ORDER BY count DESC)t
+        LIMIT 0, #{size}
+    </select>
+
+    <select id="findMaxCostByMemberId" resultMap="baseMap">
+        SELECT *, product_price*product_quantity AS MaxMoney
+        FROM orderItem
+        WHERE buyer_member_id=#{memberId} AND status='SUCCESS'
+        <if test="beginDate!=null">
+            AND create_date &gt;#{beginDate}
+        </if>
+        <if test="endDate!=null">
+            AND create_date &lt;#{endDate}
+        </if>
+        ORDER BY MaxMoney DESC
+        LIMIT 0,1
+    </select>
+
+    <select id="findSumCostByMemberId" resultType="java.math.BigDecimal">
+        SELECT
+        SUM(product_price*product_quantity
+        -coupon_amount-order_promotion_amount-promotion_amount-red_amount)
+        FROM orderItem
+        WHERE buyer_member_id=#{memberId} AND status='SUCCESS'
+        <if test="beginDate!=null">
+            AND create_date &gt;#{beginDate}
+        </if>
+        <if test="endDate!=null">
+            AND create_date &lt;#{endDate}
+        </if>
+    </select>
+
+    <select id="findRankByMoney" resultType="int">
+		SELECT COUNT(*) FROM (
+		SELECT
+		SUM(product_price*product_quantity
+		-coupon_amount-order_promotion_amount-promotion_amount-red_amount) AS
+		total,
+		buyer_member_id AS memerId
+		FROM orderItem
+		WHERE `status`='SUCCESS'
+		GROUP BY buyer_member_id)t
+		WHERE total >=#{money}
+	</select>
+
+    <select id="countGroupByStatusAndStore" resultType="hashMap">
+        SELECT `status`, COUNT(*) counts
+        FROM orderItem WHERE 1 = 1
+        <if test="isStore and storeId==null">
+            AND store_id IS NOT NULL
+        </if>
+        <if test="isStore and storeId!=null">
+            AND store_id =#{storeId}
+        </if>
+        GROUP BY `status`
+        ORDER BY `status` ASC
+    </select>
+
+    <select id="countGroupByStatus" resultType="hashMap">
+		SELECT status,
+		count(*) as counts
+		FROM OrderItem
+		WHERE buyer_member_id=#{memberInfoId}
+		GROUP BY status
+	</select>
+
+    <select id="countByProductSkuId" resultType="int">
+		SELECT count(*)
+		FROM
+		OrderItem
+		WHERE product_sku_id = #{id}
+	</select>
+
+    <select id="countMemberId" resultType="int">
+		SELECT
+		count(DISTINCT(`buyer_member_id`))
+		FROM `orderitem` WHERE
+		`status`='SUCCESS'
+	</select>
+
+    <select id="countWaitComment" resultType="int">
+		SELECT count(*) FROM
+		orderItem
+		WHERE (status='SUCCESS' OR status='SIGNED')
+		AND
+		buyer_member_id=#{memberInfoId}
+		AND comment_id IS NULL
+	</select>
+
+    <update id="doCreateRefund">
+		UPDATE OrderItem
+		SET refund_id = #{refundId},
+		modify_date = now()
+		WHERE id = #{orderItemId}
+		AND refund_id IS NULL
+	</update>
+
+    <update id="doCreateReship">
+		UPDATE OrderItem
+		SET reship_id = #{reshipId},
+		modify_date = now()
+		WHERE id = #{orderItemId} AND reship_id IS NULL
+	</update>
+
+    <update id="doCreateExchange">
+		UPDATE OrderItem
+		SET exchange_id = #{exchangeId},
+		modify_date = now()
+		WHERE id = #{orderItemId} AND exchange_id IS NULL
+	</update>
+
+    <update id="updateRefund">
+        UPDATE OrderItem
+        SET refund_id = #{refundId}, modify_date = now()
+        WHERE
+        id = #{id}
+        <if test="refundId!=null">
+            AND (SELECT count(id) FROM o_order_refund WHERE
+            refund_status&gt;=0 AND order_item_id=#{id}) &lt;= 1
+        </if>
+    </update>
+
+    <update id="updateReship">
+		UPDATE OrderItem
+		SET reship_id = #{reshipId},
+		modify_date =now()
+		WHERE id = #{id}
+	</update>
+
+    <update id="updateExchange">
+		UPDATE OrderItem
+		SET exchange_id = #{exchangeId},
+		modify_date =now()
+		WHERE id = #{id}
+	</update>
+
+    <update id="updateRequisition">
+		UPDATE OrderItem SET
+		requisition=#{requisition},
+		modify_date =now()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateStatus">
+		UPDATE OrderItem SET status=#{status}, modify_date =now()
+		WHERE id = #{id}
+	</update>
+
+    <update id="updateBusType">
+		UPDATE OrderItem SET bus_type=#{busType}, modify_date =now()
+		WHERE id = #{id}
+	</update>
+
+    <update id="updateCollageStatus">
+        UPDATE OrderItem
+        SET collage_status=#{status}, modify_date =now()
+        WHERE
+        <if test="orderSn!= null and orderSn.size &gt; 0">
+            order_sn IN
+            <foreach collection="orderSn" item="item" index="index"
+                     open="(" close=")" separator=",">
+                <if test="item!=null">
+                    #{item}
+                </if>
+            </foreach>
+        </if>
+        <if test="orderSn == null or orderSn.size == 0">
+            order_sn = 0
+        </if>
+    </update>
+
+    <update id="updateEstimateDate">
+		UPDATE OrderItem
+		SET estimate_date=#{estimateDate},
+		modify_date =now()
+		WHERE id = #{id}
+	</update>
+
+    <update id="updateExpectDate">
+		UPDATE OrderItem
+		SET expect_date=#{expectDate},
+		modify_date =now()
+		WHERE id = #{id}
+	</update>
+
+    <update id="updateCouponAmount">
+		UPDATE OrderItem
+		SET coupon_amount=#{couponAmount},
+		modify_date =now()
+		WHERE id = #{id}
+	</update>
+
+    <update id="updateWalletAmount">
+		UPDATE orderItem
+		SET cash_amount=#{cashAmount},
+		gift_amount=#{giftAmount}
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateCloseInfo">
+		UPDATE OrderItem
+		SET
+		item_close_reason=#{itemCloseReason}, item_close_man=#{itemCloseMan},
+		item_close_time=now(),
+		modify_date =now(), status='CLOSE'
+		WHERE order_id
+		= #{orderId} AND status='NORMAL'
+	</update>
+
+    <update id="updateAdminMemo">
+		UPDATE OrderItem SET modify_date
+		=now(),item_memo=#{itemMemo}
+		WHERE id =#{id}
+	</update>
+
+    <update id="updateComment">
+		UPDATE OrderItem
+		SET
+		modify_date=now(),comment_id=#{commentId}
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateBarcodeById">
+		UPDATE OrderItem
+		SET delivery_bar_code=#{barcode}
+		WHERE id = #{id}
+	</update>
+
+    <update id="updateDeliveryInfo">
+        UPDATE OrderItem
+        <set>
+            <if test="deliveryCorpName!=null">
+                delivery_corp_name=#{deliveryCorpName},
+            </if>
+            <if test="deliverySn!=null">
+                delivery_sn=#{deliverySn},
+            </if>
+            <if test="deliveryBarCode!=null">
+                delivery_bar_code=#{deliveryBarCode},
+            </if>
+            modify_date =now()
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <update id="updateBalance">
+		UPDATE orderItem
+		SET balance_money=#{balanceMoney},
+		balance_reason=#{balanceReason},
+		balance_date=now(),
+		balance_man=#{balanceMan},
+		modify_date=NOW()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateAccountAmount">
+		UPDATE OrderItem
+		SET cash_amount=#{cashAmount}, gift_amount=#{giftAmount}
+		WHERE id = #{id} 
+	</update>
+
+    <update id="doPaySuccess">
+		UPDATE OrderItem
+		SET modify_date=now(),
+		status='NORMAL', payment_type=#{paymentType}, pop=#{pop},
+		payment_time=NOW(),
+		cash_amount=#{cashAmount},
+		gift_amount=#{giftAmount},
+		estimate_date=#{estimateDate}
+		WHERE id = #{id} AND (status='INIT' or
+		status='NORMAL')
+	</update>
+
+    <update id="doBindStore">
+        UPDATE OrderItem
+        SET modify_date=now(), store_id=#{storeId},
+        store_memo=#{store_memo},
+        delivery_bar_code=#{deliveryBarCode},
+        bind_date=NOW()
+        <if test="itemMemo != null and itemMemo != ''">
+            ,item_memo=#{itemMemo}
+        </if>
+        WHERE id=#{id} AND status='NORMAL'
+    </update>
+
+    <update id="doDeliveryItem">
+        UPDATE OrderItem
+        <set>
+            <if test="deliveryType!=null">
+                delivery_type=#{deliveryType},
+            </if>
+            <if test="deliveryCorpName!=null">
+                delivery_corp_name=#{deliveryCorpName},
+            </if>
+            <if test="deliverySn!=null">
+                delivery_sn=#{deliverySn},
+            </if>
+            <if test="deliveryBarCode!=null">
+                delivery_bar_code=#{deliveryBarCode},
+            </if>
+            <if test="deliveryQuantity!=null">
+                delivery_quantity=#{deliveryQuantity},
+            </if>
+            status='DELIVERED',
+            delivery_time=now(),
+            modify_date =now()
+        </set>
+        WHERE id = #{orderItemId} AND (status='NORMAL' OR
+        status='WAITDELIVERED')
+    </update>
+
+    <update id="doDesignerDelivery">
+		UPDATE OrderItem SET delivery_type=#{deliveryType}
+		WHERE id=#{id}
+	</update>
+
+    <update id="doSign">
+		UPDATE OrderItem
+		SET modify_date=now(),
+		status='SIGNED', sign_date=#{signDate}, expect_date=#{expectDate}
+		WHERE id=#{id} AND
+		(status='DELIVERED' OR status='NORMAL')
+	</update>
+
+    <update id="doSuccess">
+		UPDATE OrderItem
+		SET modify_date=now(),
+		status='SUCCESS', finish_date=now(), diff_amount=#{diffAmount}
+		WHERE id
+		= #{id} AND
+		(status='SUCCESS' OR status='SIGNED' OR status='DELIVERED')
+	</update>
+
+    <update id="doAutoSuccess">
+		UPDATE orderItem oi
+		SET oi.modify_date =now(),
+		oi.`status`='SUCCESS',
+		oi.finish_date=now()
+		WHERE oi.status='SIGNED'
+		AND
+		oi.sign_date IS NOT NULL
+		AND oi.sign_date
+		&lt; date_add(now(),
+		interval-#{expireTime} second)
+		AND oi.id NOT IN
+		(SELECT order_item_id
+		FROM o_order_refund WHERE refund_status &lt; 8
+		AND refund_status &gt;=
+		0)
+	</update>
+
+    <update id="doLock">
+		UPDATE OrderItem
+		SET modify_date=now(), locked=1,
+		item_memo=#{info}
+		WHERE id=#{id} AND status NOT IN
+		('DELIVERED','SUCCESS') AND locked=0
+	</update>
+
+    <update id="doClose">
+		UPDATE OrderItem
+		SET
+		item_close_reason=#{itemCloseReason},item_close_man=#{itemCloseMan},item_close_time=now(),
+		modify_date =now(), status=#{status}, collage_status=-1
+		WHERE id = #{id}
+	</update>
+
+    <update id="doBalance">
+		UPDATE orderItem
+		SET balance=1,
+		balance_man=#{balanceMan},
+		balance_date=now(),
+		balance_reason=#{balanceReason},
+		balance_money=#{balanceMoney},
+		bill_number=#{billNumber},
+		modify_date=NOW()
+		WHERE id=#{id}
+		AND status IN
+		('DELIVERED','SIGNED','AFTERCLOSE','SUCCESS')
+	</update>
+
+    <update id="doCompensation">
+		UPDATE orderItem SET
+		compensation_amount=compensation_amount+#{compansation}
+		WHERE id=#{id}
+	</update>
+
+    <update id="cancelClose">
+		UPDATE OrderItem
+		SET modify_date =now(),
+		status='NORMAL'
+		WHERE id = #{id} AND
+		(status='MALLCLOSE' or
+		status='CLOSE')
+	</update>
+
+    <update id="cancelStore">
+		UPDATE OrderItem
+		SET
+		modify_date=now(),status='NORMAL',store_id=null,bind_date=null,item_memo=null,cod_amount=null,locked=0
+		WHERE id=#{id}
+	</update>
+
+    <update id="cancelLock">
+		UPDATE OrderItem
+		SET
+		modify_date=now(),locked=0,item_memo=#{info}
+		WHERE id=#{id} AND
+		locked=1
+	</update>
+
+    <update id="cancelBalance">
+		UPDATE orderItem
+		SET balance=0,modify_date=NOW()
+		WHERE
+		id=#{id} AND status = 'DELIVERED'
+	</update>
+
+    <update id="cancelDelivery">
+        UPDATE OrderItem
+        <set>
+            status='NORMAL',modify_date=now(),
+            delivery_corp_name=null,delivery_sn=null,delivery_time=null
+        </set>
+        WHERE id = #{id} and status='DELIVERED'
+    </update>
+
+    <select id="findActualAmountForAward" resultType="java.util.Map">
+        SELECT
+        buyer_member_id AS 会员ID,
+        buyer_member_name AS 会员账号,
+        actualAmount AS 完结订单实付金额,
+        awardId AS 中奖ID
+        FROM
+        (SELECT
+        buyer_member_id, buyer_member_name,
+        SUM(product_price*product_quantity-coupon_amount-red_amount
+        -order_promotion_amount-promotion_amount-partner_amount)
+        AS actualAmount
+        FROM orderItem WHERE
+        payment_time &gt; #{beginPaymentDate}
+        AND payment_time &lt; #{endPaymentDate}
+        AND `status`='SUCCESS'
+        AND finish_date &gt; #{beginFinishDate}
+        AND finish_date &lt; #{endFinishDate}
+        AND buyer_member_id IN
+        (SELECT
+        DISTINCT member_id FROM o_award_record WHERE award_id IN
+        <foreach collection="awardIds" open="(" close=")" item="awardId"
+                 separator=",">
+            #{awardId}
+        </foreach>
+        )
+        GROUP BY buyer_member_id)t1
+        INNER JOIN
+        (SELECT member_id, MAX(award_id) AS awardId FROM o_award_record WHERE award_id IN
+        <foreach collection="awardIds" open="(" close=")" item="awardId"
+                 separator=",">
+            #{awardId}
+        </foreach>
+        GROUP BY member_id)t2
+        ON t1.buyer_member_id=t2.member_id;
+    </select>
+
+    <select id="countCompensation" resultType="int">
+		SELECT COUNT(1) FROM
+		orderItem WHERE `status`='NORMAL'and refund_id is NULL and
+		estimate_date &lt;=#{deadline}
+	</select>
+
+    <select id="findCompensation" resultMap="baseMap">
+		SELECT * FROM orderItem
+		WHERE `status`='NORMAL'and refund_id is NULL and
+		estimate_date &lt;=#{deadline}
+		LIMIT #{page.startNumber},#{page.pageSize}
+	</select>
+
+    <select id="findWaitUpdateDeliveryCaomeiOrder" resultMap="baseMap">
+		SELECT * FROM orderItem 
+		WHERE product_source='CAOMEI' AND `status`='DELIVERED' AND delivery_sn LIKE 'SN%'
+		LIMIT #{page.startNumber},#{page.pageSize}
+	</select>
+
+    <select id="countWaitUpdateDeliveryCaomeiOrder" resultType="int">
+		SELECT COUNT(id) FROM orderItem 
+		WHERE product_source='CAOMEI' AND `status`='DELIVERED' AND delivery_sn LIKE 'SN%'
+	</select>
+
+    <select id="findDplusTotalAmount" resultType="hashMap">
+        SELECT s.id, s. CODE, s. NAME, o.money
+        FROM o_store s
+        LEFT JOIN (
+        SELECT dplus_id,
+        SUM(product_price*product_quantity-promotion_amount-order_promotion_amount-red_amount-coupon_amount) AS money
+        FROM orderItem WHERE
+        type = 'distribution'
+        AND `status` != 'CLOSE'
+        AND `status` != 'MALLCLOSE'
+        AND dplus_id IS NOT NULL
+        <if test="startDate != null">
+            AND create_date &gt; #{startDate}
+        </if>
+        <if test="endDate != null">
+            AND create_date &lt; #{endDate}
+        </if>
+        GROUP BY dplus_id
+        ) o ON s.id = o.dplus_id
+        WHERE s.bus_type = 'DPLUS'
+    </select>
+
+    <select id="findDplusAmountByShop" resultType="hashMap">
+        SELECT DATE_FORMAT(create_date,'%Y-%m-%d') AS day,
+        dplus_id, dplus_code, dplus_name,
+        SUM(product_price*product_quantity-promotion_amount-order_promotion_amount-red_amount-coupon_amount) AS money
+        FROM orderItem WHERE
+        type = 'distribution'
+        AND `status` != 'CLOSE'
+        AND `status` != 'MALLCLOSE'
+        AND dplus_id=#{storeId}
+        <if test="startDate != null">
+            AND create_date &gt; #{startDate}
+        </if>
+        <if test="endDate != null">
+            AND create_date &lt; #{endDate}
+        </if>
+        GROUP BY day
+    </select>
+
+    <select id="findDplusForStatement" resultMap="baseMap">
+		SELECT * FROM orderItem
+		WHERE orderItem.`status`
+		IN('DELIVERED','SIGNED','SUCCESS','AFTERCLOSE')
+		AND bus_type='DPLUS' AND delivery_time IS NULL AND
+		DATEDIFF(NOW(),sign_date) >= 1
+		AND
+		DATEDIFF(sign_date,#{beginDate}) >= 0
+		AND payment_type!=3
+		AND EXISTS
+		(SELECT 1 FROM p_product WHERE
+		product_sale_type
+		in('CONSIGN','COOPERATIVE') AND product_trade_type='COMMON' and source='D2CMALL' AND orderitem.product_id
+		= p_product.id)
+		LIMIT #{page.startNumber},#{page.pageSize}
+	</select>
+
+    <select id="countDplusForStatement" resultType="int">
+		SELECT count(*) FROM
+		orderItem
+		WHERE orderItem.`status`
+		IN('DELIVERED','SIGNED','SUCCESS','AFTERCLOSE')
+		AND bus_type='DPLUS' AND delivery_time IS NULL AND
+		DATEDIFF(NOW(),sign_date) >= 1
+		AND
+		DATEDIFF(sign_date,#{beginDate}) >= 0
+		AND payment_type!=3
+		AND EXISTS
+		(SELECT 1 FROM p_product WHERE
+		product_sale_type
+		in('CONSIGN','COOPERATIVE') AND product_trade_type='COMMON' and source='D2CMALL' AND orderitem.product_id
+		= p_product.id)
+	</select>
+</mapper>

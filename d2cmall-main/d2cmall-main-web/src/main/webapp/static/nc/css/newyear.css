@@ -1,0 +1,112 @@
+body {
+    background: url('newyear/bg.jpg')
+}
+
+.container {
+    background: #ededed
+}
+
+.header-search form input {
+    border: 2px solid #cd3134;
+    box-shadow: 0 0 3px 0 #CCC inset;
+    width: 80%;
+    color: #cd3134;
+}
+
+.header-search form button {
+    background: #cd3134;
+}
+
+.navi-category {
+    background: #cd3134;
+}
+
+.navi-category-main {
+    background: #cd3134;
+}
+
+.navi-category-title, .navi-category-main dl.qrcode {
+    background-color: #c22b2e;
+}
+
+.navi-category, .navi-category-title {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.navi-category-main dl:nth-child(2n) {
+    background-color: #cd3134;
+}
+
+.navi-category-main dl.category dt {
+    border-color: #c22b2e
+}
+
+.navi-category-main dl.category dd {
+    border-color: #c22b2e
+}
+
+.navi-category-main dl.category:hover dt {
+    border-color: #c22b2e
+}
+
+.navi-category-main dl.category dt a {
+    color: #FFFFFF;
+}
+
+.navi-category-main dl.qrcode span, .download-app .text span {
+    background-color: #feda08;
+    color: #cd3134
+}
+
+.navi-category-main dl.qrcode span:before {
+    border-color: transparent transparent #feda08 transparent;
+}
+
+.navigation.suspend-fixed .navi-category, .navigation.suspend-fixed .navi-category-title {
+    border-radius: 0;
+}
+
+.suspend-navs a {
+    border-color: #c22b2e;
+    color: #FFFFFF;
+    background-color: #cd3134;
+}
+
+.suspend-navs a.on {
+    background: #feda08;
+    color: #cd3134;
+    box-shadow: 0 0 3px #CC0000;
+}
+
+.suspend-navs .float-search form {
+    border-color: #cd3134;
+    border-left: 1px solid #cd3134;
+}
+
+.scroll-top a:hover {
+    background-color: #FFFFFF;
+}
+
+.product-info .product-operator-button, .product-info-suspend .product-operator-button {
+    border-color: #cd3134
+}
+
+.product-info .product-operator-button.first, .product-info-suspend .product-operator-button.first {
+    background-color: #cd3134;
+    color: #FFF;
+}
+
+.product-info .product-operator-button.third, .product-info-suspend .product-operator-button.third {
+    border-color: #feda08;
+    background-color: #feda08;
+    color: #c22b2e
+}
+
+.product-sku a:hover, .product-sku a.selected {
+    border-color: #cd3134
+}
+
+.product-sku a.selected i {
+    display: none;
+}

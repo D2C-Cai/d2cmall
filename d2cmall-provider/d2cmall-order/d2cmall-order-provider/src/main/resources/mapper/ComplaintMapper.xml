@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.ComplaintMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.Complaint">
+        <result property="id" column="id"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="filePath" column="file_path"/>
+        <result property="cmpSn" column="cmp_sn"/>
+        <result property="memberId" column="member_id"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="complainantId" column="complainant_id"/>
+        <result property="name" column="name"/>
+        <result property="tel" column="tel"/>
+        <result property="qq" column="qq"/>
+        <result property="wechat" column="wechat"/>
+        <result property="email" column="email"/>
+        <result property="sex" column="sex"/>
+        <result property="status" column="status"/>
+        <result property="level" column="level"/>
+        <result property="cmpDate" column="cmp_date"/>
+        <result property="type" column="type"/>
+        <result property="content" column="content"/>
+        <result property="transactionId" column="transaction_id"/>
+        <result property="transactionSn" column="transaction_sn"/>
+        <result property="transactionTime" column="transaction_time"/>
+        <result property="transactionInfo" column="transaction_info"/>
+        <result property="promiseDate" column="promise_date"/>
+        <result property="promiseMan" column="promise_man"/>
+        <result property="promiseContent" column="promise_content"/>
+        <result property="overDate" column="over_date"/>
+        <result property="overMan" column="over_man"/>
+        <result property="overContent" column="over_content"/>
+        <result property="memo" column="memo"/>
+        <result property="orderId" column="order_id"/>
+        <result property="dealDate" column="deal_date"/>
+        <result property="dealContent" column="deal_content"/>
+        <result property="callBackDate" column="call_back_date"/>
+        <result property="pic" column="pic"/>
+        <result property="code" column="code"/>
+        <result property="businessType" column="business_type"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="businessType" column="business_type"/>
+    </resultMap>
+
+    <select id="findComplaintById" resultMap="baseMap">
+		SELECT * FROM o_complaint WHERE id = #{complaintId}
+	</select>
+
+    <select id="findByTypeAndTransactionSn" resultMap="baseMap">
+		SELECT * FROM o_complaint c WHERE c.type =#{type} AND c.transaction_sn=#{transactionSn} LIMIT 0,1
+	</select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT * FROM o_complaint c
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        <if test="searcher.status=='INIT'">
+            ORDER BY c.create_date ASC
+        </if>
+        <if test="searcher.status!='INIT'">
+            ORDER BY c.deal_date DESC
+        </if>
+        <if test="pager != null">
+            LIMIT #{pager.startNumber},#{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT COUNT(*)
+        FROM o_complaint c
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.loginCode != null and searcher.loginCode !=''">
+            AND c.login_code = #{searcher.loginCode}
+        </if>
+        <if test="searcher.tel != null and searcher.tel != ''">
+            AND c.tel = #{searcher.tel}
+        </if>
+        <if test="searcher.name != null and searcher.name != ''">
+            AND c.name =#{searcher.name}
+        </if>
+        <if test="searcher.content != null and searcher.content != ''">
+            AND c.content =#{searcher.content}
+        </if>
+        <if test="searcher.type != null and searcher.type != ''">
+            AND c.type = #{searcher.type}
+        </if>
+        <if test="searcher.orderSn != null and searcher.orderSn != ''">
+            AND c.order_sn = #{searcher.orderSn}
+        </if>
+        <if test="searcher.status != null and searcher.status != ''">
+            AND c.status = #{searcher.status}
+        </if>
+        <if test="searcher.creator != null and searcher.creator != ''">
+            AND c.creator = #{searcher.creator}
+        </if>
+        <if test="searcher.transactionSn != null and searcher.transactionSn != ''">
+            AND c.transaction_sn = #{searcher.transactionSn}
+        </if>
+        <if test="searcher.beginCreateDate != null">
+            AND c.create_date &gt;= #{searcher.beginCreateDate}
+        </if>
+        <if test="searcher.endCreateDate != null">
+            AND c.create_date &lt;= #{searcher.endCreateDate}
+        </if>
+        <if test="searcher.beginCmpDate != null">
+            AND c.cmp_date &gt;= #{searcher.beginCmpDate}
+        </if>
+        <if test="searcher.endCmpDate != null">
+            AND c.cmp_date &lt;= #{searcher.endCmpDate}
+        </if>
+        <if test="searcher.beginPromiseDate != null">
+            AND c.promise_date &gt;= #{searcher.beginPromiseDate}
+        </if>
+        <if test="searcher.endPromiseDate != null">
+            AND c.promise_date &lt;= #{searcher.endPromiseDate}
+        </if>
+        <if test="searcher.beginOverDate != null">
+            AND c.over_date &gt;= #{searcher.beginOverDate}
+        </if>
+        <if test="searcher.endOverDate != null">
+            AND c.over_date &lt;= #{searcher.endOverDate}
+        </if>
+        <if test="searcher.level != null">
+            AND c.level = #{searcher.level}
+        </if>
+        <if test="searcher.businessType != null and searcher.businessType!=''">
+            AND c.business_type = #{searcher.businessType}
+        </if>
+    </sql>
+
+    <select id="countGroupByStatus" resultType="hashMap">
+		SELECT `status`, COUNT(*) counts from o_complaint GROUP BY `status` ORDER BY `status`
+	</select>
+
+</mapper>

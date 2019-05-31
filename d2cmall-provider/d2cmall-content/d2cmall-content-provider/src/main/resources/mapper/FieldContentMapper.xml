@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.content.dao.FieldContentMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.FieldContent">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="last_modify_man" property="lastModifyMan"
+                jdbcType="VARCHAR"/>
+        <result column="group_name" property="groupName" jdbcType="VARCHAR"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="VARCHAR"/>
+        <result column="bind_url" property="bindUrl" jdbcType="VARCHAR"/>
+        <result column="sort" property="sort" jdbcType="BIGINT"/>
+        <result column="module_page_id" property="modulePageId"
+                jdbcType="BIGINT"/>
+        <result column="margin" property="margin" jdbcType="VARCHAR"/>
+        <result column="front_pic" property="frontPic"/>
+        <result column="mid_pic" property="midPic"/>
+        <result column="end_pic" property="endPic"/>
+        <result column="creator" property="creator"/>
+    </resultMap>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT d.*
+        <include refid="joinTableSql"/>
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY d.sort DESC,d.create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(*)
+        <include refid="joinTableSql"/>
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="joinTableSql">
+		FROM v_field_content d
+		WHERE 1=1
+	</sql>
+
+    <sql id="Searcher">
+        <if test="searcher.title!=null and searcher.title!=''">
+            AND d.title LIKE CONCAT('%',#{searcher.title},'%')
+        </if>
+        <if test="searcher.bindUrl!=null and searcher.bindUrl!=''">
+            AND d.bind_url LIKE CONCAT('%',#{searcher.bindUrl},'%')
+        </if>
+        <if test="searcher.groupName!=null and searcher.groupName!=''">
+            AND d.group_name=#{searcher.groupName}
+        </if>
+        <if test="searcher.modulePageId!=null">
+            AND d.module_page_id=#{searcher.modulePageId}
+        </if>
+    </sql>
+
+    <select id="findByGroupAndPage" resultMap="baseMap">
+        select *
+        from v_field_content where group_name = #{group} and module_page_id = #{pageid}
+        order by sort DESC
+        <if test="pager != null">
+            limit #{pager.startNumber},#{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countByGroupAndPage" resultType="Integer">
+		select count(id)
+		from v_field_content where group_name = #{group} and module_page_id = #{pageid}
+	</select>
+
+    <delete id="delete">
+		delete from v_field_content
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+</mapper>

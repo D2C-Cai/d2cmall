@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.MemberLikeMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.MemberLike">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result property="memberId" column="member_id"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="shareId" column="share_id"/>
+        <result property="shareName" column="share_name"/>
+        <result property="sharePic" column="share_pic"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(m.id) FROM m_member_like m
+        WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT m.* FROM m_member_like m
+        WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY m.create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.memberId!=null">
+            AND m.member_id=#{searcher.memberId}
+        </if>
+        <if test="searcher.nickName!=null and searcher.nickName!=''">
+            AND m.nick_name =#{searcher.nickName}
+        </if>
+        <if test="searcher.shareId!=null">
+            AND m.share_id=#{searcher.shareId}
+        </if>
+        <if test="searcher.shareName!=null and searcher.shareName!=''">
+            AND m.share_name =#{searcher.share_name}
+        </if>
+    </sql>
+
+    <delete id="delete">
+		DELETE FROM m_member_like
+		WHERE
+		member_id=#{memberId} AND share_id=#{shareId}
+	</delete>
+
+    <select id="countByMemberId" resultType="int">
+		SELECT COUNT(id) FROM
+		m_member_like WHERE member_id=#{memberId}
+	</select>
+
+    <select id="findByMemberId" resultMap="baseMap">
+		SELECT * FROM
+		m_member_like WHERE member_id=#{memberId}
+		ORDER BY create_date DESC
+		LIMIT #{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="findByMemberAndShareId" resultMap="baseMap">
+		SELECT * FROM
+		m_member_like WHERE
+		member_id=#{memberId} AND share_id=#{shareId}
+	</select>
+
+    <select id="countByMemberShareId" resultType="int">
+		SELECT COUNT(id) FROM
+		m_member_like WHERE share_id=#{shareId}
+	</select>
+
+    <select id="findByMemberShareId" resultMap="baseMap">
+		SELECT * FROM
+		m_member_like WHERE share_id=#{shareId} 
+		ORDER BY create_date DESC
+		LIMIT #{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <update id="updateColumn">
+		set names utf8mb4
+	</update>
+
+    <update id="doMerge">
+		UPDATE m_member_like SET
+		modify_date=now(),old_member_id=member_id ,member_id=#{targetId} WHERE
+		member_id=#{sourceId}
+	</update>
+
+    <update id="doRefreshHeadPic">
+        UPDATE m_member_like SET
+        <if test="headPic!=null and headPic!=''">
+            head_pic=#{headPic},
+        </if>
+        nick_name=#{nickName},modify_date=NOW() WHERE member_id=#{memberInfoId}
+    </update>
+</mapper>

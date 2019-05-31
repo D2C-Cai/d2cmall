@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-back/d2cmall-back.iml" filepath="$PROJECT_DIR$/d2cmall-back/d2cmall-back.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-back/d2cmall-back-rest/d2cmall-back-rest.iml" filepath="$PROJECT_DIR$/d2cmall-back/d2cmall-back-rest/d2cmall-back-rest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-behavior/d2cmall-behavior.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-behavior/d2cmall-behavior.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-behavior/d2cmall-behavior-api/d2cmall-behavior-api.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-behavior/d2cmall-behavior-api/d2cmall-behavior-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-behavior/d2cmall-behavior-provider/d2cmall-behavior-provider.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-behavior/d2cmall-behavior-provider/d2cmall-behavior-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common.iml" filepath="$PROJECT_DIR$/d2cmall-common/d2cmall-common.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-api/d2cmall-common-api.iml" filepath="$PROJECT_DIR$/d2cmall-common/d2cmall-common-api/d2cmall-common-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-base/d2cmall-common-base.iml" filepath="$PROJECT_DIR$/d2cmall-common/d2cmall-common-base/d2cmall-common-base.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-cache/d2cmall-common-cache.iml" filepath="$PROJECT_DIR$/d2cmall-common/d2cmall-common-cache/d2cmall-common-cache.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-core/d2cmall-common-core.iml" filepath="$PROJECT_DIR$/d2cmall-common/d2cmall-common-core/d2cmall-common-core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-math/d2cmall-common-math.iml" filepath="$PROJECT_DIR$/d2cmall-common/d2cmall-common-math/d2cmall-common-math.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-mongo/d2cmall-common-mongo.iml" filepath="$PROJECT_DIR$/d2cmall-common/d2cmall-common-mongo/d2cmall-common-mongo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-mq/d2cmall-common-mq.iml" filepath="$PROJECT_DIR$/d2cmall-common/d2cmall-common-mq/d2cmall-common-mq.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-mybatis/d2cmall-common-mybatis.iml" filepath="$PROJECT_DIR$/d2cmall-common/d2cmall-common-mybatis/d2cmall-common-mybatis.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-old/d2cmall-common-old.iml" filepath="$PROJECT_DIR$/d2cmall-common/d2cmall-common-old/d2cmall-common-old.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-common/d2cmall-common-search/d2cmall-common-search.iml" filepath="$PROJECT_DIR$/d2cmall-common/d2cmall-common-search/d2cmall-common-search.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-content/d2cmall-content.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-content/d2cmall-content.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-content/d2cmall-content-api/d2cmall-content-api.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-content/d2cmall-content-api/d2cmall-content-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-content/d2cmall-content-provider/d2cmall-content-provider.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-content/d2cmall-content-provider/d2cmall-content-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-frame/d2cmall-frame.iml" filepath="$PROJECT_DIR$/d2cmall-frame/d2cmall-frame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-frame/d2cmall-frame-api/d2cmall-frame-api.iml" filepath="$PROJECT_DIR$/d2cmall-frame/d2cmall-frame-api/d2cmall-frame-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-frame/d2cmall-frame-back/d2cmall-frame-back.iml" filepath="$PROJECT_DIR$/d2cmall-frame/d2cmall-frame-back/d2cmall-frame-back.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-frame/d2cmall-frame-provider/d2cmall-frame-provider.iml" filepath="$PROJECT_DIR$/d2cmall-frame/d2cmall-frame-provider/d2cmall-frame-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-frame/d2cmall-frame-web/d2cmall-frame-web.iml" filepath="$PROJECT_DIR$/d2cmall-frame/d2cmall-frame-web/d2cmall-frame-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-logger/d2cmall-logger.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-logger/d2cmall-logger.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-logger/d2cmall-logger-api/d2cmall-logger-api.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-logger/d2cmall-logger-api/d2cmall-logger-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-logger/d2cmall-logger-provider/d2cmall-logger-provider.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-logger/d2cmall-logger-provider/d2cmall-logger-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-main/d2cmall-main.iml" filepath="$PROJECT_DIR$/d2cmall-main/d2cmall-main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-main/d2cmall-main-openapi/d2cmall-main-openapi.iml" filepath="$PROJECT_DIR$/d2cmall-main/d2cmall-main-openapi/d2cmall-main-openapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-main/d2cmall-main-report/d2cmall-main-report.iml" filepath="$PROJECT_DIR$/d2cmall-main/d2cmall-main-report/d2cmall-main-report.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-main/d2cmall-main-rest/d2cmall-main-rest.iml" filepath="$PROJECT_DIR$/d2cmall-main/d2cmall-main-rest/d2cmall-main-rest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-main/d2cmall-main-web/d2cmall-main-web.iml" filepath="$PROJECT_DIR$/d2cmall-main/d2cmall-main-web/d2cmall-main-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-member/d2cmall-member.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-member/d2cmall-member.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-member/d2cmall-member-api/d2cmall-member-api.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-member/d2cmall-member-api/d2cmall-member-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-member/d2cmall-member-provider/d2cmall-member-provider.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-member/d2cmall-member-provider/d2cmall-member-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-openapi/d2cmall-openapi.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-openapi/d2cmall-openapi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-openapi/d2cmall-openapi-api/d2cmall-openapi-api.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-openapi/d2cmall-openapi-api/d2cmall-openapi-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-openapi/d2cmall-openapi-provider/d2cmall-openapi-provider.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-openapi/d2cmall-openapi-provider/d2cmall-openapi-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-order/d2cmall-order.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-order/d2cmall-order.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-order/d2cmall-order-api/d2cmall-order-api.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-order/d2cmall-order-api/d2cmall-order-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-order/d2cmall-order-provider/d2cmall-order-provider.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-order/d2cmall-order-provider/d2cmall-order-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-parent.iml" filepath="$PROJECT_DIR$/d2cmall-parent.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-product/d2cmall-product.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-product/d2cmall-product.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-product/d2cmall-product-api/d2cmall-product-api.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-product/d2cmall-product-api/d2cmall-product-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-product/d2cmall-product-provider/d2cmall-product-provider.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-product/d2cmall-product-provider/d2cmall-product-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-provider.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-report/d2cmall-report.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-report/d2cmall-report.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-report/d2cmall-report-api/d2cmall-report-api.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-report/d2cmall-report-api/d2cmall-report-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-report/d2cmall-report-provider/d2cmall-report-provider.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-report/d2cmall-report-provider/d2cmall-report-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-services/d2cmall-services.iml" filepath="$PROJECT_DIR$/d2cmall-services/d2cmall-services.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-services/d2cmall-services-quartz/d2cmall-services-quartz.iml" filepath="$PROJECT_DIR$/d2cmall-services/d2cmall-services-quartz/d2cmall-services-quartz.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-similar/d2cmall-similar.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-similar/d2cmall-similar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-similar/d2cmall-similar-api/d2cmall-similar-api.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-similar/d2cmall-similar-api/d2cmall-similar-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/d2cmall-provider/d2cmall-similar/d2cmall-similar-provider/d2cmall-similar-provider.iml" filepath="$PROJECT_DIR$/d2cmall-provider/d2cmall-similar/d2cmall-similar-provider/d2cmall-similar-provider.iml" />
+    </modules>
+  </component>
+</project>

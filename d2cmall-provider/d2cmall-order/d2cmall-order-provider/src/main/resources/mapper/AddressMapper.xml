@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.AddressMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.Address">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="street" column="street"/>
+        <result property="zipCode" column="zip_code"/>
+        <result property="phonePrefix" column="phone_prefix"/>
+        <result property="phoneMiddle" column="phone_middle"/>
+        <result property="phoneSuffix" column="phone_suffix"/>
+        <result property="mobile" column="mobile"/>
+        <result property="isdefault" column="isdefault"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="memberId" column="member_id"/>
+        <result property="regionPrefix" column="region_prefix"/>
+        <result property="regionMiddle" column="region_middle"/>
+        <result property="regionSuffix" column="region_suffix"/>
+        <result property="email" column="email"/>
+        <result property="weixin" column="weixin"/>
+        <result property="longitude" column="longitude"/>
+        <result property="latitude" column="latitude"/>
+    </resultMap>
+
+    <select id="findByMemberInfoId" resultMap="baseMap">
+		SELECT * FROM o_address
+		WHERE member_id=#{memberInfoId} order by isdefault
+		desc, id desc
+	</select>
+
+    <select id="findByMemberIdAndKeyword" resultMap="baseMap">
+        SELECT * FROM o_address WHERE member_id=#{memberInfoId}
+        <if test="keyWord != null">
+            AND (name LIKE CONCAT('%',#{keyWord},'%') OR street LIKE
+            CONCAT('%',#{keyWord},'%') OR mobile LIKE CONCAT('%',#{keyWord},'%'))
+        </if>
+        ORDER BY isdefault desc, id desc
+        <if test="pager != null">
+            LIMIT #{pager.startNumber},#{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countByMemberInfoId" resultType="int">
+        SELECT count(id) FROM o_address WHERE member_id=#{memberInfoId}
+        <if test="keyWord != null">
+            AND (name LIKE CONCAT('%',#{keyWord},'%') OR street LIKE
+            CONCAT('%',#{keyWord},'%') OR mobile LIKE CONCAT('%',#{keyWord},'%'))
+        </if>
+    </select>
+
+    <update id="clearDefaultByMember">
+		UPDATE o_address SET isdefault=0 WHERE isdefault=1 and
+		member_id=#{memberInfoId}
+	</update>
+
+    <update id="settingDefault">
+		UPDATE o_address SET isdefault=1 WHERE id=#{id} and
+		member_id = #{memberInfoId}
+	</update>
+
+    <delete id="delete">
+		DELETE FROM o_address WHERE id = #{id}
+	</delete>
+
+    <update id="doMerge">
+		UPDATE o_address SET old_member_id=member_id, member_id=#{targetId} WHERE
+		member_id=#{sourceId}
+	</update>
+
+</mapper>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.MemberDetailMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.MemberDetail">
+        <result property="memberInfoId" column="member_info_id"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="phone" column="phone"/>
+        <result property="name" column="name"/>
+        <result property="qq" column="qq"/>
+        <result property="weixin" column="weixin"/>
+        <result property="regionPrefix" column="region_prefix"/>
+        <result property="regionMiddle" column="region_middle"/>
+        <result property="regionSuffix" column="region_suffix"/>
+        <result property="street" column="street"/>
+        <result property="height" column="height"/>
+        <result property="weight" column="weight"/>
+        <result property="chest" column="chest"/>
+        <result property="waistline" column="waistline"/>
+        <result property="hipline" column="hipline"/>
+        <result property="footLength" column="foot_length"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="level" column="level"/>
+        <result property="integration" column="integration"/>
+        <result property="additionalAmount" column="additional_amount"/>
+        <result property="upgradeDate" column="upgrade_date"/>
+    </resultMap>
+
+    <select id="findByMemberInfoId" resultMap="baseMap">
+		SELECT * from
+		m_member_detail
+		WHERE member_info_id=#{memberInfoId}
+	</select>
+
+    <update id="updateByMemberId">
+        UPDATE m_member_detail
+        SET modify_date=now()
+        <if test="memberDertail!=null">
+            <if test="memberDertail.name!=null">
+                ,name=#{memberDertail.name}
+            </if>
+            <if test="memberDertail.phone!=null">
+                ,phone=#{memberDertail.phone}
+            </if>
+            <if test="memberDertail.street!=null">
+                ,street=#{memberDertail.street}
+            </if>
+            <if test="memberDertail.regionPrefix!=null">
+                ,region_prefix=#{memberDertail.regionPrefix}
+            </if>
+            <if test="memberDertail.regionMiddle!=null">
+                ,region_middle=#{memberDertail.regionMiddle}
+            </if>
+            <if test="memberDertail.regionSuffix!=null">
+                ,region_suffix=#{memberDertail.regionSuffix}
+            </if>
+            <if test="memberDertail.qq!=null">
+                ,qq=#{memberDertail.qq}
+            </if>
+            <if test="memberDertail.weixin!=null">
+                ,weixin=#{memberDertail.weixin}
+            </if>
+        </if>
+        WHERE member_info_id=#{memberId}
+    </update>
+
+    <select id="countExpireMember" resultType="int">
+		select count(*) from
+		m_member_detail
+		where DATEDIFF(NOW(),upgrade_date)>=365
+	</select>
+
+    <select id="findExpireMember" resultMap="baseMap">
+        select id,
+        additional_amount,level,upgrade_date,last_upgrade_date from
+        m_member_detail
+        where DATEDIFF(NOW(),upgrade_date)>=365
+        <if test="pager != null">
+            LIMIT #{pager.startNumber},#{pager.pageSize}
+        </if>
+    </select>
+
+    <update id="updateLevel">
+		update m_member_detail set
+		additional_amount=#{additionalAmount},level=#{level},upgrade_date=#{upgradeDate}
+		where member_info_id=#{memberInfoId}
+	</update>
+
+    <update id="updateIntegration">
+		UPDATE m_member_detail
+		SET integration=integration+#{point}
+		WHERE member_info_id=#{memberInfoId} and integration+#{point}>0
+	</update>
+
+</mapper>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.CollectionCardMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.CollectionCard">
+        <result property="memberId" column="member_id"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="defId" column="def_id"/>
+        <result property="defName" column="def_name"/>
+        <result property="url" column="url"/>
+        <result property="pic" column="pic"/>
+        <result property="cardSn" column="card_sn"/>
+        <result property="point" column="point"/>
+        <result property="fromName" column="from_name"/>
+        <result property="fromId" column="from_id"/>
+        <result property="promotionId" column="promotion_id"/>
+        <result property="promotionName" column="promotion_name"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM m_collection_card WHERE 1=1
+        <include refid="Searcher"/>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(id) FROM m_collection_card WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.memberId!=null">
+            AND member_id=#{searcher.memberId}
+        </if>
+        <if test="searcher.today!=null and searcher.today">
+            AND to_days(create_date) = to_days(now());
+        </if>
+        <if test="searcher.fromSelf!=null and searcher.fromSelf">
+            AND from_id IS NULL
+        </if>
+        <if test="searcher.nickName!=null and searcher.nickName!=''">
+            AND nick_name LIKE CONCAT('%',#{searcher.nickName},'%')
+        </if>
+        <if test="searcher.loginCode!=null and searcher.loginCode!=''">
+            AND login_code LIKE CONCAT('%',#{searcher.loginCode},'%')
+        </if>
+        <if test="searcher.cardName!=null and searcher.cardName!=''">
+            AND def_name LIKE CONCAT('%',#{searcher.cardName},'%')
+        </if>
+        <if test="searcher.defId!=null">
+            AND def_id=#{searcher.defId}
+        </if>
+        <if test="searcher.beginCreateDate!=null">
+            AND create_date &gt;= #{searcher.beginCreateDate}
+        </if>
+        <if test="searcher.endCreateDate!=null">
+            AND create_date &lt; #{searcher.endCreateDate}
+        </if>
+        <if test="searcher.promotionId!=null">
+            AND promotion_id=#{searcher.promotionId}
+        </if>
+    </sql>
+
+    <select id="findByMemberId" resultMap="baseMap">
+		SELECT * FROM m_collection_card WHERE member_id=#{memberId} AND promotion_id=#{promotionId}
+	</select>
+</mapper>

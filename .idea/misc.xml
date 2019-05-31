@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/d2cmall-back/d2cmall-back-rest" />
+    <file type="web" url="file://$PROJECT_DIR$/d2cmall-main/d2cmall-main-openapi" />
+    <file type="web" url="file://$PROJECT_DIR$/d2cmall-main/d2cmall-main-report" />
+    <file type="web" url="file://$PROJECT_DIR$/d2cmall-main/d2cmall-main-rest" />
+    <file type="web" url="file://$PROJECT_DIR$/d2cmall-main/d2cmall-main-web" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/classes" />
+  </component>
+</project>

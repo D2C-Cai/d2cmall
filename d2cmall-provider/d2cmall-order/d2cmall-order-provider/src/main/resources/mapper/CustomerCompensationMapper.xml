@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.CustomerCompensationMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.CustomerCompensation">
+        <result property="transactionId" column="transaction_id"/>
+        <result property="transactionSn" column="transaction_sn"/>
+        <result property="status" column="status"/>
+        <result property="tradeAmount" column="trade_amount"/>
+        <result property="compensationAmount" column="compensation_amount"/>
+        <result property="memberId" column="member_id"/>
+        <result property="orderItemId" column="order_item_id"/>
+        <result property="type" column="type"/>
+        <result property="amount" column="amount"/>
+        <result property="payAmount" column="pay_amount"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="remark" column="remark"/>
+        <result property="productSku" column="product_sku"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="estimateDate" column="estimate_date"/>
+        <result property="transactionTime" column="transaction_time"/>
+    </resultMap>
+
+
+    <sql id="Searcher">
+        <if test="searcher!=null">
+            <if test="searcher.loginCode!=null and searcher.loginCode!=''">
+                And login_code=#{searcher.loginCode}
+            </if>
+            <if test="searcher.orderSn!=null and searcher.orderSn!=''">
+                And transaction_sn=#{searcher.orderSn}
+            </if>
+            <if test="searcher.productSku!=null and searcher.productSku!=''">
+                And product_sku=#{searcher.productSku}
+            </if>
+            <if test="searcher.type!=null">
+                And type=#{searcher.type}
+            </if>
+            <if test="searcher.status!=null">
+                And status=#{searcher.status}
+            </if>
+            <if test="searcher.startDate!=null">
+                And create_date &gt;=#{searcher.startDate}
+            </if>
+            <if test="searcher.endDate!=null">
+                And create_date &lt;=#{searcher.endDate}
+            </if>
+            <if test="searcher.minAmount!=null">
+                And compensation_amount &gt;=#{searcher.minAmount}
+            </if>
+            <if test="searcher.maxAmount!=null">
+                And compensation_amount &lt;=#{searcher.maxAmount}
+            </if>
+            <if test="searcher.transactionStartTime!=null">
+                And transaction_time &gt;=#{searcher.transactionStartTime}
+            </if>
+            <if test="searcher.transactionEndTime!=null">
+                And transaction_time &lt;=#{searcher.transactionEndTime}
+            </if>
+        </if>
+    </sql>
+
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(1) FROM o_cus_compensation where 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM o_cus_compensation where 1=1
+        <include refid="Searcher"/>
+        ORDER BY create_date desc
+        LIMIT #{page.startNumber},#{page.pageSize}
+    </select>
+
+    <select id="findCompensation" resultMap="baseMap">
+		SELECT * FROM
+		o_cus_compensation WHERE
+		order_item_id=#{orderItemId} and status=0
+	</select>
+
+    <update id="doPay">
+		update o_cus_compensation set status=8,
+		modify_date=now() where id=#{id} and status=4
+	</update>
+
+    <update id="updateCompensationAmount">
+		update o_cus_compensation set
+		compensation_amount=#{compensationAmount},
+		modify_date=now() where
+		id=#{id} and status=4
+	</update>
+
+    <update id="updateRemark">
+		update o_compensation set
+		remark=#{remark}
+		,modify_date=now() where id=#{id}
+	</update>
+
+    <select id="findByTransactionId" resultMap="baseMap">
+		SELECT * FROM
+		o_cus_compensation WHERE
+		transaction_id=#{transactionId}
+		LIMIT 0,1
+	</select>
+
+    <update id="doClose">
+		update o_cus_compensation set status=-1
+		,remark=#{remark},modify_date=now() where
+		status!=8 and id=#{id}
+	</update>
+
+    <update id="updateStatusByOrderItem">
+		update o_cus_compensation set status=4 where status=0
+		and
+		transaction_id=#{orderItemId}
+	</update>
+
+
+    <select id="sumBySearcher" resultType="java.math.BigDecimal">
+        SELECT IFNUll(sum(compensation_amount),0) as totalAmount FROM
+        o_cus_compensation
+        WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+</mapper>

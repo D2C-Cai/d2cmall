@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+
+
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean id="propertyPlaceholderConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:conf/app.properties</value>
+                <value>classpath:conf/dubbo.properties</value>
+            </list>
+        </property>
+    </bean>
+    <import resource="classpath:spring-dubbo-consumer.xml"/>
+
+    <!-- 启用注解，并定义组件查找规则 ，mvc层只负责扫描@Controller -->
+    <context:component-scan base-package="com.d2c"
+                            use-default-filters="false">
+        <context:include-filter type="annotation"
+                                expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- 资源访问处理器 -->
+    <mvc:resources mapping="/res/**" location="/res/"/>
+
+    <!-- 定义注解驱动Controller方法处理适配器，注：该适配器必须声明在<mvc:annotation-driven />之前，否则不能正常处理参数类型的转换 -->
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">
+            <list>
+                <bean class="org.springframework.http.converter.StringHttpMessageConverter"/>
+                <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+                <!-- JSON请求处理 -->
+                <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+                    <property name="objectMapper">
+                        <bean class="com.fasterxml.jackson.databind.ObjectMapper">
+                            <property name="dateFormat">
+                                <bean class="java.text.SimpleDateFormat">
+                                    <constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss"/>
+                                </bean>
+                            </property>
+                        </bean>
+                    </property>
+                </bean>
+                <!-- XML请求处理 -->
+                <bean class="org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter"/>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 会自动注册RequestMappingHandlerMapping与RequestMappingHandlerAdapter 两个bean,是spring
+        MVC为@Controllers分发请求所必须的。 并提供了：数据绑定支持，@NumberFormatannotation支持，@DateTimeFormat支持，@Valid支持，读写XML的支持（JAXB），读写JSON的支持（Jackson） -->
+    <mvc:annotation-driven/>
+
+    <!-- 定义首页 -->
+    <mvc:view-controller path="/" view-name="redirect:/home"/>
+
+    <!-- 视图处理器 -->
+    <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 拦截器 -->
+    <!-- session拦截 -->
+    <!-- <mvc:interceptors> <mvc:interceptor> <mvc:mapping path="/**" /> <mvc:exclude-mapping
+        path="/login" /> <bean class="com.d2c.zeus.client.filter.SessionInterceptor"
+        /> </mvc:interceptor> </mvc:interceptors> -->
+
+    <!-- 跨域处理 Spring 4.2 以上版本 -->
+    <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="*"
+                     allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>
+    </mvc:cors>
+
+
+    <!-- 定义国际化资源文件查找规则 ，各种messages.properties <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
+        p:basename="config.messages.messages"> </bean> -->
+
+    <!-- servlet适配器，这里必须明确声明，因为spring默认没有初始化该适配器 <bean id="servletHandlerAdapter"
+        class="org.springframework.web.servlet.handler.SimpleServletHandlerAdapter"
+        /> -->
+
+    <!-- 定义文件上传处理器 <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+        p:defaultEncoding="UTF-8" /> -->
+
+    <!-- 异常处理器 <bean id="exceptionResolver" class="web.core.CP_SimpleMappingExceptionResolver">
+        <property name="defaultErrorView" value="common_error" /> <property name="exceptionAttribute"
+        value="exception" /> <property name="exceptionMappings"> <props> <prop key="java.lang.RuntimeException">common_error</prop>
+        </props> </property> </bean> -->
+
+    <!-- 定义公共参数初始化拦截器 <bean id="initInterceptor" class="web.core.CP_InitializingInterceptor"
+        /> -->
+
+    <!-- 本地化资源处理器 <bean id="localeResolver" class="org.springframework.web.servlet.i18n.CookieLocaleResolver"
+        /> -->
+
+    <!-- 定义本地化变更拦截器 <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor"
+        /> -->
+
+    <!-- 请求拦截器，每一个用户请求都会被拦截 <mvc:interceptors> <ref bean="localeChangeInterceptor"
+        /> <ref bean="initInterceptor" /> </mvc:interceptors> -->
+
+
+</beans>

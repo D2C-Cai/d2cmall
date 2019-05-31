@@ -1,0 +1,467 @@
+.presale-fullscreen {
+    width: 100%;
+    text-align: center;
+    z-index: 0;
+    margin-bottom: 20px;
+}
+
+.presale-fullscreen.fullscreen, .presale-fullscreen .fullscreen-content {
+    height: 1350px;
+}
+
+.presale-list {
+    margin-top: 285px;
+    position: relative;
+    z-index: 1;
+    padding-bottom: 20px;
+}
+
+.presale-list .presale-countdown {
+    position: absolute;
+    top: -180px;
+    left: 51.3%;
+}
+
+.presale-list .list-item {
+    padding: 1%;
+    width: 18%;
+    background: #FFF;
+    border: 1px solid #F2F2F2;
+    margin: -1px;
+    position: relative;
+    z-index: 1;
+    text-align: left;
+}
+
+.presale-list .list-item:hover {
+    border-color: #BBB;
+    box-shadow: 0 0 5px #CCC;
+    z-index: 7
+}
+
+.presale-list .list-item .price {
+    line-height: 35px;
+}
+
+.presale-list .list-item .operator {
+    float: right;
+}
+
+.presale-list .list-item .operator a {
+    display: block;
+    width: 80px;
+    line-height: 35px;
+    background: #f04a60;
+    color: #FFF;
+    font-weight: bold;
+    border-radius: 2px;
+    text-align: center
+}
+
+.presale-list .list-item .operator a:hover, .presale-list .list-item:hover .operator a {
+    background: #d21129
+}
+
+/* custom-page css*/
+
+.custom-list {
+    clear: both
+}
+
+.custom-list ul {
+    width: 100%;
+}
+
+.custom-list li {
+    float: left;
+    width: 19.9%;
+    margin-right: 1px;
+    margin-top: 1px;
+    text-align: center;
+    position: relative;
+    overflow: hidden
+}
+
+.custom-list li img {
+    width: 100%;
+}
+
+.custom-list li .op {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background: #FFF;
+    text-align: center;
+    display: none;
+    color: #000
+}
+
+.custom-list li .op p {
+    line-height: 150%
+}
+
+.custom-list li .op p strong {
+    font-size: 14px;
+    font-family: Arial
+}
+
+.custom-list li .op .logo {
+    padding: 6px 0;
+    border-bottom: 1px solid #DEDEDE;
+    margin-bottom: 10px
+}
+
+.custom-button-wrap {
+}
+
+.custom-button {
+    display: block;
+    margin: 15px auto;
+    width: 79px;
+    height: 17px;
+    background: url('img/custom_btn.png') no-repeat;
+    text-indent: -9999px
+}
+
+.order-button {
+    display: block;
+    border: 1px solid #ff4c66;
+    background: #ff5b73;
+    line-height: 35px;
+    color: #FFF
+}
+
+.order-button:hover {
+    color: #FFF;
+    background: #ee3752
+}
+
+.custom-detail {
+    width: 100%;
+    background-color: #fff;
+    padding-top: 20px;
+}
+
+.main-wrap {
+    margin: auto;
+    width: 1535px;
+}
+
+.work-left {
+    float: left;
+    width: 740px
+}
+
+.work-right {
+    float: right;
+    width: 740px
+}
+
+.work-img {
+    width: 740px;
+    position: relative;
+    text-align: center;
+    min-height: 740px
+}
+
+.work-img .media-img {
+    max-width: 740px
+}
+
+.work-img-thumbs {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    width: 60px
+}
+
+.work-img-thumbs a {
+    dispolay: block;
+    width: 60px
+}
+
+.work-share {
+    text-align: right;
+    padding-top: 8px;
+    height: 25px;
+    border-bottom: 1px solid #CCC
+}
+
+.work-title {
+    font: normal 25px 'Microsoft Yahei', 'simHei';
+    padding: 20px 0;
+    color: #222
+}
+
+.work-price {
+    height: 40px
+}
+
+.work-price .data-price {
+    font-size: 24px;
+    font-family: Arial;
+    margin-top: -8px;
+    color: #f30
+}
+
+.work-op {
+    border: 1px dotted #CCC;
+    border-left: none;
+    height: 50px;
+    border-right: 0;
+    padding: 30px 10px
+}
+
+.work-op a {
+    float: left;
+    margin-right: 10px
+}
+
+.work-span {
+    display: block;
+    color: #999;
+    margin-top: 20px;
+    height: 25px
+}
+
+.work-span em {
+    display: inline-block;
+    margin-left: 5px;
+    margin-bottom: -4px;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #CCC #FFF #FFF #FFF
+}
+
+.work-text {
+    clear: both;
+    padding: 2px 10px
+}
+
+.work-text pre {
+    font-family: Arial
+}
+
+.work-series {
+    width: 440px;
+    overflow: hidden
+}
+
+.work-series .work-series-list {
+    width: 452px
+}
+
+.work-series .work-series-list li {
+    float: left;
+    width: 101px;
+    border: 3px solid #FFF;
+    margin-right: 4px;
+    margin-bottom: 4px
+}
+
+.work-series .work-series-list li.current {
+    border: 3px solid #f15267
+}
+
+.work-series-page {
+    clear: both;
+    text-align: center
+}
+
+.work-series-page .page-arrow {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    background: url('img/icon.png') no-repeat;
+    text-indent: -9999px;
+    margin: 0 5px
+}
+
+.work-series-page .page-prev {
+    background-position: -362px -243px
+}
+
+.work-series-page .page-next {
+    background-position: -388px -243px
+}
+
+.work-series-page span.page-arrow {
+    opacity: .5
+}
+
+.work-designer {
+    clear: both;
+    margin-top: 20px
+}
+
+.work-designer li {
+    float: left;
+    width: 164px;
+    height: 50px;
+    padding: 10px;
+    border: 1px solid #CCC;
+    margin: 0 -1px -1px 0;
+    text-align: center
+}
+
+.work-designer li a {
+    display: block;
+    font-family: Arial
+}
+
+.work-designer li .avatar {
+    margin-bottom: 10px
+}
+
+.work-designer li .avatar img {
+    height: 50px
+}
+
+.downpay {
+    border-top: 1px dotted #CCC;
+    margin-top: 30px;
+    padding: 15px 0;
+    line-height: 30px
+}
+
+.downpay-tel {
+    border-top: 1px dotted #CCC;
+    padding: 15px 0;
+    line-height: 30px
+}
+
+.downpay-tel button {
+    width: 100px;
+    height: 37px;
+    line-height: 37px;
+    border: 1px solid #333;
+    background: #000 url('img/icon.png') 0 -5px repeat-x;
+    color: #FFF;
+    cursor: pointer;
+    box-shadow: 0 0 5px #CCC
+}
+
+.button-custom-order {
+    width: 197px;
+    height: 54px;
+    display: block;
+    background: url('img/btn_deposit.png') -3px -3px no-repeat
+}
+
+.custom-rule {
+    background: #FFF;
+    text-align: center;
+    padding: 20px 0;
+    color: #9c9c90;
+    line-height: 180%
+}
+
+.custom-detail-rule ul {
+    padding-left: 10px;
+    font-family: Arial;
+    text-align: left
+}
+
+.custom-detail-rule li {
+    list-style-type: decimal;
+    padding: 5px 0;
+    margin-left: 10px
+}
+
+/*news*/
+.main-body {
+    padding: 15px 0 20px 0;
+    background-position: center center
+}
+
+.bg-white {
+    background: #FFF
+}
+
+.shadow-10 {
+    box-shadow: 0 0 10px #ccc
+}
+
+.news-left {
+    float: left;
+    width: 350px;
+    padding: 20px;
+    border-right: 1px solid #DDD
+}
+
+.news-left li {
+    padding: 10px 10px 0 10px;
+    height: 25px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    border-bottom: 1px dotted #CCC
+}
+
+.news-left li a {
+    font-family: Arial
+}
+
+.news-content {
+    margin-left: 390px;
+    padding: 20px;
+    border-left: 1px solid #DDD;
+    min-height: 500px
+}
+
+.news-content h1 {
+    font: normal 22px 'Microsoft Yahei';
+    padding-top: 10px;
+    height: 50px;
+    text-align: center;
+    border-bottom: 1px dotted #CCC
+}
+
+.news-content .content {
+    padding: 20px 10px;
+    font-size: 14px;
+    line-height: 200%
+}
+
+/*brandapply*/
+.brand-form {
+    width: 50%;
+    min-width: 580px;
+    margin: 0 auto;
+    padding: 30px;
+    background: #FFF;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 15px;
+    position: relative
+}
+
+.brand-form h1 {
+    font: normal 26px 'Microsoft Yahei';
+    color: #666;
+    height: 50px;
+    text-align: center;
+    margin: 0;
+}
+
+.brand-form .form .form-item {
+    border-color: #CCC;
+}
+
+.brand-form .form .form-item > label:first-child {
+    width: 28%;
+}
+
+.brand-form .form .form-item .tip-validate {
+    margin-left: 33%;
+}
+
+.brand-remove {
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    font-size: 15px
+}

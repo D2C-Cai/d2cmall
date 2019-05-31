@@ -1,0 +1,166 @@
+.starbanner-fullscreen {
+    margin: auto;
+    position: relative;
+    width: 100%;
+    height: 527px;
+    overflow: hidden;
+    text-align: center;
+}
+
+.star-slide-screen ul, .star-slide-screen li {
+    padding: 0;
+    height: 527px;
+}
+
+.star-slide-screen {
+    position: relative;
+    overflow: auto;
+    text-align: center;
+}
+
+.star-slide-screen ul li {
+    float: left;
+    list-style: none;
+}
+
+#top-slide {
+    width: 100%;
+}
+
+#top-slide .dots {
+    -webkit-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+    -moz-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+    -ms-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+    -o-filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3));
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, .3))
+    z-index: 3;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 20px;
+}
+
+#top-slide .dots li {
+    text-indent: 0em;
+    color: #fff;
+    font-family: Arial;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    margin: 0 5px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    opacity: 0.6;
+    background: #000;
+    -webkit-transition: background .5s, opacity .5s;
+    -moz-transition: background .5s, opacity .5s;
+    transition: background .5s, opacity .5s
+}
+
+#top-slide .dots li.active {
+    background: #ff0000;
+    color: #fff;
+    opacity: 1;
+}
+
+.starbanner-fullscreen a:hover img {
+    opacity: 1
+}
+
+
+/**/
+/*star*/
+#waterfall {
+    margin: 10px auto;
+}
+
+#waterfall .item {
+    width: 247px;
+    box-shadow: 0 1px 5px #CCC;
+    background: #FFF;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+#waterfall .item a {
+    display: block;
+    background: #000;
+}
+
+#waterfall .item a:hover {
+    color: #333;
+}
+
+#waterfall .item a .img {
+    width: 100%;
+    min-height: 200px;
+    opacity: 0.8;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out
+}
+
+#waterfall .item a:hover .img {
+    opacity: 1;
+}
+
+#waterfall .item a span {
+    display: block;
+    padding: 0 8px;
+    background: #FFF;
+}
+
+#waterfall .item a span i {
+    font-style: normal;
+    font-family: Arial;
+}
+
+#waterfall .item a .top {
+    line-height: 40px;
+    height: 38px;
+    overflow: hidden;
+}
+
+#waterfall .item a .top .buy-btn {
+    display: inline-block;
+    width: 63px;
+    height: 17px;
+    background: url('images/buy_star.png') no-repeat;
+    margin-top: 10px;
+}
+
+#waterfall .item a .bottom {
+    line-height: 45px;
+    height: 45px;
+    border-top: 1px dotted #CCC;
+}
+
+#waterfall .item a .bottom .float-left {
+    padding-top: 3px;
+    width: 70px;
+}
+
+#waterfall .item a .bottom .float-right {
+    width: 140px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: right
+}
+
+.load-more {
+    text-align: center;
+    height: 40px;
+    padding-top: 20px;
+}
+
+.load-more i {
+    display: block;
+    margin: auto;
+    width: 16%;
+    height: 20px;
+    background: url(img/loading_2.gif) center no-repeat;
+}

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.MemberFollowMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.MemberFollow">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result property="fromId" column="from_id"/>
+        <result property="fromNickName" column="from_nick_name"/>
+        <result property="fromHeadPic" column="from_head_pic"/>
+        <result property="toId" column="to_id"/>
+        <result property="toNickName" column="to_nick_name"/>
+        <result property="toHeadPic" column="to_head_pic"/>
+        <result property="friends" column="friends"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <select id="countByFromId" resultType="int">
+		SELECT COUNT(id) FROM
+		m_member_follow WHERE from_id=#{fromId}
+	</select>
+
+    <select id="findByFromId" resultMap="baseMap">
+		SELECT * FROM m_member_follow
+		WHERE from_id=#{fromId}
+		ORDER BY create_date DESC
+		LIMIT
+		#{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="countByToId" resultType="int">
+        SELECT COUNT(id) FROM m_member_follow WHERE to_id=#{toId}
+        <if test="friends!=null">
+            AND friends=#{friends}
+        </if>
+    </select>
+
+    <select id="findByToId" resultMap="baseMap">
+        SELECT * FROM m_member_follow WHERE to_id=#{toId}
+        <if test="friends!=null">
+            AND friends=#{friends}
+        </if>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <update id="updateFriends">
+		UPDATE m_member_follow SET
+		friends=#{friends},modify_date=NOW()
+		WHERE from_id=#{fromId} AND
+		to_id=#{toId}
+	</update>
+
+    <select id="findById" resultMap="baseMap">
+		SELECT *
+		FROM m_member_follow
+		WHERE
+		id = #{id}
+	</select>
+
+    <select id="findByFromIdAndToId" resultMap="baseMap">
+		SELECT *
+		FROM
+		m_member_follow
+		WHERE from_id = #{fromId} AND to_id=#{toId}
+		LIMIT 0,1
+	</select>
+
+    <delete id="delete">
+		DELETE FROM m_member_follow
+		WHERE from_id = #{fromId}
+		AND to_id=#{toId}
+	</delete>
+
+    <update id="updateColumn">
+		set names utf8mb4
+	</update>
+
+    <update id="doMergeFrom">
+		UPDATE m_member_follow SET
+		modify_date=now(),old_from_id=from_id ,from_id=#{targetId} WHERE
+		from_id=#{sourceId}
+	</update>
+
+    <update id="doMergeTo">
+		UPDATE m_member_follow SET
+		modify_date=now(),old_to_id=to_id ,to_id=#{targetId} WHERE
+		to_id=#{sourceId}
+	</update>
+
+    <select id="findToIdByFromId" resultType="long">
+		SELECT to_id FROM
+		m_member_follow WHERE from_id=#{fromId} LIMIT 0,1000
+	</select>
+    <select id="countTotal" resultType="int">
+		SELECT count(1) FROM
+		`m_member_follow`
+	</select>
+
+    <select id="findByPage" resultMap="baseMap">
+		SELECT * FROM m_member_follow
+		ORDER BY create_date DESC
+		LIMIT
+		#{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <update id="doRefreshHeadPic4From">
+        UPDATE m_member_follow SET
+        <if test="headPic!=null and headPic!=''">
+            from_head_pic=#{headPic},
+        </if>
+        from_nick_name=#{nickName},modify_date=NOW() WHERE from_id=#{memberInfoId}
+    </update>
+
+    <update id="doRefreshHeadPic4To">
+        UPDATE m_member_follow SET
+        <if test="headPic!=null and headPic!=''">
+            to_head_pic=#{headPic},
+        </if>
+        to_nick_name=#{nickName},modify_date=NOW() WHERE to_id=#{memberInfoId}
+    </update>
+</mapper>

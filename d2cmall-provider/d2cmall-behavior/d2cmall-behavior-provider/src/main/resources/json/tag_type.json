@@ -1,0 +1,29 @@
+[
+  {
+    "id": "user_pay_level",
+    "name": "用户消费级别",
+    "override": true,
+    "inputClz": "com.d2c.behavior.api.dto.OrderDpDTO",
+    "inputSpel": "orderItem.productPrice",
+    "ranges": [
+      1000,
+      3000,
+      5000,
+      10000
+    ]
+  },
+  {
+    "id": "user_like_brand",
+    "name": "喜爱的品牌",
+    "override": true,
+    "inputClz": "com.d2c.behavior.api.dto.OrderDpDTO",
+    "inputSpel": "product.brand"
+  },
+  {
+    "id": "user_product_category_id",
+    "name": "购买的商品品类",
+    "override": true,
+    "inputClz": "com.d2c.behavior.api.dto.OrderDpDTO",
+    "inputSpel": "product.productCategoryId"
+  }
+]

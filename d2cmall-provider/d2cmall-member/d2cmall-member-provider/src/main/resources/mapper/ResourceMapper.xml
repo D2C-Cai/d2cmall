@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.ResourceMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.Resource">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="name" column="name"/>
+        <result property="value" column="value"/>
+        <result property="internal" column="internal"/>
+        <result property="sequence" column="sequence"/>
+        <result property="type" column="type"/>
+        <result property="path" column="path"/>
+        <result property="depth" column="depth"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="webUrl" column="web_url"/>
+        <result property="imgName" column="img_name"/>
+    </resultMap>
+
+    <select id="findByValue" resultMap="baseMap">
+		SELECT *
+		FROM m_resource
+		WHERE value = #{value} AND type='URL' LIMIT 0,1
+	</select>
+
+    <select id="findIdsByRoleId" resultType="java.lang.Long">
+		SELECT r.id
+		FROM
+		m_resource
+		r, m_role_resource rr
+		WHERE rr.role_id = #{id} AND
+		rr.resource_id =
+		r.id LIMIT 0,500
+	</select>
+
+    <select id="findByRoles" resultMap="baseMap">
+        SELECT DISTINCT re.*
+        FROM m_role ro, m_role_resource rr, m_resource re
+        WHERE ro.id=rr.role_id AND rr.resource_id=re.id
+        <if test="roles== null or roles.size== 0">
+            AND ro.value='NO'
+        </if>
+        <if test="roles!= null and roles.size &gt; 0">
+            AND ro.value IN
+            <foreach collection="roles" item="item" index="index"
+                     open="(" close=")" separator=",">
+                <if test="item!=null">
+                    #{item}
+                </if>
+            </foreach>
+        </if>
+        AND re.type='URL' AND re.internal=0
+        ORDER BY re.sequence DESC, re.name
+        LIMIT 0,500
+    </select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT * FROM m_resource WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY sequence DESC,name
+        LIMIT 0,500
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.name!= null and searcher.name!= ''">
+            AND name =#{searcher.name}
+        </if>
+        <if test="searcher.value!= null and searcher.value!= ''">
+            AND value =#{searcher.value}
+        </if>
+        <if test="searcher.internal!= null">
+            AND internal =#{searcher.internal}
+        </if>
+        <if test="searcher.type!= null and searcher.type!= ''">
+            AND type =#{searcher.type}
+        </if>
+        <if test="searcher.depth!= null">
+            AND depth =#{searcher.depth}
+        </if>
+        <if test="searcher.depthLess!= null">
+            AND depth &lt; #{searcher.depthLess}
+        </if>
+    </sql>
+
+    <delete id="deleteById">
+		DELETE FROM
+		m_resource
+		WHERE id = #{id}
+	</delete>
+
+    <delete id="deleteRoleResouceByResourceId">
+		delete from
+		m_role_resource
+		where resource_id = #{resourceId}
+	</delete>
+
+    <update id="updateSequence">
+		UPDATE m_resource SET sequence=#{sequence},modify_date=now() WHERE id=#{id}
+	</update>
+
+</mapper>

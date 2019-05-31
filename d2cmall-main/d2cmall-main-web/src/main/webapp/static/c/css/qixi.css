@@ -1,0 +1,385 @@
+body {
+    background: #ffeff2;
+}
+
+#qixi, #qixi a {
+    font-family: 'Microsoft Yahei', 'simSun';
+    font-size: 12px;
+}
+
+.box-wall {
+    background: #ff82a5;
+    padding: 30px;
+    position: relative;
+}
+
+.box-corner-l {
+    background: url('http://d2c-static.b0.upaiyun.com/img/active/140802/box_cor_l.png') no-repeat;
+    width: 42px;
+    height: 45px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0
+}
+
+.box-corner-r {
+    background: url('http://d2c-static.b0.upaiyun.com/img/active/140802/box_cor_r.png') no-repeat;
+    width: 49px;
+    height: 26px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 0
+}
+
+.love-words, .wish-space {
+    float: left;
+    width: 70px;
+    height: 70px;
+    border: 1px solid #ffd5d7;
+    margin: 0 -1px -1px 0;
+    position: relative;
+}
+
+.love-words {
+    background: #FF3300;
+}
+
+.wish-space {
+    float: left;
+    border: none;
+    width: 72px;
+    height: 72px;
+    text-align: center;
+}
+
+.love-heart {
+    position: absolute;
+    display: none;
+    top: -105px;
+    left: -103px;
+    z-index: 9;
+    font-weight: bold;
+    color: #FFF;
+    background: url(http://d2c-static.b0.upaiyun.com/img/active/140802/heart.png) no-repeat;
+    width: 282px;
+    height: 245px;
+}
+
+.love-heart .title {
+    margin: 40px 0 0 20px;
+}
+
+.love-heart .desc {
+    margin: 10px 20px;
+    height: 75px;
+}
+
+.love-heart .name {
+    text-align: center;
+}
+
+.love-heart .date {
+    text-align: center;
+}
+
+.love-words:hover .love-heart {
+    display: block;
+}
+
+.box-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    width: 21px;
+    height: 21px;
+    background: url(http://d2c-static.b0.upaiyun.com/img/active/140802/close.png) no-repeat;
+}
+
+.remove-item {
+    width: 15px;
+    height: 15px;
+    display: inline-block;
+    background: url(http://d2c-static.b0.upaiyun.com/img/active/140802/remove.png) no-repeat;
+}
+
+.publish-box {
+    position: absolute;
+    visibility: hidden;
+    top: 100px;
+    left: 50%;
+    margin-left: -310px;
+    padding: 40px 60px 20px 60px;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.show {
+    visibility: visible;
+    width: 500px;
+    top: 0;
+    left: 50%;
+    margin-left: -310px;
+    -moz-transition: all 0.5s ease-in;
+    -webkit-transition: all 0.5s ease-in;
+    -o-transition: all 0.5s ease-in;
+    transition: all 0.5s ease-in;
+}
+
+.love-form {
+    padding-top: 15px;
+    position: relative;
+}
+
+.love-form p {
+    padding-bottom: 15px;
+    font-family: Arial;
+}
+
+.love-form input, .love-form textarea {
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #000;
+    padding: 0 5px 5px 5px;
+    overflow: hidden;
+}
+
+.love-form textarea {
+    background-image: url(http://d2c-static.b0.upaiyun.com/img/active/140802/input_line_bg.png?0.1);
+    border: none;
+    height: 78px;
+    width: 100%;
+    line-height: 29px;
+    margin-top: -10px;
+}
+
+.pub-avatar {
+    display: inline-block;
+    background: url(http://d2c-static.b0.upaiyun.com/img/active/140802/pub_t_2.png) no-repeat;
+    width: 157px;
+    height: 39px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.pub-avatar img {
+    float: right;
+    border-radius: 8px;
+    margin-right: 5px;
+}
+
+.avatar {
+    position: absolute;
+    display: none;
+    bottom: 60px;
+    background: #ff467a;
+    padding: 4px;
+    width: 324px;
+}
+
+.avatar img {
+    width: 50px;
+    float: left;
+    border: 2px solid #ff467a;
+    cursor: pointer;
+}
+
+.avatar img:hover {
+    border-color: #FFF;
+}
+
+.love-view-text {
+    padding: 20px 0;
+    color: #ff467a;
+    line-height: 200%;
+    font-size: 14px;
+}
+
+.love-view-text p {
+    text-indent: 30px;
+    text-align: left;
+    margin: 15px 0;
+}
+
+.love-bottom {
+    height: 80px;
+    padding: 15px 0;
+    background: #ff467a;
+    margin: 30px -60px -20px -60px;
+    text-align: center;
+}
+
+.pub-button {
+    width: 76px;
+    height: 25px;
+    background: url(http://d2c-static.b0.upaiyun.com/img/active/140802/pub_t_3.png);
+    border: none;
+    margin: 10px 0 0 50px;
+    text-indent: -9999px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.love-share-div {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    margin-left: -87px;
+    background: #FFF;
+    border-radius: 15px;
+    border: 1px solid #DDD;
+    padding: 5px 15px 7px 15px;
+}
+
+.wish-list {
+    padding: 15px;
+    background: #89d3cd;
+    margin-top: 35px;
+}
+
+.wish-product {
+    float: left;
+    width: 730px;
+    height: 555px;
+    overflow: hidden;
+}
+
+.wish-item {
+    float: left;
+    margin: 0 7px 7px 0;
+    width: 176px;
+    height: 274px;
+    overflow: hidden;
+    background: #FFF;
+}
+
+.large {
+    width: 356px;
+    height: 555px;
+}
+
+.wish-word {
+    color: #FFF;
+    text-align: left;
+    padding: 0 20px
+}
+
+.wish-word p {
+    margin-bottom: 10px;
+    font-size: 14px;
+    text-indent: 30px;
+}
+
+.wish-buy {
+    text-align: center;
+}
+
+.wish-buy button {
+    border: none;
+    display: block;
+    cursor: pointer;;
+    background: #ff4f81;
+    font: bold 22px 'Microsoft Yahei';
+    color: #FFF;
+    border-radius: 20px;
+    width: 200px;
+    line-height: 40px;
+    margin: auto;
+}
+
+.wish-item img {
+    width: 100%;
+}
+
+.wish-item .add-item {
+    display: table;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.wish-item .add-item a {
+    margin: 70% auto 0 auto;
+    display: block;
+    background: #ff82a4;
+    border-radius: 15px;
+    line-height: 30px;
+    width: 120px;
+    text-align: center;
+    color: #FFF;
+}
+
+.wish-text {
+    float: right;
+    width: 430px;
+    text-align: center;
+}
+
+.wish-share {
+    background: url(http://d2c-static.b0.upaiyun.com/img/active/140802/img_3.png) no-repeat;
+    padding-top: 2px;
+    padding-left: 75px;
+    width: 196px;
+    height: 25px;
+    margin: 40px auto 0 auto;
+}
+
+.wish-product-title {
+    padding-top: 30px;
+    height: 170px;
+}
+
+.wish-price {
+    height: 50px;
+    text-align: center;
+}
+
+.wish-price .price {
+    margin: auto;
+    display: block;
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFF;
+    background: url(http://d2c-static.b0.upaiyun.com/img/active/140802/img_2.png) no-repeat;
+    padding-left: 85px;
+    width: 128px;
+    line-height: 33px;
+}
+
+.wish-product-title {
+    text-align: left;
+    width: 370px;
+    margin-left: 25px;
+}
+
+.wish-product-title p {
+    height: 32px;
+    color: #FFF;
+}
+
+.wish-product-title p .title {
+    float: left;
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    color: #FFF;
+    width: 270px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.wish-product-title p .price {
+    float: right;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.wish-product-title p .remove-item {
+    float: right;
+    margin: 2px 0 0 20px;
+}
+
+.topic-list a {
+    display: block;
+}

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.MagazineIssueMapper">
+    <resultMap type="com.d2c.member.model.MagazineIssue" id="baseMap">
+        <result property="magazineId" column="magazine_id"/>
+        <result property="magazineName" column="magazine_name"/>
+        <result property="code" column="code"/>
+        <result property="partnerId" column="partner_id"/>
+        <result property="partnerCode" column="partner_code"/>
+        <result property="partnerTraderId" column="partner_trader_id"/>
+        <result property="partnerTraderCode" column="partner_trader_code"/>
+        <result property="status" column="status"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findByCode" resultMap="baseMap">
+		SELECT * FROM m_magazine_issue WHERE code =#{code} LIMIT 0,1
+	</select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM m_magazine_issue WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date DESC
+        <if test="pager != null">
+            LIMIT #{pager.startNumber}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT count(*) FROM m_magazine_issue WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.magazineId!=null">
+            AND magazine_id =#{searcher.magazineId}
+        </if>
+        <if test="searcher.magazineName!=null and searcher.magazineName!=''">
+            AND magazine_name =#{searcher.magazineName}
+        </if>
+        <if test="searcher.status!=null">
+            AND status =#{searcher.status}
+        </if>
+        <if test="searcher.partnerId!=null">
+            AND partner_id =#{searcher.partnerId}
+        </if>
+        <if test="searcher.code!=null">
+            AND code =#{searcher.code}
+        </if>
+        <if test="searcher.partnerCode!=null and searcher.partnerCode!=''">
+            AND partner_code =#{searcher.partnerCode}
+        </if>
+        <if test="searcher.partnerTraderId!=null">
+            AND partner_trader_id =#{searcher.partnerTraderId}
+        </if>
+        <if test="searcher.partnerTraderCode!=null and searcher.partnerTraderCode!=''">
+            AND partner_trader_code =#{searcher.partnerTraderCode}
+        </if>
+    </sql>
+
+    <update id="updateStatus">
+		UPDATE m_magazine_issue SET
+		status=#{status},last_modify_man=#{name} WHERE
+		id=#{id}
+	</update>
+
+    <update id="doBindPartner">
+		UPDATE m_magazine_issue SET
+		partner_id=#{partnerId},partner_code=#{partnerCode},modify_date=NOW() 
+		WHERE id=#{id}
+	</update>
+
+    <update id="doBindPartnerTrader">
+		UPDATE m_magazine_issue SET
+        partner_trader_id=#{partnerTraderId},partner_trader_code=#{partnerTraderCode},modify_date=NOW() 
+		WHERE code=#{code}
+	</update>
+
+</mapper>

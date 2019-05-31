@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.SmsLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.SmsLog">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="maxSend" column="max_send"/>
+    </resultMap>
+
+    <select id="findBySourceAndType" resultMap="baseMap">
+		SELECT * FROM log_sms WHERE source=#{source} AND type=#{type} LIMIT 0,1
+	</select>
+
+    <select id="findOneByIp" resultMap="baseMap">
+		SELECT * FROM log_sms WHERE ip=#{ip} AND type=#{type} order by create_date
+		desc LIMIT 0,1
+	</select>
+
+    <delete id="deleteExpireLog">
+		DELETE FROM log_sms WHERE create_date &lt;
+		date_add(now(), interval -1200 second)
+	</delete>
+
+    <select id="countByMobileAndTime" resultType="int">
+  		SELECT count(id) FROM log_sms 
+  		WHERE mobile=#{mobile} and create_date &lt; date_add(now(), interval -#{intervalTime} second)
+ 	</select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM log_sms
+        WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="searcher"/>
+        </if>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT count(*) FROM log_sms
+        WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="searcher"/>
+        </if>
+    </select>
+
+    <sql id="searcher">
+        <if test="searcher.content != null and searcher.content != ''">
+            AND content =#{searcher.content}
+        </if>
+        <if test="searcher.source != null and searcher.source != ''">
+            AND source =#{searcher.source}
+        </if>
+        <if test="searcher.mobile != null and searcher.mobile != ''">
+            AND mobile =#{searcher.mobile}
+        </if>
+        <if test="searcher.type != null and searcher.type != ''">
+            AND type=#{searcher.type}
+        </if>
+        <if test="searcher.code != null and searcher.code != ''">
+            AND content=#{searcher.content}
+        </if>
+        <if test="searcher.ip != null and searcher.ip != ''">
+            AND ip=#{searcher.ip}
+        </if>
+        <if test="searcher.terminal != null and searcher.terminal != ''">
+            AND terminal=#{searcher.terminal}
+        </if>
+    </sql>
+
+</mapper>

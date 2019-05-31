@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd"
+       default-autowire="byName">
+
+    <!-- QQ登录 -->
+    <bean id="qQOauthClient" class="com.d2c.member.third.oauth.QQOauthClient">
+        <property name="QQ_APPKEY" value="${QQ_APPKEY}"/>
+        <property name="QQ_APPSECRET" value="${QQ_APPSECRET}"/>
+        <property name="QQ_CALLBACK" value="${QQ_CALLBACK}"/>
+    </bean>
+    <!-- 微博登录 -->
+    <bean id="weiboOauthClient" class="com.d2c.member.third.oauth.WeiboOauthClient">
+        <property name="WEIBO_APPKEY" value="${WEIBO_APPKEY}"/>
+        <property name="WEIBO_APPSECRET" value="${WEIBO_APPSECRET}"/>
+        <property name="WEIBO_CALLBACK" value="${WEIBO_CALLBACK}"/>
+    </bean>
+    <!-- 微信扫码 -->
+    <bean id="weixinKfOauthClient" class="com.d2c.member.third.oauth.WeixinKfOauthClient">
+        <property name="WEIXIN_KF_APPKEY" value="${WEIXIN_KF_APPKEY}"/>
+        <property name="WEIXIN_KF_APPSECRET" value="${WEIXIN_KF_APPSECRET}"/>
+        <property name="WEIXIN_KF_CALLBACK" value="${WEIXIN_KF_CALLBACK}"/>
+    </bean>
+    <!-- 微信授权 -->
+    <bean id="weixinGzOauthClient" class="com.d2c.member.third.oauth.WeixinGzOauthClient">
+        <property name="WEIXIN_GZ_APPKEY" value="${WEIXIN_GZ_APPKEY}"/>
+        <property name="WEIXIN_GZ_APPSECRET" value="${WEIXIN_GZ_APPSECRET}"/>
+        <property name="WEIXIN_GZ_CALLBACK" value="${WEIXIN_GZ_CALLBACK}"/>
+    </bean>
+
+    <!-- 支付宝支付 -->
+    <bean id="alipayConfig" class="com.d2c.order.third.payment.alipay.core.pcwap.AlipayConfig">
+        <property name="notify_url" value="${ALIPAY_NOTIFY_URL}"/>
+        <property name="return_url" value="${ALIPAY_RETURN_URL}"/>
+        <property name="return_wap_url" value="${ALIPAY_WAP_RETURN_URL}"/>
+        <property name="notify_wap_url" value="${ALIPAY_WAP_NOTIFY_URL}"/>
+        <property name="show_url" value="${ALIPAY_SHOW_URL}"/>
+    </bean>
+    <!-- 微信支付 -->
+    <bean id="wxWapConfig" class="com.d2c.order.third.payment.wxpay.core.WxWapConfig">
+        <property name="APPID" value="${WXPAY_APPID}"/>
+        <property name="MCH_ID" value="${WXPAY_MCH_ID}"/>
+        <property name="RETURN_URL" value="${WXPAY_RETURN_URL}"/>
+        <property name="NOTIFY_URL" value="${WXPAY_NOTIFY_URL}"/>
+    </bean>
+    <!-- 小程序支付 -->
+    <bean id="wxXcxConfig" class="com.d2c.order.third.payment.wxpay.core.WxXcxConfig">
+        <property name="APP_ID" value="${WEIXIN_XCX_APPKEY}"/>
+        <property name="APP_SECRET" value="${WEIXIN_XCX_APPSECRET}"/>
+        <property name="WX_URL" value="${WEIXIN_XCX_URL}"/>
+        <property name="NOTIFY_URL" value="${WEIXIN_XCX_NOTIFY_URL}"/>
+    </bean>
+    <!-- 工猫提现 -->
+    <bean id="gongmallConfig" class="com.d2c.order.third.payment.gongmall.core.GongmallConfig">
+        <property name="contractUrl" value="${GONGMALL_CONTRACT_URL}"/>
+        <property name="apiUrl" value="${GONGMALL_API_URL}"/>
+        <property name="appkey" value="${GONGMALL_APP_KEY}"/>
+        <property name="appSecret" value="${GONGMALL_APP_SECRET}"/>
+    </bean>
+
+</beans>

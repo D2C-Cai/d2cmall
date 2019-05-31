@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.WardrobeMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.Wardrobe">
+        <result property="memberId" column="member_id"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="pic" column="pic"/>
+        <result property="topName" column="top_name"/>
+        <result property="categoryId" column="category_id"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="price" column="price"/>
+        <result property="season" column="season"/>
+        <result property="scene" column="scene"/>
+        <result property="tags" column="tags"/>
+        <result property="color" column="color"/>
+    </resultMap>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(id) FROM m_wardrobe WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM m_wardrobe WHERE 1=1
+        <include refid="Searcher"/>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.memberId!=null">
+            AND member_id=#{searcher.memberId}
+        </if>
+        <if test="searcher.topName!=null and searcher.topName!=''">
+            AND top_name=#{searcher.topName}
+        </if>
+        <if test="searcher.tags!=null and searcher.tags!=''">
+            AND tags LIKE CONCAT('%',#{searcher.tags},'%')
+        </if>
+        <if test="searcher.season!=null and searcher.season!=''">
+            AND season LIKE CONCAT('%',#{searcher.season},'%')
+        </if>
+        <if test="searcher.price!=null and searcher.price!=''">
+            AND price = #{searcher.price}
+        </if>
+        <if test="searcher.color!=null and searcher.color!=''">
+            AND color = #{searcher.color}
+        </if>
+        <if test="searcher.scene!=null and searcher.scene!=''">
+            AND scene LIKE CONCAT('%', #{searcher.scene},'%')
+        </if>
+        <if test="searcher.loginCode!=null and searcher.loginCode!=''">
+            AND login_code=#{searcher.loginCode}
+        </if>
+        <if test="searcher.categoryName!=null and searcher.categoryName!=''">
+            AND category_name=#{searcher.categoryName}
+        </if>
+        <if test="searcher.beginDate!=null">
+            AND create_date &gt; #{searcher.beginDate}
+        </if>
+        <if test="searcher.endDate!=null">
+            AND create_date &lt; #{searcher.endDate}
+        </if>
+        <if test="searcher.categoryId!=null">
+            AND category_id = #{searcher.categoryId}
+        </if>
+    </sql>
+
+    <delete id="delete">
+		DELETE FROM m_wardrobe WHERE id=#{id}
+	</delete>
+
+    <delete id="deleteByMemberId">
+        DELETE FROM m_wardrobe WHERE member_id=#{memberId} AND
+        id IN
+        <foreach collection="ids" index="index" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

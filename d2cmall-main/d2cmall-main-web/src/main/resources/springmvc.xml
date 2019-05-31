@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/mvc
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd"
+       default-lazy-init="true">
+
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="1"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:conf/app.properties</value>
+                <value>file:///${user.home}/conf/*.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 启用注解，并定义组件查找规则 ，mvc层只负责扫描@Controller -->
+    <context:component-scan base-package="com.d2c" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <import resource="classpath:springmvc-base.xml"/>
+    <import resource="classpath:spring-dubbo-consumer.xml"/>
+    <import resource="classpath:dubbo-bean.xml"/>
+
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="org.springframework.mobile.device.DeviceResolverHandlerInterceptor"/>
+        </mvc:interceptor>
+        <bean class="com.d2c.flame.interceptor.SiteSwitcherInterceptor"
+              factory-method="mDot">
+            <constructor-arg value="www.d2cmall.com"/>
+            <constructor-arg value="${flame.mysite.switch}"/>
+        </bean>
+        <bean class="com.d2c.flame.interceptor.UserAgentInterceptor"/>
+    </mvc:interceptors>
+
+    <mvc:annotation-driven>
+        <mvc:argument-resolvers>
+            <bean class="org.springframework.mobile.device.DeviceWebArgumentResolver"/>
+            <bean class="org.springframework.mobile.device.site.SitePreferenceWebArgumentResolver"/>
+        </mvc:argument-resolvers>
+    </mvc:annotation-driven>
+
+    <!-- 跨域处理 Spring 4.2 以上版本 -->
+    <mvc:cors>
+        <mvc:mapping path="/**" allowed-origins="*"
+                     allow-credentials="true" max-age="1800" allowed-methods="GET,POST,OPTIONS"/>
+    </mvc:cors>
+
+    <!-- 根据客户端的不同的请求决定不同的view进行响应, 如 /blog/1.json /blog/1.xml -->
+    <bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="contentNegotiationManager" ref="contentNegotiationManager"/>
+        <property name="defaultViews">
+            <list>
+                <bean class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="defaultContentType" value="text/html"/>
+        <property name="favorPathExtension" value="true"/>
+        <property name="favorParameter" value="true"/>
+        <property name="parameterName" value="format"/>
+        <property name="mediaTypes">
+            <value>
+                html=text/html
+                json=application/json
+                xml=application/xml
+            </value>
+        </property>
+    </bean>
+
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 该属性用来配置可上传文件的最大 byte数 -->
+        <property name="maxUploadSize">
+            <value>20000000</value>
+        </property>
+    </bean>
+
+    <!-- 配置freeMarker视图解析器 -->
+    <bean id="freemarkerConfiguration"
+          class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+        <property name="location"
+                  value="file:///${user.home}/conf/freemarker.properties"/>
+    </bean>
+
+    <bean id="freemarkerConfig"
+          class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="freemarkerSettings" ref="freemarkerConfiguration"/>
+        <property name="templateLoaderPath" value="${freemarker.path}"/>
+        <property name="freemarkerVariables">
+            <map>
+                <entry key="xml_escape" value-ref="fmXmlEscape"/>
+                <entry key="base" value="${flame.base}"/>
+                <entry key="mobileBase" value="${flame.mobile.base}"/>
+                <entry key="static_base" value="${flame.static.base}"/>
+                <entry key="picture_base" value="${flame.picture.base}"/>
+                <entry key="video_base" value="${flame.video.base}"/>
+                <entry key="profile" value="${flame.profile}"/>
+            </map>
+        </property>
+    </bean>
+
+    <bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
+
+    <bean id="viewResolver"
+          class="org.springframework.mobile.device.view.LiteDeviceDelegatingViewResolver">
+        <constructor-arg>
+            <bean
+                    class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+                <property name="viewClass"
+                          value="org.springframework.web.servlet.view.freemarker.FreeMarkerView"/>
+                <property name="contentType" value="text/html; charset=utf-8"/>
+                <property name="cache" value="true"/>
+                <property name="suffix" value=".ftl"/>
+                <property name="order" value="2"/>
+                <property name="exposeSpringMacroHelpers" value="true"/>
+                <property name="exposeRequestAttributes" value="true"/>
+                <property name="exposeSessionAttributes" value="true"/>
+                <property name="requestContextAttribute" value="request"/>
+                <property name="attributesMap">
+                    <map>
+                        <entry key="loginMember" value-ref="loginMember"/>
+                        <entry key="renderUserAgent" value-ref="renderUserAgent"/>
+                        <entry key="renderNavigation" value-ref="renderNavigation"/>
+                        <entry key="renderSearchHot" value-ref="renderSearchHot"/>
+                        <entry key="renderStaticSign" value-ref="renderStaticSign"/>
+                        <entry key="renderStaticTimeStamp" value-ref="renderStaticTimeStamp"/>
+                    </map>
+                </property>
+                <property name="redirectHttp10Compatible" value="false"/>
+            </bean>
+        </constructor-arg>
+        <property name="normalPrefix" value="device-pc/"/>
+        <property name="mobilePrefix" value="device-mobile/"/>
+        <property name="tabletPrefix" value="device-pc/"/>
+    </bean>
+
+    <bean id="loginMember" class="com.d2c.flame.freemarker.LoginMember"/>
+    <bean id="renderUserAgent" class="com.d2c.flame.freemarker.RenderUserAgent"/>
+    <bean id="renderSearchHot" class="com.d2c.flame.freemarker.RenderSearchHot"/>
+    <bean id="renderNavigation" class="com.d2c.flame.freemarker.RenderNavigation"/>
+    <bean id="renderStaticSign" class="com.d2c.flame.freemarker.RenderStaticSign"/>
+    <bean id="renderStaticTimeStamp" class="com.d2c.flame.freemarker.RenderStaticTimeStamp"/>
+
+</beans>

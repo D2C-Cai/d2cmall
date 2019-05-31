@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.PartnerInviteMapper">
+    <resultMap type="com.d2c.member.model.PartnerInvite" id="baseMap">
+        <result property="fromMemberId" column="from_member_id"/>
+        <result property="fromPartnerId" column="from_partner_id"/>
+        <result property="fromNickname" column="from_nickname"/>
+        <result property="fromHeadPic" column="from_head_pic"/>
+        <result property="fromLoginCode" column="from_login_code"/>
+        <result property="toMemberId" column="to_member_id"/>
+        <result property="toPartnerId" column="to_partner_id"/>
+        <result property="toNickname" column="to_nickname"/>
+        <result property="toHeadPic" column="to_head_pic"/>
+        <result property="toLoginCode" column="to_login_code"/>
+        <result property="award" column="award"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="fromLevel" column="from_level"/>
+        <result property="toLevel" column="to_level"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM m_partner_invite WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date DESC
+        <if test="pager != null">
+            LIMIT #{pager.startNumber}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT count(*) FROM m_partner_invite WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.fromMemberId!=null">
+            AND from_member_id =#{searcher.fromMemberId}
+        </if>
+        <if test="searcher.fromPartnerId!=null">
+            AND from_partner_id =#{searcher.fromPartnerId}
+        </if>
+        <if test="searcher.toMemberId!=null">
+            AND to_member_id =#{searcher.toMemberId}
+        </if>
+        <if test="searcher.toPartnerId!=null">
+            AND to_partner_id =#{searcher.toPartnerId}
+        </if>
+        <if test="searcher.createDateStart!=null">
+            AND create_date &gt;= #{searcher.createDateStart}
+        </if>
+        <if test="searcher.createDateEnd!=null">
+            AND create_date &lt;= #{searcher.createDateEnd}
+        </if>
+        <if test="searcher.award!=null">
+            AND award = #{searcher.award}
+        </if>
+        <if test="searcher.fromLevel!=null">
+            AND from_level = #{searcher.fromLevel}
+        </if>
+        <if test="searcher.toLevel!=null">
+            AND to_level = #{searcher.toLevel}
+        </if>
+        <if test="searcher.fromLoginCode!=null">
+            AND from_login_code = #{searcher.fromLoginCode}
+        </if>
+        <if test="searcher.toLoginCode!=null">
+            AND to_login_code = #{searcher.toLoginCode}
+        </if>
+    </sql>
+
+    <select id="countInvite" resultType="int">
+		SELECT count(p.id) FROM
+		m_partner_invite i
+		inner join m_partner p on i.to_partner_id = p.id
+		where i.from_partner_id = #{partnerId} and p.level = #{level}
+		and p.create_date >= #{startDate}
+	</select>
+
+    <update id="doAward">
+		UPDATE m_partner_invite SET
+		award=1,modify_date=NOW()
+		WHERE id=#{id} AND award=0
+	</update>
+
+    <update id="doRefresh">
+		UPDATE m_partner_invite SET
+		create_date=NOW(),modify_date=NOW()
+		WHERE to_partner_id=#{toPartnerId}
+	</update>
+
+    <update id="cancelFromAward">
+		DELETE FROM m_partner_invite
+		WHERE from_partner_id=#{fromPartnerId}
+	</update>
+
+    <update id="cancelToAward">
+		DELETE FROM m_partner_invite
+		WHERE to_partner_id=#{toPartnerId}
+	</update>
+
+</mapper>

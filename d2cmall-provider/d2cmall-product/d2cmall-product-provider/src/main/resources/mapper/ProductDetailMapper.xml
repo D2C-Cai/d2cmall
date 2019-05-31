@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.product.dao.ProductDetailMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.ProductDetail">
+        <result property="id" column="id"/>
+        <result property="productId" column="product_id"/>
+        <result property="sizeJson" column="size_json"/>
+        <result property="tryOnReportJson" column="try_on_report_json"/>
+        <result property="starPic" column="star_pic"/>
+        <result property="showPic" column="show_pic"/>
+        <result property="modelPic" column="model_pic"/>
+        <result property="stillPic" column="still_pic"/>
+        <result property="adPic" column="ad_pic"/>
+        <result property="summary" column="summary"/>
+        <result property="attributeGroupId" column="attribute_group_id"/>
+        <result property="attributes" column="attributes"/>
+        <result property="description" column="description"/>
+        <result property="mobileDesc" column="mobile_desc"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <select id="findByProductId" resultMap="baseMap">
+		SELECT * FROM
+		p_product_detail WHERE
+		product_id = #{productId} limit 0,1
+	</select>
+
+    <update id="updateAttribute">
+		UPDATE p_product_detail SET
+		modify_date=now(),attribute_group_id = #{attributeGroupId}
+		WHERE
+		product_id = #{productId}
+	</update>
+
+    <update id="updateSizeJson">
+		UPDATE p_product_detail SET
+		modify_date=now(),size_json = #{sizeJson}
+		WHERE product_id = #{productId}
+	</update>
+
+</mapper>

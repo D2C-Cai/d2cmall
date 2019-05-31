@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.MemberLottoMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.MemberLotto">
+        <result property="id" column="id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="memberName" column="member_name"/>
+        <result property="loginNo" column="login_no"/>
+        <result property="ownCount" column="own_count"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="lotterySource" column="lottery_source"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="sessionId" column="session_id"/>
+    </resultMap>
+
+    <update id="updateMemberLotteryAddCount">
+		UPDATE m_member_lotto SET own_count = own_count +#{addCount},
+		lottery_source = #{json}, modify_date=NOW()
+		WHERE id = #{id} AND own_count &lt; 5;
+	</update>
+
+    <update id="doDecreaseOpportunity">
+		UPDATE m_member_lotto SET own_count = own_count -1
+		WHERE member_id = #{memberId} AND own_count &gt; 0 AND session_id=#{sessionId}
+	</update>
+
+    <select id="findByMemberIdAndSessionId" resultMap="baseMap">
+		SELECT * FROM
+		m_member_lotto WHERE member_id = #{memberId} AND session_id=#{sessionId}
+	</select>
+</mapper>

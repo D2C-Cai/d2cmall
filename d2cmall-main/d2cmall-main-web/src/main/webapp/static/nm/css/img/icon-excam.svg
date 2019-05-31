@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:sketch="http://www.bohemiancoding.com/sketch/ns" width="60px" height="60px" viewBox="0 0 60 60" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+    <!-- Generator: Sketch 3.3.2 (12043) - http://www.bohemiancoding.com/sketch -->
+    <title>icon-excam</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="exclamation" sketch:type="MSLayerGroup" transform="translate(5.000000, 5.000000)" fill="#FD555D">
+            <path d="M25,49.8970588 C11.2720588,49.8970588 0.102941176,38.7279412 0.102941176,25 C0.102941176,11.2720588 11.2720588,0.102941176 25,0.102941176 C38.7279412,0.102941176 49.8970588,11.2720588 49.8970588,25 C49.8970588,38.7279412 38.7279412,49.8970588 25,49.8970588 L25,49.8970588 Z M25,2.83823529 C12.7794118,2.83823529 2.83823529,12.7794118 2.83823529,25 C2.83823529,37.2205882 12.7794118,47.1617647 25,47.1617647 C37.2205882,47.1617647 47.1617647,37.2205882 47.1617647,25 C47.1617647,12.7794118 37.2205882,2.83823529 25,2.83823529 L25,2.83823529 Z"
+                  id="Fill-49" sketch:type="MSShapeGroup"></path>
+            <path d="M23.5382353,35.2941176 L26.4705882,35.2941176 L26.4705882,38.2352941 L23.5382353,38.2352941 L23.5382353,35.2941176 Z"
+                  id="Fill-50" sketch:type="MSShapeGroup"></path>
+            <path d="M25.8823529,32.3529412 L24.1176471,32.3529412 L23.5294118,20.5882353 L23.5294118,11.7647059 L26.4705882,11.7647059 L26.4705882,20.5882353 L25.8823529,32.3529412"
+                  id="Fill-51" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

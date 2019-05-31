@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.d2c.similar.dao.SimilarRuleMapper">
+
+    <select id="findRuleByCode" resultType="com.d2c.similar.entity.SimilarRuleDO">
+		select * from chest_similar_rule 
+		where scheme_id = #{schemeId} and rule_code = #{ruleCode}
+	</select>
+
+</mapper>

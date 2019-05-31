@@ -1,0 +1,926 @@
+@media screen and (min-width: 1700px) {
+    .layout-response {
+        width: 1535px;
+    }
+
+    .suspend-navs {
+        margin-left: -830px
+    }
+
+    .float-search form {
+        width: 1535px;
+    }
+
+    .navi-main {
+        width: 886px;
+        padding-left: 50px;
+    }
+
+    .navi-main a {
+        padding: 0 30px;
+        font-size: 15px;
+    }
+
+    .navi-main .new {
+        background: url(//static.d2c.cn/img/other/new.png) no-repeat 23px -3px;
+    }
+
+    .layout-product-right {
+        width: 1365px;
+    }
+
+    .layout-product .product-img {
+        width: 700px;
+    }
+
+    .layout-product .product-img .img-thumbs {
+        width: 90px;
+    }
+
+    .layout-product .product-img .img-media {
+        width: 590px;
+    }
+
+    .layout-product .product-base {
+        height: 920px
+    }
+
+    .layout-product .product-info {
+        width: 622px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .layout-product .product-others {
+        left: 30px;
+        right: 30px;
+    }
+
+    .layout-product .product-relate {
+        width: 118px;
+    }
+
+    .layout-product .product-info .product-brand, .layout-product .product-info .product-brand a {
+        font-size: 20px
+    }
+
+    .product-info .product-title {
+        font-size: 16px;
+    }
+
+    .product-info .product-prices {
+        height: 60px;
+    }
+
+    .product-info .product-prices .product-price-current {
+        font-size: 30px;
+        line-height: 50px;
+    }
+
+    .product-info .product-prices .product-price-original {
+        font-size: 16px;
+        line-height: 30px;
+        margin: 10px 0 0 25px;
+        padding-left: 25px
+    }
+
+    .product-info .product-sku a {
+        margin: 3px 6px 3px 1px
+    }
+
+    .product-info .product-sku .img {
+        line-height: 50px;
+        padding-top: 20px;
+    }
+
+    .product-info .product-sku .txt {
+        line-height: 40px;
+        padding-top: 20px;
+    }
+
+    .product-info .product-sku .img a {
+        width: 50px;
+        height: 50px;
+    }
+
+    .product-info .product-sku .txt a {
+        padding: 12px 15px 11px 15px;
+        font-size: 14px;
+    }
+
+    .product-info .data-num {
+        width: 70px;
+        height: 37px;
+        line-height: 40px;
+        font-size: 14px;
+    }
+
+    .product-info .data-crease {
+        width: 40px;
+        height: 40px;
+        line-height: 43px;
+    }
+
+    .layout-product .product-tip {
+        padding-top: 25px;
+        height: 35px;
+    }
+
+    .layout-product .product-attr {
+        margin-top: 40px;
+    }
+
+    .layout-product .product-cont-bar {
+        width: 1535px;
+    }
+
+    .layout-product .list-filter {
+        width: 1345px;
+    }
+
+
+    .product-desc, .product-comment, .product-consult {
+        width: 1125px;
+    }
+
+    .product-detail-right {
+        width: 400px
+    }
+
+    .product-info-suspend {
+        width: 380px;
+    }
+
+    .layout-auction .product-base {
+        height: 920px;
+    }
+
+    .layout-auction .product-img {
+        width: 700px;
+    }
+
+    .auction-time .count-down {
+        padding-right: 20px
+    }
+
+    .layout-auction .product-img .img-thumbs {
+        width: 90px;
+    }
+
+    .layout-auction .product-img .img-media {
+        width: 590px;
+    }
+
+    .layout-auction .product-info {
+        width: 622px;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .layout-auction .auction-record {
+        width: 350px;
+    }
+
+    .layout-auction .product-info .data-num {
+        width: 100px;
+    }
+
+    .layout-auction .product-cont-tab-cont {
+        width: 100%;
+        background: #FFF;
+    }
+
+    .layout-auction .product-desc, .layout-auction .product-record {
+        margin: auto;
+    }
+
+    .layout-auction .product-others {
+        left: 30px;
+        right: 30px;
+    }
+
+
+    .d2c-store-o2o {
+        margin: 0 auto;
+        width: 1535px;
+        position: relative;
+        overflow: hidden;
+        padding-bottom: 20px
+    }
+
+    .layout-user-left {
+        width: 250px;
+    }
+
+    .layout-user-right {
+        width: 1275px;
+    }
+
+    /*star*/
+    #waterfall .gutter-sizer {
+        width: 10px;
+    }
+
+
+}
+
+@media screen and (min-width: 1350px) and (max-width: 1700px) {
+    .promotion-list {
+        width: 1345px;
+    }
+
+    .product-attr .tab-cont .more-info {
+        bottom: 10px;
+    }
+
+    .layout-response {
+        width: 1345px;
+    }
+
+    .suspend-navs {
+        margin-left: -745px
+    }
+
+    .hide-one {
+        display: none;
+    }
+
+    .float-search form {
+        width: 1345px;
+    }
+
+    .product-attr .tab-cont {
+        padding: 10px;
+    }
+
+    .navi-main {
+        width: 818px;
+        padding-left: 10px;
+    }
+
+    .navi-main a {
+        padding: 0 27px;
+    }
+
+    .navi-main .new {
+        background: url(//static.d2c.cn/img/other/new.png) no-repeat 23px -3px;
+    }
+
+    .layout-product .product-base {
+        height: 880px
+    }
+
+    .layout-product-right {
+        width: 1145px;
+    }
+
+    .layout-product .product-img {
+        width: 635px;
+    }
+
+    .layout-product .product-img .img-thumbs {
+        width: 80px;
+    }
+
+    .layout-product .product-img .img-media {
+        width: 535px;
+    }
+
+    .layout-product .product-info {
+        width: 505px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .layout-product .product-others {
+        left: 15px;
+        right: 15px;
+    }
+
+    .layout-product .product-relate {
+        width: 105px;
+    }
+
+    .layout-product .product-info .product-brand, .layout-product .product-info .product-brand a {
+        font-size: 18px
+    }
+
+    .product-info .product-title {
+        font-size: 16px;
+    }
+
+    .product-info .product-prices {
+        height: 55px;
+    }
+
+    .product-info .product-prices .product-price-current {
+        font-size: 26px;
+        line-height: 45px;
+    }
+
+    .product-info .product-prices .product-price-original {
+        font-size: 14px;
+        line-height: 30px;
+        margin: 8px 0 0 15px;
+        padding-left: 15px
+    }
+
+    .product-info .product-sku a {
+        margin: 3px 6px 3px 1px
+    }
+
+    .product-info .product-sku .img {
+        line-height: 50px;
+        padding-top: 20px;
+    }
+
+    .product-info .product-sku .txt {
+        line-height: 35px;
+        padding-top: 20px;
+    }
+
+    .product-info .product-sku .img a {
+        width: 50px;
+        height: 50px;
+    }
+
+    .product-info .product-sku .txt a {
+        padding: 11px 13px 10px 13px;
+        font-size: 14px;
+    }
+
+    .product-info .data-num {
+        width: 65px;
+        height: 32px;
+        line-height: 35px;
+        font-size: 14px;
+    }
+
+    .product-info .data-crease {
+        width: 35px;
+        height: 35px;
+        line-height: 38px;
+    }
+
+    .layout-product .product-tip {
+        padding-top: 18px;
+        height: 28px;
+    }
+
+    .layout-product .product-attr {
+        margin-top: 20px;
+    }
+
+    .layout-product .product-cont-bar {
+        width: 1350px;
+    }
+
+    .layout-product .list-filter {
+        width: 1125px;
+    }
+
+    .product-desc, .product-comment, .product-consult {
+        width: 1000px;
+    }
+
+    .product-detail-right {
+        width: 305px
+    }
+
+    .product-info-suspend {
+        width: 285px;
+    }
+
+    .product-info-suspend .button {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .product-list .list-item .sale {
+        top: 28%;
+        left: 25%
+    }
+
+    .layout-user-left {
+        width: 200px;
+    }
+
+    .layout-user-right {
+        width: 1105px;
+    }
+
+
+    /*star*/
+    #waterfall {
+        margin-top: 20px;
+    }
+
+    #waterfall .gutter-sizer {
+        width: 20px;
+    }
+
+    #waterfall .item {
+        margin-bottom: 20px;
+    }
+
+    /*crowds*/
+    .presale-list .list-item {
+        width: 23%;
+    }
+
+    /*custom*/
+    .custom-product-list .list-item {
+        width: 25%
+    }
+
+    .main-wrap {
+        margin: auto;
+        width: 1315px;
+    }
+
+    .work-left {
+        float: left;
+        width: 740px
+    }
+
+    .work-right {
+        float: right;
+        width: 520px
+    }
+
+    .suspend-navs-showroom {
+        width: 1315px;
+    }
+
+    .suspend-navs-children {
+        width: 1315px;
+    }
+
+    .layout-auction .product-base {
+        height: 880px;
+    }
+
+    .layout-auction .product-img {
+        width: 635px;
+    }
+
+    .layout-auction .product-img .img-thumbs {
+        width: 80px;
+    }
+
+    .layout-auction .product-img .img-media {
+        width: 535px;
+    }
+
+    .layout-auction .product-info {
+        width: 505px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .layout-auction .product-others {
+        left: 15px;
+        right: 15px;
+    }
+
+    .layout-auction .auction-record {
+        width: 250px;
+    }
+
+    .layout-auction .lottery-response .product-title {
+        margin-bottom: 5px;
+    }
+
+    .layout-auction .lottery-response .product-sku .img, .layout-auction .lottery-response .product-sku .txt {
+        padding-top: 10px;
+    }
+
+    .layout-auction .lottery-response .lottery-process p {
+        margin-bottom: 5px;
+    }
+
+    .layout-auction .lottery-response .auction-mine {
+        margin-top: 5px;
+    }
+
+    .layout-auction .auction-time {
+        margin-top: 0;
+        height: 30px;
+    }
+
+    .layout-auction .auction-end-time {
+        font-size: 16px;
+    }
+
+    .layout-auction .auction-string {
+        font-size: 18px;
+    }
+
+    .layout-auction .auction-price {
+        margin-top: 30px;
+    }
+
+    .layout-auction .auction-price {
+        height: 40px;
+    }
+
+    .layout-auction .auction-img {
+        width: 35px;
+    }
+
+    .layout-auction .auction-string {
+        margin-bottom: 20px;
+    }
+
+    .layout-auction .product-desc, .layout-auction .product-record {
+        margin: auto;
+        width: 100%;
+    }
+
+    .d2c-store-o2o {
+        margin: 0 auto;
+        width: 1315px;
+        position: relative;
+        overflow: hidden;
+        padding-bottom: 20px
+    }
+}
+
+@media screen and (max-width: 1350px) {
+    .layout-product .product-base {
+        height: 790px
+    }
+
+    .promotion-list {
+        width: 1140px;
+    }
+
+    .product-attr .tab-cont .more-info {
+        bottom: 0;
+    }
+
+    .layout-response {
+        width: 1140px;
+    }
+
+    .suspend-navs {
+        margin-left: -625px
+    }
+
+    .float-search form {
+        width: 1140px;
+    }
+
+    .hide-one, .hide-two {
+        display: none;
+    }
+
+    .subscribe-email input {
+        width: 200px;
+    }
+
+    .navi-main {
+        width: 692px;
+        padding-left: 10px;
+    }
+
+    .navi-main a {
+        padding: 0 18px;
+    }
+
+    .navi-main .new {
+        background: url(//static.d2c.cn/img/other/new.png) no-repeat 13px -3px;
+    }
+
+    .layout-product-right {
+        width: 925px;
+    }
+
+    .layout-product .product-img {
+        width: 575px;
+    }
+
+    .layout-product .product-img .img-thumbs {
+        width: 70px;
+    }
+
+    .layout-product .product-img .img-media {
+        width: 485px;
+    }
+
+    .layout-product .product-info {
+        width: 495px;
+        padding-left: 15px;
+    }
+
+    .layout-product .product-others {
+        left: 15px;
+        right: 15px;
+    }
+
+    .layout-product .product-info .product-brand, .product-brand a {
+        font-size: 16px
+    }
+
+    .product-info .product-title {
+        font-size: 14px;
+        margin: 5px 0 10px 0;
+    }
+
+    .product-info .product-prices {
+        height: 50px;
+    }
+
+    .product-info .product-prices .product-price-current {
+        font-size: 23px;
+        line-height: 40px;
+    }
+
+    .product-info .product-prices .product-price-original {
+        font-size: 12px;
+        line-height: 30px;
+        margin: 5px 0 0 15px;
+        padding-left: 15px
+    }
+
+    .product-info .product-sku a {
+        margin: 3px 6px 3px 1px
+    }
+
+    .product-info .product-sku .img {
+        line-height: 50px;
+        padding-top: 10px;
+    }
+
+    .product-info .product-sku .txt {
+        line-height: 38px;
+        padding-top: 10px;
+    }
+
+    .product-info .product-sku .img a {
+        width: 45px;
+        height: 45px;
+    }
+
+    .product-info .product-sku .txt a {
+        padding: 10px 13px 9px 13px;
+        font-size: 12px;
+    }
+
+    .product-info .data-num {
+        width: 55px;
+        height: 30px;
+        line-height: 32px;
+        font-size: 12px;
+    }
+
+    .product-info .data-crease {
+        width: 33px;
+        height: 33px;
+        line-height: 35px;
+    }
+
+    .layout-product .product-info .product-tip {
+        padding-top: 15px;
+        height: 25px;
+    }
+
+    .layout-product .product-list .list-item {
+        width: 31.3%
+    }
+
+    .layout-product .product-attr {
+        margin-top: 20px;
+    }
+
+    .layout-product .product-attr-cont {
+        max-height: 130px;
+    }
+
+    .layout-product .product-cont-bar {
+        width: 1140px;
+    }
+
+    .layout-product .list-filter {
+        width: 905px;
+    }
+
+
+    .product-detail-right {
+        display: none;
+    }
+
+    .product-cont-bar.suspend-fixed .suspend-cart-button {
+        opacity: 1
+    }
+
+    .product-list .list-item .sale {
+        top: 29%;
+        left: 26%
+    }
+
+    .layout-user-left {
+        width: 150px;
+    }
+
+    .layout-user-right {
+        width: 935px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .layout-user .coupon .card-item {
+        width: 30.3%
+    }
+
+    .tab.tab-user-menu li {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+
+    .tab.tab-user-menu li a {
+        font-size: 15px;
+    }
+
+    .designer-product .list-item {
+        width: 25%;
+    }
+
+    .product-list .list-item {
+        width: 24%;
+    }
+
+    .store-list .list-item {
+        width: 48%;
+    }
+
+
+    /*star*/
+    #waterfall {
+        margin-top: 35px;
+    }
+
+    #waterfall .gutter-sizer {
+        width: 35px;
+    }
+
+    #waterfall .item {
+        margin-bottom: 35px;
+    }
+
+    /*crowds*/
+    .presale-list .list-item {
+        width: 23%;
+    }
+
+    /*custom*/
+    .custom-product-list .list-item {
+        width: 25%
+    }
+
+    .main-wrap {
+        margin: auto;
+        width: 1095px;
+    }
+
+    .work-left {
+        float: left;
+        width: 740px
+    }
+
+    .work-right {
+        float: right;
+        width: 325px
+    }
+
+    .suspend-navs-showroom {
+        width: 1095px
+    }
+
+    .suspend-navs-children {
+        width: 1095px
+    }
+
+    .layout-product-right {
+        width: 925px;
+    }
+
+
+    .layout-product .product-info .product-brand, .product-brand a {
+        font-size: 16px
+    }
+
+    .layout-auction .product-base {
+        height: 790px;
+    }
+
+    .layout-auction .product-base.indiana-base {
+        height: 655px;
+    }
+
+    .layout-auction .product-img {
+        width: 575px;
+    }
+
+    .layout-auction .product-img .img-thumbs {
+        width: 70px;
+    }
+
+    .layout-auction .product-img .img-media {
+        width: 485px;
+    }
+
+    .layout-auction .product-info {
+        width: 495px;
+        padding-left: 15px;
+    }
+
+    .layout-auction .auction-record {
+        width: 220px;
+    }
+
+    .layout-auction .auction-time {
+        margin-top: 10px;
+        height: 40px;
+    }
+
+    .layout-auction .auction-price {
+        height: 40px;
+    }
+
+    .layout-auction .product-others {
+        left: 15px;
+        right: 15px;
+    }
+
+    .layout-auction .auction-end-time {
+        font-size: 16px;
+    }
+
+    .layout-auction .auction-string {
+        font-size: 18px;
+    }
+
+    .layout-auction .auction-price {
+        margin-top: 30px;
+    }
+
+    .layout-auction .auction-img {
+        width: 35px;
+    }
+
+    .layout-auction .auction-string {
+        margin-bottom: 20px;
+    }
+
+    .layout-auction .product-img.lottery-response {
+        width: 520px;
+    }
+
+    .layout-auction .product-img.lottery-response .img-thumbs {
+        width: 80px;
+    }
+
+    .layout-auction .product-img.lottery-response .img-media {
+        width: 420px;
+    }
+
+    .layout-auction .product-info.lottery-response {
+        width: 550px;
+        height: 640px;
+    }
+
+    .layout-auction .auction-record.lottery-response {
+        float: none;
+        clear: both;
+        width: 100%;
+        margin: 10px 0;
+        border-top: 1px solid #EEE;
+        border-left: none;
+    }
+
+    .layout-auction .product-info.lottery-response .lottery-luck {
+        padding: 10px 0 8px 0;
+    }
+
+    .layout-auction .product-info.lottery-response .lottery-calculate .title {
+        padding: 15px 0
+    }
+
+    .layout-auction .product-info.lottery-response .product-others {
+        bottom: 15px;
+    }
+
+    .layout-auction .product-desc, .layout-auction .product-record {
+        margin: auto;
+        width: 100%
+    }
+
+    .d2c-store-o2o {
+        margin: 0 auto;
+        width: 1095px;
+        position: relative;
+        overflow: hidden;
+        padding-bottom: 20px
+    }
+}

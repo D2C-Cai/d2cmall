@@ -1,0 +1,311 @@
+body {
+    background: #FFF;
+    font-family: PingFangSC-Medium;
+}
+
+.limit-banner img {
+    width: 100%;
+}
+
+.limit-time {
+    padding: 15px 0;
+}
+
+.limit-time .limit-time-item {
+    width: 6.875rem;
+    height: 3.125rem;
+    border-radius: 4px;
+    border: 1px solid #D8D8D8;
+}
+
+.swiper-slide {
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    font-size: .75rem;
+    line-height: 1.2rem;
+    color: rgba(0, 0, 0, .54);
+    text-align: center;
+    position: relative;
+    background: #FFF;
+}
+
+.swiper-slide.on {
+    color: #F23365;
+    font-size: .875rem;
+    line-height: 1.3rem;
+    border: none;
+    box-shadow: 0 4px 20px rgba(242, 51, 101, 0.2);
+}
+
+.swiper-slide.on:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-top: .6rem solid #FFF;
+    border-left: .6rem solid transparent;
+    border-right: .6rem solid transparent;
+    bottom: -.6rem;
+    left: 50%;
+    margin-left: -.55rem;
+}
+
+.limit-title {
+    height: 2.4735rem;
+    justify-content: space-between;
+    border-bottom: 1px solid #E6EAF2;
+}
+
+.limit-title p {
+    color: rgba(0, 0, 0, 0.54);
+    font-size: .75rem;
+    line-height: 1.05rem;
+    max-width: 80%;
+}
+
+.limit-countdown {
+    font-size: .75rem;
+    line-height: 1.25rem;
+}
+
+.limit-countdown .down-time {
+    display: inline-block;
+    padding: 0 .3125rem;
+    text-align: center;
+    background: #3F4043;
+    color: #FFF;
+    vertical-align: middle;
+    margin: 0 .25rem;
+    font-size: .875rem;
+    margin-top: -3px;
+}
+
+.limit-product-item, limit-brand-item {
+    padding: .9375rem;
+}
+
+.limit-product-item .p-img {
+    width: 6.25rem;
+    min-width: 6.25rem;
+    height: 9.375rem;
+    display: block;
+    margin-right: .625rem;
+    position: relative;
+}
+
+.lproduct-info > p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    line-height: 1.6rem;
+    vertical-align: middle;
+    word-wrap: break-word;
+    word-break: break-all;
+    white-space: normal;
+}
+
+.lproduct-info {
+    display: -webkit-flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 9.375rem;
+    width: 100%;
+}
+
+.lproduct-price {
+    line-height: 25px;
+    font-size: .75rem;
+    margin-bottom: 1.2rem;
+}
+
+.progress-item .item-line-o {
+    position: relative;
+    width: 6.875rem;
+    height: .375rem;
+    border: 1px solid #F23365;
+    border-radius: .8125rem;
+    margin-top: .4rem
+}
+
+.progress-item .item-line-r {
+    position: absolute;
+    height: .375rem;
+    z-index: 2;
+    background: #F23365;
+    width: 30%;
+    border-radius: .8125rem;
+    top: 0;
+    left: 0;
+}
+
+.limit-brand-img .limit-brand-title {
+    position: absolute;
+    height: 2.5rem;
+    line-height: 2.5rem;
+    color: #FFF;
+    background: rgba(0, 0, 0, .4);
+    left: 0;
+    bottom: 3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    width: 100%;
+}
+
+.flash-button {
+    width: 4.375rem;
+    height: 1.875rem;
+    text-align: center;
+    line-height: 1.875rem;
+    background: #232427;
+    color: #FFF;
+    font-size: .875rem;
+    dispaly: block;
+    color: #FFF !important;
+    position: relative;
+    z-index: 10;
+}
+
+.oun-num {
+    font-size: .75rem;
+    line-height: 1rem;
+    margin-top: .3rem;
+}
+
+.limit-brand-product p {
+    padding: 10px 0;
+    font-size: .875rem;
+}
+
+.fixed-taber {
+    height: 3.125rem;
+    justify-content: space-around;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 1);
+    z-index: 10;
+    border-top: 1px solid #e6eaf2;
+}
+
+.fixed-taber img {
+    display: block;
+    width: 2.1875rem;
+}
+
+.noshop-mask {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, .5);
+    left: 0;
+    top: 0;
+}
+
+.noshop-mask span {
+    width: 4.6875rem;
+    height: 4.6875rem;
+    margin: 0 auto;
+    display: block;
+    background: url(//static.d2c.cn/img/promo/limit/mark_noshop.png) no-repeat;
+    background-size: cover;
+    margin-top: 34%;
+}
+
+.lproduct-info > p span {
+    display: inline-block;
+    border: 1px solid #F23365;
+    color: #F23365;
+    font-size: .625rem;
+    line-height: .625rem;
+    padding: 2px;
+    margin-right: 3px;
+    vertical-align: middle;
+    margin-top: -3px;
+}
+
+#popup-modal-outer {
+    background: none;
+}
+
+.popup-content {
+    width: 17.625rem;
+    height: 16.4375rem;
+    background: url(//static.d2c.cn/img/promo/limit/bg_alert.png) no-repeat;
+    background-size: cover;
+    text-align: center;
+}
+
+.popup-remind-success-info {
+    margin-top: 2.3125rem;
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+
+.popup-text {
+    margin-top: 1.5375rem;
+    line-height: 1.2rem;
+    font-size: .875rem;
+}
+
+.button-small {
+    padding: 0 30px;
+    margin-top: 4.2rem;
+}
+
+.limit-brand-item {
+    margin-bottom: 10px;
+}
+
+.limit-brand-product {
+    max-width: 33%;
+}
+
+.swiper-pagination-bullet-active {
+    background: #000 !important;
+}
+
+.insert-container {
+    position: relative;
+    margin-bottom: 4em;
+}
+
+.brand-insert-bg {
+    -webkit-filter: blur(15px);
+    filter: blur(15px);
+}
+
+.limit-brand-insert {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.insert-title {
+    color: #FFF;
+    line-height: 2em;
+    margin: 6% 0 5% 4%;
+    font-size: .875em;
+}
+
+.insert-product-item {
+    display: block;
+    max-width: 28%;
+    float: left;
+    margin-left: 4%;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, .1);
+}
+
+.insert-product-price {
+    background: #FFF;
+    line-height: 1.5;
+    text-align: center;
+}
+

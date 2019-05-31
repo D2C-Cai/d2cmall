@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="d2cmall-main-openapi:war">
+    <output-path>$PROJECT_DIR$/d2cmall-main/d2cmall-main-openapi/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>d2cmall-main-openapi</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="d2cmall-flame-openapi.war">
+      <element id="artifact" artifact-name="d2cmall-main-openapi:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -1,0 +1,872 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.OrderReportMapper">
+    <resultMap id="orderexport" type="com.d2c.order.dto.OrderExportDto">
+        <result property="orderSn" column="order_sn"/>
+        <result property="orderCreateDate" column="order_create_date"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="type" column="type"/>
+        <result property="device" column="device"/>
+        <result property="terminal" column="terminal"/>
+        <result property="orderDeleted" column="order_deleted"/>
+        <result property="split" column="split"/>
+        <result property="crmGroupId" column="crm_group_id"/>
+        <result property="storeGroupId" column="store_group_id"/>
+        <result property="orderCloseMan" column="order_close_man"/>
+        <result property="orderCloseTime" column="order_close_time"/>
+        <result property="closeReason" column="close_reason"/>
+        <result property="adminMemo" column="admin_memo"/>
+        <result property="finishDate" column="finish_date"/>
+        <result property="orderPayTime" column="order_pay_time"/>
+        <result property="paymentType" column="payment_type"/>
+        <result property="paymentSn" column="payment_sn"/>
+        <result property="alipaySn" column="alipay_sn"/>
+        <result property="mchId" column="mch_id"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="promotionAmount" column="promotion_amount"/>
+        <result property="couponAmount" column="coupon_amount"/>
+        <result property="redAmount" column="red_amount"/>
+        <result property="partnerAmount" column="partner_amount"/>
+        <result property="shippingRates" column="shipping_rates"/>
+        <result property="orderMemberId" column="order_member_id"/>
+        <result property="orderLoginCode" column="order_login_code"/>
+        <result property="memberMobile" column="member_mobile"/>
+        <result property="memberEmail" column="member_email"/>
+        <result property="reciver" column="reciver"/>
+        <result property="contact" column="contact"/>
+        <result property="province" column="province"/>
+        <result property="city" column="city"/>
+        <result property="district" column="district"/>
+        <result property="address" column="address"/>
+        <result property="memo" column="memo"/>
+        <result property="invoiced" column="invoiced"/>
+        <result property="operation" column="operation"/>
+        <result property="orderItemId" column="order_item_id"/>
+        <result property="orderItemStatus" column="order_item_status"/>
+        <result property="orderitemPromotionAmount" column="orderitem_promotion_amount"/>
+        <result property="orderitemCoupontAmount" column="orderitem_coupont_amount"/>
+        <result property="orderitemRedAmount" column="orderitem_red_amount"/>
+        <result property="orderitemPartnerAmount" column="order_item_partner_amount"/>
+        <result property="orderPromotionAmount" column="order_promotion_amount"/>
+        <result property="cashAmount" column="cash_amount"/>
+        <result property="giftAmount" column="gift_amount"/>
+        <result property="storeId" column="store_id"/>
+        <result property="after" column="after"/>
+        <result property="balance" column="balance"/>
+        <result property="balanceDate" column="balance_date"/>
+        <result property="balanceMan" column="balance_man"/>
+        <result property="balanceMoney" column="balance_money"/>
+        <result property="balanceReason" column="balance_reason"/>
+        <result property="estimateDate" column="estimate_date"/>
+        <result property="deliveryType" column="delivery_type"/>
+        <result property="deliveryTime" column="delivery_time"/>
+        <result property="deliverySn" column="delivery_sn"/>
+        <result property="deliveryCorpName" column="delivery_corp_name"/>
+        <result property="productSn" column="product_sn"/>
+        <result property="externalSn" column="external_sn"/>
+        <result property="productName" column="product_name"/>
+        <result property="originalCost" column="original_cost"/>
+        <result property="productPrice" column="product_price"/>
+        <result property="productQuantity" column="product_quantity"/>
+        <result property="productCategory" column="product_category"/>
+        <result property="designerId" column="designer_id"/>
+        <result property="designerName" column="designer_name"/>
+        <result property="remark" column="remark"/>
+        <result property="productSkuSn" column="product_sku_sn"/>
+        <result property="deliveryBarCode" column="delivery_bar_code"/>
+        <result property="productSkuStatus" column="product_sku_status"/>
+        <result property="sp1" column="sp1"/>
+        <result property="sp2" column="sp2"/>
+        <result property="sfStock" column="sf_stock"/>
+        <result property="stStock" column="st_stock"/>
+        <result property="partnerRatio" column="partner_ratio"/>
+        <result property="parentRatio" column="parent_ratio"/>
+        <result property="superRatio" column="super_ratio"/>
+        <result property="masterRatio" column="master_ratio"/>
+        <result property="partnerId" column="partner_id"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="superId" column="super_id"/>
+        <result property="masterId" column="master_id"/>
+        <result property="dplusCode" column="dplus_code"/>
+        <result property="thirdCcyPrice" column="third_ccy_price"/>
+    </resultMap>
+
+    <sql id="orderAnalysis">
+        <if test="searcher.year!=null">
+            and YEAR (o1.create_date)=#{searcher.year}
+        </if>
+        <if test="searcher.month!=null">
+            and MONTH (o1.create_date)=#{searcher.month}
+        </if>
+        <if test="searcher.device!=null">
+            and device=#{searcher.device}
+        </if>
+        <if test="searcher.firstBuy!=null and searcher.firstBuy==true">
+            and
+            o1.id IN (
+            SELECT min(id) FROM orders o GROUP BY
+            o.member_id
+            HAVING
+            COUNT(o.member_id)>=1
+            )
+        </if>
+        <if test="searcher.type!=null and searcher.type==3">
+            and o1.payment_type!=3
+        </if>
+    </sql>
+
+    <select id="countOrderAnalysis" resultType="int">
+        select count(*) from(SELECT id
+        FROM
+        orders o1
+        WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="orderAnalysis"></include>
+        </if>
+        GROUP BY
+        YEAR (o1.create_date),
+        MONTH
+        (o1.create_date)
+        <if test="searcher!=null and searcher.type!=null and searcher.type==1">
+            ,o1.device
+        </if>
+        ) a
+    </select>
+
+    <select id="doOrderAnalysis" resultType="hashMap">
+        SELECT
+        YEAR (o1.create_date) as year,
+        MONTH (o1.create_date) as month,
+        COUNT(o1.id) as orderCount,
+        o1.device as device,
+        COUNT(DISTINCT
+        o1.member_id) as memberCount,
+        SUM(o1.product_total_quantity) as
+        quantity,
+        SUM(o1.paid_amount) as amount
+        FROM
+        orders o1
+        WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="orderAnalysis"></include>
+        </if>
+        GROUP BY
+        YEAR (o1.create_date),
+        MONTH (o1.create_date)
+        <if test="searcher!=null and searcher.type!=null and searcher.type!=2">
+            ,o1.device
+        </if>
+        order by YEAR (o1.create_date) desc, MONTH (o1.create_date) desc
+        limit
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countRankingByDesigner" resultType="int">
+        SELECT count(*) FROM
+        (SELECT orderitem.id FROM orderItem LEFT JOIN
+        (SELECT
+        p_brand.id,p_brand.operation AS operation FROM
+        p_brand) d ON
+        d.id=orderitem.designer_id
+        WHERE
+        1=1 and `status` NOT IN('MALLCLOSE',
+        'CLOSE', 'INIT')
+        <if test="searcher.startDate!=null">
+            AND orderitem.create_date >=#{searcher.startDate}
+        </if>
+        <if test="searcher.endDate!=null">
+            AND orderitem.create_date &lt;=#{searcher.endDate}
+        </if>
+        <if test="searcher.names!=null">
+            AND designer_name IN
+            <foreach collection="searcher.names" item="name" open="("
+                     close=")" separator=",">
+                #{name}
+            </foreach>
+        </if>
+        <if test="searcher.operation!=null and searcher.operation!=''">
+            AND operation=#{searcher.operation}
+        </if>
+        GROUP BY designer_name)t
+    </select>
+
+    <select id="findRankingByDesigner" resultType="hashMap">
+        SELECT
+        designer_code AS designerCode,
+        designer_name AS name,
+        SUM(product_price*product_quantity-orderitem.coupon_amount-orderitem.promotion_amount-order_promotion_amount-orderitem.red_amount)
+        AS price,
+        SUM(product_quantity) AS orderCount,
+        designer_id AS
+        designerId,
+        d.`operation` AS operation
+        FROM orderItem
+        LEFT JOIN (SELECT
+        p_brand.id,p_brand.operation AS operation FROM p_brand)d
+        ON
+        d.id=orderitem.designer_id
+        WHERE 1=1 and `status` NOT IN('MALLCLOSE',
+        'CLOSE', 'INIT')
+        <if test="searcher.startDate!=null">
+            AND orderitem.create_date >=#{searcher.startDate}
+        </if>
+        <if test="searcher.endDate!=null">
+            AND orderitem.create_date &lt;=#{searcher.endDate}
+        </if>
+        <if test="searcher.names!=null">
+            AND designer_name IN
+            <foreach collection="searcher.names" item="name" open="("
+                     close=")" separator=",">
+                #{name}
+            </foreach>
+        </if>
+        <if test="searcher.operation!=null and searcher.operation!=''">
+            AND operation=#{searcher.operation}
+        </if>
+        GROUP BY designer_name ORDER BY price DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countOrderExportBySearch" resultType="int">
+        SELECT count(*)
+        from
+        orderexport o
+        where 1=1
+        <include refid="orderexportsearch"></include>
+    </select>
+
+    <select id="findOrderExportBySearch" resultMap="orderexport">
+        SELECT *
+        from
+        orderexport o
+        where 1=1
+        <include refid="orderexportsearch"></include>
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="groupByOrderSn" resultType="hashMap">
+        SELECT
+        IFNULL(SUM(product_price*product_quantity-orderitem_promotion_amount-orderitem_coupont_amount-orderitem_red_amount-order_promotion_amount),0)
+        AS price,order_sn AS orderSn
+        FROM orderexport o where 1=1
+        <include refid="orderexportsearch"/>
+        GROUP BY order_sn
+    </select>
+
+    <sql id="orderexportsearch">
+        <if test="searcher.orderType!= null and searcher.orderType.length &gt; 0">
+            AND o.type IN
+            <foreach collection="searcher.orderType" item="orderType"
+                     index="index" open="(" close=")" separator=",">
+                <if test="orderType!= null">
+                    #{orderType}
+                </if>
+            </foreach>
+        </if>
+        <if
+                test="searcher.orderStatus!= null and searcher.orderStatus.length &gt; 0">
+            AND o.order_status IN
+            <foreach collection="searcher.orderStatus" item="orderStatus"
+                     index="index" open="(" close=")" separator=",">
+                <if test="orderStatus!= null">
+                    #{orderStatus.code}
+                </if>
+            </foreach>
+        </if>
+        <if
+                test="searcher.paymentType!= null and searcher.paymentType.length &gt; 0">
+            AND o.payment_type IN
+            <foreach collection="searcher.paymentType" item="paymentType"
+                     index="index" open="(" close=")" separator=",">
+                <if test="paymentType!= null">
+                    #{paymentType}
+                </if>
+            </foreach>
+        </if>
+        <if test="searcher.itemStatus!= null and searcher.itemStatus.length &gt; 0">
+            AND o.order_item_status IN
+            <foreach collection="searcher.itemStatus" item="itemStatus"
+                     index="index" open="(" close=")" separator=",">
+                <if test="itemStatus!= null">
+                    #{itemStatus}
+                </if>
+            </foreach>
+        </if>
+        <if test="searcher.crmGroupId!= null and searcher.crmGroupId.length &gt; 0">
+            AND o.crm_group_id IN
+            <foreach collection="searcher.crmGroupId" item="groupId"
+                     index="index" open="(" close=")" separator=",">
+                <if test="groupId!= null">
+                    #{groupId}
+                </if>
+            </foreach>
+        </if>
+        <if test="searcher.orderSn != null and searcher.orderSn != ''">
+            AND o.order_sn = #{searcher.orderSn}
+        </if>
+        <if test="searcher.paymentSn != null and searcher.paymentSn != ''">
+            AND o.payment_sn = #{searcher.paymentSn}
+        </if>
+        <if test="searcher.memberId!= null">
+            AND o.order_member_id=#{searcher.memberId}
+        </if>
+        <if test="searcher.loginCode != null">
+            AND o.order_login_code =#{searcher.loginCode}
+        </if>
+        <if test="searcher.device != null and searcher.device != ''">
+            AND o.device =#{searcher.device}
+        </if>
+        <if test="searcher.terminal!=null and searcher.terminal!=''">
+            AND o.terminal=#{searcher.terminal}
+        </if>
+        <if test="searcher.deleted!= null">
+            AND o.deleted = #{searcher.deleted}
+        </if>
+        <if test="searcher.startDate != null">
+            AND o.order_create_date &gt;= #{searcher.startDate}
+        </if>
+        <if test="searcher.endDate != null">
+            AND o.order_create_date &lt;= #{searcher.endDate}
+        </if>
+        <if test="searcher.startPayDate != null">
+            AND o.order_pay_time &gt;= #{searcher.startPayDate}
+        </if>
+        <if test="searcher.endPayDate != null">
+            AND o.order_pay_time &lt;= #{searcher.endPayDate}
+        </if>
+        <if test="searcher.estimateStartDate!=null">
+            AND o.estimate_date &gt;= #{searcher.estimateStartDate}
+        </if>
+        <if test="searcher.estimateEndDate!=null">
+            AND o.estimate_date &lt;= #{searcher.estimateEndDate}
+        </if>
+        <if test="searcher.province != null and searcher.province != ''">
+            AND o.province =#{searcher.province}
+        </if>
+        <if test="searcher.city != null and searcher.city != ''">
+            AND o.city =#{searcher.city}
+        </if>
+        <if test="searcher.reciver != null and searcher.reciver != ''">
+            AND o.reciver =#{searcher.reciver}
+        </if>
+        <if test="searcher.contact != null and searcher.contact != ''">
+            AND o.contact =#{searcher.contact}
+        </if>
+        <if test="searcher.invoiced != null and searcher.invoiced==0">
+            AND o.invoiced=0 AND drawee is not null
+        </if>
+        <if test="searcher.invoiced != null and searcher.invoiced==1">
+            AND o.invoiced=1
+        </if>
+        <if test="searcher.deliverySn!= null and searcher.deliverySn!= ''">
+            AND o.delivery_sn=#{searcher.deliverySn}
+        </if>
+        <if test="searcher.deliveryType!=null">
+            AND o.delivery_type = #{searcher.deliveryType}
+        </if>
+        <if test="searcher.deliveryTimeStart != null">
+            AND o.delivery_time &gt;= #{searcher.deliveryTimeStart}
+        </if>
+        <if test="searcher.deliveryTimeEnd != null">
+            AND o.delivery_time &lt;= #{searcher.deliveryTimeEnd}
+        </if>
+        <if test="searcher.designerId!= null">
+            AND o.designer_id =#{searcher.designerId}
+        </if>
+        <if test="searcher.operation != null and searcher.operation != ''">
+            AND o.operation = #{searcher.operation}
+        </if>
+        <if test="searcher.productName!= null and searcher.productName!=''">
+            AND o.product_name =#{searcher.productName}
+        </if>
+        <if test="searcher.productSn != null and searcher.productSn != ''">
+            AND o.product_sn =#{searcher.productSn}
+        </if>
+        <if test="searcher.externalSn != null and searcher.externalSn != ''">
+            AND o.external_sn =#{searcher.externalSn}
+        </if>
+        <if test="searcher.skuSn != null and searcher.skuSn != ''">
+            AND o.product_sku_sn =#{searcher.skuSn}
+        </if>
+        <if test="searcher.storeId == 0">
+            AND o.store_id IS NULL
+        </if>
+        <if test="searcher.storeId == 1">
+            AND o.store_id IS NOT NULL
+        </if>
+        <if
+                test="searcher.storeId != null and searcher.storeId !=0 and searcher.storeId !=1">
+            AND o.store_id=#{searcher.storeId}
+        </if>
+        <if test="searcher.balance!= null">
+            AND o.balance = #{searcher.balance}
+        </if>
+        <if test="searcher.balanceStartDate!=null">
+            AND o.balance_date &gt;= #{searcher.balanceStartDate}
+        </if>
+        <if test="searcher.balanceEndDate!=null">
+            AND o.balance_date &lt;= #{searcher.balanceEndDate}
+        </if>
+        <if test="searcher.sf == 1">
+            AND o.sf_stock &gt; 0
+        </if>
+        <if test="searcher.sf == 0">
+            AND o.sf_stock = 0
+        </if>
+        <if test="searcher.st == 1">
+            AND o.st_stock &gt; 0
+        </if>
+        <if test="searcher.st == 0">
+            AND o.st_stock = 0
+        </if>
+        <if test="searcher.after!=null and searcher.after == 1">
+            AND (o.refund_id IS NOT NULL OR o.reship_id IS NOT NULL OR
+            o.exchange_id IS NOT NULL)
+        </if>
+        <if test="searcher.after!=null and searcher.after == 0">
+            AND (o.refund_id IS NULL AND o.reship_id IS NULL AND
+            o.exchange_id IS NULL)
+        </if>
+        <if test="searcher.requisition!=null and searcher.requisition==1">
+            AND o.requisition &gt; 0
+        </if>
+        <if test="searcher.requisition!=null and searcher.requisition==0">
+            AND (o.requisition IS NULL OR o.requisition &lt; 1)
+        </if>
+        <if test="searcher.productSaleType!=null and searcher.productSaleType!=''">
+            AND o.product_sale_type=#{searcher.productSaleType}
+        </if>
+        <if test="searcher.finishStartDate!=null">
+            AND o.finish_date &gt; #{searcher.finishStartDate}
+        </if>
+        <if test="searcher.finishEndDate!=null">
+            AND o.finish_date &lt; #{searcher.finishEndDate}
+        </if>
+        <if test="searcher.productSource!=null and searcher.productSource!=''">
+            AND o.product_source = #{searcher.productSource}
+        </if>
+        <if test="searcher.afterType!=null and searcher.afterType=='refund'">
+            AND o.refund_id IS NOT NULL AND o.reship_id IS NULL
+        </if>
+        <if test="searcher.afterType!=null and searcher.afterType=='reship'">
+            AND o.reship_id IS NOT NULL AND o.refund_id IS NULL
+        </if>
+        <if test="searcher.afterType!=null and searcher.afterType=='all'">
+            AND o.refund_id IS NOT NULL AND o.reship_id IS NOT NULL
+        </if>
+        <if test="searcher.inCollage!=null and !searcher.inCollage">
+            AND o.collage_status !=1
+        </if>
+        <if test="searcher.inCollage!=null and searcher.inCollage">
+            AND o.collage_status =1
+        </if>
+    </sql>
+
+    <select id="findThirdPayRefundByDevice" resultType="hashMap">
+        SELECT
+        IFNULL(SUM(pay_money),0) as amount,IFNULL(SUM(quantity),0) as
+        count,YEAR(r.create_date) as
+        year,MONTH(r.create_date) as
+        month,orders.device as device
+        FROM o_order_refund r
+        LEFT JOIN orders ON
+        r.order_id=orders.id where 1=1 AND
+        order_pay_type!=3 and
+        YEAR(r.create_date)=#{year} and
+        MONTH(r.create_date)=#{month} and
+        orders.device=#{device}
+        <if test="type!=null and type!='' and type=='reship'">
+            and r.reship_id is not null
+        </if>
+        <if test="type!=null and type!='' and type=='refund'">
+            and r.reship_id is null
+        </if>
+    </select>
+
+    <select id="finThirdPayExchangeByDevice" resultType="hashMap">
+		SELECT
+		IFNULL(SUM(exchange_price),0) as amount,IFNULL(SUM(quantity),0) as
+		count,YEAR(e.create_date) as year,MONTH(e.create_date) as
+		month,orders.device as device
+		FROM o_order_exchange e LEFT JOIN orders
+		ON
+		e.order_id=orders.id WHERE
+		order_pay_type!=3 and
+		YEAR(e.create_date)=#{year} and MONTH(e.create_date)=#{month} and
+		orders.device=#{device}
+	</select>
+
+    <select id="findWalletDeliveryAmount" resultType="hashMap">
+		SELECT
+		IFNULL(SUM(product_price*product_quantity-order_promotion_amount-coupon_amount-promotion_amount-red_amount),0)
+		AS amount
+		FROM orderItem
+		WHERE payment_type=7 AND
+		YEAR(delivery_time)=YEAR(#{calculateDate}) AND
+		MONTH(delivery_time)=MONTH(#{calculateDate})
+	</select>
+
+    <select id="findWalletReadyAmount" resultType="hashMap">
+		SELECT
+		IFNULL(SUM(amount),0)
+		as amount, IFNULL(SUM(gift_amount),0) as
+		giftAmount
+		FROM (SELECT
+		id,payment_time
+		FROM orders
+		WHERE payment_type=7
+		AND
+		YEAR(payment_time)=YEAR(#{calculateDate}) AND
+		MONTH(payment_time)=MONTH(#{calculateDate}))o LEFT
+		JOIN o_account_item
+		on
+		o.id=transaction_id
+	</select>
+
+    <select id="findWalletRefundAmount" resultType="hashMap">
+        SELECT IFNULL(SUM(amount*direction),0) AS
+        amount,IFNULL(SUM(gift_amount*direction),0) as
+        giftAmount FROM (SELECT
+        id FROM o_order_refund
+        WHERE order_pay_type=7 AND
+        YEAR(pay_date)=YEAR(#{calculateDate}) AND
+        MONTH(pay_date)=MONTH(#{calculateDate})
+        <if test="reshiped!=null">
+            <choose>
+                <when test="reshiped==true">
+                    and reship_id is not NULL
+                </when>
+                <otherwise>
+                    and reship_id is NULL
+                </otherwise>
+            </choose>
+        </if>
+        )o LEFT JOIN
+        o_account_item on o.id=transaction_id
+    </select>
+
+    <select id="findRefuseAmount" resultType="java.math.BigDecimal">
+		SELECT
+		IFNULL(SUM(apply_amount),0) as refund_amount FROM o_order_refund WHERE
+		YEAR(pay_date)=YEAR(#{calculateDate}) AND
+		MONTH(pay_date)=MONTH(#{calculateDate}) AND
+		order_pay_type=3 AND
+		EXISTS(SELECT
+		1 FROM orderItem WHERE
+		orderitem.id=o_order_refund.order_item_id
+		AND
+		orderitem.sign_date IS
+		NULL AND
+		`reship_id` IS NOT NULL AND
+		`payment_type`=3 AND
+		`status`='AFTERCLOSE')
+		LIMIT 0,1
+	</select>
+
+    <select id="findCodDeliveryAmount" resultType="java.math.BigDecimal">
+		SELECT
+		IFNULL(SUM(product_price*product_quantity-order_promotion_amount-coupon_amount-promotion_amount-red_amount),0)
+		AS delivery_amount
+		FROM orderItem
+		WHERE
+		YEAR(delivery_time)=YEAR(#{calculateDate}) AND
+		MONTH(delivery_time)=MONTH(#{calculateDate}) AND
+		payment_type=3
+		LIMIT
+		0,1
+	</select>
+
+    <select id="findCodBalanceAmount" resultType="java.math.BigDecimal">
+		SELECT
+		IFNULL(SUM(balance_money),0)
+		AS balance_amount FROM orderItem
+		o1 WHERE
+		YEAR(balance_date)=YEAR(#{calculateDate}) AND
+		MONTH(balance_date)=MONTH(#{calculateDate}) AND
+		payment_type=3
+		LIMIT 0,1
+	</select>
+
+    <select id="findCodReadyAmount" resultType="java.math.BigDecimal">
+		SELECT
+		IFNULL(SUM(paid_amount),0) as
+		ready_amount
+		FROM orders WHERE
+		YEAR(payment_time)=YEAR(#{calculateDate}) AND
+		MONTH(payment_time)=MONTH(#{calculateDate}) AND
+		payment_type=3
+		LIMIT 0,1
+	</select>
+
+    <select id="findCodRefundAmount" resultType="java.math.BigDecimal">
+		SELECT
+		IFNULL(SUM(pay_money),0) as refund_amount FROM o_order_refund WHERE
+		DATEDIFF(pay_date,#{calculateDate})=0 AND order_pay_type=3 LIMIT 0,1
+	</select>
+
+    <!-- 把微信的都归为9 -->
+    <select id="findOnlineDeliveryAmount" resultType="hashMap">
+		SELECT
+		IFNULL(SUM(o1.product_price*o1.product_quantity-o1.order_promotion_amount-o1.coupon_amount-o1.promotion_amount-o1.red_amount),0)
+		AS delivery_amount,
+		IFNULL(payment_type,1) AS payment_type
+		FROM
+		orderItem o1
+		WHERE
+		YEAR(o1.delivery_time)=YEAR(#{calculateDate}) AND
+		MONTH(o1.delivery_time)=MONTH(#{calculateDate})
+		GROUP BY payment_type
+		LIMIT 0,500
+	</select>
+
+    <select id="findOnlineReadyAmount" resultType="hashMap">
+		SELECT
+		IFNULL(SUM(paid_amount),0) as pre_amount,
+		IFNULL(payment_type,1) as
+		payment_type
+		FROM orders o WHERE
+		YEAR(payment_time)=YEAR(#{calculateDate}) AND
+		MONTH(payment_time)=MONTH(#{calculateDate})
+		group
+		by payment_type limit
+		0,500
+	</select>
+
+    <select id="findOnlineRefundAmount" resultType="hashMap">
+        SELECT
+        IFNULL(SUM(pay_money),0) as refund_amount,
+        IFNULL(order_pay_type,1) as payment_type
+        FROM o_order_refund
+        WHERE
+        YEAR(pay_date)=YEAR(#{calculateDate}) AND
+        MONTH(pay_date)=MONTH(#{calculateDate}) AND
+        order_pay_type!=3
+        <if test="reship!=null">
+            <choose>
+                <when test="reship==true">
+                    and reship_id is not NULL
+                </when>
+                <otherwise>
+                    and reship_id is NULL
+                </otherwise>
+            </choose>
+        </if>
+        group by order_pay_type
+        limit 0,500
+    </select>
+
+    <select id="countBuyerCount" resultType="int">
+		SELECT COUNT(DISTINCT
+		member_id) FROM orders WHERE payment_time &gt; #{beginDate} AND
+		payment_time &lt; #{endDate}
+	</select>
+
+    <select id="findSalesAmount" resultType="java.math.BigDecimal">
+		SELECT
+		IFNull(SUM(total_amount+shipping_rates-coupon_amount-red_amount),0)
+		FROM orders
+		WHERE
+		payment_time &gt; #{beginDate} AND payment_time &lt;
+		#{endDate}
+	</select>
+
+    <select id="countRebuyBuyerCount" resultType="int">
+		SELECT
+		COUNT(DISTINCT member_id) FROM orders WHERE payment_time &gt;
+		#{beginDate} AND payment_time &lt; #{endDate}
+		AND member_id IN (SELECT
+		member_id FROM orders WHERE payment_time &lt; #{beginDate})
+	</select>
+
+    <select id="findRebuySalesAmount" resultType="java.math.BigDecimal">
+		SELECT
+		IFNULL(SUM(total_amount+shipping_rates-coupon_amount-red_amount),0)
+		FROM orders
+		WHERE id IN
+		(SELECT id FROM orders WHERE
+		payment_time &gt;
+		#{beginDate}
+		AND payment_time &lt; #{endDate}
+		AND member_id IN
+		(SELECT
+		member_id FROM
+		orders WHERE payment_time &lt; #{beginDate})
+		GROUP BY
+		member_id);
+	</select>
+
+    <select id="countOldCustomerBuyerCount" resultType="int">
+		SELECT
+		COUNT(DISTINCT member_id) FROM orders WHERE payment_time &gt;
+		#{beginDate} AND payment_time &lt; #{endDate}
+		AND member_id NOT IN
+		(SELECT member_id FROM orders WHERE payment_time &lt; #{beginDate})
+		AND member_id NOT IN (SELECT id FROM m_member_info WHERE create_date
+		&gt;
+		#{beginDate});
+	</select>
+
+    <select id="findOldCustomerSalesAmount" resultType="java.math.BigDecimal">
+		SELECT
+		IFNULL(SUM(total_amount+shipping_rates-coupon_amount-red_amount),0)
+		FROM orders
+		WHERE id IN
+		(SELECT id FROM orders WHERE payment_time &gt;
+		#{beginDate}
+		AND
+		payment_time &lt; #{endDate}
+		AND member_id NOT IN
+		(SELECT member_id
+		FROM orders WHERE payment_time &lt; #{beginDate})
+		AND
+		member_id NOT IN
+		(SELECT id FROM m_member_info WHERE create_date &gt;
+		#{beginDate})
+		GROUP
+		BY member_id);
+	</select>
+
+    <select id="countNewCustomerBuyerCount" resultType="int">
+		SELECT
+		COUNT(DISTINCT member_id) FROM orders WHERE payment_time &gt;
+		#{beginDate} AND payment_time &lt; #{endDate}
+		AND member_id IN (SELECT
+		id FROM m_member_info WHERE create_date &gt; #{beginDate})
+		AND
+		member_id
+		NOT IN (SELECT member_id FROM orders WHERE payment_time
+		&lt;
+		#{beginDate});
+	</select>
+
+    <select id="findNewCustomerSalesAmount" resultType="java.math.BigDecimal">
+		SELECT
+		IFNULL(SUM(total_amount+shipping_rates-coupon_amount-red_amount),0)
+		FROM orders
+		WHERE id IN
+		(SELECT id FROM orders WHERE payment_time &gt;
+		#{beginDate}
+		AND
+		payment_time &lt; #{endDate}
+		AND member_id IN (SELECT id
+		FROM
+		m_member_info WHERE create_date &gt; #{beginDate}) GROUP BY
+		member_id);
+	</select>
+
+
+    <select id="findPartnerAmount" resultType="java.math.BigDecimal">
+        SELECT IFNULL(SUM(
+        `orderItem`.`product_price`*`orderItem`.`product_quantity`
+        -`orderItem`.`order_promotion_amount`
+        -`orderItem`.`coupon_amount`-`orderItem`.`promotion_amount`
+        -`orderItem`.`red_amount` ),0)
+        FROM `orderItem` LEFT JOIN `m_partner`
+        on
+        `orderItem`.`partner_id`=`m_partner`.`id` WHERE
+        `orderItem`.`partner_id` IS NOT NULL
+        <if test="type==0">
+            and `m_partner`.`member_id`=`orderItem`.`buyer_member_id`
+        </if>
+        <if test="type==1">
+            and `m_partner`.`member_id`!=`orderItem`.`buyer_member_id`
+        </if>
+        and `orderItem`.`create_date` &gt;=#{begainDate} and
+        `orderItem`.`create_date` &lt;#{endDate} and orderItem.`status`
+        IN
+        ('NORMAL', 'DELIVERED', 'SIGNED',
+        'AFTERCLOSE', 'SUCCESS'
+        );
+    </select>
+
+    <select id="findOrdinaryAmount" resultType="java.math.BigDecimal">
+		SELECT IFNULL(SUM(
+		`orderItem`.`product_price`*`orderItem`.`product_quantity`
+		-`orderItem`.`order_promotion_amount`
+		-`orderItem`.`coupon_amount`-`orderItem`.`promotion_amount`
+		-`orderItem`.`red_amount` ),0)
+		FROM `orderItem` WHERE
+		`orderItem`.`partner_id` IS NULL
+		and `orderItem`.`create_date`
+		&gt;=#{begainDate} and
+		`orderItem`.`create_date` &lt;#{endDate} and
+		orderItem.`status`
+		IN
+		('NORMAL', 'DELIVERED', 'SIGNED',
+		'AFTERCLOSE',
+		'SUCCESS'
+		);
+	</select>
+
+    <select id="findPartnerCount" resultType="int">
+        SELECT
+        COUNT(DISTINCT(`orderItem`.`buyer_member_id`))
+        FROM `orderItem`
+        WHERE `orderItem`.`partner_id` IS NOT NULL
+        and
+        `orderItem`.`create_date` &gt;=#{begainDate} and
+        `orderItem`.`create_date` &lt;#{endDate} and orderItem.`status`
+        IN
+        ('NORMAL', 'DELIVERED', 'SIGNED',
+        'AFTERCLOSE', 'SUCCESS'
+        )
+        <if test="type==0">
+            and
+            `orderItem`.`buyer_member_id`
+            IN
+            (SELECT `member_id` from
+            `m_partner`
+            )
+            and `buyer_member_id` IN (SELECT id FROM
+            `m_member_info`
+            WHERE
+            `create_date` &gt;=#{begainDate} and
+            `create_date`
+            &lt;#{endDate})
+        </if>
+        <if test="type==1">
+            and
+            `orderItem`.`buyer_member_id`
+            IN
+            (SELECT `member_id` from
+            `m_partner`
+            )
+            and `buyer_member_id` not IN (SELECT id FROM
+            `m_member_info` WHERE
+            `create_date` &gt;=#{begainDate} and
+            `create_date` &lt;#{endDate})
+        </if>
+        <if test="type==3">
+            and
+            `orderItem`.`buyer_member_id`
+            not IN
+            (SELECT `member_id`
+            from
+            `m_partner`
+            )
+            and `buyer_member_id` IN (SELECT id FROM
+            `m_member_info` WHERE
+            `create_date` &gt;=#{begainDate} and
+            `create_date` &lt;#{endDate})
+        </if>
+        <if test="type==4">
+            and
+            `orderItem`.`buyer_member_id`
+            not IN
+            (SELECT `member_id`
+            from
+            `m_partner`
+            )
+            and `buyer_member_id` not IN (SELECT id FROM
+            `m_member_info` WHERE
+            `create_date` &gt;=#{begainDate} and
+            `create_date` &lt;#{endDate})
+        </if>
+
+    </select>
+
+</mapper>

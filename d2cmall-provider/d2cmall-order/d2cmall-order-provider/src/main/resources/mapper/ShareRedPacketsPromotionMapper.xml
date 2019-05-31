@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.order.dao.ShareRedPacketsPromotionMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.ShareRedPacketsPromotion">
+        <result property="name" column="name"/>
+        <result property="beginDate" column="begin_date"/>
+        <result property="endDate" column="end_date"/>
+        <result property="maxNumber" column="max_number"/>
+        <result property="totalMoney" column="total_money"/>
+        <result property="minMoney" column="min_money"/>
+        <result property="maxMoney" column="max_money"/>
+        <result property="status" column="status"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM
+        p_share_red_prmotion WHERE 1=1
+        <include refid="Searcher"/>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(id) FROM
+        p_share_red_prmotion WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.status!=null">
+            AND status=#{searcher.status}
+        </if>
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND name LIKE CONCAT('%',#{searcher.name},'%')
+        </if>
+    </sql>
+    <select id="findNowPromotion" resultMap="baseMap">
+		SELECT * FROM
+		p_share_red_prmotion WHERE `status`=1
+		AND begin_date &lt; NOW() AND end_date &gt; NOW()
+	</select>
+</mapper>

@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.O2oSubscribeMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.O2oSubscribe">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="tel" column="tel"/>
+        <result property="email" column="email"/>
+        <result property="memberId" column="member_id"/>
+        <result property="storeId" column="store_id"/>
+        <result property="storeName" column="store_name"/>
+        <result property="storeTel" column="store_tel"/>
+        <result property="storeAddress" column="store_address"/>
+        <result property="estimateDate" column="estimate_date"/>
+        <result property="estimateTime" column="estimate_time"/>
+        <result property="optionRequire" column="option_require"/>
+        <result property="startHour" column="start_hour"/>
+        <result property="startMinute" column="start_minute"/>
+        <result property="endHour" column="end_hour"/>
+        <result property="endMinute" column="end_minute"/>
+        <result property="storeService" column="store_service"/>
+        <result property="submitDate" column="submit_date"/>
+        <result property="noticeDate" column="notice_date"/>
+        <result property="noticeMan" column="notice_man"/>
+        <result property="receiveDate" column="receive_date"/>
+        <result property="receiveMan" column="receive_man"/>
+        <result property="completeDate" column="complete_date"/>
+        <result property="payAmount" column="pay_amount"/>
+        <result property="completeMan" column="complete_man"/>
+        <result property="actualNumbers" column="actual_numbers"/>
+        <result property="retailSn" column="retail_sn"/>
+        <result property="payStatus" column="pay_status"/>
+        <result property="remarkDate" column="remark_date"/>
+        <result property="visitDate" column="visit_date"/>
+        <result property="cancelMan" column="cancel_man"/>
+        <result property="cancelReason" column="cancel_reason"/>
+        <result property="cancelDate" column="cancel_date"/>
+        <result property="commentId" column="comment_id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="sn" column="sn"/>
+        <result property="contact" column="contact"/>
+        <result property="wechat" column="wechat"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="numbers" column="numbers"/>
+        <result property="companion" column="companion"/>
+        <result property="status" column="status"/>
+        <result property="feedback" column="feedback"/>
+        <result property="feedbackDate" column="feedback_date"/>
+        <result property="remark" column="remark"/>
+        <result property="visit" column="visit"/>
+        <result property="creator" column="creator"/>
+        <result property="cusCost" column="cus_cost"/>
+    </resultMap>
+
+    <select id="findUnSubmit" resultMap="baseMap">
+		SELECT *
+		FROM
+		o_store_reserve
+		WHERE member_id=#{memberId} AND status=0
+		LIMIT 0,1
+	</select>
+
+    <select id="findByIdAndStoreId" resultMap="baseMap">
+		SELECT *
+		FROM
+		o_store_reserve WHERE id=#{id} AND store_id=#{storeId}
+	</select>
+
+    <select id="findLastO2oSubscribe" resultMap="baseMap">
+		SELECT * FROM o_store_reserve 
+		WHERE member_id=#{memberId} AND status &gt; 0 ORDER BY create_date DESC LIMIT 0,1
+	</select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT *
+        FROM o_store_reserve
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY modify_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(*)
+        FROM o_store_reserve
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <select id="findAnalysisBySearch" resultType="HashMap">
+        SELECT
+        <if test="searcher.payStatus != null">
+            COUNT(id) as dealQuantity,SUM(pay_amount) as dealAmount
+        </if>
+        <if test="searcher.payStatus == null">
+            COUNT(id) as totalQuantity, SUM(total_quantity) as productQuantity, SUM(total_amount) as totalAmount
+        </if>
+        FROM o_store_reserve
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <select id="countSubscribeTimes" resultType="int">
+		SELECT count(*)
+		FROM
+		o_store_reserve
+		where member_id = #{subscribe.memberId}
+	</select>
+
+    <select id="countGroupByStatus" resultType="java.util.Map">
+        SELECT status,COUNT(id) as count FROM o_store_reserve ORDER BY status
+        <if test="storeId!=null">
+            AND store_id=#{storeId}
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test=" searcher.startDate!= null">
+            and estimate_date &gt;= #{searcher.startDate}
+        </if>
+        <if test=" searcher.endDate!= null">
+            and estimate_date &lt;= #{searcher.endDate}
+        </if>
+        <if test=" searcher.sn!= null and searcher.sn!= ''">
+            and sn =#{searcher.sn}
+        </if>
+        <if test=" searcher.tel!= null and searcher.tel!= ''">
+            and tel =#{searcher.tel}
+        </if>
+        <if test=" searcher.memberId!= null">
+            and member_id = #{searcher.memberId}
+        </if>
+        <if test=" searcher.storeId!= null">
+            and store_id = #{searcher.storeId}
+        </if>
+        <if test=" searcher.status!= null and searcher.status.length > 0">
+            and status IN
+            <foreach collection="searcher.status" index="index" item="item" open="("
+                     separator="," close=")">
+                #{item}
+            </foreach>
+        </if>
+        <if test=" searcher.gtStatus!= null">
+            and status &gt; #{searcher.gtStatus}
+        </if>
+        <if test=" searcher.payStatus!= null">
+            and pay_status = #{searcher.payStatus}
+        </if>
+        <if test=" searcher.timeStamp!= null and searcher.timeStamp=='today'">
+            and YEAR(create_date)=YEAR(NOW())
+            and
+            MONTH(create_date)=MONTH(NOW())
+            and DAY(create_date)=DAY(NOW())
+        </if>
+        <if test=" searcher.timeStamp!= null and searcher.timeStamp=='yesterday'">
+            and YEAR(create_date)=YEAR(DATE_ADD(NOW(),INTERVAL -1
+            DAY))
+            and MONTH(create_date)=MONTH(DATE_ADD(NOW(),INTERVAL -1 DAY))
+            and DAY(create_date)=DAY(DATE_ADD(NOW(),INTERVAL -1 DAY))
+        </if>
+        <if test=" searcher.timeStamp!= null and searcher.timeStamp=='thisWeek'">
+            and YEAR(create_date)=YEAR(NOW())
+            and
+            WEEK(create_date,1)=WEEK(NOW(),1)
+        </if>
+        <if test=" searcher.timeStamp!= null and searcher.timeStamp=='thisMonth'">
+            and YEAR(create_date)=YEAR(NOW())
+            and
+            MONTH(create_date)=MONTH(NOW())
+        </if>
+        <if test=" searcher.cusStr!= null and searcher.cusStr!= ''">
+            <![CDATA[${searcher.cusStr}]]>
+        </if>
+    </sql>
+
+    <update id="updateVisitById">
+		update o_store_reserve
+		SET
+		modify_date=now(),visit=#{visit},visit_date=now()
+		where id=#{id} AND
+		status &gt; 4
+	</update>
+
+    <update id="updateRemarkById">
+		update o_store_reserve
+		SET
+		modify_date=now(),remark=#{remark},remark_date=now()
+		where id=#{id}
+	</update>
+
+    <update id="updateCusCostById">
+        update o_store_reserve
+        SET
+        modify_date=now(),status=#{status}
+        <if test="commentId != null">
+            ,comment_id = #{commentId}
+        </if>
+        <if test="cusCost != null">
+            ,cus_cost = #{cusCost}
+        </if>
+        where id=#{id}
+    </update>
+
+    <delete id="deleteByIdAndMemberId">
+		delete from o_store_reserve where id=#{id} and
+		member_id=#{memberId} AND status IN (-1,-2,0)
+	</delete>
+
+    <update id="cancel">
+		update o_store_reserve
+		SET
+		modify_date=now(),cancel_man=#{cancelMan},cancel_reason=#{cancelReason},cancel_date=now(),status=-2
+		where id=#{id} AND status=1
+	</update>
+
+    <update id="notice">
+		update o_store_reserve
+		SET
+		modify_date=now(),notice_man=#{noticeMan},notice_date=now(),status=2
+		where id=#{id} AND status=1
+	</update>
+
+    <update id="receive">
+		update o_store_reserve
+		SET
+		modify_date=now(),receive_man=#{receiveMan},receive_date=now(),status=3
+		where id=#{id}
+	</update>
+
+    <update id="ready">
+		UPDATE o_store_reserve SET modify_date=now(),status=4 WHERE id=#{id}
+	</update>
+
+    <update id="complete">
+        update o_store_reserve
+        SET
+        modify_date=now(),complete_man=#{completeMan},complete_date=now(),
+        status=5,feedback=#{feedback},feedback_date=now(),pay_status=#{payStatus}
+        <if test=" actualNumbers!= null">
+            ,actual_numbers = #{actualNumbers}
+        </if>
+        <if test="retailSn!=null and retailSn!=''">
+            ,retail_sn = #{retailSn}
+        </if>
+        <if test="payAmount!= null">
+            ,pay_amount = #{payAmount}
+        </if>
+        where id=#{id}
+    </update>
+
+    <update id="doCancelByMemberId">
+		update o_store_reserve
+		SET
+		modify_date=now(),cancel_date=now(),status=-1
+		where id=#{id} AND member_id=#{memberId} AND status IN (1,2)
+	</update>
+
+    <update id="doMerge">
+		UPDATE o_store_reserve SET
+		modify_date=now(),old_member_id=member_id,
+		member_id=#{targetId} WHERE
+		member_id=#{sourceId}
+	</update>
+
+</mapper>

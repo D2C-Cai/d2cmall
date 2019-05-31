@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.ShareRedPacketsMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.ShareRedPackets">
+        <result property="memberId" column="member_id"/>
+        <result property="accountId" column="account_id"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="groupId" column="group_id"/>
+        <result property="initiator" column="initiator"/>
+        <result property="initiatorMemberId" column="initiator_member_id"/>
+        <result property="money" column="money"/>
+        <result property="status" column="status"/>
+        <result property="number" column="number"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="sharePromotionId" column="share_promotion_id"/>
+        <result property="sharePromotionName" column="share_promotion_name"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="nickName" column="nick_name"/>
+    </resultMap>
+
+    <select id="findByGroupId" resultMap="baseMap">
+        SELECT * FROM o_share_red WHERE group_id=#{groupId}
+        <if test="orderByStr!=null and orderByStr!=''">
+            ORDER BY ${orderByStr}
+        </if>
+    </select>
+
+    <select id="findHistory" resultMap="baseMap">
+		SELECT * FROM o_share_red WHERE member_id=#{memberId} AND share_promotion_id=#{sharePromotionId} AND initiator=#{initiator}
+	</select>
+
+    <select id="sumMoneyByGroupId" resultType="java.math.BigDecimal">
+		SELECT SUM(money) FROM o_share_red WHERE group_id=#{groupId}
+	</select>
+
+    <update id="updateStatusByGroupId">
+		UPDATE o_share_red SET status=#{status} WHERE group_id=#{groupId}
+	</update>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(id) FROM o_share_red WHERE 1=1
+        <include refid="Searcher"/>
+    </select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM o_share_red WHERE 1=1
+        <include refid="Searcher"/>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.beginCreateDate!=null">
+            AND create_date &gt; #{searcher.beginCreateDate}
+        </if>
+        <if test="searcher.endCreateDate!=null">
+            AND create_date &lt; #{searcher.endCreateDate}
+        </if>
+        <if test="searcher.promotionId!=null">
+            AND share_promotion_id =#{searcher.promotionId}
+        </if>
+        <if test="searcher.loginCode!=null and searcher.loginCode!=''">
+            AND login_code=#{searcher.loginCode}
+        </if>
+        <if test="searcher.groupId!=null">
+            AND group_id=#{searcher.groupId}
+        </if>
+        <if test="searcher.initiator!=null">
+            AND initiator=#{searcher.initiator}
+        </if>
+        <if test="searcher.status!=null">
+            AND status=#{searcher.status}
+        </if>
+    </sql>
+</mapper>

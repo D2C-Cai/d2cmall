@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.product.dao.BrandTagMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.BrandTag">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="name" column="name"/>
+        <result property="fixed" column="fixed"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <select id="findByDesignerId" resultMap="baseMap">
+		SELECT * FROM
+		p_brand_tag WHERE id IN
+		(SELECT tag_id FROM p_brand_tag_relation
+		WHERE designer_id=#{designerId})
+		ORDER BY create_date DESC
+	</select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT * FROM p_brand_tag WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY sort DESC,create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT COUNT(*) FROM p_brand_tag WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher != null">
+            <if test="searcher.name != null and searcher.name != ''">
+                AND name =#{searcher.name}
+            </if>
+        </if>
+    </sql>
+
+    <select id="findSynDesignerTags" resultMap="baseMap">
+		SELECT * FROM
+		p_brand_tag r where r.modify_date &gt; #{lastSysDate}
+		LIMIT
+		#{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="countSynDesignerTags" resultType="int">
+		SELECT count(*)
+		FROM p_brand_tag r
+		where r.modify_date &gt; #{lastSysDate}
+	</select>
+
+    <delete id="delete">
+		DELETE FROM p_brand_tag WHERE id=#{id}
+	</delete>
+
+    <update id="updateStatus">
+		UPDATE p_brand_tag SET status=#{status},
+		modify_date=NOW()
+		WHERE id=#{id}
+	</update>
+
+    <select id="findFixedOne" resultMap="baseMap">
+		SELECT * FROM
+		p_brand_tag
+		WHERE fixed=1 order by create_date limit 0,1
+	</select>
+
+</mapper>
+

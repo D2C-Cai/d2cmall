@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.MemberSearchInfoMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.MemberSearchInfo">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="memberInfoId" column="member_info_id"/>
+    </resultMap>
+
+    <resultMap id="valueCount" type="com.d2c.common.api.dto.CountDTO">
+        <result property="value" column="keyword"/>
+        <result property="count" column="num"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT *
+        FROM MemberSearchInfo
+        where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="findGroupBySearcher" resultMap="valueCount">
+        SELECT keyword,count(keyword) as num FROM MemberSearchInfo
+        where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        group by keyword
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countGroupBySearcher" resultType="int">
+        select count(*) from (SELECT count(keyword) FROM MemberSearchInfo
+        where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        group by keyword ) info
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT count(*)
+        FROM MemberSearchInfo
+        where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.keyword!= null and searcher.keyword!='' ">
+            AND keyword LIKE CONCAT('%',#{searcher.keyword},'%')
+        </if>
+        <if test="searcher.beginCreateDate != null">
+            AND create_date &gt;= #{searcher.beginCreateDate}
+        </if>
+        <if test="searcher.endCreateDate != null">
+            AND create_date &lt;= #{searcher.endCreateDate}
+        </if>
+        <if test="searcher.statistic!= null">
+            AND statistic = #{searcher.statistic}
+        </if>
+    </sql>
+
+    <delete id="delete">
+		delete from MemberSearchInfo where id=#{id}
+	</delete>
+
+    <delete id="remove">
+		delete from MemberSearchInfo where keyword=#{keyword} and create_date
+		&lt;=#{createDate} and statistic=#{statistic}
+	</delete>
+
+    <update id="updateStatistic">
+		UPDATE MemberSearchInfo
+		SET statistic=1,modify_date=now() WHERE keyword=#{keyword} and
+		create_date &lt;=#{createDate} and statistic=#{statistic}
+	</update>
+
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.CouponOrderMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.CouponOrder">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="orderSn" column="order_sn"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="couponDefId" column="coupon_def_id"/>
+        <result property="couponPrice" column="coupon_price"/>
+        <result property="couponName" column="coupon_name"/>
+        <result property="quantity" column="quantity"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="paySn" column="pay_sn"/>
+        <result property="payTime" column="pay_time"/>
+        <result property="payAmount" column="pay_amount"/>
+        <result property="paymentId" column="payment_id"/>
+        <result property="paymentType" column="payment_type"/>
+        <result property="memberId" column="member_id"/>
+        <result property="loginCode" column="login_code"/>
+    </resultMap>
+
+    <select id="findBySn" resultMap="baseMap">
+		SELECT * FROM o_coupon_order
+		WHERE order_sn = #{sn}
+		LIMIT 0,1
+	</select>
+
+    <select id="findByIdAndMemberId" resultMap="baseMap">
+		SELECT * FROM o_coupon_order
+		WHERE member_id = #{memberId} AND
+		id = #{id}
+		LIMIT 0,1
+	</select>
+
+    <select id="findBySnAndMemberId" resultMap="baseMap">
+		SELECT * FROM o_coupon_order
+		WHERE member_id = #{memberId} AND
+		order_sn = #{sn}
+		LIMIT 0,1
+	</select>
+
+    <select id="findByMemberIdAndCouponDefId" resultMap="baseMap">
+		SELECT * FROM o_coupon_order
+		WHERE member_id = #{memberId} AND
+		coupon_def_id = #{couponDefId} AND order_status=0
+		LIMIT 0,1
+	</select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT o.*
+        FROM o_coupon_order o
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY o.create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(*)
+        FROM o_coupon_order o
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.couponDefId!= null">
+            AND o.coupon_def_id=#{searcher.couponDefId}
+        </if>
+        <if test="searcher.memberId!= null">
+            AND o.member_id=#{searcher.memberId}
+        </if>
+        <if test="searcher.loginCode!= null">
+            AND o.login_code=#{searcher.loginCode}
+        </if>
+        <if test="searcher.createDateStart!=null">
+            AND o.create_date &gt;= #{searcher.createDateStart}
+        </if>
+        <if test="searcher.createDateEnd!=null">
+            AND o.create_date &lt;= #{searcher.createDateEnd}
+        </if>
+        <if test="searcher.orderStatus!=null">
+            AND o.order_status = #{searcher.orderStatus}
+        </if>
+    </sql>
+
+    <update id="updatePaySuccess">
+		UPDATE o_coupon_order
+		SET modify_date=now(),
+		order_status=1,
+		payment_id=#{paymentId},payment_type=#{paymentType},pay_sn=#{paySn},
+		pay_amount=#{payAmount},pay_time=now()
+		WHERE id=#{id} AND order_status=0
+	</update>
+
+</mapper>

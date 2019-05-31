@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.UserOperateLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.UserOperateLog">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="adSn" column="ad_sn"/>
+        <result property="memberName" column="member_name"/>
+        <result property="memberId" column="member_id"/>
+        <result property="logType" column="log_type"/>
+        <result property="objectId" column="object_id"/>
+        <result property="objectSn" column="object_sn"/>
+        <result property="objectName" column="object_name"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="parentType" column="parent_type"/>
+        <result property="deviceToken" column="device_token"/>
+        <result property="appVersion" column="app_version"/>
+    </resultMap>
+
+    <select id="count" resultType="HashMap">
+        select objectId, count(id) as clicks
+        from UserOperateLog
+        where 1=1
+        <if test="logType !=null">
+            and logType=#{logType}
+        </if>
+        <if test="status !=null">
+            and status=#{status}
+        </if>
+        <if test="createDate !=null">
+            and createDate&lt;=#{createDate}
+        </if>
+        group by objectId
+    </select>
+
+</mapper>

@@ -1,0 +1,11 @@
+User-agent: *
+Disallow:/member/
+Disallow:/order/
+Disallow:/payment/
+Disallow:/o2oSubscribe/
+Disallow:/registration/
+Disallow:/subscribe/
+Disallow:/sms/
+Disallow:/setting/
+Disallow:/randomcode/
+Disallow:/callback/

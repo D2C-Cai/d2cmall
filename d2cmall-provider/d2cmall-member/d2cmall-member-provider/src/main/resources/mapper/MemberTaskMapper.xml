@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.MemberTaskMapper">
+
+    <resultMap id="baseMap" type="com.d2c.member.model.MemberTask">
+        <result property="id" column="id"/>
+        <result property="codeType" column="code_type"/>
+        <result property="subCode" column="sub_code"/>
+        <result property="subName" column="sub_name"/>
+        <result property="doAfter" column="do_after"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findTaskList" resultMap="baseMap">
+		select * from m_member_task 
+		where exec = 1
+		order by sort asc
+	</select>
+
+    <update id="updateExecStart">
+		UPDATE m_member_task SET exec=1
+		WHERE exec=0
+		and start_time is not null and start_time &lt;= NOW()
+		and end_time is not null and end_time &gt;= NOW()
+	</update>
+
+    <update id="updateExecEnd">
+		UPDATE m_member_task SET exec=0
+		WHERE exec=1
+		and end_time is not null and end_time &lt;= NOW()
+	</update>
+
+</mapper>

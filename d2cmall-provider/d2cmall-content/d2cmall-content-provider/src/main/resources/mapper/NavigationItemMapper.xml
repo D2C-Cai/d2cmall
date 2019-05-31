@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.content.dao.NavigationItemMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.NavigationItem">
+        <result property="id" column="id"/>
+        <result property="navId" column="nav_id"/>
+        <result property="title" column="title"/>
+        <result property="url" column="url"/>
+        <result property="sequence" column="sequence"/>
+        <result property="status" column="status"/>
+        <result property="cssStyle" column="css_style"/>
+        <result property="pic" column="pic"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <select id="findByNavId" resultMap="baseMap">
+		SELECT *
+		FROM v_navigation_item
+		WHERE nav_id = #{navId} and status=1 ORDER BY sequence DESC
+	</select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT d.*
+        <include refid="joinTableSql"/>
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY d.sequence DESC,d.create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(*)
+        <include refid="joinTableSql"/>
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="joinTableSql">
+		FROM v_navigation_item d
+		WHERE 1=1
+	</sql>
+
+    <sql id="Searcher">
+        <if test="searcher.title!=null and searcher.title!='' ">
+            AND d.title LIKE CONCAT('%',#{searcher.title},'%')
+        </if>
+        <if test="searcher.url!=null and searcher.url!='' ">
+            AND d.url LIKE CONCAT('%',#{searcher.url},'%')
+        </if>
+        <if test="searcher.navId!=null">
+            AND d.nav_id=#{searcher.navId}
+        </if>
+        <if test="searcher.gtStatus!=null">
+            AND d.status &gt;= #{searcher.gtStatus}
+        </if>
+    </sql>
+
+    <update id="doUp">
+		UPDATE v_navigation_item
+		SET modify_date =
+		now(),status=1
+		WHERE id = #{id}
+	</update>
+
+    <update id="doDown">
+		UPDATE v_navigation_item
+		SET modify_date =
+		now(),status=0
+		WHERE id = #{id}
+	</update>
+
+    <update id="delete">
+		UPDATE v_navigation_item
+		SET modify_date
+		=now(),status=-1
+		WHERE id = #{id}
+	</update>
+
+</mapper>

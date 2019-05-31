@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.product.dao.StockCheckMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.StockCheck">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result property="sn" column="sn"/>
+        <result property="storeId" column="store_id"/>
+        <result property="storeCode" column="store_code"/>
+        <result property="storeName" column="store_name"/>
+        <result property="type" column="type"/>
+        <result property="status" column="status"/>
+        <result property="memo" column="memo"/>
+        <result property="bookQuantity" column="book_quantity"/>
+        <result property="actualQuantity" column="actual_quantity"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT * FROM p_stock_check
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date DESC
+        <if test="pager!=null">
+            LIMIT #{pager.startNumber}, #{pager.pageSize}
+        </if>
+    </select>
+
+    <select id="countBySearch" resultType="Integer">
+        SELECT COUNT(*) FROM p_stock_check
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.sn != null and searcher.sn!=''">
+            AND sn = #{searcher.sn}
+        </if>
+        <if test="searcher.storeId != null">
+            AND store_id = #{searcher.storeId}
+        </if>
+        <if test="searcher.type != null">
+            AND type = #{searcher.type}
+        </if>
+        <if test="searcher.status!=null and searcher.status.length &gt; 0">
+            AND status IN
+            <foreach collection="searcher.status" item="status" index="index"
+                     open="(" close=")" separator=",">
+                <if test="status!=null">
+                    #{status}
+                </if>
+            </foreach>
+        </if>
+        <if test="searcher.createDateStart != null">
+            AND create_date &gt;= #{searcher.createDateStart}
+        </if>
+        <if test="searcher.createDateEnd != null">
+            AND create_date &lt;= #{searcher.createDateEnd}
+        </if>
+    </sql>
+
+    <update id="updateStatus">
+		UPDATE p_stock_check SET status=#{status},
+		modify_date=NOW()
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateMemo">
+		UPDATE p_stock_check SET memo=#{memo},
+		modify_date=NOW()
+		WHERE id=#{id}
+	</update>
+
+    <update id="doSumQuantity">
+		UPDATE p_stock_check 
+		SET book_quantity=(SELECT SUM(book_quantity) FROM p_stock_check_item WHERE check_id=#{id}),
+		actual_quantity=(SELECT SUM(actual_quantity) FROM p_stock_check_item WHERE check_id=#{id})
+		WHERE id=#{id}
+	</update>
+
+</mapper>

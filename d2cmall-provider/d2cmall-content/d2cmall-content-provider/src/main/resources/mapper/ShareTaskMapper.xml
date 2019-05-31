@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.content.dao.ShareTaskMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.ShareTask">
+        <result property="id" column="id"/>
+        <result property="taskDefId" column="task_def_id"/>
+        <result property="sn" column="sn"/>
+        <result property="title" column="title"/>
+        <result property="memberId" column="member_id"/>
+        <result property="memberName" column="member_name"/>
+        <result property="maxPoint" column="max_point"/>
+        <result property="clickPoint" column="click_point"/>
+        <result property="grantPoint" column="grant_point"/>
+        <result property="sendPointDate" column="send_point_date"/>
+        <result property="status" column="status"/>
+        <result property="url" column="url"/>
+        <result property="luckyNum" column="lucky_num"/>
+        <result property="parentTaskId" column="parent_task_id"/>
+        <result property="clickDate" column="click_date"/>
+        <result property="clickNumber" column="click_number"/>
+        <result property="shareDate" column="share_date"/>
+        <result property="shareNumber" column="share_number"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <select id="findByMemberIdAndTaskId" resultMap="baseMap">
+		SELECT * FROM
+		v_share_task WHERE member_id = #{memberInfoId} AND
+		id=#{shareTaskId}
+		LIMIT 0,1
+	</select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT p.*
+        <include refid="joinTableSql"/>
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY p.create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(*)
+        <include refid="joinTableSql"/>
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="joinTableSql">
+        FROM v_share_task p
+        <if test="searcher.memberName!=null || searcher.memberEmail!=null || searcher.memberMobile!=null">
+            ,m_member_info m
+        </if>
+        WHERE 1=1
+        <if test="searcher.memberName!=null || searcher.memberEmail!=null || searcher.memberMobile!=null">
+            AND p.member_id=m.id
+        </if>
+    </sql>
+
+    <sql id="Searcher">
+        <if test="searcher.taskDefId!=null">
+            AND p.task_def_id=#{searcher.taskDefId}
+        </if>
+        <if test="searcher.memberName!=null and searcher.memberName!=''">
+            AND m.nick_name =#{searcher.memberName}
+        </if>
+        <if test="searcher.memberEmail!=null and searcher.memberEmail!=''">
+            AND m.email= #{searcher.memberEmail}
+        </if>
+        <if test="searcher.memberMobile!=null and searcher.memberMobile!=''">
+            AND m.mobile= #{searcher.memberMobile}
+        </if>
+        <if test="searcher.memberId!=null">
+            AND p.member_id=#{searcher.memberId}
+        </if>
+        <if test="searcher.status!=null">
+            AND p.status=#{searcher.status}
+        </if>
+        <if test="searcher.sn!=null and searcher.sn!=''">
+            AND p.sn =#{searcher.sn}
+        </if>
+        <if test="searcher.title!=null and searcher.title!=''">
+            AND p.title =#{searcher.title}
+        </if>
+        <if test="searcher.beginCreateDate != null">
+            AND p.create_date &gt;= #{searcher.beginCreateDate}
+        </if>
+        <if test="searcher.endCreateDate != null">
+            AND p.create_date &lt;= #{searcher.endCreateDate}
+        </if>
+    </sql>
+
+    <select id="findByMemberIdAndTaskDef" resultMap="baseMap">
+		SELECT * FROM
+		v_share_task
+		WHERE member_id = #{memberId} AND task_def_id=#{taskDefId}
+		LIMIT 0,1
+	</select>
+
+    <select id="findByDefIdAndStatus" resultMap="baseMap">
+		SELECT *
+		FROM
+		v_share_task
+		WHERE status=#{status} AND task_def_id=#{taskDefId}
+		ORDER BY
+		create_date DESC
+		LIMIT #{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="countByDefIdAndStatus" resultType="int">
+		SELECT count(*)
+		FROM v_share_task
+		WHERE status=#{status} AND task_def_id=#{taskDefId}
+	</select>
+
+    <update id="doShare">
+		UPDATE v_share_task
+		SET
+		share_number =
+		share_number+1,share_date=now(),lucky_num=#{luckyNum}
+		WHERE
+		id = #{shareTaskId} AND lucky_num IS NULL
+	</update>
+
+    <update id="updateShare">
+		UPDATE v_share_task
+		SET
+		share_number =
+		share_number+1
+		WHERE member_id = #{memberInfoId} and
+		task_def_id=#{taskDefId}
+	</update>
+
+    <update id="updateClick">
+		UPDATE v_share_task
+		SET
+		click_number =
+		click_number+1
+		WHERE member_id = #{memberInfoId} and
+		task_def_id=#{taskDefId}
+	</update>
+
+    <update id="doPointed">
+		UPDATE v_share_task
+		SET
+		modify_date = now(),status=1,sendPointDate=now()
+		WHERE id = #{id}
+	</update>
+
+    <update id="doClickSharePoint">
+		UPDATE v_share_task
+		SET modify_date = now(),grantPoint=grantPoint+clickPoint
+		WHERE id =
+		#{id} and (grantPoint &lt; maxPoint or maxPoint &lt;= 0)
+	</update>
+
+</mapper>

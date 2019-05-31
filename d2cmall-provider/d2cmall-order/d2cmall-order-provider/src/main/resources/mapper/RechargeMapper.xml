@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.RechargeMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.Recharge">
+        <result property="id" column="id"/>
+        <result property="sn" column="sn"/>
+        <result property="status" column="status"/>
+        <result property="payType" column="payType"/>
+        <result property="memberId" column="member_id"/>
+        <result property="storeId" column="store_id"/>
+        <result property="accountId" column="account_id"/>
+        <result property="rechargeAmount" column="recharge_amount"/>
+        <result property="giftAmount" column="gift_amount"/>
+        <result property="billId" column="bill_id"/>
+        <result property="ruleId" column="rule_id"/>
+        <result property="ruleName" column="rule_name"/>
+        <result property="limited" column="limited"/>
+        <result property="limitDate" column="limit_date"/>
+        <result property="payChannel" column="pay_channel"/>
+        <result property="payAccount" column="pay_account"/>
+        <result property="paySn" column="pay_sn"/>
+        <result property="payDate" column="pay_date"/>
+        <result property="submitDate" column="submit_date"/>
+        <result property="submitor" column="submitor"/>
+        <result property="closer" column="closer"/>
+        <result property="closeDate" column="close_date"/>
+        <result property="closeReason" column="close_reason"/>
+        <result property="memo" column="memo"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <select id="findBySn" resultMap="baseMap">
+		SELECT * FROM o_recharge WHERE
+		sn=#{sn} LIMIT 0,1
+	</select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT p.*
+        <include refid="joinTableSql"/>
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY p.create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(*)
+        <include refid="joinTableSql"/>
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="joinTableSql">
+        FROM o_recharge p
+        <if test="(searcher.memberName!=null and searcher.memberName!='')
+			|| (searcher.memberEmail!=null and searcher.memberEmail!='')
+			|| (searcher.memberMobile!=null and searcher.memberMobile!='')">
+            ,m_member_info m
+        </if>
+        <if test="(searcher.account!=null and searcher.account!='')
+			|| (searcher.cardHolder!=null and searcher.cardHolder!='')">
+            ,m_account a
+        </if>
+        WHERE 1=1
+        <if test="(searcher.memberName!=null and searcher.memberName!='')
+			|| (searcher.memberEmail!=null and searcher.memberEmail!='')
+			|| (searcher.memberMobile!=null and searcher.memberMobile!='')">
+            AND p.member_id=m.id
+        </if>
+        <if test="(searcher.account!=null and searcher.account!='')
+			|| (searcher.cardHolder!=null and searcher.cardHolder!='')">
+            AND p.account_id=a.id
+        </if>
+    </sql>
+
+    <sql id="Searcher">
+        <if test="searcher.memberId!=null">
+            AND p.member_id=#{searcher.memberId}
+        </if>
+        <if test="searcher.accountId!=null">
+            AND p.account_id=#{searcher.accountId}
+        </if>
+        <if test="searcher.status!=null">
+            AND p.status=#{searcher.status}
+        </if>
+        <if test="searcher.payChannel!=null and searcher.payChannel!=''">
+            AND p.pay_channel=#{searcher.payChannel}
+        </if>
+        <if test="searcher.payAccount!=null and searcher.payAccount!=''">
+            AND p.pay_account=#{searcher.payAccount}
+        </if>
+        <if test="searcher.paySn!=null and searcher.paySn!=''">
+            AND p.pay_sn=#{searcher.paySn}
+        </if>
+        <if test="searcher.account!=null and searcher.account!=''">
+            AND a.account=#{searcher.account}
+        </if>
+        <if test="searcher.cardHolder!=null and searcher.cardHolder!=''">
+            AND a.card_holder=#{searcher.cardHolder}
+        </if>
+        <if test="searcher.memberName!=null and searcher.memberName!=''">
+            AND m.nick_name =#{searcher.memberName}
+        </if>
+        <if test="searcher.memberEmail!=null and searcher.memberEmail!=''">
+            AND m.email =#{searcher.memberEmail}
+        </if>
+        <if test="searcher.memberMobile!=null and searcher.memberMobile!=''">
+            AND m.mobile =#{searcher.memberMobile}
+        </if>
+        <if test="searcher.storeId != null">
+            AND p.store_id = #{searcher.storeId}
+        </if>
+        <if test="searcher.begin != null">
+            AND p.pay_date &gt;=#{searcher.begin}
+        </if>
+        <if test="searcher.end != null">
+            AND p.pay_date&lt;= #{searcher.end}
+        </if>
+        <if test="searcher.beginSubmitTime!= null">
+            AND p.submit_date &gt;=#{searcher.beginSubmitTime}
+        </if>
+        <if test="searcher.endSubmitTime!= null">
+            AND p.submit_date&lt;= #{searcher.endSubmitTime}
+        </if>
+        <if test="searcher.minRechargeAmount != null">
+            AND p.recharge_amount &gt;=#{searcher.minRechargeAmount}
+        </if>
+        <if test="searcher.maxRechargeAmount != null">
+            AND p.recharge_amount&lt;= #{searcher.maxRechargeAmount}
+        </if>
+        <if test="searcher.ruleName != null and searcher.ruleName!=''">
+            AND p.rule_name =#{searcher.ruleName}
+        </if>
+        <if test="searcher.store != null and searcher.store==true">
+            AND p.store_id IS NOT NULL
+        </if>
+        <if test="searcher.store != null and searcher.store==false">
+            AND p.store_id IS NULL
+        </if>
+        <if test="searcher.sn!=null and searcher.sn!=''">
+            AND p.sn=#{searcher.sn}
+        </if>
+    </sql>
+
+    <update id="doSubmit">
+        UPDATE o_recharge
+        SET submit_date=now(), submitor=#{submitor}, status=1
+        <if test="paySn!=null">
+            ,pay_sn=#{paySn}
+        </if>
+        WHERE id = #{id} AND status IN(-2,0)
+    </update>
+
+    <update id="doClose">
+        UPDATE o_recharge
+        SET close_date = now(), closer=#{closer}, status = -1
+        <if test="closeReason!=null and closeReason!=''">
+            ,close_reason=#{closeReason}
+        </if>
+        WHERE id = #{id} AND status=0
+    </update>
+
+    <delete id="delete">
+		DELETE FROM o_recharge WHERE id = #{id} AND status=0
+	</delete>
+
+</mapper>

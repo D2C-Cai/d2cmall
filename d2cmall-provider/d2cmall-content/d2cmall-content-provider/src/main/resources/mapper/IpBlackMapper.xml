@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.content.dao.IpBlackMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.IpBlack">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="ip" column="ip"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(*) FROM v_ip_black
+        WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="searcher"/>
+        </if>
+    </select>
+
+    <select id="findBysearcher" resultMap="baseMap">
+        SELECT * FROM v_ip_black
+        WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="searcher"/>
+        </if>
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <sql id="searcher">
+        <if test="searcher.ip !=null and searcher.ip!=''">
+            AND ip =#{searcher.ip}
+        </if>
+        <if test="searcher.status !=null and searcher.status!=''">
+            AND status =#{searcher.status}
+        </if>
+    </sql>
+
+    <delete id="deleteById">
+        UPDATE v_ip_black SET
+		status = -1 
+        WHERE id=#{id}
+    </delete>
+
+    <update id="updateStatus">
+        UPDATE v_ip_black SET status=#{status},last_modify_man=#{lastModifyMan},modify_date=NOW() WHERE id=#{id}
+    </update>
+
+</mapper>

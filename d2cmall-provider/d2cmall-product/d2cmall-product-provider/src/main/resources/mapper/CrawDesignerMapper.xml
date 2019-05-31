@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.product.dao.CrawDesignerMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.CrawDesigner">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="craw_designer_url" property="crawDesignerUrl"
+                jdbcType="VARCHAR"/>
+        <result column="craw_designer_name" property="crawDesignerName"
+                jdbcType="VARCHAR"/>
+        <result column="create_date" property="createDate" jdbcType="TIMESTAMP"/>
+        <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP"/>
+        <result column="creator" property="creator" jdbcType="VARCHAR"/>
+        <result column="last_modify_man" property="lastModifyMan"
+                jdbcType="VARCHAR"/>
+        <result column="craw_times" property="crawTimes"/>
+        <result column="designer_id" property="designerId"/>
+        <result column="craw_date" property="crawDate"/>
+    </resultMap>
+
+    <select id="countBySearcher" resultType="int">
+        select count(*) from craw_designer c where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        select * from craw_designer c where 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        LIMIT #{pager.startNumber}, #{pager.pageSize}
+    </select>
+
+    <update id="updateCrawDateById">
+		update craw_designer c set
+		craw_date=#{crawDate},craw_times=craw_times+1 where id=#{id}
+	</update>
+
+    <sql id="Searcher">
+        <if
+                test="searcher.crawDesignerName!= null and searcher.crawDesignerName!= ''">
+            AND c.craw_designer_name =#{searcher.crawDesignerName}
+        </if>
+    </sql>
+
+</mapper>

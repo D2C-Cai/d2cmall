@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.order.dao.CouponDefGroupMapper">
+    <resultMap id="baseMap" type="com.d2c.order.model.CouponDefGroup">
+        <result property="name" column="name"/>
+        <result property="code" column="code"/>
+        <result property="cipher" column="cipher"/>
+        <result property="status" column="status"/>
+        <result property="randomNum" column="random_num"/>
+        <result property="rates" column="rates"/>
+        <result property="fixDefIds" column="fix_def_ids"/>
+        <result property="randomDefIds" column="random_def_ids"/>
+        <result property="quantity" column="quantity"/>
+        <result property="claimed" column="claimed"/>
+        <result property="claimLimit" column="claim_limit"/>
+        <result property="claimStart" column="claim_start"/>
+        <result property="claimEnd" column="claim_end"/>
+        <result property="pcCode" column="pc_code"/>
+        <result property="wapCode" column="wap_code"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <select id="findByCode" resultMap="baseMap">
+		SELECT * FROM 
+		o_coupon_def_group
+		WHERE code = #{code} limit 0,1
+	</select>
+
+    <select id="findByCipher" resultMap="baseMap">
+		SELECT * FROM
+		o_coupon_def_group 
+		WHERE cipher = #{cipher} limit 0,1
+	</select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT p.*
+        FROM o_coupon_def_group p
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY p.create_date DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(*)
+        FROM o_coupon_def_group p
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.name != null and searcher.name != ''">
+            AND name =#{searcher.name}
+        </if>
+    </sql>
+
+    <update id="updateStatus">
+		UPDATE o_coupon_def_group
+		SET
+		modify_date=now(),status=#{status}
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateFixDefIds">
+		UPDATE o_coupon_def_group
+		SET
+		modify_date=now(),fix_def_ids=#{fixDefIds}
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateRandomDefIds">
+		UPDATE o_coupon_def_group
+		SET
+		modify_date=now(),random_def_ids=#{randomDefIds}
+		WHERE id=#{id}
+	</update>
+
+    <update id="updateClaimed">
+		UPDATE o_coupon_def_group SET
+		modify_date=now(), claimed=claimed+#{num} 
+		WHERE id=#{groupId} AND (quantity &gt;= claimed+#{num})
+	</update>
+
+    <select id="findByUpdateClaimed" resultType="Long">
+		SELECT id from
+		o_coupon_def_group where modify_date=#{modifyDate}
+		LIMIT
+		#{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="countByUpdateClaimed" resultType="int">
+		SELECT count(id)
+		from o_coupon_def_group where modify_date=#{modifyDate}
+	</select>
+
+</mapper>

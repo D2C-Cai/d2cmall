@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.MemberDailySignMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.MemberDailySign">
+        <result property="memberId" column="member_id"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="totalDay" column="total_day"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="point" column="point"/>
+        <result property="totalPoint" column="total_point"/>
+    </resultMap>
+
+
+    <sql id="Search">
+        <if test="searcher.begainDate!=null">
+            AND create_date &gt;=#{searcher.begainDate}
+        </if>
+        <if test="searcher.endDate!=null">
+            AND create_date &lt;=#{searcher.endDate}
+        </if>
+        <if test="searcher.memberId!=null">
+            AND member_id=#{searcher.memberId}
+        </if>
+    </sql>
+
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(1) FROM m_member_daily_sign WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Search"/>
+        </if>
+    </select>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT * FROM m_member_daily_sign WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Search"/>
+        </if>
+        ORDER BY create_date DESC
+        LIMIT #{page.startNumber},#{page.pageSize}
+    </select>
+
+
+    <select id="findLastByMember" resultMap="baseMap">
+		SELECT * FROM
+		m_member_daily_sign WHERE member_id=#{memberId}
+		ORDER BY create_date
+		DESC
+		LIMIT 0,1
+	</select>
+
+
+</mapper>

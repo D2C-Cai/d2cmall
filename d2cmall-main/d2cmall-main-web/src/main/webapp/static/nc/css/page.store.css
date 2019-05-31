@@ -1,0 +1,133 @@
+.layout-store {
+    margin: 10px auto
+}
+
+.store-list .list-item {
+    width: 31.3%;
+    padding: 1%;
+    background: #FFF;
+    border-left: 1px solid #F2F2F2;
+    border-bottom: 1px solid #F2F2F2;
+    margin: 0 -1px 0 0;
+}
+
+.store-list .list-item .img img {
+    width: 100%;
+}
+
+.store-list .list-item p {
+    text-align: left;
+    margin: 0;
+    padding: 10px 0 0 5px;
+}
+
+.anchorBL {
+    display: none;
+}
+
+.store-tab {
+    height: 42px;
+    border-bottom: 1px solid #CCC;
+}
+
+.store-tab li {
+    border: 1px solid #CCC;
+    margin-right: -1px;
+    width: 150px;
+}
+
+.store-tab li.on {
+    background: #FFF;
+    border-bottom: none;
+    height: 42px;
+}
+
+.store-tab li a {
+    font-size: 14px;
+}
+
+.city-list {
+    background: #FFF;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #CCC;
+    border-top: none;
+    position: relative;
+}
+
+.city-list a {
+    display: inline-block;
+    padding: 7px 15px;
+}
+
+.city-list a.on {
+    border: 1px solid #FF6600;
+    border-radius: 3px;
+    padding: 6px 14px;
+    background: #fff8f8;
+    box-shadow: 0 2px 3px #CCC;
+}
+
+.store-map {
+    border: 1px solid #CCC;
+}
+
+.store-map-list {
+    float: right;
+    width: 21%;
+    height: 700px;
+    overflow: auto;
+    position: relative;
+    z-index: 10;
+    margin-left: -1%;
+}
+
+.store-map-list ul, .store-map-list ul li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.store-map-list ul {
+    position: absolute;
+    margin-left: 3%;
+    width: 97%;
+    background: #FFF;
+    min-height: 100%;
+}
+
+.store-map-list ul li {
+    padding: 5px 10px 5px 15px;
+    line-height: 20px;
+    border-bottom: 1px dotted #CCC;
+    color: #666;
+    cursor: pointer;
+}
+
+.store-map-list ul li.on {
+    background: #333;
+    color: #FFF;
+    border-bottom: 1px solid #333;
+    position: relative;
+    z-index: 10;
+}
+
+.store-map-list ul li.on:after {
+    content: ' ';
+    display: block;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent #333 transparent transparent;
+    width: 0;
+    height: 0;
+    font-family: arial;
+    position: absolute;
+    left: -20px;
+    top: 50%;
+    margin-top: -10px;
+}
+
+.store-map-baidu {
+    width: 80%;
+    height: 700px;
+}

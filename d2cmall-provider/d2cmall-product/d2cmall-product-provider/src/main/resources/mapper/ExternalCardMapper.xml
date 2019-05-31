@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.d2c.product.dao.ExternalCardMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.ExternalCard">
+        <result property="code" column="code"/>
+        <result property="status" column="status"/>
+        <result property="memberId" column="member_id"/>
+        <result property="sn" column="sn"/>
+        <result property="useDate" column="use_date"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="productId" column="product_id"/>
+        <result property="sourceId" column="source_id"/>
+    </resultMap>
+
+    <update id="doUse">
+		UPDATE p_external_card SET
+		member_id=#{memberId},sn=#{sn} ,use_date=now(),product_id=#{productId}
+		,status=8 WHERE id IN
+		(SELECT * FROM (SELECT id from p_external_card
+		WHERE source_id=#{sourceId} and
+		status=0 and member_id IS NULL LIMIT 0,1)
+		tab)
+	</update>
+
+    <select id="findBySn" resultMap="baseMap">
+		SELECT * from p_external_card
+		WHERE member_id=#{memberId} AND sn=#{sn} AND
+		status=8 LIMIT 0,1
+	</select>
+
+    <select id="countUsed" resultType="int">
+		select count(1) from p_external_card where product_id=#{productId} and
+		status=8
+	</select>
+
+</mapper>

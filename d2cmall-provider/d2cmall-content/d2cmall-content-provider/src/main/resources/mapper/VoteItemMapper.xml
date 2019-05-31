@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.content.dao.VoteItemMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.VoteItem">
+        <result property="memberId" column="member_id"/>
+        <result property="defId" column="def_id"/>
+        <result property="defTitle" column="def_title"/>
+        <result property="selectionId" column="selection_id"/>
+        <result property="sn" column="sn"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="selectName" column="select_name"/>
+        <result property="coef" column="coef"/>
+        <result property="pic" column="pic"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="findByDefIdGroupBySelection" resultType="com.d2c.content.dto.VoteSelectionDto">
+        SELECT vs.*,vs.name AS selectName,COUNT(vi.id) AS count,vi.selection_id AS
+        selectionId,ifnull(COUNT(vi.id)*vs.coef,COUNT(vi.id)) AS vCount FROM v_vote_selection vs
+        LEFT JOIN v_vote_item vi on vs.id=vi.selection_id
+        WHERE vs.def_id=#{searcher.defId} AND vs.status &gt; -1
+        <if test="searcher.selectName!=null and searcher.selectName!=''">
+            AND vs.name =#{searcher.selectName}
+        </if>
+        GROUP BY vs.id ORDER BY ${searcher.sort} DESC
+        LIMIT #{page.startNumber}, #{page.pageSize}
+    </select>
+
+    <select id="countByDefIdGroupBySelection" resultType="int">
+        SELECT COUNT(*)
+        FROM v_vote_selection WHERE def_id=#{searcher.defId} AND status &gt; -1
+        <if test="searcher.selectName!=null and searcher.selectName!=''">
+            AND name =#{searcher.selectName}
+        </if>
+    </select>
+
+    <update id="updateByDef">
+		UPDATE v_vote_item SET def_title=#{defTitle},select_name=#{selectName},pic=#{pic},coef=#{coef}
+		WHERE selection_id=#{selectionId}
+	</update>
+
+    <update id="updateStatusByDef">
+		UPDATE v_vote_item SET status=#{status} WHERE selection_id=#{selectionId}
+	</update>
+
+    <select id="findByDefIdAndMemberId" resultMap="baseMap">
+		SELECT * FROM v_vote_item WHERE member_id=#{memberId} AND def_id=#{defId} AND status=1
+	</select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT COUNT(*) FROM v_vote_item WHERE 1=1
+        <if test="searcher.defId!=null">
+            AND def_id=#{searcher.defId}
+        </if>
+        <if test="searcher.selectName!=null and searcher.selectName!=''">
+            AND select_name =#{searcher.selectName}
+        </if>
+    </select>
+</mapper>

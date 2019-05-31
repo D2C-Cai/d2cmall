@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.AccountLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.AccountLog">
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="creator" column="creator"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="memberId" column="member_id"/>
+        <result property="accountId" column="account_id"/>
+        <result property="account" column="account"/>
+        <result property="name" column="name"/>
+        <result property="password" column="password"/>
+        <result property="nationCode" column="nation_code"/>
+        <result property="memo" column="memo"/>
+        <result property="cardId" column="card_id"/>
+        <result property="channel" column="channel"/>
+        <result property="cardAccount" column="card_account"/>
+        <result property="cardHolder" column="card_holder"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="cashAmount" column="cash_amount"/>
+        <result property="giftAmount" column="gift_amount"/>
+        <result property="freezeAmount" column="freeze_amount"/>
+        <result property="freezeGiftAmount" column="freeze_gift_amount"/>
+        <result property="totalPoint" column="total_point"/>
+        <result property="freezePoint" column="freeze_point"/>
+        <result property="growthValue" column="growth_value"/>
+        <result property="levelId" column="level_id"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="findByAccountId" resultMap="baseMap">
+		SELECT * FROM log_account
+		WHERE account_id=#{accountId}
+		ORDER BY create_date DESC
+		LIMIT
+		#{page.startNumber},#{page.pageSize}
+	</select>
+
+</mapper>

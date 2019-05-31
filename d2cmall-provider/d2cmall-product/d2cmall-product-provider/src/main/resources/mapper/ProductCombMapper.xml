@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.product.dao.ProductCombMapper">
+    <resultMap id="baseMap" type="com.d2c.product.model.ProductComb">
+        <result property="id" column="id"/>
+        <result property="inernalSn" column="inernal_sn"/>
+        <result property="externalSn" column="external_sn"/>
+        <result property="name" column="name"/>
+        <result property="subTitle" column="sub_title"/>
+        <result property="mark" column="mark"/>
+        <result property="upMarketDate" column="up_market_date"/>
+        <result property="downMarketDate" column="down_market_date"/>
+        <result property="price" column="price"/>
+        <result property="originalCost" column="original_cost"/>
+        <result property="description" column="description"/>
+        <result property="mobileDesc" column="mobile_desc"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <update id="updateMark">
+        UPDATE p_product_comb
+        SET
+        <if test="mark==1">
+            up_market_date=now(),
+        </if>
+        <if test="mark==0">
+            down_market_date=now(),
+        </if>
+        mark=#{mark},modify_date=now()
+        WHERE id=#{id}
+    </update>
+
+    <update id="delete">
+		UPDATE p_product_comb
+		SET mark=-1,modify_date=now()
+		WHERE
+		id=#{id}
+	</update>
+    <sql id="smipleEntity">
+        id,create_date,down_market_date,up_market_date,modify_date,external_sn,inernal_sn,name,
+        sub_title,price,mobile_desc,original_cost,mark,last_modify_man,creator
+    </sql>
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT *
+        FROM p_product_comb
+        where 1=1
+        <if test="searcher != null">
+            <include refid="ProductCombSearcher"/>
+        </if>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT count(*)
+        FROM p_product_comb
+        where 1=1
+        <if test="searcher != null">
+            <include refid="ProductCombSearcher"/>
+        </if>
+    </select>
+
+    <sql id="ProductCombSearcher">
+        <if test="searcher.mark!=null">
+            AND mark=#{searcher.mark}
+        </if>
+        <if test="searcher.inernalSn!=null and searcher.inernalSn!=''">
+            AND inernal_sn =#{searcher.inernalSn}
+        </if>
+        <if test="searcher.name!=null and searcher.name!=''">
+            AND name =#{searcher.name}
+        </if>
+    </sql>
+
+</mapper>

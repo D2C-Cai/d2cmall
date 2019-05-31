@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.member.dao.DiscountSettingMapper">
+    <resultMap id="baseMap" type="com.d2c.member.model.DiscountSetting">
+        <result property="id" column="id"/>
+        <result property="creator" column="creator"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="distributorId" column="distributor_id"/>
+        <result property="groupId" column="group_id"/>
+        <result property="targetId" column="target_id"/>
+        <result property="disType" column="dis_type"/>
+        <result property="discount" column="discount"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT d.*
+        FROM m_discount d
+        <include refid="joinTableSql"/>
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        GROUP BY d.target_id
+        ORDER BY ${searcher.orderByStr}
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(DISTINCT(target_id))
+        FROM m_discount d
+        <include refid="joinTableSql"/>
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="joinTableSql">
+        <if test="searcher.disType=='PRODUCT'">
+            ,p_product p
+        </if>
+        <if test="searcher.disType=='DESIGNER'">
+            ,p_brand b
+        </if>
+        WHERE 1=1
+        <if test="searcher.disType=='PRODUCT'">
+            AND p.id=d.target_id AND p.mark=1
+        </if>
+        <if test="searcher.disType=='DESIGNER'">
+            AND b.id=d.target_id AND b.mark=1
+        </if>
+    </sql>
+
+    <sql id="Searcher">
+        <if test="searcher.groupId!=null and searcher.distributorId==null">
+            AND d.group_id=#{searcher.groupId}
+        </if>
+        <if test="searcher.distributorId!=null and searcher.groupId==null">
+            AND d.distributor_id=#{searcher.distributorId}
+        </if>
+        <if test="searcher.groupId!=null and searcher.distributorId!=null">
+            AND (d.group_id=#{searcher.groupId} OR
+            d.distributor_id=#{searcher.distributorId})
+        </if>
+        <if test="searcher.status!=null">
+            AND d.status=#{searcher.status}
+        </if>
+        <if test="searcher.disType!=null">
+            AND d.dis_type=#{searcher.disType}
+        </if>
+        <if test="searcher.productId!=null">
+            AND d.target_id=#{searcher.productId}
+        </if>
+        <if test="searcher.productIds!=null and searcher.productIds.length>0">
+            AND d.target_id IN
+            <foreach collection="searcher.productIds" item="productId"
+                     index="index" open="(" close=")" separator=",">
+                <if test="productId!= null">
+                    #{productId}
+                </if>
+            </foreach>
+        </if>
+        <if test="searcher.brandId!=null and searcher.disType=='PRODUCT'">
+            AND p.designer_id =#{searcher.brandId}
+        </if>
+        <if test="searcher.brandId!=null and searcher.disType=='DESIGNER'">
+            AND b.id =#{searcher.brandId}
+        </if>
+        <if test="searcher.categoryId!=null and searcher.disType=='PRODUCT'">
+            AND p.product_category_id =#{searcher.categoryId}
+        </if>
+        <if test="searcher.saleCategory!=null and searcher.saleCategory!=''">
+            AND p.sale_category =#{searcher.saleCategory}
+        </if>
+        <if test="searcher.productSn!=null and searcher.productSn!=''">
+            AND p.inernal_sn =#{searcher.productSn}
+        </if>
+        <if test="searcher.productName!=null and searcher.productName!=''">
+            AND p.name LIKE CONCAT('%',#{searcher.productName},'%')
+        </if>
+        <if test="searcher.minPrice!=null">
+            AND p.original_price*d.discount &gt;=#{searcher.minPrice}
+        </if>
+        <if test="searcher.maxPrice!=null">
+            AND p.original_price*d.discount &lt;=#{searcher.maxPrice}
+        </if>
+        <if test="searcher.minOriginalPrice!=null">
+            AND p.original_price &gt;=#{searcher.minOriginalPrice}
+        </if>
+        <if test="searcher.maxOriginalPrice!=null">
+            AND p.original_price &lt;=#{searcher.maxOriginalPrice}
+        </if>
+        <if test="searcher.gtStore!=null">
+            AND p.sync_store &gt; #{searcher.gtStore}
+        </if>
+    </sql>
+
+    <select id="findByDistributorId" resultMap="baseMap">
+		SELECT * FROM
+		m_discount where distributor_id = #{id} AND status=1 order by
+		create_date DESC
+	</select>
+
+    <select id="findByGroupId" resultMap="baseMap">
+		SELECT * FROM
+		m_discount where group_id = #{id} AND status=1 order by
+		create_date DESC
+	</select>
+
+    <select id="findByGroupOrDisId" resultMap="baseMap">
+        SELECT d.* FROM m_discount d
+        WHERE `status`=1
+        <if test="groupId==null">
+            AND distributor_id=#{distributorId}
+        </if>
+        <if test="groupId!=null">
+            AND (distributor_id=#{distributorId} OR group_id=#{groupId})
+        </if>
+        <if test="disType!=null">
+            AND dis_type = #{disType}
+        </if>
+        <if test="targetIds!= null and targetIds.size &gt; 0">
+            AND target_id IN
+            <foreach collection="targetIds" item="targetId" index="index"
+                     open="(" close=")" separator=",">
+                <if test="targetId!=null">
+                    #{targetId}
+                </if>
+            </foreach>
+        </if>
+        ORDER BY d.group_id DESC
+        LIMIT 0,200
+    </select>
+
+    <update id="updateStatusById">
+		UPDATE m_discount
+		SET modify_date = now(), status=#{status}
+		WHERE id = #{id}
+	</update>
+
+    <update id="updateDiscountById">
+        UPDATE m_discount
+        SET modify_date = now()
+        <if test="discount!=null">
+            ,discount=#{discount}
+        </if>
+        WHERE id = #{id}
+    </update>
+
+    <select id="findByGroupIdAndProductId" resultMap="baseMap">
+		SELECT * FROM m_discount
+		WHERE group_id = #{groupId} AND dis_type='PRODUCT' AND target_id= #{productId} AND status=1 
+		LIMIT 0,1
+	</select>
+
+    <update id="updateStatusByTargetId">
+        UPDATE m_discount SET `status`=#{status},modify_date = now(),last_modify_man=#{username} WHERE
+        target_id= #{targetId} AND dis_type=#{disType}
+        <if test="groupId!=null">
+            AND group_id=#{groupId}
+        </if>
+        <if test="distributorId!=null">
+            AND distributor_id=#{distributorId}
+        </if>
+    </update>
+
+    <select id="findByTargetId" resultMap="baseMap">
+        SELECT * FROM m_discount
+        WHERE target_id= #{targetId} AND dis_type=#{disType}
+        <if test="groupId!=null">
+            AND group_id=#{groupId}
+        </if>
+        <if test="distributorId!=null">
+            AND distributor_id=#{distributorId}
+        </if>
+    </select>
+</mapper>

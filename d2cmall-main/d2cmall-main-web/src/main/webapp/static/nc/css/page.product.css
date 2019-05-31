@@ -1,0 +1,1898 @@
+.layout-product, .layout-auction {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.layout-product-left {
+    width: 160px;
+    padding-bottom: 9999px;
+    margin-bottom: -9999px;
+    background: #FFF;
+}
+
+.layout-product-right {
+    padding-bottom: 9999px;
+    margin-bottom: -9999px;
+    background: #FFF;
+}
+
+.product-list {
+    background: #FFF;
+}
+
+.product-list .list-item {
+    width: 23%;
+    padding: 1%;
+    position: relative;
+    border-right: 1px solid #F2F2F2;
+    border-bottom: 1px solid #F2F2F2;
+    margin-right: -1px;
+    position: relative;
+    z-index: 1;
+}
+
+.product-list .list-item .favorite {
+    position: absolute;
+    z-index: 2;
+    top: 10px;
+    right: 10px;
+    display: block;
+    background: #FFF;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 15px;
+    padding: 8px 15px 6px 15px;
+    color: #f60062
+}
+
+.product-list .list-item .favorite:active {
+    background: #F2F2F2;
+    background: rgba(255, 255, 255, 0.4)
+}
+
+.product-list .list-item .logo {
+    position: absolute;
+    left: 5%;
+    bottom: 105px;
+    width: 110px;
+    height: 40px;
+    padding: 5px 0;
+    border-radius: 30px;
+    opacity: 0.9;
+    background: #FFF;
+    z-index: 2
+}
+
+.product-list .list-item .logo img {
+    max-height: 40px;
+    max-width: 110px;
+    vertical-align: middle;
+}
+
+.product-list .list-item:hover {
+    box-shadow: 0 1px 2px #EEE;
+    z-index: 2
+}
+
+.product-list .list-item i.sale {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: #FFF;
+    z-index: 3;
+    filter: alpha(opacity=60);
+    -moz-opacity: 0.6;
+    -khtml-opacity: 0.6;
+    opacity: 0.6;
+}
+
+.product-list .list-item i.satip {
+    display: block;
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    bottom: 0;
+    height: 40px;
+    line-height: 40px;
+    background-color: #000;
+    z-index: 4;
+    filter: alpha(opacity=70);
+    -moz-opacity: 0.7;
+    -khtml-opacity: 0.7;
+    opacity: 0.7;
+    color: #FFF;
+    font-size: 20px;
+    font-style: normal
+}
+
+.product-list .list-item a {
+    position: relative;
+    width: 100%;
+    display: block;
+}
+
+.product-list .list-item a.img:hover {
+    background: #000;
+}
+
+.product-list .list-item a.img:hover img {
+    opacity: 0.95
+}
+
+.list-filter {
+    background: #FFF;
+    padding: 10px;
+    height: 30px;
+    border-bottom: 1px solid #F2F2F2;
+    margin-bottom: 1px;
+}
+
+.list-filter.suspend-fixed {
+    position: fixed;
+    top: 37px;
+    z-index: 5;
+}
+
+.list-filter-bg {
+    display: none;
+    position: fixed;
+    z-index: 4;
+    background: #FFF;
+    box-shadow: 0 0 5px #CCC;
+    top: 37px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+}
+
+.list-filter .list-sort {
+    float: left;
+}
+
+.list-filter .list-sort a {
+    display: block;
+    float: left;
+    padding: 8px 15px 7px 15px;
+    font-weight: normal;
+    border: 1px solid #CCC;
+    margin-right: -1px;
+    background: #FFF;
+    position: relative;
+    z-index: 1
+}
+
+.list-filter .list-sort a.on {
+    box-shadow: 0 1px 2px #CCC;
+    border-color: #f07181;
+    color: #ec465b;
+    background: -webkit-linear-gradient(top, #feeff0, #fbd7da);
+    background: linear-gradient(#feeff0 0px, #fbd7da 100%);
+    z-index: 2
+}
+
+.list-filter .pages {
+    margin-top: -10px;
+}
+
+.select-condition {
+}
+
+.select-condition a:hover {
+    color: #FF3300;
+}
+
+.select-condition dl {
+    clear: both;
+    padding-bottom: 10px;
+}
+
+.select-condition dl dt {
+    padding-top: 5px;
+    padding-left: 20px;
+    border-bottom: 1px solid #F2F2F2;
+}
+
+.select-condition dl dt i {
+    font-size: 16px;
+}
+
+.select-condition dl dt, .select-condition dl dt a {
+    font: bold 14px/40px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue'
+}
+
+.select-condition dl.category dd {
+    position: relative;
+    line-height: 30px;
+    border-bottom: 1px dotted #F2F2F2
+}
+
+.select-condition dl.category dd.on {
+    background: #F8F8F8;
+}
+
+.select-condition dl.category dd a {
+    font-family: Arial;
+}
+
+.select-condition dl.category dd.category-level-1 {
+    padding-left: 25px;
+}
+
+.select-condition dl.category dd.category-level-2 {
+    padding-left: 50px;
+}
+
+.select-condition dl.category dd.category-level-3 {
+    padding-left: 65px;
+}
+
+.select-condition dl.brand {
+}
+
+.select-condition dl.brand dd .brand-section {
+    max-height: 600px;
+}
+
+.select-condition dl.brand dd .brand-section a {
+    display: block;
+    padding: 5px 10px 5px 20px;
+    font-size: 11px;
+    font-family: Arial;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out
+}
+
+.select-condition dl.brand dd .brand-section a:hover {
+    background-color: #F2F2F2;
+}
+
+.select-condition dl.brand dd .brand-section a.on {
+    background: #F2F2F2
+}
+
+#product-list-bottom-page {
+    margin-top: 10px;
+}
+
+#product-list-bottom-page a, #product-list-bottom-page span {
+    font-size: 14px;
+    padding: 8px 12px 6px 12px;
+}
+
+.product-base {
+    background: #FFF;
+    overflow: hidden;
+}
+
+.product-img {
+    float: left;
+}
+
+.product-img .img-thumbs {
+    float: left;
+    padding: 10px;
+}
+
+.product-img .img-thumbs a {
+    position: relative;
+    display: block;
+    margin-bottom: 10px
+}
+
+.product-img .img-thumbs a.video-play span {
+    display: block;
+    background: rgba(0, 0, 0, 0.4) url('//static.d2c.cn/common/nc/css/img/icon_play.png') center center no-repeat;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 70;
+    background-size: 50%;
+}
+
+.product-img .img-thumbs img {
+    width: 100%;
+}
+
+.product-img .img-thumbs a.on {
+    box-shadow: 0 2px 3px #CCC;
+    position: relative;
+}
+
+.product-img .img-thumbs a.on:after {
+    content: ' ';
+    display: block;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent transparent #FD555D;
+    width: 0;
+    height: 0;
+    font-family: arial;
+    position: absolute;
+    top: 50%;
+    right: -10px;
+    margin-top: -5px;
+}
+
+.product-img .img-thumbs a.on img {
+    border: 1px solid #FD555D;
+    margin: -1px;
+}
+
+.product-img .img-media {
+    float: right;
+    position: relative;
+    z-index: 1;
+}
+
+.product-img .img-media img {
+    width: 100%;
+}
+
+.product-img .img-media .arrow-left, .img-media .arrow-right {
+    width: 30px;
+    height: 30px;
+    background: url('images/icon.png') no-repeat;
+    cursor: pointer;
+    position: absolute;
+    z-index: 70;
+    top: 48%;
+    opacity: .6
+}
+
+.product-img .img-media .arrow-left {
+    left: 5px;
+    background-position: 8px -88px
+}
+
+.product-img .img-media .arrow-right {
+    right: 5px;
+    background-position: 8px -133px
+}
+
+.product-img .img-media .image-zoom {
+    display: none;
+    width: 25px;
+    height: 25px;
+    background: url('images/icon.png') 0 -179px no-repeat;
+    position: absolute;
+    z-index: 70;
+    right: 212px;
+    bottom: 287px;
+    opacity: .5;
+    cursor: pointer
+}
+
+.product-img .img-media .image-zoom:hover {
+    opacity: .8
+}
+
+.product-img .img-media .video-play-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.product-img .img-media .video-play-layer video {
+    width: 100%;
+    height: 100%;
+}
+
+.zoom-div {
+    z-index: 8;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 200px;
+    height: 200px;
+    background: #ffffff;
+    box-shadow: 0 0 5px #CCC;
+    display: none;
+    text-align: center;
+    overflow: hidden;
+}
+
+.zoom-mask {
+    position: absolute;
+    background: url('img/zoom_mask.png') repeat scroll 0 0 transparent;
+    cursor: move;
+    z-index: 1;
+}
+
+.product-info {
+    float: left;
+    padding: 10px;
+    height: 100%;
+    position: relative;
+}
+
+.product-info .product-operator-button {
+    color: #fd555d;
+    border-radius: 3px;
+    border: 1px solid #FD555D;
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    font-size: 16px;
+    height: 50px;
+    background-color: #FFF;
+}
+
+.product-info .product-operator-button.first {
+    background-color: #FD555D;
+    color: #FFF;
+}
+
+.product-info .product-operator-button.third {
+    border-color: #A1D187;
+    color: #A1D187
+}
+
+
+.product-navi {
+    border-bottom: 1px dotted #CCC;
+    padding: 8px;
+    height: 15px;
+}
+
+.product-brand, .product-brand a {
+    padding-top: 10px;
+    font-weight: normal;
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    color: #666
+}
+
+.product-title {
+    display: inline-block;
+    font-weight: bold;
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    margin: 20px 0;
+}
+
+.product-promotion {
+    font-weight: bold;
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    margin: -10px 0 10px 0;
+    color: #FD555D;
+}
+
+.product-promotion a {
+    color: #FD555D;
+}
+
+.product-prices {
+    padding-left: 5px;
+    padding-top: 10px;
+    border-top: 1px dotted #CCC;
+}
+
+.product-prices .product-price-current {
+    display: block;
+    float: left;
+    font-weight: normal;
+    font-family: 'Arial';
+    color: #FD555D
+}
+
+.product-prices .product-price-original {
+    display: block;
+    float: left;
+    font-weight: normal;
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    color: #999;
+    border-left: 1px solid #CCC;
+}
+
+.auction-time {
+    height: 60px;
+    border-bottom: 1px dotted #CCC;
+    border-top: 1px dotted #CCC;
+    display: table;
+    width: 100%;
+    padding-top: 20px
+}
+
+.auction-time .auction-string {
+    font: bold 26px 'Microsoft Yahei';
+    color: #FD555D;
+    padding: 0 5px;
+    width: 48%;
+    float: left;
+    text-align: center;
+    border-right: 1px solid #CCC;
+}
+
+.auction-time .count-down {
+    width: 46%;
+    float: right;
+    text-align: right;
+}
+
+.auction-time .auction-end-time {
+    width: 40%;
+    float: right;
+    padding-left: 15px;
+    font: bold 20px 'Microsoft Yahei';
+    color: #FD555D;
+}
+
+.auction-time .count-down strong {
+    font: bold 19px 'Microsoft Yahei';
+    color: #FD555D;
+    padding: 0 3px 0 3px;
+}
+
+.auction-price {
+    height: 40px;
+    color: #999;
+    margin-top: 25px
+}
+
+.auction-price .label-name {
+    font: 18px Microsoft Yahei;
+    margin-right: 15px;
+    color: #666
+}
+
+.auction-price .label-name-two {
+    font: 16px Microsoft Yahei;
+    margin-left: 40px;
+    color: #666
+}
+
+.auction-price .label-name-three {
+    font: 16px Microsoft Yahei;
+    margin-left: 70px;
+    margin-right: 15px;
+    color: #666
+}
+
+.auction-price .price {
+    font: bold 24px 'Arial';
+    color: #FD555D;
+    width: 200px;
+}
+
+.auction-price .price-two {
+    font: bold 20px 'Arial';
+    color: #666;
+    width: 200px;
+}
+
+.auction-price .price-two em {
+    font-size: 18px;
+    font-style: normal;
+    vertical-align: middle;
+}
+
+.auction-price .price em {
+    font-size: 18px;
+    font-style: normal;
+    vertical-align: middle;
+}
+
+.auction-price .auction-tip {
+    font: 14px Microsoft Yahei;
+    margin-right: 15px;
+}
+
+.auction-button {
+    color: #fff;
+    border-radius: 3px;
+    border: 1px solid #FD555D;
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    font-size: 16px;
+    height: 50px;
+    background-color: #FD555D;
+    width: 200px;
+    float: left;
+    margin-left: 100px;
+    margin-top: 10px
+}
+
+.offer-table td {
+    font-family: Microsoft Yahei;
+}
+
+;
+.offer-table tr th {
+    border-color: #f8f8f8;
+    background: #f8f8f8;
+}
+
+.auction-disable {
+    background: #ccc;
+    color: #fff;
+    border-color: #CCC;
+}
+
+.crowd-count-down {
+    border-top: 1px dotted #CCC;
+    padding: 14px 5px;
+    color: #FF6600;
+    font-size: 14px;
+    font-family: Arial;
+    height: 15px;
+}
+
+.crowd-count-down i {
+    font-size: 18px;
+    vertical-align: -2px;
+}
+
+.product-alert {
+    line-height: 220%;
+    border-top: 1px dotted #CCC;
+    border-bottom: 1px dotted #CCC;
+    padding: 1px 10% 8px 10%
+}
+
+.product-alert .input {
+    width: 60%;
+}
+
+.product-sku {
+    border-top: 1px dotted #CCC;
+}
+
+.product-sku label {
+    display: block;
+    width: 10%;
+    float: left;
+}
+
+.product-sku div.value {
+    float: left;
+    width: 90%;
+}
+
+.product-sku a {
+    display: block;
+    text-align: center;
+    border: 2px solid #CCC;
+    float: left;
+}
+
+.product-sku a i {
+    display: none;
+    text-indent: -9999px
+}
+
+.product-sku a:hover {
+    border: 2px solid #fd555d;
+}
+
+.product-sku .img {
+}
+
+.product-sku .txt {
+}
+
+.product-sku .img a {
+    overflow: hidden;
+    background: #FFF
+}
+
+.product-sku .img a img {
+    width: 100%;
+}
+
+.product-sku .txt a {
+    font-weight: bold;
+    font-family: Arial;
+    line-height: 100%;
+    background: #FFF;
+    color: #333
+}
+
+.product-sku a.selected {
+    border: 2px solid #fd555d;
+    position: relative;
+}
+
+.product-sku a.selected i {
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    _bottom: -5px;
+    _right: -3px;
+    width: 12px;
+    height: 12px;
+    background-image: url(//static.d2c.cn/common/nc/css/img/comnon-icon.png);
+    background-position: -170px -593px;
+}
+
+.product-sku a.disabled:hover, .product-sku a.disabled {
+    border: 2px dotted #CCC;
+    color: #CCC;
+    background: #ededed;
+    box-shadow: none;
+    cursor: default
+}
+
+.product-sku a.disabled img {
+    filter: alpha(opacity=30);
+    -moz-opacity: .3;
+    -khtml-opacity: .3;
+    opacity: .3
+}
+
+.data-num {
+    display: inline-block;
+    border: 1px solid #ABABAB;
+    padding-top: 2px;
+    text-align: center;
+    font-weight: bold;
+    font-family: Arial;
+    vertical-align: middle;
+}
+
+.data-crease {
+    display: inline-block;
+    font-weight: bold;
+    font-style: normal;
+    font-size: 25px;
+    color: #999;
+    overflow: hidden;
+    border: 1px solid #ABABAB;
+    background: #F2F2F2;
+    text-align: center;
+    margin: 0 -1px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.data-crease:active {
+    background-color: #CCC
+}
+
+.product-tip {
+    margin-left: 10%;
+    padding-top: 25px;
+    height: 35px;
+    font-family: Arial;
+}
+
+.fit-tip {
+    position: absolute;
+    right: 0;
+    bottom: -35px;
+    background: #fff;
+    border: 1px solid #A1D187;
+    color: #A1D187;
+    padding: 8px 10px 6px 10px;
+    border-radius: 3px;
+    display: none;
+}
+
+.fit-tip:before {
+    content: ' ';
+    display: block;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #A1D187 transparent;
+    width: 0;
+    height: 0;
+    font-family: arial;
+    position: absolute;
+    top: -10px;
+    left: 70%;
+    margin-left: -5px;
+}
+
+.fit-tip:after {
+    content: ' ';
+    display: block;
+    border-width: 4px;
+    border-style: solid;
+    border-color: transparent transparent #FFF transparent;
+    width: 0;
+    height: 0;
+    font-family: arial;
+    position: absolute;
+    top: -8px;
+    left: 70%;
+    margin-left: -4px;
+}
+
+.product-attr {
+    position: relative;
+    font-family: Arial
+}
+
+.product-attr .tab ul {
+    padding: 0 15px;
+}
+
+.product-attr .tab li {
+    margin-top: 1px;
+    cursor: pointer;
+    font: normal 12px/28px 'simsun'
+}
+
+.product-attr .tab li.on {
+    background: #FFF;
+    border: 1px solid #F0F0F0;
+    border-radius: 2px;
+    border-bottom: none;
+    margin-right: -2px;
+    margin: 0 -1px 0 -1px;
+}
+
+.product-attr .tab-cont {
+    overflow: hidden;
+    border-top: 1px solid #F0F0F0;
+    padding: 15px;
+    position: relative;
+}
+
+.product-attr .tab-cont .designer-logo {
+    float: left;
+    margin-right: 15px;
+    border: 1px solid #F2F2F2;
+    padding: 8px;
+    text-align: center
+}
+
+.product-attr .tab-cont .designer-logo img {
+    max-height: 100px;
+}
+
+.product-attr .tab-cont .more-info {
+    position: absolute;
+    display: inline-block;
+    color: #5390ce;
+    bottom: 15px;
+    right: 15px;
+}
+
+.product-others {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 32px;
+    padding-top: 10px;
+    border-top: 1px dotted #CCC;
+    background: #FFF;
+}
+
+.product-others .share-box {
+    float: right;
+    margin-top: 3px;
+}
+
+.product-others .product-other-operator {
+    float: left;
+    font-family: Arial;
+    line-height: 32px;
+    position: relative;
+    padding-top: 5px;
+}
+
+.product-others .product-other-operator i {
+    position: absolute;
+    top: 5px;
+    left: 0;
+    display: inline-block;
+    background: url(//static.d2c.cn/common/nc/css/img/comnon-icon.png) no-repeat -617px -587px;
+    width: 30px;
+    height: 26px;
+}
+
+.product-others .product-other-operator i.hascollect {
+    background-position: -577px -587px;
+}
+
+.product-attr .designer-detail span {
+    display: inline-block;
+    background: url(//static.d2c.cn/common/nc/css/img/comnon-icon.png) no-repeat -224px -591px;
+    width: 20px;
+    height: 17px;
+    vertical-align: middle;
+    margin-right: 2px;
+}
+
+.product-cart-modal {
+    position: absolute;
+    background: #FFF;
+    z-index: 8;
+    width: 425px;
+    left: 50%;
+    margin-left: -200px;
+    top: 50%;
+    margin-top: -105px;
+    box-shadow: 0 0 5px #CCC;
+}
+
+.to-cart-success h3 {
+    height: 40px;
+    line-height: 40px
+}
+
+.to-cart-success h3 a {
+    float: right;
+    margin: 0 10px
+}
+
+
+.to-cart-success .cart-modal-content {
+    padding: 10px;
+    text-align: center;
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    line-height: 200%;
+    margin-top: -30px
+}
+
+.to-cart-success .cart-modal-button {
+    text-align: center;
+    padding: 10px;
+}
+
+
+.product-pairs {
+    margin-top: 10px;
+    padding: 10px;
+    background: #FFF;
+    position: relative;
+}
+
+.product-pairs p.img {
+    float: left;
+    margin-right: 10px;
+}
+
+.product-pairs p.category {
+    font-family: simsun;
+    padding-bottom: 7px;
+    color: #999;
+}
+
+.product-pairs .data-num {
+    width: 45px;
+    height: 26px;
+    line-height: 27px;
+    font-size: 12px;
+}
+
+.product-pairs .data-crease {
+    width: 29px;
+    height: 29px;
+    line-height: 32px;
+    font-family: simsun
+}
+
+.product-pairs .price {
+    font-size: 16px;
+    font-family: Arial;
+}
+
+.product-package {
+    background: #FFF;
+    padding: 20px;
+}
+
+.product-package-img {
+    float: left;
+    width: 400px;
+    overflow: hidden;
+    position: relative;
+}
+
+.product-package-img ul {
+}
+
+.product-package-img li {
+    float: left;
+    width: 400px;
+    height: 625px;
+}
+
+.product-package-img li a {
+    display: block;
+    position: relative;
+}
+
+.product-package-img li a span {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: #FFF;
+    font-family: Arial;
+    padding: 10px;
+    text-align: center;
+}
+
+.product-package-img li img {
+    width: 100%;
+}
+
+.product-package-img ol.dots {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+.product-package-img ol.dots li.dot {
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    background: rgba(0, 0, 0, 0.7);
+    text-align: center;
+    border-radius: 50%;
+    line-height: 27px;
+    color: #FFF;
+    font-family: Arial;
+    margin: 3px;
+    cursor: pointer;
+}
+
+.product-package-img ol.dots li.dot.active {
+    background: #FD555D;
+}
+
+.product-package-info {
+    margin-left: 420px;
+}
+
+.product-package-info .title {
+    margin: 0;
+    padding: 0;
+    font: normal 24px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue'
+}
+
+.product-package-info .prices {
+    margin: 15px 0;
+    height: 70px;
+    border-top: 1px dotted #CCC;
+    border-bottom: 1px dotted #CCC;
+}
+
+.product-package-info .prices .current {
+    font: normal 30px/70px 'Arial';
+    color: #FF3300;
+    padding-right: 30px;
+    vertical-align: middle;
+}
+
+.product-package-info .prices .current span, .product-package-info .prices .original {
+    font: normal 18px/70px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    vertical-align: middle;
+}
+
+.product-package-info .prices .original {
+    border-left: 1px dotted #CCC;
+    padding: 0 30px;
+}
+
+.product-package-info .item {
+    overflow: hidden;
+    border-bottom: 1px dotted #CCC;
+    margin-bottom: 15px;
+    padding: 10px;
+}
+
+.product-package-info .item.no-select {
+    border: 2px dotted #FF6600;
+    margin: -2px -2px 14px -2px;
+}
+
+.product-package-info .item .item-img {
+    float: left;
+    margin-right: 15px;
+}
+
+.product-package-info .item .title {
+    height: 40px;
+    line-height: 17px;
+}
+
+.product-package-info .item .product-sku {
+    border: none;
+    width: 100%;
+    height: 70px;
+}
+
+.product-package-info .item .product-sku label {
+    display: block;
+    width: 100%;
+    height: 22px;
+    color: #999;
+}
+
+.product-package-info .item .product-sku .img, .product-package-info .item .product-sku .txt {
+    float: left;
+}
+
+.product-package-info .item .product-sku .value {
+    width: auto;
+}
+
+.product-package-info .item .product-sku .img .value a {
+    width: 40px;
+    height: 40px;
+    margin-right: 4px;
+}
+
+.product-package-info .item .product-sku .txt .value a {
+    padding: 10px 15px;
+    margin-right: 4px;
+}
+
+.product-package-info .item .sku-select {
+    color: #FF6600;
+}
+
+.product-package-buy {
+    margin-top: 20px;
+    text-align: right;
+    line-height: 30px
+}
+
+.product-package-num {
+    display: inline-block;
+    vertical-align: middle;
+    float: left;
+}
+
+.product-package-num .data-num {
+    height: 27px;
+    width: 45px;
+}
+
+.product-package-num .data-crease {
+    width: 30px;
+    height: 30px;
+    line-height: 32px;
+}
+
+.product-package-buy .totle-price {
+    font: bold 24px 'Arial';
+    color: #FF3300;
+    vertical-align: middle;
+}
+
+.product-cont-bar {
+    margin-top: 10px;
+    background: #FFF;
+    border-bottom: 1px solid #F2F2F2;
+    position: relative;
+}
+
+.product-cont-bar .tab li {
+    font-size: 14px;
+    border-bottom: 2px solid #FFF;
+    width: 150px;
+    cursor: pointer;
+    line-height: 50px;
+    border-left: 1px solid #F2F2F2;
+    border-right: 1px solid #F2F2F2;
+    margin-right: -1px;
+}
+
+.product-cont-bar .tab li span {
+    font: normal 12px 'Arial';
+}
+
+.product-cont-bar .tab li.on {
+    color: #fd555d !important;
+    border-color: #fd555d;
+    border-left: 1px solid #F2F2F2;
+    border-right: 1px solid #F2F2F2;
+    position: relative;
+    padding: 0 -1px;
+}
+
+.product-cont-bar .tab li.on:after {
+    content: ' ';
+    display: block;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent #FD555D transparent;
+    width: 0;
+    height: 0;
+    font-family: arial;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -5px;
+}
+
+.product-cont-bar .tab li:first-child {
+    border-left: none;
+    padding-left: 1px;
+}
+
+.product-cont-bar.suspend-fixed {
+    position: fixed;
+    margin: 0;
+    top: 0;
+    border-bottom: none;
+    z-index: 92
+}
+
+.product-cont-bar.suspend-fixed .tab li:first-child {
+    border-left: 1px solid #F2F2F2;
+    padding-left: 0;
+}
+
+.product-suspend-bar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 52px;
+    box-shadow: 0 0 5px #CCC;
+    background: #FFF;
+    z-index: 91
+}
+
+.product-suspend-holder {
+    display: none;
+    height: 52px;
+}
+
+.product-cont-tab-cont {
+    overflow: hidden;
+}
+
+.product-desc, .product-comment, .product-record, .product-consult {
+    min-height: 700px;
+    background: #FFF;
+    text-align: center;
+}
+
+.product-desc {
+    padding: 15px 0;
+}
+
+.product-desc p {
+    margin: 0;
+    padding: 0;
+}
+
+.product-desc img {
+    min-height: 15px;
+    max-width: 730px;
+}
+
+.product-detail-right {
+    float: right;
+    background: #FFF;
+    margin-bottom: -99999px;
+    padding-bottom: 99999px;
+}
+
+.product-info-suspend {
+    padding: 10px;
+    position: relative;
+}
+
+.product-info-suspend.suspend-fixed {
+    position: fixed;
+    margin: 0;
+    top: 55px;
+    z-index: 10
+}
+
+.cart-view {
+    float: right;
+    position: absolute;
+    right: 10px;
+    top: 0;
+    width: 70px;
+    height: 35px;
+    text-align: right;
+    background: url(img/view_in_mobile.png) center right no-repeat;
+    padding-right: 50px;
+    margin-top: 8px;
+}
+
+.cart-view span {
+    line-height: 35px;
+    color: #999;
+}
+
+.cart-view img {
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 0;
+    z-index: 16;
+}
+
+.cart-view:hover {
+    background-color: #F2F2F2;
+}
+
+.cart-view:hover img {
+    display: block;
+}
+
+.suspend-cart-button {
+    width: 160px;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out
+}
+
+.suspend-cart-button button {
+    width: 100%;
+}
+
+.product-info-suspend .product-title {
+    font-size: 14px;
+    margin: 0 0 10px 0;
+}
+
+.product-info-suspend .product-prices .product-price-current {
+    font: normal 30px 'Arial';
+    padding: 0 20px 10px 0;
+    color: #FD555D;
+}
+
+.product-info-suspend .product-prices .product-price-original {
+    font: normal 14px/35px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    color: #999;
+    padding-left: 20px
+}
+
+.product-info-suspend .product-sku label {
+    display: block;
+    float: none;
+    height: 20px;
+}
+
+.product-info-suspend .product-sku .img, .product-info-suspend .product-sku .txt {
+    padding-top: 15px;
+}
+
+.product-info-suspend .product-sku .img a, .product-info-suspend .product-sku .txt a {
+    margin: 0 5px 5px 0;
+}
+
+.product-info-suspend .product-sku .txt a {
+    line-height: 30px;
+    padding: 0 15px;
+}
+
+.product-info-suspend .data-num {
+    height: 27px;
+    width: 45px;
+}
+
+.product-info-suspend .data-crease {
+    width: 30px;
+    height: 30px;
+    line-height: 32px;
+}
+
+.product-info-suspend .product-select-tip, .product-info-suspend .product-remark {
+    padding: 10px 0 2px 0;
+    min-height: 15px;
+    margin: 0
+}
+
+.product-info-suspend .product-operator-button {
+    border-radius: 3px;
+    border: 1px solid #FD555D;
+    font-family: 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    font-size: 12px;
+    height: 35px;
+    background-color: #FFF;
+}
+
+.product-info-suspend .product-operator-button.first {
+    background-color: #FD555D;
+    color: #FFF;
+}
+
+.product-info-suspend .product-operator-button.third {
+    border-color: #A1D187;
+    color: #A1D187
+}
+
+.product-info-suspend .product-operator-button:hover {
+    box-shadow: 0 2px 3px #CCC;
+}
+
+.product-info-suspend .product-cart-modal {
+    left: auto;
+    right: 0;
+}
+
+.product-info-suspend .product-alert {
+    padding: 10px 0;
+    margin-top: 10px;
+}
+
+.product-info-suspend .product-alert button {
+    float: none;
+}
+
+.product-info-suspend .crowd-count-down {
+    font-size: 12px;
+    padding: 10px 5px;
+    height: 12px;
+}
+
+.product-info-suspend .crowd-count-down i {
+    font-size: 14px;
+    vertical-align: -2px;
+}
+
+.view-in-mobile {
+    float: right;
+    position: relative;
+    width: 80px;
+    height: 35px;
+    text-align: right;
+    background: url(img/view_in_mobile.png) center right no-repeat;
+    padding-right: 50px;
+    margin-top: -10px;
+}
+
+.view-in-mobile span {
+    line-height: 35px;
+    color: #999;
+}
+
+.view-in-mobile img {
+    display: none;
+    position: absolute;
+    top: 35px;
+    right: 0;
+}
+
+.view-in-mobile:hover {
+    background-color: #F2F2F2;
+}
+
+.view-in-mobile:hover img {
+    display: block;
+}
+
+.product-remark {
+    font-weight: bold;
+    color: #FD555D;
+}
+
+.product-relate {
+    float: right;
+    width: 100px;
+    height: 100%;
+    padding: 10px;
+    border-left: 10px solid #F2F2F2;
+}
+
+.product-relate span {
+    display: block;
+    text-align: center;
+}
+
+.auction-record {
+    float: right;
+    width: 350px;
+    height: 100%;
+    padding: 10px;
+    border-left: 10px solid #F2F2F2;
+}
+
+.relate-item {
+    margin-top: 8px;
+    font-family: Arial;
+    text-align: center
+}
+
+.relate-item .price {
+    font-weight: bold;
+    padding-left: 5px;
+    color: #000;
+    margin: 13px 0;
+}
+
+.relate-item-pic img {
+    width: 100%
+}
+
+.relate-item-name {
+    padding: 10px 5px 0 5px;
+    line-height: 18px
+}
+
+.product-hot {
+    margin-top: 15px;
+    border: 1px solid #EEE;
+    padding: 12px 16px 15px 16px;
+    background: #FFF
+}
+
+.product-hot span {
+    display: block;
+    font-weight: bold;
+    height: 25px
+}
+
+.product-hot div {
+    float: left;
+    width: 13%;
+    margin-right: 1.4%;
+    text-align: center;
+    font-family: Arial
+}
+
+.product-hot div p.relate-item-name {
+    height: 38px;
+    overflow: hidden;
+}
+
+.product-hot div:last-child {
+    margin-right: 0
+}
+
+.product-hot .price {
+    font-weight: bold;
+    color: #f30
+}
+
+.fit-title {
+    font-weight: bold;
+    padding: 0 10px 10px 10px;
+    border-bottom: 1px solid #CCC;
+    font-size: 14px;
+    margin: 0;
+}
+
+.fit-product-list {
+    text-align: center;
+    border-bottom: 1px dotted #CCC;
+    padding: 10px 0;
+    min-height: 177px;
+    white-space: nowrap
+}
+
+.fit-product-list div {
+    display: inline-block;
+    width: 90px
+}
+
+.fit-product-list div img {
+    width: 100%
+}
+
+.fit-product-list div span {
+    display: block;
+    padding: 5px 0
+}
+
+.store-info {
+    display: none;
+    border: 1px solid #ffcdcd;
+    background: #fff4f4;
+    padding: 5px 10px;
+    margin-top: 5px
+}
+
+.fit-form {
+    padding-top: 8px
+}
+
+.fit-form dl {
+    clear: both;
+    padding-bottom: 5px
+}
+
+.fit-form dt, .fit-form dd {
+    float: left
+}
+
+.fit-form dt {
+    width: 20%;
+    text-align: right;
+    padding-right: 1%;
+    padding-top: 6px
+}
+
+.fit-form dd {
+    width: 74%
+}
+
+.fit-form dd select.input {
+    padding: 6px
+}
+
+.subscribe-box {
+    margin: auto;
+}
+
+.subscribe-box p {
+    margin: 2px 0
+}
+
+.subscribe-body {
+    padding: 0 20px 20px 20px;
+}
+
+.subscribe-body .item {
+    padding: 15px 0;
+    border-bottom: 1px dotted #CCC;
+}
+
+.subscribe-body .item p {
+    line-height: 25px;
+}
+
+.subscribe-body .item .label {
+    display: inline-block;
+    width: 70px
+}
+
+.subscribe-box .tip {
+    margin-left: 70px;
+    display: none;
+}
+
+.lottery-process {
+    border-top: 1px dotted #CCC;
+    margin-top: 10px;
+}
+
+.award-loading {
+    width: 100%;
+    border: 1px solid #CCC;
+    border-radius: 10px;
+    height: 10px;
+    background: #EEE;
+    overflow: hidden;
+}
+
+.award-loading div {
+    height: 18px;
+    background: #FF6600;
+    width: 0%;
+    line-height: 10px;
+    text-align: right;
+}
+
+.award-count {
+    clear: both;
+    color: #888;
+    padding: 5px;
+}
+
+.award-count p {
+    margin: 0;
+}
+
+.award-count p strong {
+    font-family: Arial;
+    font-size: 14px;
+}
+
+.award-count.margin {
+    text-align: center;
+    margin: 10px 0;
+    font-size: 14px;
+    border-top: 1px dotted #CCC;
+    padding-top: 20px;
+    color: #333
+}
+
+.auction-mine {
+    text-align: center;
+    border-top: 1px dotted #CCC;
+    border-bottom: 1px dotted #CCC;
+    padding: 15px 0;
+    margin-top: 20px;
+}
+
+.lottery-luck {
+    border-top: 2px solid #FD555D;
+    background: #FFFFCA;
+    text-align: center;
+    padding: 20px 0
+}
+
+.lottery-luck span {
+    font: bold 18px 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    vertical-align: middle;
+}
+
+.lottery-luck strong {
+    font: bold 36px 'Arial';
+    vertical-align: middle;
+    color: #FD555D
+}
+
+.lottery-winner {
+    background-color: #F8F8F8;
+    height: 88px;
+    padding: 10px;
+}
+
+.lottery-winner p {
+    margin: 0;
+    padding: 0;
+    font-family: Arial;
+    word-wrap: break-word;
+    word-break: normal;
+}
+
+.lottery-winner .winner-user {
+    float: left;
+    width: 45%;
+}
+
+.lottery-winner .winner-user p {
+    margin-bottom: 10px;
+}
+
+.lottery-winner .winner-number {
+    float: right;
+    width: 52%;
+    height: 88px;
+    border: 1px solid #CCC;
+    background: #FFF;
+}
+
+.lottery-winner .winner-number p {
+    margin: 10px 10px 0 10px;
+}
+
+.lottery-winner .winner-number .green {
+    position: relative;
+}
+
+.lottery-mine {
+    background: #FFFFE1;
+    padding: 10px;
+    font-family: Arial;
+    word-wrap: break-word;
+    word-break: normal;
+}
+
+.lottery-mine-height {
+    height: 8px;
+    overflow: hidden
+}
+
+.lottery-rules {
+    margin: 10px;
+}
+
+.lottery-rules li {
+    line-height: 25px;
+}
+
+.lottery-rules p {
+    font: 18px normal 'Microsoft Yahei', 'Pingfang SC', 'Helvetica Neue';
+    margin-bottom: 10px;
+}
+
+.lottery-rules span {
+    background-color: #FD555D;
+    display: inline-block;
+    margin-right: 5px;
+    width: 16px;
+    height: 16px;
+    line-height: 16px;
+    border-radius: 50%;
+    text-align: center;
+    color: #FFFFFF;
+    font: normal 11px/16px Arial;
+}
+
+.lottery-calculate {
+    text-align: center;
+}
+
+.lottery-calculate p {
+    margin: 0;
+    padding: 0;
+}
+
+.lottery-calculate p.title {
+    padding: 20px 0
+}
+
+.lottery-num {
+    margin-top: 20px;
+}
+
+.product-award-rule {
+    padding-top: 35px;
+    min-height: 700px;
+    background: #FFF;
+    text-align: center;
+}
+
+.hover-see-total {
+    background-color: #ffffff;
+    border: 1px solid #CCC;
+    position: absolute;
+    dispaly: block;
+    width: 180px;
+    left: 0px;
+    bottom: -10px;
+}
+
+.view-all-num {
+    cursor: pointer;
+}
+
+.all-num {
+    display: none;
+    z-index: 10;
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: #FFFFC8;
+    border: 1px solid #FFAA08;
+    padding: 10px;
+    text-align: center;
+    margin-top: 5px;
+}
+
+.all-num span {
+    word-wrap: break-word;
+    word-break: normal;
+    display: inline-block;
+    margin: 3px 5px;
+}
+
+.lottery-join-list {
+    margin: auto;
+    width: 600px;
+}
+
+.lottery-join-list li {
+    position: relative;
+    font-family: Arial;
+}
+
+.lottery-join-list .time {
+    float: left;
+    line-height: 40px;
+    padding-right: 20px;
+}
+
+.lottery-join-list i.fa {
+    position: absolute;
+    left: 158px;
+    color: #DDD;
+    line-height: 40px;
+    font-size: 14px;
+}
+
+.lottery-join-list i.fa-dot-circle-o:before {
+    background: #FFF;
+}
+
+.lottery-join-list .info {
+    float: left;
+    line-height: 40px;
+    padding-left: 20px;
+    border-left: 2px solid #DDD;
+}

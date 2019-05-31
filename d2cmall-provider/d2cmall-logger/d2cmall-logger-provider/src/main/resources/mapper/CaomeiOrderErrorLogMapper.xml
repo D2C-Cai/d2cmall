@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.logger.dao.CaomeiOrderErrorLogMapper">
+    <resultMap id="baseMap" type="com.d2c.logger.model.CaomeiOrderErrorLog">
+        <result property="orderSn" column="order_sn"/>
+        <result property="orderItemId" column="order_item_id"/>
+        <result property="error" column="error"/>
+        <result property="success" column="success"/>
+        <result property="id" column="id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="creator" column="creator"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+    </resultMap>
+
+    <update id="doSuccess">
+		UPDATE log_caomei_order_error SET success=1 WHERE
+		order_item_id=#{orderItemId}
+	</update>
+
+    <select id="findBySearcher" resultMap="baseMap">
+		SELECT * FROM log_caomei_order_error
+		ORDER BY create_date DESC
+		LIMIT #{pager.startNumber},#{pager.pageSize}
+	</select>
+
+    <select id="countBySearcher" resultType="int">
+		SELECT count(id) FROM log_caomei_order_error
+	</select>
+
+</mapper>

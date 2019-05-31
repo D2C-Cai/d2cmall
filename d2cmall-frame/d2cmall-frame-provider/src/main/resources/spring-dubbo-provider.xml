@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+           http://www.springframework.org/schema/beans/spring-beans.xsd
+
+
+           http://code.alibabatech.com/schema/dubbo
+           http://code.alibabatech.com/schema/dubbo/dubbo.xsd"
+       default-autowire="byName" default-lazy-init="true">
+
+    <description>DUBBO 配置文件</description>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="order" value="1"/>
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="ignoreUnresolvablePlaceholders" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:conf/dubbo.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <dubbo:application name="${app.name}" owner="d2c" organization="d2c"/>
+    <dubbo:registry protocol="zookeeper" address="${zk.url}" file="${user.home}/dubbo/cache/${app.name}.properties"/>
+    <dubbo:monitor protocol="registry"/>
+    <dubbo:provider group="${group}" version="${provider.version:${version}}" threads="${dubbo.provider.threads}"
+                    accepts="${dubbo.provider.accepts}"
+                    threadpool="${dubbo.provider.threadpool}" timeout="${timeout}" delay="-1"/>
+    <dubbo:consumer filter="transactionFilter" group="${group}" version="${consumer.version:${version}}" check="false"
+                    timeout="${timeout}" retries="0"/>
+    <dubbo:protocol name="dubbo" port="${dubbo.protocol.port}" server="netty"/>
+
+
+</beans>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.d2c.content.dao.PageDefineMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.PageDefine">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="module" property="module" jdbcType="VARCHAR"/>
+        <result column="terminal" property="terminal"/>
+        <result property="previewUrl" column="preview_url"/>
+        <result property="description" column="description"/>
+        <result property="version" column="version"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+    </resultMap>
+
+    <select id="findPageDefine" resultMap="baseMap">
+        SELECT *
+        FROM
+        v_page_define
+        WHERE module = #{module} AND terminal = #{terminal}
+        <if test="version != null">
+            AND version=#{version}
+        </if>
+        LIMIT 0, 1
+    </select>
+
+    <select id="findBySearch" resultMap="baseMap">
+        SELECT *
+        FROM v_page_define
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY module, terminal, version DESC
+        LIMIT
+        #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearch" resultType="int">
+        SELECT count(*) FROM v_page_define
+        WHERE 1=1
+        <if test="searcher != null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY module, terminal, version DESC
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.module!=null and searcher.module!=''">
+            AND module LIKE CONCAT('%',#{searcher.module},'%')
+        </if>
+        <if test="searcher.description!=null and searcher.description!=''">
+            AND description LIKE
+            CONCAT('%',#{searcher.description},'%')
+        </if>
+        <if test="searcher.terminal!=null and searcher.terminal!=''">
+            AND terminal=#{searcher.terminal}
+        </if>
+        <if test="searcher.version!=null and searcher.version!=''">
+            AND version=#{searcher.version}
+        </if>
+    </sql>
+
+    <update id="update" parameterType="com.d2c.content.model.PageDefine">
+        UPDATE v_page_define
+        SET modify_date=now()
+        <if test=" module!= null and module!=''">
+            ,module= #{module}
+        </if>
+        <if test=" previewUrl!= null and previewUrl!=''">
+            ,previewUrl= #{previewUrl}
+        </if>
+        <if test=" description!= null and description!=''">
+            ,description= #{description}
+        </if>
+        <if test=" version!= null and version!=''">
+            ,version= #{version}
+        </if>
+        <if test=" terminal!= null">
+            ,terminal= #{terminal}
+        </if>
+        WHERE id = #{id}
+    </update>
+
+</mapper>

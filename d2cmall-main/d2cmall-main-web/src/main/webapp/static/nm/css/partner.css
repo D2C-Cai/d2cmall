@@ -1,0 +1,434 @@
+.setup-wraper {
+    padding: 1em;
+    text-align: center;
+}
+
+.setup-wraper > div {
+    margin: 1em;
+}
+
+.setup-wraper .shop-logo {
+    margin: 3em 0;
+}
+
+.setup-wraper .shop-logo img {
+    width: 5.5em;
+    height: 5.5em;
+    border-radius: 50%;
+}
+
+.setup-wraper .split {
+    position: relative;
+    font-size: 0.8em;
+    color: #999
+}
+
+.setup-wraper .split > span {
+    position: relative;
+    display: inline-block;
+    background: #F2F2F2;
+    padding: 0 10px;
+    z-index: 1;
+}
+
+.setup-wraper .split:after {
+    position: absolute;
+    content: ' ';
+    width: 100%;
+    left: 0;
+    right: 0;
+    bottom: 6px;
+    height: 1px;
+    background: #CCC;
+    z-index: 0;
+}
+
+.setup-wraper input {
+    width: 100%;
+    text-align: center;
+    height: 3em
+}
+
+.setup-wraper button {
+    width: 60%;
+    line-height: 2em;
+    height: 2em;
+}
+
+.shop-head {
+    height: 125px;
+    background: #000;
+    text-align: center;
+    padding-top: 10px;
+    align-items: center;
+    margin-bottom: 0.7em;
+}
+
+.shop-head .shop-logo img {
+    border-radius: 50%;
+}
+
+.shop-head .qrcode .icon, .shop-head .share .icon {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    background-color: #FFF;
+    border-radius: 50%;
+    border: 5px solid #FFF;
+}
+
+.shop-head .share .icon {
+    background-size: 85%;
+}
+
+.list .item.item-horizontal .info .share {
+    padding-top: 0.5em;
+    text-align: right
+}
+
+.list .item.item-horizontal .info .share .icon {
+    width: 1.5em;
+    height: 1.5em;
+    opacity: 0.6
+}
+
+#tab-holder {
+    position: relative;
+    height: 2.5em;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    z-index: 1;
+    background: #FFF;
+}
+
+#tab-holder:after {
+    position: absolute;
+    content: ' ';
+    left: 0;
+    right: 0;
+    bottom: 1px;
+    height: 1px;
+    background: #EEE;
+}
+
+#tab-holder .tab {
+    position: absolute;
+    flex-wrap: nowrap;
+    display: block;
+    white-space: nowrap;
+    width: max-content;
+    box-shadow: none;
+    background: transparent;
+    z-index: 1
+}
+
+#tab-holder .tab a {
+    line-height: 2.5em;
+    float: left;
+    padding: 0.4em 0.6em 0 0.6em;
+    margin: 0 0.4em;
+}
+
+.team-list {
+    background: #FFF;
+    padding: 0.6em;
+    border-bottom: 1px solid #EEE;
+}
+
+.team-list .num {
+    flex: 1;
+    text-align: center;
+}
+
+.team-list .num i {
+    display: block;
+    width: 25px;
+    height: 25px;
+    line-height: 25px;
+    background: #EEE;
+    border-radius: 50%;
+}
+
+.team-list .avatar {
+    flex: 2;
+    text-align: center;
+}
+
+.team-list .avatar img {
+    width: 70%;
+    border-radius: 50%;
+}
+
+.team-list .info {
+    flex: 7;
+    line-height: 150%;
+}
+
+#popup-modal-outer {
+    top: 20%;
+    left: 10%;
+    right: 10%;
+    bottom: auto;
+    background: transparent
+}
+
+.popup-qrcode {
+    position: relative;
+    text-align: center;
+}
+
+.popup-qrcode img {
+    border: 4px solid #FFF;
+}
+
+.popup-qrcode .logo {
+    position: absolute;
+    width: 20%;
+    height: 20%;
+    border-radius: 50%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 2px 5px #000;
+}
+
+
+.partner-item {
+    margin: .6em;
+    padding: .6em;
+    background: #FFF;
+    font-size: .8em;
+}
+
+.item-container {
+    padding: 1em;
+}
+
+.item-img {
+    width: 5em;
+    height: 8em;
+    margin-right: 5%;
+}
+
+.item-cont {
+    flex: 4;
+    line-height: 1.2em;
+}
+
+.item-title {
+    height: 4rem;
+    line-height: 1rem;
+    overflow: hidden;
+}
+
+.item-gap {
+    padding: .8em 0;
+}
+
+.item-other {
+    border-top: 1px solid #EEE;
+    line-height: 2.5em;
+}
+
+.last-page {
+    display: none;
+    width: 100%;
+    font-size: .8em;
+    color: #CCC;
+    text-align: center;
+    padding: 2em 0;
+}
+
+.no-data-page {
+    display: none;
+    margin-top: 30%;
+    text-align: center;
+    font-size: 12px;
+    line-height: 2em;
+}
+
+.no-data-page img {
+    width: 10em;
+    display: inline-block;
+    overflow: hidden;
+}
+
+.cash-tips {
+    height: 2.5em;
+    line-height: 2.5em;
+    border-top: 1px solid #e6eaf2;
+}
+
+.margin-bottom {
+    margin-bottom: 1.5em;
+}
+
+.child-invite {
+    background: #09BB07;
+    color: #FFF;
+    width: 8em;
+    line-height: 2em;
+    border-radius: 2em;
+    margin: 1em auto;
+    font-size: .8em;
+    text-align: center;
+}
+
+.child-rank {
+    width: 2em;
+    height: 2em;
+    line-height: 2em;
+    text-align: center;
+    border-radius: 50%;
+    color: #FFF;
+    background: #ff5500;
+    margin-right: 5%;
+}
+
+.child-detail {
+    margin-left: 5%;
+    line-height: 2em;
+}
+
+
+.cash-header {
+    height: 10em;
+    text-align: center;
+    background-color: #54586E;
+    box-sizing: border-box;
+    margin-bottom: 1em;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    font-size: 28 rpx;
+}
+
+#cash-form {
+    font-size: 1em;
+}
+
+#cash-form .form-item {
+    display: flex;
+    justify-content: flex-start;
+    line-height: 3em;
+    padding: 0 .8em;
+    border-bottom: 1px solid #EEE;
+    background: #FFF;
+}
+
+#cash-form .form-item-tips {
+    padding: .8em;
+    background: #FFFFEE;
+    border-bottom: 1px solid #FFEE00;
+    border-top: 1px solid #FFEE00;
+    color: #FF9900;
+    font-size: .8em;
+    margin-top: 5px;
+}
+
+#cash-form .cash-label {
+    display: inline-block;
+    width: 6em;
+}
+
+#cash-form .cash-input {
+    border: none;
+    font-size: .875em;
+}
+
+#cash-form .form-button {
+    margin: .8em;
+}
+
+#cash-form .form-button .button-green {
+    border: none;
+    display: block;
+    width: 100%;
+    line-height: 2.5em;
+    text-align: center;
+    color: #FFF;
+    background: #09BB07;
+    border-radius: 5px;
+}
+
+.intro-content {
+    background: #FFF;
+    line-height: 1.5;
+    font-size: .875em;
+}
+
+.intro-content .intro-header {
+    background: url(//static.d2c.cn/miniapp/180109/icon_01.png) no-repeat;
+    background-size: cover;
+    color: #FFF;
+    padding: 2em;
+}
+
+.intro-content .intro-header .header-text {
+    margin-bottom: 1em;
+}
+
+.intro-content .detail-item {
+    padding: .8em;
+}
+
+.intro-content .detail-item img {
+    width: 3em;
+}
+
+.intro-content .detail-item .text {
+    float: right;
+    margin-left: 5%;
+}
+
+.intro-content .detail-item p:first-child {
+    margin-bottom: .3em;
+}
+
+.intro-content .detail-item p:last-child {
+    font-size: .8em;
+}
+
+.intro-content .submit-bar {
+    padding: .8em;
+}
+
+.intro-content .submit-bar .button-join {
+    width: 100%;
+    line-height: 2.1em;
+    border-radius: 5px;
+}
+
+.intro-content .submit-bar .agreement {
+    line-height: 2.5em;
+    text-align: center;
+}
+
+.footer-space {
+    display: none;
+}
+
+.join-partner-img img {
+    display: block;
+}
+
+.submit-fix {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background: #000;
+}
+
+.button-partner {
+    width: 8em;
+    height: 2.5em;
+    line-height: 2.5em;
+    background: #a39b6d;
+    color: #FFF;
+    font-weight: 600;
+    border-radius: 1.2em;
+    border: none;
+    margin: .5em 0;
+}

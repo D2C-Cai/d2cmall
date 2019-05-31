@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.d2c.content.dao.FeedBackMapper">
+    <resultMap id="baseMap" type="com.d2c.content.model.FeedBack">
+        <result property="id" column="id"/>
+        <result property="memberId" column="member_id"/>
+        <result property="loginCode" column="login_code"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="mobile" column="mobile"/>
+        <result property="status" column="status"/>
+        <result property="email" column="email"/>
+        <result property="content" column="content"/>
+        <result property="createDate" column="create_date"/>
+        <result property="modifyDate" column="modify_date"/>
+        <result property="lastModifyMan" column="last_modify_man"/>
+        <result property="creator" column="creator"/>
+        <result property="reply" column="reply"/>
+        <result property="replyMan" column="reply_man"/>
+        <result property="version" column="version"/>
+        <result property="pic" column="pic"/>
+        <result property="type" column="type"/>
+        <result property="meno" column="meno"/>
+        <result property="headPic" column="head_pic"/>
+        <result property="device" column="device"/>
+    </resultMap>
+
+    <select id="findBySearcher" resultMap="baseMap">
+        SELECT *
+        FROM v_feedback WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        ORDER BY create_date DESC
+        LIMIT #{pager.startNumber},#{pager.pageSize}
+    </select>
+
+    <select id="countBySearcher" resultType="int">
+        SELECT count(id)
+        FROM v_feedback WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+    </select>
+
+    <sql id="Searcher">
+        <if test="searcher.nickName !=null and searcher.nickName!=''">
+            AND nick_name =#{searcher.nickName}
+        </if>
+        <if test="searcher.content !=null and searcher.content!=''">
+            AND content =#{searcher.content}
+        </if>
+        <if test="searcher.startCreateDate !=null ">
+            AND create_date &gt;= #{searcher.startCreateDate}
+        </if>
+        <if test="searcher.endCreateDate !=null ">
+            AND create_date &lt;= #{searcher.endCreateDate}
+        </if>
+        <if test="searcher.loginCode!=null and searcher.loginCode!=''">
+            AND login_code=#{searcher.loginCode}
+        </if>
+        <if test="searcher.alreadyReply!=null and searcher.alreadyReply==1">
+            AND reply IS NOT NULL
+        </if>
+        <if test="searcher.alreadyReply!=null and searcher.alreadyReply==0">
+            AND reply IS NULL
+        </if>
+        <if test="searcher.status!=null">
+            AND status=#{searcher.status}
+        </if>
+        <if test="searcher.device!=null and searcher.device!=''">
+            AND device=#{searcher.device}
+        </if>
+        <if test="searcher.version!=null and searcher.version!=''">
+            AND version=#{searcher.version}
+        </if>
+        <if test="searcher.type!=null and searcher.type!=''">
+            AND type=#{searcher.type}
+        </if>
+    </sql>
+
+    <select id="findCountGroupByType" resultType="HashMap">
+        SELECT type, count(id) as count
+        FROM v_feedback WHERE 1=1
+        <if test="searcher!=null">
+            <include refid="Searcher"/>
+        </if>
+        GROUP BY type
+    </select>
+
+    <delete id="deleteByIds">
+        DELETE FROM v_feedback WHERE id IN
+        <foreach item="id" collection="ids" separator="," open="(" close=")" index="">
+            #{id}
+        </foreach>
+    </delete>
+
+    <update id="doMerge">
+	  UPDATE v_feedback SET modify_date = now(),old_member_id=member_id ,member_id=#{targetId} WHERE member_id=#{sourceId}
+    </update>
+
+    <update id="doReply">
+	  UPDATE v_feedback SET modify_date = now(),reply=#{reply},reply_man=#{replyMan} WHERE id=#{id}
+    </update>
+
+    <update id="doClose">
+    	UPDATE v_feedback SET modify_date=NOW(),status=-1 WHERE id=#{id}
+    </update>
+
+    <select id="findVersions" resultType="string">
+    	SELECT DISTINCT version FROM v_feedback WHERE version is not null
+    </select>
+
+    <update id="updateStatus">
+        UPDATE v_feedback SET modify_date=NOW(),status=#{status}
+        <if test="meno!=null and meno!=''">
+            ,meno=#{meno}
+        </if>
+        WHERE id=#{id}
+    </update>
+
+</mapper>

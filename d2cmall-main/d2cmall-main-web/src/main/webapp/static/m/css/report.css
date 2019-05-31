@@ -1,0 +1,318 @@
+.navs {
+    width: 100%;
+    height: 3em;
+    background: -webkit-linear-gradient(top, #ff8a3c, #f96400);
+    background: linear-gradient(#ff8a3c 0px, #f96400 100%);
+}
+
+.navs a {
+    float: left;
+    display: block;
+    width: 25%;
+    line-height: 3em;
+    text-align: center;
+    color: #FFF;
+    border-left: 1px solid #ff8a3c;
+    margin-left: -1px;
+    position: relative;
+}
+
+.navs a.on {
+    background: #ff8a3c
+}
+
+.navs a span {
+    position: absolute;
+    height: 1.3em;
+    border-radius: 0.7em;
+    padding: 0 0.4em;
+    background: #FFF;
+    color: #f96400;
+    line-height: 1.4em;
+    font-size: 0.75em;
+    margin-top: 0.6em;
+    z-index: 3;
+}
+
+.sub-navs {
+    width: 100%;
+    height: 2.5em;
+    background: #ff8a3c;
+}
+
+.sub-navs a {
+    float: left;
+    display: block;
+    width: 33%;
+    line-height: 1.3em;
+    text-align: center;
+    color: #FFF;
+    margin-top: 1em;
+    border-left: 1px solid #ffb380;
+    margin-left: -1px;
+    font-size: 0.8em;
+}
+
+.view-by-month {
+    position: absolute;
+    right: 0;
+    padding: 0 0.6em;
+    line-height: 2em;
+    border-radius: 0.2em;
+    color: #FFF;
+    text-align: center;
+    background: -webkit-linear-gradient(top, #00ccff, #00b0dd);
+    background: linear-gradient(#00ccff 0px, #00b0dd 100%);
+}
+
+.title {
+    font-size: 1em;
+    text-align: center;
+    padding: 1em 0;
+    position: relative;
+    text-align: center;
+}
+
+.title h2 {
+    line-height: 2em;
+    font-size: 1.3em
+}
+
+.month-div {
+    display: none;
+    position: absolute;
+    top: 2.9em;
+    right: 0;
+    background: #00b0dd;
+    padding: 0.3em;
+}
+
+.month-div a {
+    display: block;
+    float: left;
+    width: 24.7%;
+    border: 1px solid #00ccff;
+    margin: -1px -1px 0 0;
+    text-align: center;
+    line-height: 3em;
+    color: #FFF;
+}
+
+.data-table {
+    width: 100%;
+    background: #FFF;
+    border: solid #CCC;
+    border-width: 1px 0px 0px 1px;
+}
+
+.data-table a {
+    text-decoration: underline;
+}
+
+.data-table th {
+    font-size: 1em;
+    background: #F2F2F2;
+}
+
+.data-table td, .data-table th {
+    border: solid #CCC;
+    border-width: 0px 1px 1px 0px;
+    font-size: 0.8em;
+    text-align: center;
+    padding: 0.5em 0;
+    line-height: 1.8em;
+}
+
+.data-table .lineback {
+    background: #EFF4F7;
+}
+
+.data-result {
+    border: 0.1em solid #CCC;
+    margin: 0.4em 0;
+    padding: 0.4em 0.6em;
+    background: #FFF;
+    line-height: 1.5em;
+    font-size: 0.9em;
+}
+
+.view {
+    margin-top: 0.6em;
+    width: 100%;
+    text-align: center;
+}
+
+.view a {
+    width: 60%;
+    display: block;
+    margin: auto;
+    line-height: 2.1em;
+    border: 0.0667em solid #CCC;
+    border-radius: 0.2em;
+}
+
+.title strong {
+    color: #FF0000;
+    font-size: 1.2em;
+}
+
+.login {
+    margin: 30% auto 0;
+    padding: 0.6em;
+    text-align: center;
+    width: 90%;
+}
+
+.login label {
+    display: block;
+}
+
+.login input {
+    display: block;
+    margin: 0.3em auto 0;
+    width: 100%;
+    font-size: 1.4em;
+    border: 0.0667em solid #CCC;
+    height: 2.2em;
+    text-align: center;
+    border-radius: 1em;
+}
+
+.login button {
+    display: block;
+    margin: 0.8em auto 0;
+    width: 100%;
+    color: #FFF;
+    line-height: 2.6em;
+    border: none;
+    border-radius: 1.3em;
+    background: -webkit-linear-gradient(top, #ff8a3c, #f96400);
+    background: linear-gradient(#ff8a3c 0px, #f96400 100%);
+}
+
+.datapicker {
+    background: #FFF;
+}
+
+.datepicker-box {
+    position: absolute;
+    top: 3em;
+    width: 100%;
+    background: #FFF;
+    left: 0;
+    border-bottom: 0.0667em solid #d9d9d9;
+    box-shadow: 0.1em 0.1em 0.1em #CCC;
+}
+
+.datepicker-header {
+    border-bottom: 1px solid #EEE;
+}
+
+.datepicker-header span {
+    text-align: center;
+    padding: 12px 15px 10px;
+}
+
+.datepicker-header span.hover {
+    background: #EEE;
+}
+
+.datepicker-header span b {
+    display: block;
+    width: 0;
+    height: 0;
+    font-size: 0;
+    border: 8px solid #F8F8F8;
+}
+
+.datepicker-pre {
+    float: left;
+}
+
+.datepicker-next {
+    float: right;
+}
+
+.datepicker-header span.datepicker-pre b {
+    border-left: 0;
+    border-right: 8px solid #444;
+}
+
+.datepicker-header span.datepicker-next b {
+    border-right: 0;
+    border-left: 8px solid #444;
+}
+
+.datepicker-header h4 {
+    padding: 10px 0;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.datepicker-body {
+    width: 100%;
+    border: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.datepicker-body th, .datepicker-body td {
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.datepicker-body th.datepicker-weekend, .datepicker-body td.datepicker-weekend {
+    color: #FF0000;
+}
+
+.datepicker-body th {
+    padding: 1em 0;
+    font-weight: normal;
+    color: #333;
+}
+
+.datepicker-body td {
+    padding: 1em 0;
+}
+
+.datepicker-body td.cur {
+    background: #DDD;
+    border: 1px solid #CCC;
+    color: #FFF;
+}
+
+.order-list {
+    margin: 0.5em 0;
+    background: #FFF;
+    padding: 0.4em;
+    line-height: 1.5em;
+    box-shadow: 0 0.1em 0.2em #CCC;
+}
+
+.order-item {
+    padding: 0.4em 0;
+    border-bottom: 0.0667em solid #EEE;
+    border-top: 0.0667em dotted #EEE;
+    margin-top: -0.0667em;
+}
+
+.order-item:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.imagesline div {
+    margin: 0.3em;
+}
+
+.tab-color {
+    background-color: red
+}
+
+
+
