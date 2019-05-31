@@ -4,12 +4,12 @@
 ## D2CMALL项目大模块介绍
 | d2cmall商城项目 | 模块功能介绍 |
 | ---- | ---- |
-| d2cmall-common |  公共组件，中间件框架组件式拆分，Maven选择性引入，快速构建项目 |
-| d2cmall-frame |  公共基准模型，Dubbo项目体系，根据项目类型，定义了一系列基准模型，便于抽取同类项目间的公共属性 |
-| d2cmall-provider |  功能组件，SOA解耦拆分的业务微服务，是项目整体核心业务逻辑部分 |
-| d2cmall-services |  服务组件，系统附加的一些服务，如定时任务等 |
-| d2cmall-main |  项目对外的接口服务，如PC、WAP、APP、小程序、开放API等 |
-| d2cmall-back |  项目对内的接口服务，如运营后台、商家后台、门店后台、统计报表等 |
+| d2cmall-common |  公共组件，中间件框架组件式拆分，<br>Maven选择性引入，快速构建项目 |
+| d2cmall-frame |  公共基准模型，Dubbo项目体系，根据项目类型，<br>定义了一系列基准模型，便于抽取同类项目间的公共属性 |
+| d2cmall-provider |  功能组件，SOA解耦拆分的业务微服务，<br>是项目整体核心业务逻辑部分 |
+| d2cmall-services |  服务组件，系统附加的一些服务，<br>如定时任务等 |
+| d2cmall-main |  项目对外的接口服务，<br>如PC、WAP、APP、小程序、开放API等 |
+| d2cmall-back |  项目对内的接口服务，<br>如运营后台、商家后台、门店后台、统计报表等 |
 
 ### 公共组件部分
 | d2cmall-common | 具体功能介绍 | 
