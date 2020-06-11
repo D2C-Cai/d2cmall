@@ -78,7 +78,7 @@
 
         <guava_version>18.0</guava_version>
         <zxing_version>3.1.0</zxing_version>
-        <jackson_core_version>2.9.5</jackson_core_version>
+        <jackson_core_version>2.11.0</jackson_core_version>
         <jackson_codehaus_version>1.9.13</jackson_codehaus_version>
         <fastjson_version>1.2.47</fastjson_version>
         <lombok_version>1.16.6</lombok_version>
