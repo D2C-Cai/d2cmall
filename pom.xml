@@ -43,7 +43,7 @@
         <hibernate_version>4.3.7.Final</hibernate_version>
         <proxool_version>0.9.1</proxool_version>
         <druid_version>1.0.18</druid_version>
-        <mysql_version>5.1.30</mysql_version>
+        <mysql_version>8.0.28</mysql_version>
 
         <dubbo_version>2.8.4</dubbo_version>
         <zookeeper_version>3.4.6</zookeeper_version>
