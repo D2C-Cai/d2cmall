@@ -32,7 +32,7 @@
         <spring_mobile_version>1.1.5.RELEASE</spring_mobile_version>
         <spring_data_commons_version>2.0.6.RELEASE</spring_data_commons_version>
         <spring_redis_version>1.8.7.RELEASE</spring_redis_version>
-        <spring_mongodb_version>2.0.8.RELEASE</spring_mongodb_version>
+        <spring_mongodb_version>3.3.5</spring_mongodb_version>
         <spring_elasticsearch_version>2.1.7.RELEASE</spring_elasticsearch_version>
         <spring_kafka_version>2.1.6.RELEASE</spring_kafka_version>
 
